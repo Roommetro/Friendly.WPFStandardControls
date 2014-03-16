@@ -1,10 +1,17 @@
-﻿using System;
+﻿using Codeer.Friendly;
+using Codeer.Friendly.Windows;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace RM.Friendly.WPFStandardControls3
 {
-    class WPFButtonBase
+    public class WPFButtonBase : WPFControlsBase
     {
+        public WPFButtonBase(WindowsAppFriend app, AppVar appVar)
+            : base(app, appVar)
+        {
+
+        }
     }
 }
