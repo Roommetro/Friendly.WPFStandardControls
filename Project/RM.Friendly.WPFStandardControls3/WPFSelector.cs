@@ -9,7 +9,7 @@ using System.Windows.Controls.Primitives;
 
 namespace RM.Friendly.WPFStandardControls
 {
-    public partial class WPFSelector : WPFControlsBase{
+    public partial class WPFSelector : WPFControlBase{
  
         public WPFSelector(WindowsAppFriend app, AppVar appVar): base(app, appVar)
         {
