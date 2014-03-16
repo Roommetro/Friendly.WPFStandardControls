@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RM.Friendly.WPFStandardControls3
+namespace RM.Friendly.WPFStandardControls
 {
     public class WPFButtonBase : WPFControlsBase
     {

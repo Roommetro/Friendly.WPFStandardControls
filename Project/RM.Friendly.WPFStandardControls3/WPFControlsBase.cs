@@ -1,7 +1,7 @@
 ﻿using Codeer.Friendly;
 using Codeer.Friendly.Windows;
 
-namespace RM.Friendly.WPFStandardControls3
+namespace RM.Friendly.WPFStandardControls
 {
     /// <summary>
     /// 
