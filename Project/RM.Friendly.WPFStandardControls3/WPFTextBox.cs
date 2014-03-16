@@ -7,7 +7,7 @@ using Codeer.Friendly.Windows;
 
 namespace RM.Friendly.WPFStandardControls
 {
-    public class WPFTextBox : WPFControlsBase
+    public class WPFTextBox : WPFControlBase
     {
         public WPFTextBox(WindowsAppFriend app, AppVar appVar)
             : base(app, appVar) { }

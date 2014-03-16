@@ -6,7 +6,7 @@ using System.Text;
 
 namespace RM.Friendly.WPFStandardControls
 {
-    public class WPFButtonBase : WPFControlsBase
+    public class WPFButtonBase : WPFControlBase
     {
         public WPFButtonBase(WindowsAppFriend app, AppVar appVar)
             : base(app, appVar)

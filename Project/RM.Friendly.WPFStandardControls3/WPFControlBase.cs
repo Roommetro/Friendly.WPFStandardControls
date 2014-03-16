@@ -10,7 +10,7 @@ namespace RM.Friendly.WPFStandardControls
     /// <summary>
     /// 
     /// </summary>
-    public class WPFControlsBase : IAppVarOwner
+    public class WPFControlBase : IAppVarOwner
     {
         public WindowsAppFriend App
         {
@@ -24,7 +24,7 @@ namespace RM.Friendly.WPFStandardControls
             private set;
         }
 
-        protected WPFControlsBase(WindowsAppFriend app, AppVar appVar)
+        protected WPFControlBase(WindowsAppFriend app, AppVar appVar)
         {
             App = app;
             AppVar = appVar;
@@ -89,7 +89,7 @@ namespace RM.Friendly.WPFStandardControls
                 ++skipCount;
                 method = stackTrace.GetFrame(skipCount).GetMethod();
                 // WPFControlsBaseのメソッドをスキップする
-            } while (method.DeclaringType == typeof(WPFControlsBase) && 
+            } while (method.DeclaringType == typeof(WPFControlBase) && 
                      skipCount + 1 < stackTrace.FrameCount);
             return method;
         }
