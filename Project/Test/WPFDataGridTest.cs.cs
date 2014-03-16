@@ -13,15 +13,16 @@ namespace Test
     public class WPFDataGridTest
     {
         WindowsAppFriend app;
-        dynamic dataGrid;
+        dynamic dataGridCore;
         [TestInitialize]
         public void TestInitialize()
         {
             app = new WindowsAppFriend(Process.Start("Target.exe"));
             WindowsAppExpander.LoadAssembly(app, GetType().Assembly);
             dynamic main = app.Type<Application>().Current.MainWindow;
-            dataGrid = app.Type<WPFDataGridTest>().InitDataGrid(main._grid);
+            dataGridCore = app.Type<WPFDataGridTest>().InitDataGrid(main._grid);
         }
+
 
         static DataGrid InitDataGrid(Grid grid)
         {
@@ -44,11 +45,13 @@ namespace Test
         [TestMethod]
         public void TestMethod1()
         {
-         //   WPFDataGrid
+            WPFDataGrid dataGrid = new WPFDataGrid(app, dataGridCore);
+            dataGrid.EmulateChangeCellText(0, 0, "佐藤");
+            Assert.AreEqual("佐藤", (string)dataGrid.Dynamic().ItemsSource[0].Name);
         }
     }
 
-    class Item
+    public class Item
     {
         public string Name { get; set; }
         public int Age { get; set; }
