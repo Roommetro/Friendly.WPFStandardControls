@@ -15,6 +15,7 @@ namespace Test
     public class WPFSelectorTest
     {
         WindowsAppFriend app;
+
         dynamic target;
 
         [TestInitialize]
@@ -33,11 +34,16 @@ namespace Test
         }
 
         [TestMethod]
-        public void TestMethod1() {
+        public void SelectedIndexの値を取得して設定できる() {
             var win = app.Type(typeof(Application)).Current.MainWindow;
             var selector = new WPFSelector(app, target);
             var index = selector.SelectedIndex;
             Assert.AreEqual(-1, (int)index);
+
+            selector.SelectedIndex = 3;
+
+            index = selector.SelectedIndex;
+            Assert.AreEqual(3, (int)index);
         }
     }
 }

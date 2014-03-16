@@ -4,11 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using System.Windows.Controls.Primitives;
 
 namespace RM.Friendly.WPFStandardControls
 {
-    public partial class WPFSelector: WPFControlsBase
-    {
+    public partial class WPFSelector : WPFControlsBase{
+ 
         public WPFSelector(WindowsAppFriend app, AppVar appVar): base(app, appVar)
         {
         }
@@ -17,7 +18,18 @@ namespace RM.Friendly.WPFStandardControls
             get {
                 return this.GetPropValue<int>();
             }
+            set{
+                this.SetPropValue<int>(value);
+            }
         }
 
+        public void EmurateChangeSelectedIndex(int index) {
+
+        }
+
+        static void EmulateChangeSelectedIndexInTarget(Selector selector, int index) {
+            selector.Focus();
+            selector.SelectedIndex = index;
+        }
     }
 }

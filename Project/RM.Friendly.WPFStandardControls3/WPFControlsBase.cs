@@ -29,17 +29,29 @@ namespace RM.Friendly.WPFStandardControls
         }
 
         protected T GetPropValue<T>() {
-            var stackTrace = new StackTrace();
-            var frame = stackTrace.GetFrame(1);
-            var methodName = frame.GetMethod().Name;
-            if (methodName.StartsWith("get_")) {
-                methodName = methodName.Substring(4);
-            }
-            return this.GetPropValue<T>(methodName);
+            return this.GetPropValue<T>(this.GetCallerName());
         }
 
         protected T GetPropValue<T>(string propName) {
             return (T)this.AppVar[propName]().Core;
+        }
+
+        protected void SetPropValue<T>(T value) {
+            this.SetPropValue(this.GetCallerName(), value);
+        }
+
+        protected void SetPropValue<T>(string propName, T value) {
+            this.AppVar[propName](value);
+        }
+
+        private string GetCallerName(int skipCount = 1) {
+            var stackTrace = new StackTrace();
+            var frame = stackTrace.GetFrame(skipCount + 1);
+            var methodName = frame.GetMethod().Name;
+            if (methodName.StartsWith("get_") || methodName.StartsWith("set_")) {
+                methodName = methodName.Substring(4);
+            }
+            return methodName;
         }
     }
 }
