@@ -46,6 +46,12 @@
     <Reference Include="Codeer.Friendly.Windows">
       <HintPath>..\packages\Codeer.Friendly.Windows.2.2.0\lib\net20\Codeer.Friendly.Windows.dll</HintPath>
     </Reference>
+    <Reference Include="Codeer.Friendly.Windows.Grasp">
+      <HintPath>..\packages\Codeer.Friendly.Windows.Grasp.2.2.1\lib\net20\Codeer.Friendly.Windows.Grasp.dll</HintPath>
+    </Reference>
+    <Reference Include="Codeer.Friendly.Windows.NativeStandardControls">
+      <HintPath>..\packages\Codeer.Friendly.Windows.NativeStandardControls.2.1.2\lib\net20\Codeer.Friendly.Windows.NativeStandardControls.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
