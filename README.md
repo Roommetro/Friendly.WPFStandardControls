@@ -1,0 +1,4 @@
+Friendly.WPFStandardControls
+============================
+
+Friendly
