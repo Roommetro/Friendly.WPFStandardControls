@@ -5,6 +5,7 @@ using Codeer.Friendly.Dynamic;
 using Codeer.Friendly.Windows;
 using System.Windows.Controls;
 using System.Windows;
+using RM.Friendly.WPFStandardControls;
 
 namespace Test
 {
@@ -43,6 +44,7 @@ namespace Test
         [TestMethod]
         public void TestMethod1()
         {
+         //   WPFDataGrid
         }
     }
 

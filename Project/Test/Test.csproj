@@ -75,6 +75,14 @@
     <Compile Include="WPFToggleButtonTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RM.Friendly.WPFStandardControls3\RM.Friendly.WPFStandardControls3.csproj">
+      <Project>{80d0bb7b-61d0-4c48-b877-6e35f7d90c74}</Project>
+      <Name>RM.Friendly.WPFStandardControls3</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RM.Friendly.WPFStandardControls4\RM.Friendly.WPFStandardControls4.csproj">
+      <Project>{287af20a-edb1-4de0-bf0f-8d37fd92de73}</Project>
+      <Name>RM.Friendly.WPFStandardControls4</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Target\Target.csproj">
       <Project>{0e49a1ea-05b5-43bc-b7c8-6a1db4531da7}</Project>
       <Name>Target</Name>
