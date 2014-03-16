@@ -58,6 +58,7 @@
     <Compile Include="WPFButtonBaseTest.cs" />
     <Compile Include="WPFControlsBaseTest.cs" />
     <Compile Include="WPFSelectorTest.cs" />
+    <Compile Include="WPFTextBoxTest.cs" />
     <Compile Include="WPFToggleButtonTest.cs" />
   </ItemGroup>
   <ItemGroup>
