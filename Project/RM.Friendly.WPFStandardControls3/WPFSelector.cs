@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
 namespace RM.Friendly.WPFStandardControls
@@ -18,16 +19,16 @@ namespace RM.Friendly.WPFStandardControls
             get {
                 return this.GetPropValue<int>();
             }
-            set{
-                this.SetPropValue<int>(value);
-            }
+            //set{
+            //    this.SetPropValue<int>(value);
+            //}
         }
 
         public void EmurateChangeSelectedIndex(int index) {
-
+            this.EmurateInTarget(index);
         }
 
-        static void EmulateChangeSelectedIndexInTarget(Selector selector, int index) {
+        static void EmurateChangeSelectedIndexInTarget(ListBox selector, int index) {
             selector.Focus();
             selector.SelectedIndex = index;
         }
