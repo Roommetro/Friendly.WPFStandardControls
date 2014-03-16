@@ -23,6 +23,7 @@ namespace RM.Friendly.WPFStandardControls
         {
             App = app;
             AppVar = appVar;
+            WindowsAppExpander.LoadAssembly(app, GetType().Assembly);
         }
     }
 }
