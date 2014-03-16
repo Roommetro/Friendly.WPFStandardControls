@@ -13,6 +13,7 @@ namespace RM.Friendly.WPFStandardControls
             get;
             private set;
         }
+
         public AppVar AppVar
         {
             get;
