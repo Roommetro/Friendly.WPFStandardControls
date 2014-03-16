@@ -47,25 +47,35 @@ namespace RM.Friendly.WPFStandardControls
             this.AppVar[propName](value);
         }
 
-        protected void EmurateInTarget(params object[] args) {
-            this.EmurateInTargetInternal(this.GetCallerName() + "InTarget", this.GetCallerMethod().DeclaringType, args);
+        protected void EmulateInTarget(params object[] args) {
+            this.EmulateInTarget((Async)null, args);
         }
 
-        protected void EmurateInTarget(string methodName, params object[] args) {
-            this.EmurateInTargetInternal(methodName, this.GetCallerMethod().DeclaringType, args);
+        // 対象メソッド第一引数がstringの場合、methodNameと誤解されるから、区別がつくために最後に「method」
+        // をつけました
+        protected void EmulateInTargetMethod(string methodName, params object[] args) {
+            this.EmulateInTarget(methodName, (Async)null, args);
         }
 
-        private void EmurateInTargetInternal(string methodName, Type targetType, params object[] args) {
+        protected void EmulateInTarget(Async async, params object[] args) {
+            this.EmulateInTargetMethod(this.GetCallerName() + "InTarget", async, args);
+        }
+
+        protected void EmulateInTargetMethod(string methodName, Async async, params object[] args) {
+            this.EmulateInTargetInternal(methodName, this.GetCallerMethod().DeclaringType, async, args);
+        }
+
+        private void EmulateInTargetInternal(string methodName, Type targetType, Async async, params object[] args) {
             var arguments = new List<object>();
             arguments.Add(this.AppVar);
             arguments.AddRange(args);
-            this.App[targetType, methodName](arguments.ToArray());
+
+            var op = async == null ? this.App[targetType, methodName] : this.App[targetType, methodName, async];
+            op(arguments.ToArray());
         }
 
         private string GetCallerName(int skipCount = 1) {
-            var stackTrace = new StackTrace();
-            var frame = stackTrace.GetFrame(skipCount + 1);
-            var methodName = frame.GetMethod().Name;
+            var methodName = GetCallerMethod(skipCount + 1).Name;
             if (methodName.StartsWith("get_") || methodName.StartsWith("set_")) {
                 methodName = methodName.Substring(4);
             }
@@ -74,8 +84,14 @@ namespace RM.Friendly.WPFStandardControls
 
         private MethodBase GetCallerMethod(int skipCount = 1) {
             var stackTrace = new StackTrace();
-            var frame = stackTrace.GetFrame(skipCount + 1);
-            return frame.GetMethod();
+            MethodBase method;
+            do {
+                ++skipCount;
+                method = stackTrace.GetFrame(skipCount).GetMethod();
+                // WPFControlsBaseのメソッドをスキップする
+            } while (method.DeclaringType == typeof(WPFControlsBase) && 
+                     skipCount + 1 < stackTrace.FrameCount);
+            return method;
         }
     }
 }

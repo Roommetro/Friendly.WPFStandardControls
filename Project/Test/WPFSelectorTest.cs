@@ -41,7 +41,7 @@ namespace Test
             Assert.AreEqual(-1, (int)index);
 
             //selector.SelectedIndex = 3;
-            selector.EmurateChangeSelectedIndex(3);
+            selector.EmulateChangeSelectedIndex(3);
 
             index = selector.SelectedIndex;
             Assert.AreEqual(3, (int)index);

@@ -24,11 +24,11 @@ namespace RM.Friendly.WPFStandardControls
             //}
         }
 
-        public void EmurateChangeSelectedIndex(int index) {
-            this.EmurateInTarget(index);
+        public void EmulateChangeSelectedIndex(int index) {
+            this.EmulateInTarget(index);
         }
 
-        static void EmurateChangeSelectedIndexInTarget(ListBox selector, int index) {
+        static void EmulateChangeSelectedIndexInTarget(ListBox selector, int index) {
             selector.Focus();
             selector.SelectedIndex = index;
         }
