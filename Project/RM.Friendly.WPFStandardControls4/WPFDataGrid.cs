@@ -147,6 +147,25 @@ namespace RM.Friendly.WPFStandardControls
 
 #if ENG
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="row">Row number of the cell.</param>
+        /// <param name="col">Column number of the cell.</param>
+        /// <param name="text">The text to use.</param>
+#else
+        /// <summary>
+        /// セルの文字列を取得します
+        /// </summary>
+        /// <param name="row">行。</param>
+        /// <param name="col">列。</param>
+#endif
+        public string GetCellText(int row, int col)
+        {
+            return (string)App[GetType(), "GetCellTextInTarget"](AppVar, row, col).Core;
+        }
+
+#if ENG
+        /// <summary>
         /// Modifies the text of a cell.
         /// Executes asynchronously. 
         /// </summary>
@@ -213,11 +232,18 @@ namespace RM.Friendly.WPFStandardControls
             App[GetType(), "EmulateChangeCellComboSelectInTarget", async](AppVar, row, col, index);
         }
 
+
+        // ====================================================================================
+        // 
+        // InTarget
+        // 
+        // ====================================================================================
         static void EmulateChangeCurrentCellInTarget(DataGrid grid, int row, int col)
         {
             grid.Focus();
             grid.CurrentCell = new DataGridCellInfo(grid.Items[row], grid.Columns[col]);
         }
+
 
         /// <summary>
         /// セルのテキストを変更します。
@@ -248,6 +274,24 @@ namespace RM.Friendly.WPFStandardControls
             {
                 throw new NotSupportedException("テキストボックスのセルではありません。");
             }
+        }
+
+        /// <summary>
+        /// セルのテキストを取得します。
+        /// </summary>
+        /// <param name="grid">グリッド。</param>
+        /// <param name="row">行。</param>
+        /// <param name="col">列。</param>
+        static string GetCellTextInTarget(DataGrid grid, int row, int col )
+        {
+            string text = null;
+
+            // 行のインデックスから行を取得する
+            DataGridRow temp = grid.ItemContainerGenerator.ContainerFromIndex(row) as DataGridRow;
+            // 行のデータを取得
+            text = ((TextBlock)grid.Columns[col].GetCellContent(temp)).Text;
+
+            return text;
         }
 
         /// <summary>

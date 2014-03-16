@@ -65,6 +65,15 @@ namespace Test
             dataGrid.EmulateCellCheck(0, 2, true);
             Assert.AreEqual(true, (bool)dataGrid.Dynamic().ItemsSource[0].IsActive);
         }
+
+        [TestMethod]
+        public void セルの値を取得する()
+        {
+            WPFDataGrid dataGrid = new WPFDataGrid(app, dataGridCore);
+            string text = dataGrid.GetCellText(0, 0);
+
+        }
+
     }
 
     public enum ProgramingLanguage
