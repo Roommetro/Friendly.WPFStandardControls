@@ -14,17 +14,19 @@ namespace RM.Friendly.WPFStandardControls
 
         public void EmulateChangeText(string text)
         {
+            App[GetType(), "EmulateChangeTextInTarget"](AppVar, text);
         }
 
         public void EmulateChangeText(string text, Async async)
         {
+            throw new NotImplementedException();
         }
 
         public string Text
         {
             get
             {
-                return "";
+                return (string)AppVar["Text"]().Core;
             }
         }
 
