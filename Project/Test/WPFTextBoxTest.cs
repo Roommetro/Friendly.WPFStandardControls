@@ -17,14 +17,20 @@ namespace Test
     {
         WindowsAppFriend app;
         WindowControl mainWindow;
-        dynamic mainWindowDyn;
+
+        dynamic target;
 
         [TestInitialize]
         public void SetUp()
         {
             app = new WindowsAppFriend(Process.Start("Target.exe"));
-            mainWindowDyn = app.Type<Application>().Current.MainWindow;
             mainWindow = WindowControl.FromZTop(app);
+
+            dynamic win = app.Type<Application>().Current.MainWindow;
+            dynamic grid = win._grid;
+            target = app.Type<TextBox>()();
+            grid.Children.Add(target);
+
             WindowsAppExpander.LoadAssemblyFromFile(app, GetType().Assembly.Location);
         }
 
@@ -45,7 +51,7 @@ namespace Test
         [TestMethod]
         public void TestEmulateChangeText()
         {
-            WPFTextBox textBox = new WPFTextBox(app, mainWindowDyn._textBox);
+            WPFTextBox textBox = new WPFTextBox(app, target);
             textBox.EmulateChangeText(TestValue);
             string textBoxText = textBox.Text;
             Assert.AreEqual(TestValue, textBoxText);
@@ -54,7 +60,7 @@ namespace Test
         [TestMethod]
         public void TestEmulateChangeTextAsync()
         {
-            WPFTextBox textBox = new WPFTextBox(app, mainWindowDyn._textBox);
+            WPFTextBox textBox = new WPFTextBox(app, target);
             app[GetType(), "ChangeTextEvent"](textBox.AppVar);
             textBox.EmulateChangeText(TestValue, new Async());
             new NativeMessageBox(mainWindow.WaitForNextModal()).EmulateButtonClick("OK");
