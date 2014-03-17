@@ -56,7 +56,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeCurrentCell(int row, int col)
         {
-            App[GetType(), "EmulateChangeCurrentCellInTarget"](AppVar, row, col);
+            EmulateInTarget(row, col);
         }
 
 #if ENG
@@ -78,7 +78,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeCurrentCell(int row, int col, Async async)
         {
-            App[GetType(), "EmulateChangeCurrentCellInTarget", async](AppVar, row, col);
+            EmulateInTarget(async, row, col);
         }
 
 #if ENG
@@ -98,7 +98,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateCellCheck(int row, int col, bool isChecked)
         {
-            App[GetType(), "EmulateCellCheckInTarget"](AppVar, row, col, isChecked);
+            EmulateInTarget(row, col, isChecked);
         }
 
 #if ENG
@@ -122,7 +122,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateCellCheck(int row, int col, bool isChecked, Async async)
         {
-            App[GetType(), "EmulateCellCheckInTarget", async](AppVar, row, col, isChecked);
+            EmulateInTarget(async, row, col, isChecked);
         }
 
 #if ENG
@@ -142,26 +142,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeCellText(int row, int col, string text)
         {
-            App[GetType(), "EmulateChangeCellTextInTarget"](AppVar, row, col, text);
-        }
-
-#if ENG
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="row">Row number of the cell.</param>
-        /// <param name="col">Column number of the cell.</param>
-        /// <param name="text">The text to use.</param>
-#else
-        /// <summary>
-        /// セルの文字列を取得します
-        /// </summary>
-        /// <param name="row">行。</param>
-        /// <param name="col">列。</param>
-#endif
-        public string GetCellText(int row, int col)
-        {
-            return (string)App[GetType(), "GetCellTextInTarget"](AppVar, row, col).Core;
+            EmulateInTarget(row, col, text);
         }
 
 #if ENG
@@ -185,7 +166,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeCellText(int row, int col, string text, Async async)
         {
-            App[GetType(), "EmulateChangeCellTextInTarget", async](AppVar, row, col, text);
+            EmulateInTarget(async, row, col, text);
         }
 
 #if ENG
@@ -205,7 +186,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeCellComboSelect(int row, int col, int index)
         {
-            App[GetType(), "EmulateChangeCellComboSelectInTarget"](AppVar, row, col, index);
+            EmulateInTarget(row, col, index);
         }
 
 #if ENG
@@ -229,29 +210,34 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeCellComboSelect(int row, int col, int index, Async async)
         {
-            App[GetType(), "EmulateChangeCellComboSelectInTarget", async](AppVar, row, col, index);
+              EmulateInTarget(async, row, col, index);
         }
 
+#if ENG
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="row">Row number of the cell.</param>
+        /// <param name="col">Column number of the cell.</param>
+        /// <param name="text">The text to use.</param>
+#else
+        /// <summary>
+        /// セルの文字列を取得します
+        /// </summary>
+        /// <param name="row">行。</param>
+        /// <param name="col">列。</param>
+#endif
+        public string GetCellText(int row, int col)
+        {
+            return (string)EmulateInTarget(row, col).Core;
+        }
 
-        // ====================================================================================
-        // 
-        // InTarget
-        // 
-        // ====================================================================================
         static void EmulateChangeCurrentCellInTarget(DataGrid grid, int row, int col)
         {
             grid.Focus();
             grid.CurrentCell = new DataGridCellInfo(grid.Items[row], grid.Columns[col]);
         }
 
-
-        /// <summary>
-        /// セルのテキストを変更します。
-        /// </summary>
-        /// <param name="grid">グリッド。</param>
-        /// <param name="row">行。</param>
-        /// <param name="col">列。</param>
-        /// <param name="text">テキスト。</param>
         static void EmulateChangeCellTextInTarget(DataGrid grid, int row, int col, string text)
         {
             bool success = false;
@@ -276,31 +262,14 @@ namespace RM.Friendly.WPFStandardControls
             }
         }
 
-        /// <summary>
-        /// セルのテキストを取得します。
-        /// </summary>
-        /// <param name="grid">グリッド。</param>
-        /// <param name="row">行。</param>
-        /// <param name="col">列。</param>
         static string GetCellTextInTarget(DataGrid grid, int row, int col )
         {
             string text = null;
-
-            // 行のインデックスから行を取得する
             DataGridRow temp = grid.ItemContainerGenerator.ContainerFromIndex(row) as DataGridRow;
-            // 行のデータを取得
             text = ((TextBlock)grid.Columns[col].GetCellContent(temp)).Text;
-
             return text;
         }
 
-        /// <summary>
-        /// セルのチェック状態を変更します。
-        /// </summary>
-        /// <param name="grid">グリッド。</param>
-        /// <param name="row">行。</param>
-        /// <param name="col">列。</param>
-        /// <param name="isChecked">チェック状態。</param>
         static void EmulateCellCheckInTarget(DataGrid grid, int row, int col, bool isChecked)
         {
             bool success = false;
@@ -325,13 +294,6 @@ namespace RM.Friendly.WPFStandardControls
             }
         }
 
-        /// <summary>
-        /// セルコンボの選択を変更します。
-        /// </summary>
-        /// <param name="grid">グリッド。</param>
-        /// <param name="row">行。</param>
-        /// <param name="col">列。</param>
-        /// <param name="index">インデックス。</param>
         static void EmulateChangeCellComboSelectInTarget(DataGrid grid, int row, int col, int index)
         {
             bool success = false;
