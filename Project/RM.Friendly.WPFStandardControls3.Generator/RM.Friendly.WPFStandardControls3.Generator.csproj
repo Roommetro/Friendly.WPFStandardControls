@@ -7,7 +7,7 @@
     <ProjectGuid>{FC6ADE89-7704-4D3B-919D-615ABE2BAAC6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RM.Friendly.WPFStandardControls3.Generator</RootNamespace>
+    <RootNamespace>RM.Friendly.WPFStandardControls.Generator</RootNamespace>
     <AssemblyName>RM.Friendly.WPFStandardControls3.Generator</AssemblyName>
     <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

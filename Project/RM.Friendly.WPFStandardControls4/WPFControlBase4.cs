@@ -1,18 +1,19 @@
 ﻿using Codeer.Friendly;
 using Codeer.Friendly.Windows;
+using RM.Friendly.WPFStandardControls.Inside;
 
 namespace RM.Friendly.WPFStandardControls
 {
 #if ENG
     /// <summary>
-    /// This is the base class for classes that operate on basic controls in System.Windows.Controls.
+    /// This is the base class for classes that operate on basic controls in .Net4.0 System.Windows.Controls.
     /// </summary>
 #else
     /// <summary>
-    /// WPFのコントロールを操作するためのクラスの基本クラスです。
+    /// .Net4.0のWPFのコントロールを操作するためのクラスの基本クラスです。
     /// </summary>
 #endif
-    public class WPFControlBase : AppVarWrapper
+    public class WPFControlBase4 : WPFControlBase
     {
 #if ENG
         /// <summary>
@@ -27,7 +28,10 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="app">アプリケーション操作クラス。</param>
         /// <param name="appVar">アプリケーション内変数。</param>
 #endif
-        protected WPFControlBase(WindowsAppFriend app, AppVar appVar)
-            : base(app, appVar) { }
+        protected WPFControlBase4(WindowsAppFriend app, AppVar appVar)
+            : base(app, appVar) 
+        {
+            Initializer4.Initialize(app);
+        }
     }
 }

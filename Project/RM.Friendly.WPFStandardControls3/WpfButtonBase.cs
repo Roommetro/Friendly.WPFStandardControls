@@ -5,12 +5,32 @@ using System.Windows.Controls.Primitives;
 
 namespace RM.Friendly.WPFStandardControls
 {
+#if ENG
+    /// <summary>
+    /// Provides operations on controls of type System.Windows.Controls.Primitives.ButtonBase.
+    /// </summary>
+#else
+    /// <summary>
+    /// TypeがSystem.Windows.Controls.Primitives.ButtonBaseのウィンドウに対応した操作を提供します。
+    /// </summary>
+#endif
     public class WPFButtonBase : WPFControlBase
     {
+#if ENG
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="app">Application manipulation object.</param>
+        /// <param name="appVar">Application variable object for the control.</param>
+#else
+        /// <summary>
+        /// コンストラクタです。
+        /// </summary>
+        /// <param name="app">アプリケーション操作クラス。</param>
+        /// <param name="appVar">アプリケーション内変数。</param>
+#endif
         public WPFButtonBase(WindowsAppFriend app, AppVar appVar)
-            : base(app, appVar)
-        {
-        }
+            : base(app, appVar) { }
 
 #if ENG
         /// <summary>
@@ -23,7 +43,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateClick()
         {
-            App[GetType(), "EmulateClickInTarget"](AppVar);
+            EmulateInTarget();
         }
 
 #if ENG
@@ -41,7 +61,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateClick(Async async)
         {
-            App[GetType(), "EmulateClickInTarget", async](AppVar);
+            EmulateInTarget(async);
         }
 
         /// <summary>
