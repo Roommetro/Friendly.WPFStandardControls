@@ -72,10 +72,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ListBox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestUtility.cs" />
     <Compile Include="WPFDataGridTest.cs.cs" />
     <Compile Include="WPFButtonBaseTest.cs" />
-    <Compile Include="WPFControlsBaseTest.cs" />
+    <Compile Include="WPFControlBaseTest.cs" />
     <Compile Include="WPFSelectorTest.cs" />
     <Compile Include="WPFTextBoxTest.cs" />
     <Compile Include="WPFToggleButtonTest.cs" />

@@ -15,6 +15,7 @@ namespace RM.Friendly.WPFStandardControls.Inside
         internal string DataGridErrorNotTextBoxCell;
         internal string DataGridErrorNotComboBoxCell;
         internal string DataGridErrorNotCheckBoxCell;
+        internal string DataGridErrorHasNotTextProperty;
 
         /// <summary>
         /// 初期化。
@@ -35,6 +36,7 @@ namespace RM.Friendly.WPFStandardControls.Inside
             DataGridErrorNotTextBoxCell = Resources.DataGridErrorNotTextBoxCell;
             DataGridErrorNotComboBoxCell = Resources.DataGridErrorNotComboBoxCell;
             DataGridErrorNotCheckBoxCell = Resources.DataGridErrorNotCheckBoxCell;
+            DataGridErrorHasNotTextProperty = Resources.DataGridErrorHasNotTextProperty;
         }
     }
 }

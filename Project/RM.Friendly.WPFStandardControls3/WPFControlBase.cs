@@ -52,13 +52,5 @@ namespace RM.Friendly.WPFStandardControls
         /// </summary>
 #endif
         public bool IsEnabled { get { return this.GetPropValue<bool>(); } }
-
-        /// <summary>
-        /// フォーカスを当てます。
-        /// </summary>
-        public void Focus()
-        {
-            this["Focus"]();
-        }
     }
 }

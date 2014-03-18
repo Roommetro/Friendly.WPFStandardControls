@@ -162,7 +162,7 @@ namespace RM.Friendly.WPFStandardControls
 
         protected T GetPropValue<T>()
         {
-            return this.GetPropValue<T>(this.GetCallerName());
+            return this.GetPropValue<T>(CurrentCallerName);
         }
 
         private T GetPropValue<T>(string propName)
@@ -172,12 +172,25 @@ namespace RM.Friendly.WPFStandardControls
 
         protected AppVar EmulateInTarget(params object[] args)
         {
-            return this.EmulateInTarget((Async)null, args);
+            return this.InvokeStaticOperation(CurrentCallerName + "InTarget", null, args);
         }
 
         protected AppVar EmulateInTarget(Async async, params object[] args)
         {
-            return this.InvokeStaticOperation(this.GetCallerName() + "InTarget", async, args);
+            return this.InvokeStaticOperation(CurrentCallerName + "InTarget", async, args);
+        }
+
+        static string CurrentCallerName 
+        {
+            get
+            {
+                string methodName = new StackTrace().GetFrame(2).GetMethod().Name;
+                if (methodName.StartsWith("get_") || methodName.StartsWith("set_"))
+                {
+                    methodName = methodName.Substring(4);
+                }
+                return methodName;
+            }
         }
 
         private AppVar InvokeStaticOperation(string methodName, Async async, params object[] args)
@@ -192,43 +205,6 @@ namespace RM.Friendly.WPFStandardControls
             arguments.AddRange(args);
             var op = async == null ? this.App[targetType, methodName] : this.App[targetType, methodName, async];
             return op(arguments.ToArray());
-        }
-
-        private string GetCallerName(int skipCount = 1)
-        {
-            var methodName = GetCallerMethod(skipCount + 1).Name;
-            if (methodName.StartsWith("get_") || methodName.StartsWith("set_"))
-            {
-                methodName = methodName.Substring(4);
-            }
-            return methodName;
-        }
-
-        private MethodBase GetCallerMethod(int skipCount)
-        {
-            var stackTrace = new StackTrace();
-            MethodBase method = null;
-            Type currentType = GetType();
-            bool findMyType = false;
-            for (int i = skipCount; i < stackTrace.FrameCount; i++)
-            {
-                MethodBase methodCheck = stackTrace.GetFrame(i).GetMethod();
-                if (findMyType)
-                {
-                    if (methodCheck.DeclaringType != currentType)
-                    {
-                        break;
-                    }
-                }
-                else
-                {
-                    if (methodCheck.DeclaringType == currentType)
-                    {
-                        method = methodCheck;
-                    }
-                }
-            }
-            return method;
         }
     }
 }

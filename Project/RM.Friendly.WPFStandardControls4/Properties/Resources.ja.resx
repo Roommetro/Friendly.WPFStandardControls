@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DataGridErrorHasNotTextProperty" xml:space="preserve">
-    <value>The cell does not have Text property.</value>
+    <value>指定のセルはTextプロパティーを持っていません。</value>
   </data>
   <data name="DataGridErrorNotCheckBoxCell" xml:space="preserve">
-    <value>The cell is not a CheckBox.</value>
+    <value>指定のセルはチェックボックスではありません。</value>
   </data>
   <data name="DataGridErrorNotComboBoxCell" xml:space="preserve">
-    <value>The cell is not a ComboBox.</value>
+    <value>指定のセルはコンボボックスではありません。</value>
   </data>
   <data name="DataGridErrorNotTextBoxCell" xml:space="preserve">
-    <value>The cell is not a TextBox.</value>
+    <value>指定のセルはテキストボックスではありません。</value>
   </data>
 </root>

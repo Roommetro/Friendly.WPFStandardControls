@@ -61,7 +61,16 @@ namespace RM.Friendly.WPFStandardControls.Properties {
         }
         
         /// <summary>
-        ///   チェックボックスのセルではありません。 に類似しているローカライズされた文字列を検索します。
+        ///   The cell does not have Text property. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string DataGridErrorHasNotTextProperty {
+            get {
+                return ResourceManager.GetString("DataGridErrorHasNotTextProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The cell is not a CheckBox. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string DataGridErrorNotCheckBoxCell {
             get {
@@ -70,7 +79,7 @@ namespace RM.Friendly.WPFStandardControls.Properties {
         }
         
         /// <summary>
-        ///   コンボボックスのセルではありません。 に類似しているローカライズされた文字列を検索します。
+        ///   The cell is not a ComboBox. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string DataGridErrorNotComboBoxCell {
             get {
@@ -79,7 +88,7 @@ namespace RM.Friendly.WPFStandardControls.Properties {
         }
         
         /// <summary>
-        ///   テキストボックスのセルではありません。 に類似しているローカライズされた文字列を検索します。
+        ///   The cell is not a TextBox. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string DataGridErrorNotTextBoxCell {
             get {

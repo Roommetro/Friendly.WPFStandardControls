@@ -243,8 +243,15 @@ namespace RM.Friendly.WPFStandardControls
         {
             EmulateChangeCurrentCellInTarget(grid, row, col);
             DataGridRow temp = grid.ItemContainerGenerator.ContainerFromIndex(row) as DataGridRow;
-            TextBlock text = grid.Columns[col].GetCellContent(temp) as TextBlock;
-            return (text != null) ? text.Text : null;
+            dynamic text = grid.Columns[col].GetCellContent(temp);
+            try
+            {
+                return text.Text;
+            }
+            catch
+            {
+                throw new NotSupportedException(ResourcesLocal.Instance.DataGridErrorHasNotTextProperty);
+            }
         }
 
         static void EmulateChangeCellTextInTarget(DataGrid grid, int row, int col, string text)
@@ -315,7 +322,7 @@ namespace RM.Friendly.WPFStandardControls
             grid.CellEditEnding -= hanlder;
             if (!success)
             {
-                throw new NotSupportedException(ResourcesLocal.Instance.DataGridErrorNotCheckBoxCell);
+                throw new NotSupportedException(ResourcesLocal.Instance.DataGridErrorNotComboBoxCell);
             }
         }
     }
