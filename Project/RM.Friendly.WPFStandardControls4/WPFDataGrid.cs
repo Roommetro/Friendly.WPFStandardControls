@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Collections.Generic;
 using Codeer.Friendly;
 using Codeer.Friendly.Windows;
+using RM.Friendly.WPFStandardControls.Inside;
 
 namespace RM.Friendly.WPFStandardControls
 {
@@ -96,7 +97,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="col">列。</param>
         /// <param name="isChecked">チェック状態。</param>
 #endif
-        public void EmulateCellCheck(int row, int col, bool isChecked)
+        public void EmulateCellCheck(int row, int col, bool? isChecked)
         {
             EmulateInTarget(row, col, isChecked);
         }
@@ -238,6 +239,14 @@ namespace RM.Friendly.WPFStandardControls
             grid.CurrentCell = new DataGridCellInfo(grid.Items[row], grid.Columns[col]);
         }
 
+        static string GetCellTextInTarget(DataGrid grid, int row, int col)
+        {
+            EmulateChangeCurrentCellInTarget(grid, row, col);
+            DataGridRow temp = grid.ItemContainerGenerator.ContainerFromIndex(row) as DataGridRow;
+            TextBlock text = grid.Columns[col].GetCellContent(temp) as TextBlock;
+            return (text != null) ? text.Text : null;
+        }
+
         static void EmulateChangeCellTextInTarget(DataGrid grid, int row, int col, string text)
         {
             bool success = false;
@@ -258,19 +267,11 @@ namespace RM.Friendly.WPFStandardControls
             grid.CellEditEnding -= hanlder;
             if (!success)
             {
-                throw new NotSupportedException("テキストボックスのセルではありません。");
+                throw new NotSupportedException(ResourcesLocal.Instance.DataGridErrorNotTextBoxCell);
             }
         }
 
-        static string GetCellTextInTarget(DataGrid grid, int row, int col )
-        {
-            string text = null;
-            DataGridRow temp = grid.ItemContainerGenerator.ContainerFromIndex(row) as DataGridRow;
-            text = ((TextBlock)grid.Columns[col].GetCellContent(temp)).Text;
-            return text;
-        }
-
-        static void EmulateCellCheckInTarget(DataGrid grid, int row, int col, bool isChecked)
+        static void EmulateCellCheckInTarget(DataGrid grid, int row, int col, bool? isChecked)
         {
             bool success = false;
             EventHandler<DataGridCellEditEndingEventArgs> hanlder = (s, e) =>
@@ -290,7 +291,7 @@ namespace RM.Friendly.WPFStandardControls
             grid.CellEditEnding -= hanlder;
             if (!success)
             {
-                throw new NotSupportedException("チェックボックスのセルではありません。");
+                throw new NotSupportedException(ResourcesLocal.Instance.DataGridErrorNotCheckBoxCell);
             }
         }
 
@@ -314,7 +315,7 @@ namespace RM.Friendly.WPFStandardControls
             grid.CellEditEnding -= hanlder;
             if (!success)
             {
-                throw new NotSupportedException("コンボボックスのセルではありません。");
+                throw new NotSupportedException(ResourcesLocal.Instance.DataGridErrorNotCheckBoxCell);
             }
         }
     }
