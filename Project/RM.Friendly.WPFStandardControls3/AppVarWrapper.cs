@@ -161,34 +161,34 @@ namespace RM.Friendly.WPFStandardControls
         }
 
         /// <summary>
-        /// 
+        /// Utility for getter.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="name"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">Type.</typeparam>
+        /// <param name="name">Property name.</param>
+        /// <returns>Value.</returns>
         protected T Getter<T>(string name)
         {
             return (T)this.AppVar[name]().Core;
         }
 
         /// <summary>
-        /// 
+        /// Utility for invoke InTarget method.
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="args"></param>
-        /// <returns></returns>
+        /// <param name="name">Function name.</param>
+        /// <param name="args">Arguments.</param>
+        /// <returns>AppVar.</returns>
         protected AppVar InTarget(string name, params object[] args)
         {
             return this.InvokeStatic(name + "InTarget", null, args);
         }
 
         /// <summary>
-        /// 
+        /// Utility for invoke InTarget method.
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="async"></param>
-        /// <param name="args"></param>
-        /// <returns></returns>
+        /// <param name="name">Function name.</param>
+        /// <param name="args">Arguments.</param>
+        /// <param name="async">Asynchronous execution.</param>
+        /// <returns>AppVar.</returns>
         protected AppVar InTarget(string name, Async async, params object[] args)
         {
             return this.InvokeStatic(name + "InTarget", async, args);
