@@ -57,7 +57,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeCurrentCell(int row, int col)
         {
-            EmulateInTarget(row, col);
+            InTarget("EmulateChangeCurrentCell", row, col);
         }
 
 #if ENG
@@ -79,7 +79,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeCurrentCell(int row, int col, Async async)
         {
-            EmulateInTarget(async, row, col);
+            InTarget("EmulateChangeCurrentCell", async, row, col);
         }
 
 #if ENG
@@ -99,7 +99,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateCellCheck(int row, int col, bool? isChecked)
         {
-            EmulateInTarget(row, col, isChecked);
+            InTarget("EmulateCellCheck", row, col, isChecked);
         }
 
 #if ENG
@@ -123,7 +123,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateCellCheck(int row, int col, bool isChecked, Async async)
         {
-            EmulateInTarget(async, row, col, isChecked);
+            InTarget("EmulateCellCheck", async, row, col, isChecked);
         }
 
 #if ENG
@@ -143,7 +143,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeCellText(int row, int col, string text)
         {
-            EmulateInTarget(row, col, text);
+            InTarget("EmulateChangeCellText", row, col, text);
         }
 
 #if ENG
@@ -167,7 +167,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeCellText(int row, int col, string text, Async async)
         {
-            EmulateInTarget(async, row, col, text);
+            InTarget("EmulateChangeCellText", async, row, col, text);
         }
 
 #if ENG
@@ -187,7 +187,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeCellComboSelect(int row, int col, int index)
         {
-            EmulateInTarget(row, col, index);
+            InTarget("EmulateChangeCellComboSelect", row, col, index);
         }
 
 #if ENG
@@ -211,7 +211,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeCellComboSelect(int row, int col, int index, Async async)
         {
-              EmulateInTarget(async, row, col, index);
+            InTarget("EmulateChangeCellComboSelect", async, row, col, index);
         }
 
 #if ENG
@@ -230,7 +230,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public string GetCellText(int row, int col)
         {
-            return (string)EmulateInTarget(row, col).Core;
+            return (string)InTarget("GetCellText", row, col).Core;
         }
 
         static void EmulateChangeCurrentCellInTarget(DataGrid grid, int row, int col)

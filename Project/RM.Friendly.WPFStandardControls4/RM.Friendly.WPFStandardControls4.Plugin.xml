@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<PluginInfo>
+  <AssemblyString></AssemblyString>
+  <Company>Room Metro</Company>
+  <WebPage>http://metrostyledev.net/</WebPage>
+  <NetTypePairs>
+    <PluginClassPair>
+      <TargetType></TargetType>
+      <PluginType></PluginType>
+    </PluginClassPair>
+  </NetTypePairs>
+</PluginInfo>

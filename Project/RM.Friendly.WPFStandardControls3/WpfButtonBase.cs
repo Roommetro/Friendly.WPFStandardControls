@@ -43,7 +43,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateClick()
         {
-            EmulateInTarget();
+            InTarget("EmulateClick");
         }
 
 #if ENG
@@ -61,7 +61,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateClick(Async async)
         {
-            EmulateInTarget(async);
+            InTarget("EmulateClick", async);
         }
 
         /// <summary>

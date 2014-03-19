@@ -31,12 +31,23 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\RM.Friendly.WPFStandardControls4.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>RM.Friendly.WPFStandardControls4.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-English|AnyCPU'">
+    <OutputPath>bin\Release-English\</OutputPath>
+    <DefineConstants>TRACE;ENG</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Release-English\RM.Friendly.WPFStandardControls4.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Codeer.Friendly">
@@ -97,8 +108,18 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="RM.Friendly.WPFStandardControls4.Plugin.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>if $(ConfigurationName) == Release Copy "$(TargetPath)" "../../../ReleaseBinary/$(TargetFileName)"
+if $(ConfigurationName) == Release Copy "$(TargetDir)\$(TargetName).xml" "../../../ReleaseBinary/ja/$(TargetName).xml"
+if $(ConfigurationName) == Release Copy "$(TargetDir)\ja\$(TargetName).resources.dll" "../../../ReleaseBinary/ja/$(TargetName).resources.dll"
+if $(ConfigurationName) == Release Copy "$(ProjectDir)$(TargetName).plugin.xml" "../../../ReleaseBinary/plugin/$(TargetName).plugin.xml"
+if $(ConfigurationName) == Release-English Copy "$(TargetDir)\$(TargetName).xml" "../../../ReleaseBinary/$(TargetName).xml"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

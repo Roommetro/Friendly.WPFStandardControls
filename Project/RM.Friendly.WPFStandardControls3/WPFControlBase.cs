@@ -40,7 +40,7 @@ namespace RM.Friendly.WPFStandardControls
         /// 表示/非表示を取得します。
         /// </summary>
 #endif
-        public Visibility Visibility { get { return this.GetPropValue<Visibility>(); } }
+        public Visibility Visibility { get { return Getter<Visibility>("Visibility"); } }
 
 #if ENG
         /// <summary>
@@ -51,6 +51,6 @@ namespace RM.Friendly.WPFStandardControls
         /// 活性/非活性を取得します。
         /// </summary>
 #endif
-        public bool IsEnabled { get { return this.GetPropValue<bool>(); } }
+        public bool IsEnabled { get { return Getter<bool>("IsEnabled"); } }
     }
 }

@@ -40,7 +40,7 @@ namespace RM.Friendly.WPFStandardControls
         /// チェック状態を取得します。
         /// </summary>
 #endif
-        public bool? IsChecked { get { return GetPropValue<bool?>(); } }
+        public bool? IsChecked { get { return Getter<bool?>("IsChecked"); } }
 
 #if ENG
         /// <summary>
@@ -51,7 +51,7 @@ namespace RM.Friendly.WPFStandardControls
         /// 3ステートのトグルボタンであるかを取得します。
         /// </summary>
 #endif
-        public bool IsThreeState { get { return GetPropValue<bool>(); } }
+        public bool IsThreeState { get { return Getter<bool>("IsThreeState"); } }
 
 #if ENG
         /// <summary>
@@ -68,7 +68,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateCheck(bool? value)
         {
-            EmulateInTarget(value);
+            InTarget("EmulateCheck", value);
         }
 
 #if ENG
@@ -88,7 +88,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateCheck(bool? value, Async async)
         {
-            EmulateInTarget(async, value);
+            InTarget("EmulateCheck", async, value);
         }
 
         private static void EmulateCheckIntarget(ToggleButton toggle, bool? value)

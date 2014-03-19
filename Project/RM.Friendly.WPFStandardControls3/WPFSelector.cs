@@ -54,7 +54,7 @@ namespace RM.Friendly.WPFStandardControls
         /// 現在選択されているアイテムのインデックスを取得します。
         /// </summary>
 #endif
-        public int SelectedIndex { get { return this.GetPropValue<int>(); } }
+        public int SelectedIndex { get { return Getter<int>("SelectedIndex"); } }
 
 #if ENG
         /// <summary>
@@ -69,7 +69,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeSelectedIndex(int index)
         {
-            this.EmulateInTarget(index);
+            InTarget("EmulateChangeSelectedIndex", index);
         }
 
 #if ENG
@@ -89,7 +89,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeSelect(int index, Async async)
         {
-            this.EmulateInTarget(async, index);
+            InTarget("EmulateChangeSelect", async, index);
         }
 
         static void EmulateChangeSelectedIndexInTarget(ListBox selector, int index)

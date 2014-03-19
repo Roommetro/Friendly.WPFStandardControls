@@ -160,45 +160,46 @@ namespace RM.Friendly.WPFStandardControls
             get { return _appVar[operation, operationTypeInfo, async]; }
         }
 
-        protected T GetPropValue<T>()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        protected T Getter<T>(string name)
         {
-            return this.GetPropValue<T>(CurrentCallerName);
+            return (T)this.AppVar[name]().Core;
         }
 
-        private T GetPropValue<T>(string propName)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        protected AppVar InTarget(string name, params object[] args)
         {
-            return (T)this.AppVar[propName]().Core;
+            return this.InvokeStatic(name + "InTarget", null, args);
         }
 
-        protected AppVar EmulateInTarget(params object[] args)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="async"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        protected AppVar InTarget(string name, Async async, params object[] args)
         {
-            return this.InvokeStaticOperation(CurrentCallerName + "InTarget", null, args);
+            return this.InvokeStatic(name + "InTarget", async, args);
         }
 
-        protected AppVar EmulateInTarget(Async async, params object[] args)
+        private AppVar InvokeStatic(string methodName, Async async, params object[] args)
         {
-            return this.InvokeStaticOperation(CurrentCallerName + "InTarget", async, args);
+            return this.InvokeStatic(methodName, GetType(), async, args);
         }
 
-        static string CurrentCallerName 
-        {
-            get
-            {
-                string methodName = new StackTrace().GetFrame(2).GetMethod().Name;
-                if (methodName.StartsWith("get_") || methodName.StartsWith("set_"))
-                {
-                    methodName = methodName.Substring(4);
-                }
-                return methodName;
-            }
-        }
-
-        private AppVar InvokeStaticOperation(string methodName, Async async, params object[] args)
-        {
-            return this.InvokeStaticOperation(methodName, GetType(), async, args);
-        }
-
-        private AppVar InvokeStaticOperation(string methodName, Type targetType, Async async, params object[] args)
+        private AppVar InvokeStatic(string methodName, Type targetType, Async async, params object[] args)
         {
             var arguments = new List<object>();
             arguments.Add(this.AppVar);

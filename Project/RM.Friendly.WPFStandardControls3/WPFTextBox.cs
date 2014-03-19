@@ -42,7 +42,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public string Text
         {
-            get { return GetPropValue<string>(); }
+            get { return Getter<string>("Text"); }
         }
 
 #if ENG
@@ -58,7 +58,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeText(string text)
         {
-            this.EmulateInTarget(text);
+            InTarget("EmulateChangeText", text);
         }
 
 #if ENG
@@ -78,7 +78,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeText(string text, Async async)
         {
-            EmulateInTarget(async, text);
+            InTarget("EmulateChangeText", async, text);
         }
 
         private static void EmulateChangeTextInTarget(TextBox textBox, string value)
