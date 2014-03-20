@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>RM.Friendly.WPFStandardControls</id>
+    <version>0.0.0</version>
+    <title>Friendly.Windows.NativeStandardControls(ƒ¿)</title>
+    <authors>Codeer</authors>
+    <owners>Codeer</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
+    <projectUrl>https://github.com/Roommetro/Friendly.WPFStandardControls/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>You will be able to manipulate WPF Controls. This library is built on Friendly Layer.</description>
+    <tags>Friendly Testing Windows WPF Automation Codeer Codeer.Friendly Room metro</tags>
+    <dependencies>
+      <dependency id="Codeer.Friendly.Windows" version="2.2.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\ReleaseBinary\RM.Friendly.WPFStandardControls3.dll" target="lib\net30" />
+    <file src="..\ReleaseBinary\RM.Friendly.WPFStandardControls3.xml" target="lib\net30" />
+    <file src="..\ReleaseBinary\ja\RM.Friendly.WPFStandardControls3.xml" target="lib\net30\ja" />
+    <file src="..\ReleaseBinary\RM.Friendly.WPFStandardControls4.dll" target="lib\net40" />
+    <file src="..\ReleaseBinary\RM.Friendly.WPFStandardControls4.xml" target="lib\net40" />
+    <file src="..\ReleaseBinary\ja\RM.Friendly.WPFStandardControls4.xml" target="lib\net40\ja" />
+    <file src="..\ReleaseBinary\ja\RM.Friendly.WPFStandardControls4.resources.dll" target="lib\net40\ja" />
+  </files>
+</package>

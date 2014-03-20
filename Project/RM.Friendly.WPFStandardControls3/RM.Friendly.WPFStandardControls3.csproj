@@ -88,10 +88,11 @@
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>rd /s /q "../../../ReleaseBinary"
-mkdir "../../../ReleaseBinary"
-mkdir "../../../ReleaseBinary/ja"
-mkdir "../../../ReleaseBinary/plugin"
+    <PostBuildEvent>if $(ConfigurationName) == Release md "../../../ReleaseBinary"
+if $(ConfigurationName) == Release-English md "../../../ReleaseBinary"
+if $(ConfigurationName) == Release md "../../../ReleaseBinary/ja"
+if $(ConfigurationName) == Release md "../../../ReleaseBinary/plugin"
+
 if $(ConfigurationName) == Release Copy "$(TargetPath)" "../../../ReleaseBinary/$(TargetFileName)"
 if $(ConfigurationName) == Release Copy "$(TargetDir)\$(TargetName).xml" "../../../ReleaseBinary/ja/$(TargetName).xml"
 if $(ConfigurationName) == Release Copy "$(TargetDir)\ja\$(TargetName).resources.dll" "../../../ReleaseBinary/ja/$(TargetName).resources.dll"
