@@ -3,7 +3,7 @@
   <metadata>
     <id>RM.Friendly.WPFStandardControls</id>
     <version>0.0.0</version>
-    <title>Friendly.Windows.NativeStandardControls(ƒ¿)</title>
+    <title>Friendly.WPFStandardControls(alpha)</title>
     <authors>Codeer</authors>
     <owners>Codeer</owners>
     <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
@@ -18,7 +18,10 @@
   <files>
     <file src="..\ReleaseBinary\RM.Friendly.WPFStandardControls3.dll" target="lib\net30" />
     <file src="..\ReleaseBinary\RM.Friendly.WPFStandardControls3.xml" target="lib\net30" />
-    <file src="..\ReleaseBinary\ja\RM.Friendly.WPFStandardControls3.xml" target="lib\net30\ja" />
+    <file src="..\ReleaseBinary\ja\RM.Friendly.WPFStandardControls3.xml" target="lib\net30\ja" />    
+    <file src="..\ReleaseBinary\RM.Friendly.WPFStandardControls3.dll" target="lib\net40" />
+    <file src="..\ReleaseBinary\RM.Friendly.WPFStandardControls3.xml" target="lib\net40" />
+    <file src="..\ReleaseBinary\ja\RM.Friendly.WPFStandardControls3.xml" target="lib\net40\ja" />
     <file src="..\ReleaseBinary\RM.Friendly.WPFStandardControls4.dll" target="lib\net40" />
     <file src="..\ReleaseBinary\RM.Friendly.WPFStandardControls4.xml" target="lib\net40" />
     <file src="..\ReleaseBinary\ja\RM.Friendly.WPFStandardControls4.xml" target="lib\net40\ja" />
