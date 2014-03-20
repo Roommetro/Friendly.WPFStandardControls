@@ -126,6 +126,9 @@
   <data name="DataGridErrorNotComboBoxCell" xml:space="preserve">
     <value>指定のセルはコンボボックスではありません。</value>
   </data>
+  <data name="DataGridErrorNotSupportedStruct" xml:space="preserve">
+    <value>構造体のアイテムを持つDataGridに対して、この処理は有効ではありません。</value>
+  </data>
   <data name="DataGridErrorNotTextBoxCell" xml:space="preserve">
     <value>指定のセルはテキストボックスではありません。</value>
   </data>

@@ -88,6 +88,15 @@ namespace RM.Friendly.WPFStandardControls.Properties {
         }
         
         /// <summary>
+        ///   The operation is invalid for DataGrid of strut items. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string DataGridErrorNotSupportedStruct {
+            get {
+                return ResourceManager.GetString("DataGridErrorNotSupportedStruct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   The cell is not a TextBox. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string DataGridErrorNotTextBoxCell {

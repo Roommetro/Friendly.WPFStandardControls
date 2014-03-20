@@ -91,7 +91,7 @@ namespace RM.Friendly.WPFStandardControls
             InTarget("EmulateCheck", async, value);
         }
 
-        private static void EmulateCheckIntarget(ToggleButton toggle, bool? value)
+        private static void EmulateCheckInTarget(ToggleButton toggle, bool? value)
         {
             toggle.Focus();
             toggle.IsChecked = value;

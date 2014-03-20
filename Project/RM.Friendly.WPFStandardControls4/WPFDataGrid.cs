@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Windows.Controls;
 using System.Collections.Generic;
 using Codeer.Friendly;
+using Codeer.Friendly.Dynamic;
 using Codeer.Friendly.Windows;
 using RM.Friendly.WPFStandardControls.Inside;
 
@@ -35,29 +36,59 @@ namespace RM.Friendly.WPFStandardControls
         public WPFDataGrid(WindowsAppFriend app, AppVar appVar)
             : base(app, appVar) { }
 
+#if ENG
         /// <summary>
-        /// アイテムの取得
+        /// Get Item.
         /// </summary>
-        /// <param name="index">インデックス</param>
-        /// <returns>アイテム</returns>
-        public AppVar this[int index] { get { return AppVar["Items"]()["[]"](index); } }
+        /// <param name="index">Index.</param>
+        /// <returns>Item.</returns>
+#else
+        /// <summary>
+        /// アイテムの取得。
+        /// </summary>
+        /// <param name="index">インデックス。</param>
+        /// <returns>アイテム。</returns>
+#endif
+        public dynamic this[int index] { get { return this.Dynamic().Items[index]; } }
+
+#if ENG
+        /// <summary>
+        /// Item index of current selected cell.
+        /// </summary>
+#else
+        /// <summary>
+        /// 現在の選択セルのアイテムインデックス。
+        /// </summary>
+#endif
+        public int CurrentItemIndex { get { return (int)InTarget("GetCurrentItemIndex").Core; } }
+
+#if ENG
+        /// <summary>
+        /// Column index of current selected cell.
+        /// </summary>
+#else
+        /// <summary>
+        /// 現在の選択セルの列インデックス。
+        /// </summary>
+#endif
+        public int CurrentColIndex { get { return (int)InTarget("GetCurrentColIndex").Core; } }
 
 #if ENG
         /// <summary>
         /// Changes the cell selected state of cells.
         /// </summary>
-        /// <param name="row">Row number of the cell.</param>
+        /// <param name="itemIndex">Item index of the cell.</param>
         /// <param name="col">Column number of the cell.</param>
 #else
         /// <summary>
         /// 選択状態を変更します。
         /// </summary>
-        /// <param name="row">行。</param>
+        /// <param name="itemIndex">アイテムインデックス。</param>
         /// <param name="col">列。</param>
 #endif
-        public void EmulateChangeCurrentCell(int row, int col)
+        public void EmulateChangeCurrentCell(int itemIndex, int col)
         {
-            InTarget("EmulateChangeCurrentCell", row, col);
+            InTarget("EmulateChangeCurrentCell", itemIndex, col);
         }
 
 #if ENG
@@ -65,7 +96,7 @@ namespace RM.Friendly.WPFStandardControls
         /// Changes the cell selected state of cells.
         /// Executes asynchronously. 
         /// </summary>
-        /// <param name="row">Row number of the cell.</param>
+        /// <param name="itemIndex">Item index of the cell.</param>
         /// <param name="col">Column number of the cell.</param>
         /// <param name="async">Asynchronous execution.</param>
 #else
@@ -73,33 +104,33 @@ namespace RM.Friendly.WPFStandardControls
         /// 選択状態を変更します。
         /// 非同期で実行します。
         /// </summary>
-        /// <param name="row">行。</param>
+        /// <param name="itemIndex">アイテムインデックス。</param>
         /// <param name="col">列。</param>
         /// <param name="async">非同期実行オブジェクト。</param>
 #endif
-        public void EmulateChangeCurrentCell(int row, int col, Async async)
+        public void EmulateChangeCurrentCell(int itemIndex, int col, Async async)
         {
-            InTarget("EmulateChangeCurrentCell", async, row, col);
+            InTarget("EmulateChangeCurrentCell", async, itemIndex, col);
         }
 
 #if ENG
         /// <summary>
         /// Sets the checked state state of a cell.
         /// </summary>
-        /// <param name="row">Row number of the cell.</param>
+        /// <param name="itemIndex">Item index of the cell.</param>
         /// <param name="col">Column number of the cell.</param>
         /// <param name="isChecked">Checked state to use.</param>
 #else
         /// <summary>
         /// セルのチェック状態を変更します。
         /// </summary>
-        /// <param name="row">行。</param>
+        /// <param name="itemIndex">アイテムインデックス。</param>
         /// <param name="col">列。</param>
         /// <param name="isChecked">チェック状態。</param>
 #endif
-        public void EmulateCellCheck(int row, int col, bool? isChecked)
+        public void EmulateCellCheck(int itemIndex, int col, bool? isChecked)
         {
-            InTarget("EmulateCellCheck", row, col, isChecked);
+            InTarget("EmulateCellCheck", itemIndex, col, isChecked);
         }
 
 #if ENG
@@ -107,7 +138,7 @@ namespace RM.Friendly.WPFStandardControls
         /// Sets the checked state state of a cell.
         /// Executes asynchronously. 
         /// </summary>
-        /// <param name="row">Row number of the cell.</param>
+        /// <param name="itemIndex">Item index of the cell.</param>
         /// <param name="col">Column number of the cell.</param>
         /// <param name="isChecked">Checked state to use.</param>
         /// <param name="async">Asynchronous execution.</param>
@@ -116,34 +147,34 @@ namespace RM.Friendly.WPFStandardControls
         /// セルのチェック状態を変更します。
         /// 非同期で実行します。
         /// </summary>
-        /// <param name="row">行。</param>
+        /// <param name="itemIndex">アイテムインデックス。</param>
         /// <param name="col">列。</param>
         /// <param name="isChecked">チェック状態。</param>
         /// <param name="async">非同期実行オブジェクト。</param>
 #endif
-        public void EmulateCellCheck(int row, int col, bool isChecked, Async async)
+        public void EmulateCellCheck(int itemIndex, int col, bool isChecked, Async async)
         {
-            InTarget("EmulateCellCheck", async, row, col, isChecked);
+            InTarget("EmulateCellCheck", async, itemIndex, col, isChecked);
         }
 
 #if ENG
         /// <summary>
         /// Modifies the text of a cell.
         /// </summary>
-        /// <param name="row">Row number of the cell.</param>
+        /// <param name="itemIndex">Item index of the cell.</param>
         /// <param name="col">Column number of the cell.</param>
         /// <param name="text">The text to use.</param>
 #else
         /// <summary>
         /// セルのテキストを変更します。
         /// </summary>
-        /// <param name="row">行。</param>
+        /// <param name="itemIndex">アイテムインデックス。</param>
         /// <param name="col">列。</param>
         /// <param name="text">テキスト。</param>
 #endif
-        public void EmulateChangeCellText(int row, int col, string text)
+        public void EmulateChangeCellText(int itemIndex, int col, string text)
         {
-            InTarget("EmulateChangeCellText", row, col, text);
+            InTarget("EmulateChangeCellText", itemIndex, col, text);
         }
 
 #if ENG
@@ -151,7 +182,7 @@ namespace RM.Friendly.WPFStandardControls
         /// Modifies the text of a cell.
         /// Executes asynchronously. 
         /// </summary>
-        /// <param name="row">Row number of the cell.</param>
+        /// <param name="itemIndex">Item index of the cell.</param>
         /// <param name="col">Column number of the cell.</param>
         /// <param name="text">The text to use.</param>
         /// <param name="async">Asynchronous execution.</param>
@@ -160,34 +191,34 @@ namespace RM.Friendly.WPFStandardControls
         /// セルのテキストを変更します。
         /// 非同期で実行します。
         /// </summary>
-        /// <param name="row">行。</param>
+        /// <param name="itemIndex">アイテムインデックス。</param>
         /// <param name="col">列。</param>
         /// <param name="text">テキスト。</param>
         /// <param name="async">非同期実行オブジェクト。</param>
 #endif
-        public void EmulateChangeCellText(int row, int col, string text, Async async)
+        public void EmulateChangeCellText(int itemIndex, int col, string text, Async async)
         {
-            InTarget("EmulateChangeCellText", async, row, col, text);
+            InTarget("EmulateChangeCellText", async, itemIndex, col, text);
         }
 
 #if ENG
         /// <summary>
         /// Sets the selected value of a combo box cell.
         /// </summary>
-        /// <param name="row">Row number of the cell.</param>
+        /// <param name="itemIndex">Item index of the cell.</param>
         /// <param name="col">Column number of the cell.</param>
         /// <param name="index">The index to select.</param>
 #else
         /// <summary>
         /// セルコンボの選択を変更します。
         /// </summary>
-        /// <param name="row">行。</param>
+        /// <param name="itemIndex">アイテムインデックス。</param>
         /// <param name="col">列。</param>
         /// <param name="index">インデックス。</param>
 #endif
-        public void EmulateChangeCellComboSelect(int row, int col, int index)
+        public void EmulateChangeCellComboSelect(int itemIndex, int col, int index)
         {
-            InTarget("EmulateChangeCellComboSelect", row, col, index);
+            InTarget("EmulateChangeCellComboSelect", itemIndex, col, index);
         }
 
 #if ENG
@@ -195,7 +226,7 @@ namespace RM.Friendly.WPFStandardControls
         /// Sets the selected value of a combo box cell.
         /// Executes asynchronously. 
         /// </summary>
-        /// <param name="row">Row number of the cell.</param>
+        /// <param name="itemIndex">Item index of the cell.</param>
         /// <param name="col">Column number of the cell.</param>
         /// <param name="index">The index to select.</param>
         /// <param name="async">Asynchronous execution.</param>
@@ -204,45 +235,49 @@ namespace RM.Friendly.WPFStandardControls
         /// セルコンボの選択を変更します。
         /// 非同期で実行します。
         /// </summary>
-        /// <param name="row">行。</param>
+        /// <param name="itemIndex">アイテムインデックス。</param>
         /// <param name="col">列。</param>
         /// <param name="index">インデックス。</param>
         /// <param name="async">非同期実行オブジェクト。</param>
 #endif
-        public void EmulateChangeCellComboSelect(int row, int col, int index, Async async)
+        public void EmulateChangeCellComboSelect(int itemIndex, int col, int index, Async async)
         {
-            InTarget("EmulateChangeCellComboSelect", async, row, col, index);
+            InTarget("EmulateChangeCellComboSelect", async, itemIndex, col, index);
         }
 
 #if ENG
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="row">Row number of the cell.</param>
+        /// <param name="itemIndex">Item index of the cell.</param>
         /// <param name="col">Column number of the cell.</param>
         /// <param name="text">The text to use.</param>
 #else
         /// <summary>
         /// セルの文字列を取得します
         /// </summary>
-        /// <param name="row">行。</param>
+        /// <param name="itemIndex">アイテムインデックス。</param>
         /// <param name="col">列。</param>
 #endif
-        public string GetCellText(int row, int col)
+        public string GetCellText(int itemIndex, int col)
         {
-            return (string)InTarget("GetCellText", row, col).Core;
+            return (string)InTarget("GetCellText", itemIndex, col).Core;
         }
 
-        static void EmulateChangeCurrentCellInTarget(DataGrid grid, int row, int col)
+        static void EmulateChangeCurrentCellInTarget(DataGrid grid, int itemIndex, int col)
         {
+            if (0 < grid.Items.Count && grid.Items[0].GetType().IsValueType)
+            {
+                throw new NotSupportedException(ResourcesLocal.Instance.DataGridErrorNotSupportedStruct);
+            }
             grid.Focus();
-            grid.CurrentCell = new DataGridCellInfo(grid.Items[row], grid.Columns[col]);
+            grid.CurrentCell = new DataGridCellInfo(grid.Items[itemIndex], grid.Columns[col]);
         }
 
-        static string GetCellTextInTarget(DataGrid grid, int row, int col)
+        static string GetCellTextInTarget(DataGrid grid, int itemIndex, int col)
         {
-            EmulateChangeCurrentCellInTarget(grid, row, col);
-            DataGridRow temp = grid.ItemContainerGenerator.ContainerFromIndex(row) as DataGridRow;
+            EmulateChangeCurrentCellInTarget(grid, itemIndex, col);
+            DataGridRow temp = grid.ItemContainerGenerator.ContainerFromIndex(itemIndex) as DataGridRow;
             dynamic text = grid.Columns[col].GetCellContent(temp);
             try
             {
@@ -254,7 +289,7 @@ namespace RM.Friendly.WPFStandardControls
             }
         }
 
-        static void EmulateChangeCellTextInTarget(DataGrid grid, int row, int col, string text)
+        static void EmulateChangeCellTextInTarget(DataGrid grid, int itemIndex, int col, string text)
         {
             bool success = false;
             EventHandler<DataGridCellEditEndingEventArgs> hanlder = (s, e) =>
@@ -267,8 +302,7 @@ namespace RM.Friendly.WPFStandardControls
                 }
             };
             grid.CellEditEnding += hanlder;
-            grid.Focus();
-            grid.CurrentCell = new DataGridCellInfo(grid.Items[row], grid.Columns[col]);
+            EmulateChangeCurrentCellInTarget(grid, itemIndex, col);
             grid.BeginEdit();
             grid.CommitEdit(DataGridEditingUnit.Row, true);
             grid.CellEditEnding -= hanlder;
@@ -278,7 +312,7 @@ namespace RM.Friendly.WPFStandardControls
             }
         }
 
-        static void EmulateCellCheckInTarget(DataGrid grid, int row, int col, bool? isChecked)
+        static void EmulateCellCheckInTarget(DataGrid grid, int itemIndex, int col, bool? isChecked)
         {
             bool success = false;
             EventHandler<DataGridCellEditEndingEventArgs> hanlder = (s, e) =>
@@ -291,8 +325,7 @@ namespace RM.Friendly.WPFStandardControls
                 }
             };
             grid.CellEditEnding += hanlder;
-            grid.Focus();
-            grid.CurrentCell = new DataGridCellInfo(grid.Items[row], grid.Columns[col]);
+            EmulateChangeCurrentCellInTarget(grid, itemIndex, col);
             grid.BeginEdit();
             grid.CommitEdit(DataGridEditingUnit.Row, true);
             grid.CellEditEnding -= hanlder;
@@ -302,7 +335,7 @@ namespace RM.Friendly.WPFStandardControls
             }
         }
 
-        static void EmulateChangeCellComboSelectInTarget(DataGrid grid, int row, int col, int index)
+        static void EmulateChangeCellComboSelectInTarget(DataGrid grid, int itemIndex, int col, int index)
         {
             bool success = false;
             EventHandler<DataGridCellEditEndingEventArgs> hanlder = (s, e) =>
@@ -315,8 +348,7 @@ namespace RM.Friendly.WPFStandardControls
                 }
             };
             grid.CellEditEnding += hanlder;
-            grid.Focus();
-            grid.CurrentCell = new DataGridCellInfo(grid.Items[row], grid.Columns[col]);
+            EmulateChangeCurrentCellInTarget(grid, itemIndex, col);
             grid.BeginEdit();
             grid.CommitEdit(DataGridEditingUnit.Row, true);
             grid.CellEditEnding -= hanlder;
@@ -324,6 +356,38 @@ namespace RM.Friendly.WPFStandardControls
             {
                 throw new NotSupportedException(ResourcesLocal.Instance.DataGridErrorNotComboBoxCell);
             }
+        }
+
+        static int GetCurrentItemIndexInTarget(DataGrid grid)
+        {
+            if (0 < grid.Items.Count && grid.Items[0].GetType().IsValueType)
+            {
+                throw new NotSupportedException(ResourcesLocal.Instance.DataGridErrorNotSupportedStruct);
+            }
+            grid.Focus();
+            var current = grid.CurrentCell;
+            if (current == null || current.Item == null)
+            {
+                return -1;
+            }
+            for (int i = 0; i < grid.Items.Count; i++)
+            {
+                if (ReferenceEquals(current.Item, grid.Items[i]))
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+        static int GetCurrentColIndexInTarget(DataGrid grid)
+        {
+            grid.Focus();
+            var current = grid.CurrentCell;
+            if (current == null || current.Item == null)
+            {
+                return -1;
+            }
+            return current.Column.DisplayIndex;
         }
     }
 }

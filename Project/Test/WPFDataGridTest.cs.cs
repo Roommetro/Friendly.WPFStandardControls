@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
+using Codeer.Friendly;
 using Codeer.Friendly.Dynamic;
 using Codeer.Friendly.Windows;
 using System.Windows.Controls;
@@ -9,6 +10,8 @@ using RM.Friendly.WPFStandardControls;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
+using Codeer.Friendly.Windows.Grasp;
+using Codeer.Friendly.Windows.NativeStandardControls;
 
 namespace Test
 {
@@ -29,6 +32,12 @@ namespace Test
             public bool IsActive { get; set; }
         }
 
+        [Serializable]
+        public struct ItemStruct
+        {
+            public string Name { get; set; }
+        }
+
         WindowsAppFriend app;
         WPFDataGrid dataGrid;
 
@@ -41,6 +50,21 @@ namespace Test
             dataGrid = new WPFDataGrid(app, app.Type<WPFDataGridTest>().InitDataGrid(main._grid));
         }
 
+        static void AddEditEvent(DataGrid grid)
+        {
+            grid.BeginningEdit += delegate
+            {
+                MessageBox.Show("");
+            };
+        }
+
+        static void AddCurrentCellEvent(DataGrid grid)
+        {
+            grid.CurrentCellChanged += delegate
+            {
+                MessageBox.Show("");
+            };
+        }
         void ResetConnection()
         {
             int id = app.ProcessId;
@@ -70,9 +94,48 @@ namespace Test
         }
 
         [TestMethod]
+        public void TestGetItem()
+        {
+            Assert.AreEqual("0", (string)dataGrid[0].Name);
+        }
+
+        [TestMethod]
+        public void TestEmulateChangeCurrentCell()
+        {
+            dataGrid.EmulateChangeCurrentCell(2, 1);
+            Assert.AreEqual(2, dataGrid.CurrentItemIndex);
+            Assert.AreEqual(1, dataGrid.CurrentColIndex);
+        }
+
+        [TestMethod]
+        public void TestEmulateChangeCurrentCellAsync()
+        {
+            app.Type<WPFDataGridTest>().AddCurrentCellEvent(dataGrid.AppVar);
+            Async async = new Async();
+            WindowControl main = WindowControl.FromZTop(app);
+            dataGrid.EmulateChangeCurrentCell(2, 1, async);
+            new NativeMessageBox(main.WaitForNextModal()).EmulateButtonClick("OK");
+            async.WaitForCompletion();
+            Assert.AreEqual(2, dataGrid.CurrentItemIndex);
+            Assert.AreEqual(1, dataGrid.CurrentColIndex);
+        }
+
+        [TestMethod]
         public void TestEmulateChangeCellText()
         {
             dataGrid.EmulateChangeCellText(0, 0, "xxx");
+            Assert.AreEqual("xxx", (string)dataGrid.Dynamic().ItemsSource[0].Name);
+        }
+
+        [TestMethod]
+        public void TestEmulateChangeCellTextAsync()
+        {
+            app.Type<WPFDataGridTest>().AddEditEvent(dataGrid.AppVar);
+            Async async = new Async();
+            WindowControl main = WindowControl.FromZTop(app);
+            dataGrid.EmulateChangeCellText(0, 0, "xxx", async);
+            new NativeMessageBox(main.WaitForNextModal()).EmulateButtonClick("OK");
+            async.WaitForCompletion();
             Assert.AreEqual("xxx", (string)dataGrid.Dynamic().ItemsSource[0].Name);
         }
 
@@ -92,6 +155,18 @@ namespace Test
         }
 
         [TestMethod]
+        public void TestEmulateChangeCellComboSelectAsync()
+        {
+            app.Type<WPFDataGridTest>().AddEditEvent(dataGrid.AppVar);
+            Async async = new Async();
+            WindowControl main = WindowControl.FromZTop(app);
+            dataGrid.EmulateChangeCellComboSelect(0, 1, 2, async);
+            new NativeMessageBox(main.WaitForNextModal()).EmulateButtonClick("OK");
+            async.WaitForCompletion();
+            Assert.AreEqual(ProgramingLanguage.CSP, (ProgramingLanguage)dataGrid.Dynamic().ItemsSource[0].Language);
+        }
+
+        [TestMethod]
         public void TestEmulateChangeCellComboSelectException()
         {
             TestUtility.TestExceptionMessage(() => { ResetConnection(); dataGrid.EmulateChangeCellComboSelect(0, 0, 2); },
@@ -103,6 +178,18 @@ namespace Test
         public void TestEmulateCellCheck()
         {
             dataGrid.EmulateCellCheck(0, 2, true);
+            Assert.AreEqual(true, (bool)dataGrid.Dynamic().ItemsSource[0].IsActive);
+        }
+
+        [TestMethod]
+        public void TestEmulateCellCheckAsync()
+        {
+            app.Type<WPFDataGridTest>().AddEditEvent(dataGrid.AppVar);
+            Async async = new Async();
+            WindowControl main = WindowControl.FromZTop(app);
+            dataGrid.EmulateCellCheck(0, 2, true, async);
+            new NativeMessageBox(main.WaitForNextModal()).EmulateButtonClick("OK");
+            async.WaitForCompletion();
             Assert.AreEqual(true, (bool)dataGrid.Dynamic().ItemsSource[0].IsActive);
         }
 
@@ -129,6 +216,21 @@ namespace Test
                 "指定のセルはTextプロパティーを持っていません。");
         }
 
-        //@@@非同期テスト
+        [TestMethod]
+        public void TestNotSupportedStruct()
+        {
+            dataGrid.Dynamic().ItemsSource = new ItemStruct[] 
+            {
+                new ItemStruct(){ Name = "A" },
+                new ItemStruct(){ Name = "B" },
+            };
+            TestUtility.TestExceptionMessage(() => { ResetConnection(); dataGrid.EmulateChangeCellText(0, 0, "xxx"); },
+                "The operation is invalid for DataGrid of strut items.",
+                "構造体のアイテムを持つDataGridに対して、この処理は有効ではありません。");
+
+            TestUtility.TestExceptionMessage(() => { ResetConnection(); var index = dataGrid.CurrentItemIndex; },
+                    "The operation is invalid for DataGrid of strut items.",
+                    "構造体のアイテムを持つDataGridに対して、この処理は有効ではありません。");
+        }
     }
 }

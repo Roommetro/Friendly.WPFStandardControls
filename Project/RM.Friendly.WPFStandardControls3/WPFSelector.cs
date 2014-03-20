@@ -87,9 +87,9 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="index">インデックス。</param>
         /// <param name="async">非同期実行オブジェクト。</param>
 #endif
-        public void EmulateChangeSelect(int index, Async async)
+        public void EmulateChangeSelectedIndex(int index, Async async)
         {
-            InTarget("EmulateChangeSelect", async, index);
+            InTarget("EmulateChangeSelectedIndex", async, index);
         }
 
         static void EmulateChangeSelectedIndexInTarget(ListBox selector, int index)
