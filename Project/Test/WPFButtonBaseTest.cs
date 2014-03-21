@@ -56,7 +56,7 @@ namespace Test
             AppVar buttonCore = _app.Type<Button>()();
             main._grid.Children.Add(buttonCore);
             dynamic checker = _app.Type<ButtonEventCheck>()(buttonCore, false);
-            WPFButtonBase ButtonBase = new WPFButtonBase(_app, buttonCore);
+            WPFButtonBase ButtonBase = new WPFButtonBase(buttonCore);
 
             // Act
             ButtonBase.EmulateClick();
@@ -72,7 +72,7 @@ namespace Test
             main._grid.Children.Add(buttonCore);
             dynamic checker = _app.Type<ButtonEventCheck>()(buttonCore, true);
             WindowControl windowControl = WindowControl.FromZTop(_app);
-            WPFButtonBase ButtonBase = new WPFButtonBase(_app, buttonCore);
+            WPFButtonBase ButtonBase = new WPFButtonBase(buttonCore);
 
             // Act
             Async async = new Async();

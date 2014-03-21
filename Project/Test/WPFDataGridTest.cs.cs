@@ -47,7 +47,7 @@ namespace Test
             app = new WindowsAppFriend(Process.Start("Target.exe"));
             WindowsAppExpander.LoadAssembly(app, GetType().Assembly);
             dynamic main = app.Type<Application>().Current.MainWindow;
-            dataGrid = new WPFDataGrid(app, app.Type<WPFDataGridTest>().InitDataGrid(main._grid));
+            dataGrid = new WPFDataGrid(app.Type<WPFDataGridTest>().InitDataGrid(main._grid));
         }
 
         static void AddEditEvent(DataGrid grid)
@@ -71,7 +71,7 @@ namespace Test
             app.Dispose();
             app = new WindowsAppFriend(Process.GetProcessById(id));
             dynamic main = app.Type<Application>().Current.MainWindow;
-            dataGrid = new WPFDataGrid(app, main._grid.Children[0]);
+            dataGrid = new WPFDataGrid(main._grid.Children[0]);
         }
 
         static DataGrid InitDataGrid(Grid grid)

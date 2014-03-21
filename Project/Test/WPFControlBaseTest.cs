@@ -37,7 +37,7 @@ namespace Test
         public void TestVisibility()
         {
             var win = app.Type(typeof(Application)).Current.MainWindow;
-            var selector = new WPFSelector(app, target);
+            var selector = new WPFSelector(target);
             Assert.AreEqual(Visibility.Visible, selector.Visibility);
             selector.Dynamic().Visibility = Visibility.Hidden;
             Assert.AreEqual(Visibility.Hidden, selector.Visibility);
@@ -47,7 +47,7 @@ namespace Test
         public void TestIsEnabled()
         {
             var win = app.Type(typeof(Application)).Current.MainWindow;
-            var selector = new WPFSelector(app, target);
+            var selector = new WPFSelector(target);
             Assert.IsTrue(selector.IsEnabled);
             selector.Dynamic().IsEnabled = false;
             Assert.IsFalse(selector.IsEnabled);

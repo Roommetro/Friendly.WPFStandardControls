@@ -29,7 +29,7 @@ namespace Test
             dynamic target = app.Type<ListBox>()();
             grid.Children.Add(target);
             target.ItemsSource = Enumerable.Range(0, 100).Select(i => "value " + i).ToArray();
-            selector = new WPFSelector(app, target);
+            selector = new WPFSelector(target);
         }
 
         [TestCleanup]

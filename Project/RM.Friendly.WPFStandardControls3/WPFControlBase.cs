@@ -19,17 +19,15 @@ namespace RM.Friendly.WPFStandardControls
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="app">Application manipulation object.</param>
         /// <param name="appVar">Application variable object for the control.</param>
 #else
         /// <summary>
         /// コンストラクタです。
         /// </summary>
-        /// <param name="app">アプリケーション操作クラス。</param>
         /// <param name="appVar">アプリケーション内変数。</param>
 #endif
-        protected WPFControlBase(WindowsAppFriend app, AppVar appVar)
-            : base(app, appVar) { }
+        protected WPFControlBase(AppVar appVar)
+            : base(appVar) { }
 
 #if ENG
         /// <summary>

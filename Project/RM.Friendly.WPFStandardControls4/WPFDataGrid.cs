@@ -24,17 +24,15 @@ namespace RM.Friendly.WPFStandardControls
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="app">Application manipulation object.</param>
         /// <param name="appVar">Application variable object for the control.</param>
 #else
         /// <summary>
         /// コンストラクタです。
         /// </summary>
-        /// <param name="app">アプリケーション操作クラス。</param>
         /// <param name="appVar">アプリケーション内変数。</param>
 #endif
-        public WPFDataGrid(WindowsAppFriend app, AppVar appVar)
-            : base(app, appVar) { }
+        public WPFDataGrid(AppVar appVar)
+            : base(appVar) { }
 
 #if ENG
         /// <summary>
@@ -247,11 +245,10 @@ namespace RM.Friendly.WPFStandardControls
 
 #if ENG
         /// <summary>
-        /// 
+        /// Get cell text.
         /// </summary>
         /// <param name="itemIndex">Item index of the cell.</param>
         /// <param name="col">Column number of the cell.</param>
-        /// <param name="text">The text to use.</param>
 #else
         /// <summary>
         /// セルの文字列を取得します

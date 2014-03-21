@@ -27,7 +27,7 @@ namespace Test
             dynamic main = _app.Type<Application>().Current.MainWindow;
             dynamic checkBox = _app.Type<CheckBox>()();
             main._grid.Children.Add(checkBox);
-            _toggle = new WPFToggleButton(_app, checkBox);
+            _toggle = new WPFToggleButton(checkBox);
         }
 
         static void AddToggleEvent(ToggleButton toggle)

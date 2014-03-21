@@ -51,7 +51,7 @@ namespace Test
         [TestMethod]
         public void TestEmulateChangeText()
         {
-            WPFTextBox textBox = new WPFTextBox(app, target);
+            WPFTextBox textBox = new WPFTextBox(target);
             textBox.EmulateChangeText(TestValue);
             string textBoxText = textBox.Text;
             Assert.AreEqual(TestValue, textBoxText);
@@ -60,7 +60,7 @@ namespace Test
         [TestMethod]
         public void TestEmulateChangeTextAsync()
         {
-            WPFTextBox textBox = new WPFTextBox(app, target);
+            WPFTextBox textBox = new WPFTextBox(target);
             app[GetType(), "ChangeTextEvent"](textBox.AppVar);
             textBox.EmulateChangeText(TestValue, new Async());
             new NativeMessageBox(mainWindow.WaitForNextModal()).EmulateButtonClick("OK");

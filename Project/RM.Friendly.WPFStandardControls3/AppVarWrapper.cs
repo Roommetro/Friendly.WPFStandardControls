@@ -48,28 +48,22 @@ namespace RM.Friendly.WPFStandardControls
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="app">Application manipulation object.</param>
         /// <param name="appVar">Application variable object for the control.</param>
 #else
         /// <summary>
         /// コンストラクタです。
         /// </summary>
-        /// <param name="app">アプリケーション操作クラス。</param>
         /// <param name="appVar">アプリケーション内変数。</param>
 #endif
-        protected AppVarWrapper(WindowsAppFriend app, AppVar appVar)
+        protected AppVarWrapper(AppVar appVar)
         {
-            if (app == null)
-            {
-                throw new ArgumentNullException("app");
-            }
             if (appVar == null)
             {
                 throw new ArgumentNullException("appVar");
             }
-            _app = app;
+            _app = (WindowsAppFriend)appVar.App;
             _appVar = appVar;
-            Initializer3.Initialize(app);
+            Initializer3.Initialize(_app);
         }
 
 #if ENG
