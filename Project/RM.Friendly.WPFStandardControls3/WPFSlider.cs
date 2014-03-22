@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Controls;
 
 namespace RM.Friendly.WPFStandardControls
 {
@@ -12,16 +13,22 @@ namespace RM.Friendly.WPFStandardControls
         
         public double Value
         {
-            get { return Getter<double>("Text"); }
+            get { return Getter<double>("Value"); }
         }
+
         public void EmulateChangeValue(double value)
         {
             InTarget("EmulateChangeValue", value);
         }
+
         public void EmulateChangeValue(double value, Async async)
         {
             InTarget("EmulateChangeValue", async, value);
         }
 
+        static void EmulateChangeValueInTarget(Slider slider, double value)
+        {
+            slider.Value = value;
+        }
     }
 }

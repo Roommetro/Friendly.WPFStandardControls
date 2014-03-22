@@ -69,6 +69,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WPFControlBase.cs" />
     <Compile Include="WPFSelector.cs" />
+    <Compile Include="WPFSlider.cs" />
     <Compile Include="WPFTextBox.cs" />
     <Compile Include="WPFToggleButton.cs" />
   </ItemGroup>

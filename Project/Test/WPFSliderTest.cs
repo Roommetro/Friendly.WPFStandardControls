@@ -48,47 +48,32 @@ namespace Test
 
         const double TestValue = 10;
         [TestMethod]
-        public void TestEmulateChangeText()
+        public void TestEmulateChangeValue()
         {
             WPFSlider slider = new WPFSlider(target);
             slider.EmulateChangeValue(TestValue);
-
-//            textBox.EmulateChangeText(TestValue);
-//            string textBoxText = textBox.Text;
-            Assert.AreEqual(TestValue, slider);
+            Assert.AreEqual(TestValue, slider.Value);
         }
 
-//        [TestMethod]
-//        public void TestEmulateChangeText()
-//        {
-//            WPFTextBox textBox = new WPFTextBox(target);
-//            textBox.EmulateChangeText(TestValue);
-//            string textBoxText = textBox.Text;
-//            Assert.AreEqual(TestValue, textBoxText);
-//        }
-//
-//        [TestMethod]
-//        public void TestEmulateChangeTextAsync()
-//        {
-//            WPFTextBox textBox = new WPFTextBox(target);
-//            app[GetType(), "ChangeTextEvent"](textBox.AppVar);
-//            textBox.EmulateChangeText(TestValue, new Async());
-//            new NativeMessageBox(mainWindow.WaitForNextModal()).EmulateButtonClick("OK");
-//            string textBoxText = textBox.Text;
-//            Assert.AreEqual(TestValue, textBoxText);
-//        }
-//
-//        static void ChangeTextEvent(TextBox textbox)
-//        {
-//            TextChangedEventHandler handler = null;
-//            handler = (s, e) =>
-//            {
-//                MessageBox.Show("");
-//                textbox.TextChanged -= handler;
-//            };
-//
-//            textbox.TextChanged += handler;
-//        }
+        [TestMethod]
+        public void TestEmulateChangeValueAsync()
+        {
+            WPFSlider slider = new WPFSlider(target);
 
+            app[GetType(), "ChangeValueEvent"](slider.AppVar);
+            Async async = new Async();
+            slider.EmulateChangeValue(TestValue, async);
+            new NativeMessageBox(mainWindow.WaitForNextModal()).EmulateButtonClick("OK");
+            async.WaitForCompletion();
+            Assert.AreEqual(TestValue, slider.Value);
+        }
+
+        static void ChangeValueEvent(Slider slider)
+        {
+            slider.ValueChanged += (s, e) =>
+            {
+                MessageBox.Show("");
+            };
+        }
     }
 }
