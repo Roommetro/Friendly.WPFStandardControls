@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/Roommetro/Friendly.WPFStandardControls/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>You will be able to manipulate WPF Controls. This library is built on Friendly Layer.</description>
-    <tags>Friendly Testing Windows WPF Automation Codeer Codeer.Friendly Room metro</tags>
+    <tags>Friendly Testing Windows WPF Automation Codeer Codeer.Friendly Room metro ‚ß‚Æ‚×‚â</tags>
     <dependencies>
       <dependency id="Codeer.Friendly.Windows" version="2.3.0" />
     </dependencies>
