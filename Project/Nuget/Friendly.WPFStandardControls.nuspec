@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>RM.Friendly.WPFStandardControls</id>
-    <version>0.0.0</version>
+    <version>0.0.1</version>
     <title>Friendly.WPFStandardControls(alpha)</title>
     <authors>AkikoYamanouti JimmyRishe HidekiMaruyama KenjiFukumoto KazukiKakei TatsuyaIshikawa</authors>
     <owners>Room metro</owners>
@@ -12,7 +12,7 @@
     <description>You will be able to manipulate WPF Controls. This library is built on Friendly Layer.</description>
     <tags>Friendly Testing Windows WPF Automation Codeer Codeer.Friendly Room metro</tags>
     <dependencies>
-      <dependency id="Codeer.Friendly.Windows" version="2.2.0" />
+      <dependency id="Codeer.Friendly.Windows" version="2.3.0" />
     </dependencies>
   </metadata>
   <files>
