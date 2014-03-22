@@ -46,16 +46,16 @@ namespace Test
             }
         }
 
-        const string TestValue = "It worked!";
+        const double TestValue = 10;
         [TestMethod]
         public void TestEmulateChangeText()
         {
             WPFSlider slider = new WPFSlider(target);
-            slider.EmulateChangeValue(slider);
+            slider.EmulateChangeValue(TestValue);
 
 //            textBox.EmulateChangeText(TestValue);
 //            string textBoxText = textBox.Text;
-            Assert.AreEqual(TestValue, textBoxText);
+            Assert.AreEqual(TestValue, slider);
         }
 
 //        [TestMethod]
