@@ -44,6 +44,14 @@ namespace RM.Friendly.WPFStandardControls
         {
             get { return Getter<double>("Value"); }
         }
+        public double Maximum
+        {
+            get { return Getter<double>("Maximum"); }
+        }
+        public double Minimum
+        {
+            get { return Getter<double>("Minimum"); }
+        }
 
 #if ENG
         /// <summary>
@@ -59,6 +67,14 @@ namespace RM.Friendly.WPFStandardControls
         public void EmulateChangeValue(double value)
         {
             InTarget("EmulateChangeValue", value);
+        }
+        public void EmulateChangeMaximum(double value)
+        {
+            InTarget("EmulateChangeMaximum", value);
+        }
+        public void EmulateChangeMinimum(double value)
+        {
+            InTarget("EmulateChangeMinimum", value);
         }
 #if ENG
         /// <summary>
@@ -79,10 +95,18 @@ namespace RM.Friendly.WPFStandardControls
         {
             InTarget("EmulateChangeValue", async, value);
         }
-
         static void EmulateChangeValueInTarget(Slider slider, double value)
         {
             slider.Value = value;
+        }
+
+        static void EmulateChangeMaximumInTarget(Slider slider, double value)
+        {
+            slider.Maximum = value;
+        }
+        static void EmulateChangeMinimumInTarget(Slider slider, double value)
+        {
+            slider.Minimum = value;
         }
     }
 }
