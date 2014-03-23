@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Windows;
 using Codeer.Friendly.Windows;
 using Codeer.Friendly.Dynamic;
@@ -15,34 +14,34 @@ namespace Test
     [TestClass]
     public class WPFSliderTest
     {
-        WindowsAppFriend app;
-        WindowControl mainWindow;
+        WindowsAppFriend _app;
+        WindowControl _mainWindow;
 
-        dynamic target;
+        dynamic _target;
 
         [TestInitialize]
         public void SetUp()
         {
-            app = new WindowsAppFriend(Process.Start("Target.exe"));
-            mainWindow = WindowControl.FromZTop(app);
+            _app = new WindowsAppFriend(Process.Start("Target.exe"));
+            _mainWindow = WindowControl.FromZTop(_app);
 
-            dynamic win = app.Type<Application>().Current.MainWindow;
+            dynamic win = _app.Type<Application>().Current.MainWindow;
             dynamic grid = win._grid;
-            target = app.Type<Slider>()();
-            grid.Children.Add(target);
+            _target = _app.Type<Slider>()();
+            grid.Children.Add(_target);
 
-            WindowsAppExpander.LoadAssemblyFromFile(app, GetType().Assembly.Location);
+            WindowsAppExpander.LoadAssemblyFromFile(_app, GetType().Assembly.Location);
         }
 
         [TestCleanup]
         public void TearDown()
         {
-            if (app != null)
+            if (_app != null)
             {
-                app.Dispose();
-                Process process = Process.GetProcessById(app.ProcessId);
+                _app.Dispose();
+                Process process = Process.GetProcessById(_app.ProcessId);
                 process.CloseMainWindow();
-                app = null;
+                _app = null;
             }
         }
 
@@ -50,7 +49,7 @@ namespace Test
         [TestMethod]
         public void TestEmulateChangeValue()
         {
-            WPFSlider slider = new WPFSlider(target);
+            var slider = new WPFSlider(_target);
             slider.EmulateChangeValue(TestValue);
             Assert.AreEqual(TestValue, slider.Value);
         }
@@ -58,22 +57,19 @@ namespace Test
         [TestMethod]
         public void TestEmulateChangeValueAsync()
         {
-            WPFSlider slider = new WPFSlider(target);
+            var slider = new WPFSlider(_target);
 
-            app[GetType(), "ChangeValueEvent"](slider.AppVar);
-            Async async = new Async();
+            _app[GetType(), "ChangeValueEvent"](slider.AppVar);
+            var async = new Async();
             slider.EmulateChangeValue(TestValue, async);
-            new NativeMessageBox(mainWindow.WaitForNextModal()).EmulateButtonClick("OK");
+            new NativeMessageBox(_mainWindow.WaitForNextModal()).EmulateButtonClick("OK");
             async.WaitForCompletion();
             Assert.AreEqual(TestValue, slider.Value);
         }
 
         static void ChangeValueEvent(Slider slider)
         {
-            slider.ValueChanged += (s, e) =>
-            {
-                MessageBox.Show("");
-            };
+            slider.ValueChanged += (s, e) => MessageBox.Show("");
         }
     }
 }
