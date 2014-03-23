@@ -41,7 +41,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateClick()
         {
-            InTarget("EmulateClick");
+            InvokeStatic("EmulateClick");
         }
 
 #if ENG
@@ -59,14 +59,14 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateClick(Async async)
         {
-            InTarget("EmulateClick", async);
+            InvokeStatic("EmulateClick", async);
         }
 
         /// <summary>
         /// クリックです。
         /// </summary>
         /// <param name="button">ボタン。</param>
-        static void EmulateClickInTarget(ButtonBase button)
+        static void EmulateClick(ButtonBase button)
         {
             button.Focus();
             MethodInfo methodInfo = button.GetType().GetMethod("OnClick", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.InvokeMethod);

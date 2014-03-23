@@ -67,7 +67,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeSelectedIndex(int index)
         {
-            InTarget("EmulateChangeSelectedIndex", index);
+            InvokeStatic("EmulateChangeSelectedIndex", index);
         }
 
 #if ENG
@@ -87,10 +87,10 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeSelectedIndex(int index, Async async)
         {
-            InTarget("EmulateChangeSelectedIndex", async, index);
+            InvokeStatic("EmulateChangeSelectedIndex", async, index);
         }
 
-        static void EmulateChangeSelectedIndexInTarget(ListBox selector, int index)
+        static void EmulateChangeSelectedIndex(ListBox selector, int index)
         {
             selector.Focus();
             selector.SelectedIndex = index;

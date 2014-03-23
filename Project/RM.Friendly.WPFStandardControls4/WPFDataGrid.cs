@@ -58,7 +58,7 @@ namespace RM.Friendly.WPFStandardControls
         /// 現在の選択セルのアイテムインデックス。
         /// </summary>
 #endif
-        public int CurrentItemIndex { get { return (int)InTarget("GetCurrentItemIndex").Core; } }
+        public int CurrentItemIndex { get { return (int)InvokeStatic("GetCurrentItemIndex").Core; } }
 
 #if ENG
         /// <summary>
@@ -69,7 +69,7 @@ namespace RM.Friendly.WPFStandardControls
         /// 現在の選択セルの列インデックス。
         /// </summary>
 #endif
-        public int CurrentColIndex { get { return (int)InTarget("GetCurrentColIndex").Core; } }
+        public int CurrentColIndex { get { return (int)InvokeStatic("GetCurrentColIndex").Core; } }
 
 #if ENG
         /// <summary>
@@ -86,7 +86,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeCurrentCell(int itemIndex, int col)
         {
-            InTarget("EmulateChangeCurrentCell", itemIndex, col);
+            InvokeStatic("EmulateChangeCurrentCell", itemIndex, col);
         }
 
 #if ENG
@@ -108,7 +108,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeCurrentCell(int itemIndex, int col, Async async)
         {
-            InTarget("EmulateChangeCurrentCell", async, itemIndex, col);
+            InvokeStatic("EmulateChangeCurrentCell", async, itemIndex, col);
         }
 
 #if ENG
@@ -128,7 +128,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateCellCheck(int itemIndex, int col, bool? isChecked)
         {
-            InTarget("EmulateCellCheck", itemIndex, col, isChecked);
+            InvokeStatic("EmulateCellCheck", itemIndex, col, isChecked);
         }
 
 #if ENG
@@ -152,7 +152,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateCellCheck(int itemIndex, int col, bool isChecked, Async async)
         {
-            InTarget("EmulateCellCheck", async, itemIndex, col, isChecked);
+            InvokeStatic("EmulateCellCheck", async, itemIndex, col, isChecked);
         }
 
 #if ENG
@@ -172,7 +172,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeCellText(int itemIndex, int col, string text)
         {
-            InTarget("EmulateChangeCellText", itemIndex, col, text);
+            InvokeStatic("EmulateChangeCellText", itemIndex, col, text);
         }
 
 #if ENG
@@ -196,7 +196,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeCellText(int itemIndex, int col, string text, Async async)
         {
-            InTarget("EmulateChangeCellText", async, itemIndex, col, text);
+            InvokeStatic("EmulateChangeCellText", async, itemIndex, col, text);
         }
 
 #if ENG
@@ -216,7 +216,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeCellComboSelect(int itemIndex, int col, int index)
         {
-            InTarget("EmulateChangeCellComboSelect", itemIndex, col, index);
+            InvokeStatic("EmulateChangeCellComboSelect", itemIndex, col, index);
         }
 
 #if ENG
@@ -240,7 +240,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeCellComboSelect(int itemIndex, int col, int index, Async async)
         {
-            InTarget("EmulateChangeCellComboSelect", async, itemIndex, col, index);
+            InvokeStatic("EmulateChangeCellComboSelect", async, itemIndex, col, index);
         }
 
 #if ENG
@@ -258,10 +258,10 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public string GetCellText(int itemIndex, int col)
         {
-            return (string)InTarget("GetCellText", itemIndex, col).Core;
+            return (string)InvokeStatic("GetCellText", itemIndex, col).Core;
         }
 
-        static void EmulateChangeCurrentCellInTarget(DataGrid grid, int itemIndex, int col)
+        static void EmulateChangeCurrentCell(DataGrid grid, int itemIndex, int col)
         {
             if (0 < grid.Items.Count && grid.Items[0].GetType().IsValueType)
             {
@@ -271,9 +271,9 @@ namespace RM.Friendly.WPFStandardControls
             grid.CurrentCell = new DataGridCellInfo(grid.Items[itemIndex], grid.Columns[col]);
         }
 
-        static string GetCellTextInTarget(DataGrid grid, int itemIndex, int col)
+        static string GetCellText(DataGrid grid, int itemIndex, int col)
         {
-            EmulateChangeCurrentCellInTarget(grid, itemIndex, col);
+            EmulateChangeCurrentCell(grid, itemIndex, col);
             DataGridRow temp = grid.ItemContainerGenerator.ContainerFromIndex(itemIndex) as DataGridRow;
             dynamic text = grid.Columns[col].GetCellContent(temp);
             try
@@ -286,7 +286,7 @@ namespace RM.Friendly.WPFStandardControls
             }
         }
 
-        static void EmulateChangeCellTextInTarget(DataGrid grid, int itemIndex, int col, string text)
+        static void EmulateChangeCellText(DataGrid grid, int itemIndex, int col, string text)
         {
             bool success = false;
             EventHandler<DataGridCellEditEndingEventArgs> hanlder = (s, e) =>
@@ -299,7 +299,7 @@ namespace RM.Friendly.WPFStandardControls
                 }
             };
             grid.CellEditEnding += hanlder;
-            EmulateChangeCurrentCellInTarget(grid, itemIndex, col);
+            EmulateChangeCurrentCell(grid, itemIndex, col);
             grid.BeginEdit();
             grid.CommitEdit(DataGridEditingUnit.Row, true);
             grid.CellEditEnding -= hanlder;
@@ -309,7 +309,7 @@ namespace RM.Friendly.WPFStandardControls
             }
         }
 
-        static void EmulateCellCheckInTarget(DataGrid grid, int itemIndex, int col, bool? isChecked)
+        static void EmulateCellCheck(DataGrid grid, int itemIndex, int col, bool? isChecked)
         {
             bool success = false;
             EventHandler<DataGridCellEditEndingEventArgs> hanlder = (s, e) =>
@@ -322,7 +322,7 @@ namespace RM.Friendly.WPFStandardControls
                 }
             };
             grid.CellEditEnding += hanlder;
-            EmulateChangeCurrentCellInTarget(grid, itemIndex, col);
+            EmulateChangeCurrentCell(grid, itemIndex, col);
             grid.BeginEdit();
             grid.CommitEdit(DataGridEditingUnit.Row, true);
             grid.CellEditEnding -= hanlder;
@@ -332,7 +332,7 @@ namespace RM.Friendly.WPFStandardControls
             }
         }
 
-        static void EmulateChangeCellComboSelectInTarget(DataGrid grid, int itemIndex, int col, int index)
+        static void EmulateChangeCellComboSelect(DataGrid grid, int itemIndex, int col, int index)
         {
             bool success = false;
             EventHandler<DataGridCellEditEndingEventArgs> hanlder = (s, e) =>
@@ -345,7 +345,7 @@ namespace RM.Friendly.WPFStandardControls
                 }
             };
             grid.CellEditEnding += hanlder;
-            EmulateChangeCurrentCellInTarget(grid, itemIndex, col);
+            EmulateChangeCurrentCell(grid, itemIndex, col);
             grid.BeginEdit();
             grid.CommitEdit(DataGridEditingUnit.Row, true);
             grid.CellEditEnding -= hanlder;
@@ -355,7 +355,7 @@ namespace RM.Friendly.WPFStandardControls
             }
         }
 
-        static int GetCurrentItemIndexInTarget(DataGrid grid)
+        static int GetCurrentItemIndex(DataGrid grid)
         {
             if (0 < grid.Items.Count && grid.Items[0].GetType().IsValueType)
             {
@@ -376,7 +376,7 @@ namespace RM.Friendly.WPFStandardControls
             }
             return -1;
         }
-        static int GetCurrentColIndexInTarget(DataGrid grid)
+        static int GetCurrentColIndex(DataGrid grid)
         {
             grid.Focus();
             var current = grid.CurrentCell;

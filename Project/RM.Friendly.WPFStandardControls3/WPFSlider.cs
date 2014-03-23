@@ -66,15 +66,15 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeValue(double value)
         {
-            InTarget("EmulateChangeValue", value);
+            InvokeStatic("EmulateChangeValue", value);
         }
         public void EmulateChangeMaximum(double value)
         {
-            InTarget("EmulateChangeMaximum", value);
+            InvokeStatic("EmulateChangeMaximum", value);
         }
         public void EmulateChangeMinimum(double value)
         {
-            InTarget("EmulateChangeMinimum", value);
+            InvokeStatic("EmulateChangeMinimum", value);
         }
 #if ENG
         /// <summary>
@@ -93,18 +93,18 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeValue(double value, Async async)
         {
-            InTarget("EmulateChangeValue", async, value);
+            InvokeStatic("EmulateChangeValue", async, value);
         }
-        static void EmulateChangeValueInTarget(Slider slider, double value)
+        static void EmulateChangeValue(Slider slider, double value)
         {
             slider.Value = value;
         }
 
-        static void EmulateChangeMaximumInTarget(Slider slider, double value)
+        static void EmulateChangeMaximum(Slider slider, double value)
         {
             slider.Maximum = value;
         }
-        static void EmulateChangeMinimumInTarget(Slider slider, double value)
+        static void EmulateChangeMinimum(Slider slider, double value)
         {
             slider.Minimum = value;
         }

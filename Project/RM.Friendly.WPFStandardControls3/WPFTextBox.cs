@@ -56,7 +56,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeText(string text)
         {
-            InTarget("EmulateChangeText", text);
+            InvokeStatic("EmulateChangeText", text);
         }
 
 #if ENG
@@ -76,10 +76,10 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeText(string text, Async async)
         {
-            InTarget("EmulateChangeText", async, text);
+            InvokeStatic("EmulateChangeText", async, text);
         }
 
-        private static void EmulateChangeTextInTarget(TextBox textBox, string value)
+        private static void EmulateChangeText(TextBox textBox, string value)
         {
             textBox.Text = value;
         }

@@ -66,7 +66,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateCheck(bool? value)
         {
-            InTarget("EmulateCheck", value);
+            InvokeStatic("EmulateCheck", value);
         }
 
 #if ENG
@@ -86,10 +86,10 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateCheck(bool? value, Async async)
         {
-            InTarget("EmulateCheck", async, value);
+            InvokeStatic("EmulateCheck", async, value);
         }
 
-        private static void EmulateCheckInTarget(ToggleButton toggle, bool? value)
+        private static void EmulateCheck(ToggleButton toggle, bool? value)
         {
             toggle.Focus();
             toggle.IsChecked = value;
