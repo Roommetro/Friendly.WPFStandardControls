@@ -31,6 +31,7 @@ namespace Test
             grid.Children.Add(_target);
 
             WindowsAppExpander.LoadAssemblyFromFile(_app, GetType().Assembly.Location);
+
         }
 
         [TestCleanup]
@@ -53,23 +54,6 @@ namespace Test
             slider.EmulateChangeValue(TestValue);
             Assert.AreEqual(TestValue, slider.Value);
         }
-        [TestMethod]
-        public void 最大値を設定()
-        {
-            var slider = new WPFSlider(_target);
-            slider.EmulateChangeMaximum(100);
-            Assert.AreEqual(100, slider.Maximum);
-        }
-        [TestMethod]
-        public void 最大値の半分になるように()
-        {
-            var slider = new WPFSlider(_target);
-            slider.EmulateChangeMaximum(100);
-            slider.EmulateChangeValue(50);
-            Assert.AreEqual(slider.Maximum / 2, slider.Value);
-        }
-
-
         [TestMethod]
         public void TestEmulateChangeValueAsync()
         {
