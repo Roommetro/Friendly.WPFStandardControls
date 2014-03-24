@@ -78,7 +78,7 @@ namespace RM.Friendly.WPFStandardControls
         {
             InTarget("EmulateChangeValue", async, value);
         }
-        static void EmulateChangeValueInTarget(Slider slider, double value)
+        static void EmulateChangeValue(Slider slider, double value)
         {
             slider.Value = value;
         }
