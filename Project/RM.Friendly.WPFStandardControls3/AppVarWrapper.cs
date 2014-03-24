@@ -168,27 +168,22 @@ namespace RM.Friendly.WPFStandardControls
         /// <summary>
         /// Utility for invoke InTarget method.
         /// </summary>
-        /// <param name="name">Function name.</param>
+        /// <param name="methodName">Function name.</param>
         /// <param name="args">Arguments.</param>
         /// <returns>AppVar.</returns>
-        protected AppVar InTarget(string name, params object[] args)
+        protected AppVar InvokeStatic(string methodName, params object[] args)
         {
-            return this.InvokeStatic(name + "InTarget", null, args);
+            return this.InvokeStatic(methodName, null, args);
         }
 
         /// <summary>
         /// Utility for invoke InTarget method.
         /// </summary>
-        /// <param name="name">Function name.</param>
+        /// <param name="methodName">Function name.</param>
         /// <param name="args">Arguments.</param>
         /// <param name="async">Asynchronous execution.</param>
         /// <returns>AppVar.</returns>
-        protected AppVar InTarget(string name, Async async, params object[] args)
-        {
-            return this.InvokeStatic(name + "InTarget", async, args);
-        }
-
-        private AppVar InvokeStatic(string methodName, Async async, params object[] args)
+        protected AppVar InvokeStatic(string methodName, Async async, params object[] args)
         {
             return this.InvokeStatic(methodName, GetType(), async, args);
         }

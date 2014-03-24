@@ -1,6 +1,7 @@
 ﻿using System.Windows.Controls;
 using Codeer.Friendly;
 using Codeer.Friendly.Windows;
+using System.Windows.Controls.Primitives;
 
 namespace RM.Friendly.WPFStandardControls
 {
@@ -67,7 +68,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeSelectedIndex(int index)
         {
-            InTarget("EmulateChangeSelectedIndex", index);
+            InvokeStatic("EmulateChangeSelectedIndex", index);
         }
 
 #if ENG
@@ -87,10 +88,10 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeSelectedIndex(int index, Async async)
         {
-            InTarget("EmulateChangeSelectedIndex", async, index);
+            InvokeStatic("EmulateChangeSelectedIndex", async, index);
         }
 
-        static void EmulateChangeSelectedIndexInTarget(ListBox selector, int index)
+        static void EmulateChangeSelectedIndex(Selector selector, int index)
         {
             selector.Focus();
             selector.SelectedIndex = index;

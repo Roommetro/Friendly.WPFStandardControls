@@ -57,7 +57,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeValue(double value)
         {
-            InTarget("EmulateChangeValue", value);
+            InvokeStatic("EmulateChangeValue", value);
         }
 #if ENG
         /// <summary>
@@ -76,7 +76,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeValue(double value, Async async)
         {
-            InTarget("EmulateChangeValue", async, value);
+            InvokeStatic("EmulateChangeValue", async, value);
         }
         static void EmulateChangeValue(Slider slider, double value)
         {
