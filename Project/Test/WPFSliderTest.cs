@@ -54,6 +54,7 @@ namespace Test
             slider.EmulateChangeValue(TestValue);
             Assert.AreEqual(TestValue, slider.Value);
         }
+
         [TestMethod]
         public void TestEmulateChangeValueAsync()
         {
@@ -70,6 +71,22 @@ namespace Test
         static void ChangeValueEvent(Slider slider)
         {
             slider.ValueChanged += (s, e) => MessageBox.Show("");
+        }
+
+        [TestMethod]
+        public void TestMinimum()
+        {
+            var slider = new WPFSlider(_target);
+            slider.Dynamic().Minimum = (double)10.5;
+            Assert.AreEqual(10.5, slider.Minimum);
+        }
+
+        [TestMethod]
+        public void TestMaximum()
+        {
+            var slider = new WPFSlider(_target);
+            slider.Dynamic().Maximum = (double)10.5;
+            Assert.AreEqual(10.5, slider.Maximum);
         }
     }
 }

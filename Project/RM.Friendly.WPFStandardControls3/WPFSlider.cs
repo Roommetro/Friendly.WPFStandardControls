@@ -44,6 +44,35 @@ namespace RM.Friendly.WPFStandardControls
         {
             get { return Getter<double>("Value"); }
         }
+
+#if ENG
+        /// <summary>
+        /// Returns the control's minimum value.
+        /// </summary>
+#else
+        /// <summary>
+        /// 最小値を取得します。
+        /// </summary>
+#endif
+        public double Minimum
+        {
+            get { return Getter<double>("Minimum"); }
+        }
+
+#if ENG
+        /// <summary>
+        /// Returns the control's maximum value.
+        /// </summary>
+#else
+        /// <summary>
+        /// 最大値を取得します。
+        /// </summary>
+#endif
+        public double Maximum
+        {
+            get { return Getter<double>("Maximum"); }
+        }
+
 #if ENG
         /// <summary>
         /// Sets the control's value.
@@ -80,6 +109,7 @@ namespace RM.Friendly.WPFStandardControls
         }
         static void EmulateChangeValue(Slider slider, double value)
         {
+            slider.Focus();
             slider.Value = value;
         }
     }
