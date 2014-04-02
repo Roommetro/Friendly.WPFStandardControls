@@ -1,12 +1,28 @@
 ﻿<?xml version="1.0"?>
 <PluginInfo>
-  <AssemblyString></AssemblyString>
+  <AssemblyString>RM.Friendly.WPFStandardControls3, Version=0.0.0.0, Culture=neutral, PublicKeyToken=669ce2f8023f759d</AssemblyString>
   <Company>Room Metro</Company>
   <WebPage>http://metrostyledev.net/</WebPage>
   <NetTypePairs>
     <PluginClassPair>
-      <TargetType></TargetType>
-      <PluginType></PluginType>
+      <TargetType>System.Windows.Controls.Primitives.ButtonBase</TargetType>
+      <PluginType>RM.Friendly.WPFStandardControls.WPFButtonBase</PluginType>
     </PluginClassPair>
+    <PluginClassPair>
+      <TargetType>System.Windows.Controls.Primitives.Selector</TargetType>
+      <PluginType>RM.Friendly.WPFStandardControls.WPFSelector</PluginType>
+    </PluginClassPair>  
+    <PluginClassPair>
+      <TargetType>System.Windows.Controls.Slider</TargetType>
+      <PluginType>RM.Friendly.WPFStandardControls.WPFSlider</PluginType>
+    </PluginClassPair>  
+    <PluginClassPair>
+      <TargetType>System.Windows.Controls.TextBox</TargetType>
+      <PluginType>RM.Friendly.WPFStandardControls.WPFTextBox</PluginType>
+    </PluginClassPair>  
+    <PluginClassPair>
+      <TargetType>System.Windows.Controls.Primitives.ToggleButton</TargetType>
+      <PluginType>RM.Friendly.WPFStandardControls.WPFToggleButton</PluginType>
+    </PluginClassPair>  
   </NetTypePairs>
 </PluginInfo>

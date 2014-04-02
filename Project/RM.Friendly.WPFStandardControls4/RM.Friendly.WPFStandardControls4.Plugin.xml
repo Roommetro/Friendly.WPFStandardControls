@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0"?>
 <PluginInfo>
-  <AssemblyString></AssemblyString>
+  <AssemblyString>RM.Friendly.WPFStandardControls4, Version=0.0.0.0, Culture=neutral, PublicKeyToken=9672cdbacdb445c8</AssemblyString>
   <Company>Room Metro</Company>
   <WebPage>http://metrostyledev.net/</WebPage>
   <NetTypePairs>
     <PluginClassPair>
-      <TargetType></TargetType>
-      <PluginType></PluginType>
+      <TargetType>System.Windows.Controls.DataGrid</TargetType>
+      <PluginType>RM.Friendly.WPFStandardControls.WPFDataGrid</PluginType>
     </PluginClassPair>
   </NetTypePairs>
 </PluginInfo>
