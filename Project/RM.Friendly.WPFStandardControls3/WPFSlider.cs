@@ -77,7 +77,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <summary>
         /// Sets the control's value.
         /// </summary>
-        /// <param name="text">value to use.</param>
+        /// <param name="value">value to use.</param>
 #else
         /// <summary>
         /// 値を変更します。

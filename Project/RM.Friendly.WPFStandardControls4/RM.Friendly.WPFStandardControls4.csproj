@@ -57,7 +57,7 @@
       <HintPath>..\packages\Codeer.Friendly.2.2.0\lib\net40\Codeer.Friendly.Dynamic.dll</HintPath>
     </Reference>
     <Reference Include="Codeer.Friendly.Windows">
-      <HintPath>..\packages\Codeer.Friendly.Windows.2.3.0\lib\net20\Codeer.Friendly.Windows.dll</HintPath>
+      <HintPath>..\packages\Codeer.Friendly.Windows.2.4.0\lib\net20\Codeer.Friendly.Windows.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
