@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0"?>
 <PluginInfo>
-  <AssemblyString>RM.Friendly.WPFStandardControls3, Version=0.0.0.0, Culture=neutral, PublicKeyToken=669ce2f8023f759d</AssemblyString>
+  <AssemblyString>RM.Friendly.WPFStandardControls.3.0, Version=0.0.2.0, Culture=neutral, PublicKeyToken=1b8f25b96765ebb0</AssemblyString>
   <Company>Room Metro</Company>
   <WebPage>http://metrostyledev.net/</WebPage>
   <NetTypePairs>
