@@ -6,7 +6,7 @@
   <NetTypePairs>
     <PluginClassPair>
       <TargetType>System.Windows.Controls.Primitives.ButtonBase</TargetType>
-      <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFDataGridGenerator</GeneratorType>
+      <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFButtonBaseGenerator</GeneratorType>
     </PluginClassPair>
   </NetTypePairs>
 </PluginInfo>
