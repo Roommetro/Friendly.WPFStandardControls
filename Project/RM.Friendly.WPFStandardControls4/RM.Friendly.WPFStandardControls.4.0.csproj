@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RM.Friendly.WPFStandardControls</RootNamespace>
-    <AssemblyName>RM.Friendly.WPFStandardControls4</AssemblyName>
+    <AssemblyName>RM.Friendly.WPFStandardControls.4.0</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -31,13 +31,13 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\RM.Friendly.WPFStandardControls4.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\RM.Friendly.WPFStandardControls.4.0.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>RM.Friendly.WPFStandardControls4.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>RM.Friendly.WPFStandardControls.4.0.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-English|AnyCPU'">
     <OutputPath>bin\Release-English\</OutputPath>
@@ -47,7 +47,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>bin\Release-English\RM.Friendly.WPFStandardControls4.XML</DocumentationFile>
+    <DocumentationFile>bin\Release-English\RM.Friendly.WPFStandardControls.4.0.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Codeer.Friendly">
@@ -90,12 +90,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="RM.Friendly.WPFStandardControls4.snk" />
+    <None Include="RM.Friendly.WPFStandardControls.4.0.snk" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RM.Friendly.WPFStandardControls3\RM.Friendly.WPFStandardControls3.csproj">
+    <ProjectReference Include="..\RM.Friendly.WPFStandardControls3\RM.Friendly.WPFStandardControls.3.0.csproj">
       <Project>{80d0bb7b-61d0-4c48-b877-6e35f7d90c74}</Project>
-      <Name>RM.Friendly.WPFStandardControls3</Name>
+      <Name>RM.Friendly.WPFStandardControls.3.0</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -109,7 +109,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="RM.Friendly.WPFStandardControls4.Plugin.xml" />
+    <Content Include="RM.Friendly.WPFStandardControls.4.0.Plugin.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RM.Friendly.WPFStandardControls.Generator</RootNamespace>
-    <AssemblyName>RM.Friendly.WPFStandardControls3.Generator</AssemblyName>
+    <AssemblyName>RM.Friendly.WPFStandardControls.3.0.Generator</AssemblyName>
     <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -29,13 +29,13 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\RM.Friendly.WPFStandardControls3.Generator.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\RM.Friendly.WPFStandardControls.3.0.Generator.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>RM.Friendly.WPFStandardControls3.Generator.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>RM.Friendly.WPFStandardControls.3.0.Generator.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-English|AnyCPU'">
     <OutputPath>bin\Release-English\</OutputPath>
@@ -45,7 +45,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>bin\Release-English\RM.Friendly.WPFStandardControls3.Generator.XML</DocumentationFile>
+    <DocumentationFile>bin\Release-English\RM.Friendly.WPFStandardControls.3.0.Generator.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -56,10 +56,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="RM.Friendly.WPFStandardControls3.Generator.snk" />
+    <Content Include="RM.Friendly.WPFStandardControls.3.0.Generator.Plugin.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="RM.Friendly.WPFStandardControls3.Generator.Plugin.xml" />
+    <None Include="RM.Friendly.WPFStandardControls.3.0.Generator.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
