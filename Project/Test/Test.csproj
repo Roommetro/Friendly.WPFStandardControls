@@ -84,13 +84,20 @@
     <Compile Include="ListBox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestUtility.cs" />
+    <Compile Include="WPFCalenderTest.cs" />
     <Compile Include="WPFDataGridTest.cs.cs" />
     <Compile Include="WPFButtonBaseTest.cs" />
     <Compile Include="WPFControlBaseTest.cs" />
+    <Compile Include="WPFDateTimePickerTest.cs" />
+    <Compile Include="WPFListViewTest.cs" />
+    <Compile Include="WPFMenuTest.cs" />
+    <Compile Include="WPFProgressBarTest.cs" />
+    <Compile Include="WPFRichTextBoxTest.cs" />
     <Compile Include="WPFSelectorTest.cs" />
     <Compile Include="WPFSliderTest.cs" />
     <Compile Include="WPFTextBoxTest.cs" />
     <Compile Include="WPFToggleButtonTest.cs" />
+    <Compile Include="WPFTreeViewTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RM.Friendly.WPFStandardControls.3.0.Generator\RM.Friendly.WPFStandardControls.3.0.Generator.csproj">
