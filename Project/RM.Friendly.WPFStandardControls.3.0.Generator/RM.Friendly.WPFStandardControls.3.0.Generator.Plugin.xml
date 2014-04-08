@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0"?>
 <PluginInfo>
-  <AssemblyString></AssemblyString>
+  <AssemblyString>RM.Friendly.WPFStandardControls.3.0.Generator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=41822cddf2e8cce7</AssemblyString>
   <Company>Room Metro</Company>
   <WebPage>http://metrostyledev.net/</WebPage>
   <NetTypePairs>
     <PluginClassPair>
-      <TargetType></TargetType>
-      <GeneratorType></GeneratorType>
+      <TargetType>System.Windows.Controls.Primitives.ButtonBase</TargetType>
+      <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFDataGridGenerator</GeneratorType>
     </PluginClassPair>
   </NetTypePairs>
 </PluginInfo>
