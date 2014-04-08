@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2013 for Windows Desktop
+# Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{34394EA7-BF96-4BD1-8664-5008E18C79CB}"
@@ -10,10 +10,16 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RM.Friendly.WPFStandardControls.3.0", "RM.Friendly.WPFStandardControls.3.0\RM.Friendly.WPFStandardControls.3.0.csproj", "{80D0BB7B-61D0-4C48-B877-6E35F7D90C74}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RM.Friendly.WPFStandardControls.3.0.Generator", "RM.Friendly.WPFStandardControls.3.0.Generator\RM.Friendly.WPFStandardControls.3.0.Generator.csproj", "{FC6ADE89-7704-4D3B-919D-615ABE2BAAC6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{80D0BB7B-61D0-4C48-B877-6E35F7D90C74} = {80D0BB7B-61D0-4C48-B877-6E35F7D90C74}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RM.Friendly.WPFStandardControls.4.0", "RM.Friendly.WPFStandardControls.4.0\RM.Friendly.WPFStandardControls.4.0.csproj", "{287AF20A-EDB1-4DE0-BF0F-8D37FD92DE73}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RM.Friendly.WPFStandardControls.4.0.Generator", "RM.Friendly.WPFStandardControls.4.0.Generator\RM.Friendly.WPFStandardControls.4.0.Generator.csproj", "{355DB38C-A2BC-491F-89BF-7996BD72ACCC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{80D0BB7B-61D0-4C48-B877-6E35F7D90C74} = {80D0BB7B-61D0-4C48-B877-6E35F7D90C74}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
