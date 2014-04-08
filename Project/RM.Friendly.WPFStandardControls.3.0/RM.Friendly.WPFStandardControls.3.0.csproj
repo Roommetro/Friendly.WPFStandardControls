@@ -67,11 +67,18 @@
     <Compile Include="Inside\Initializer.cs" />
     <Compile Include="WPFButtonBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WPFCalender.cs" />
     <Compile Include="WPFControlBase.cs" />
+    <Compile Include="WPFDateTimePicker.cs" />
+    <Compile Include="WPFListView.cs" />
+    <Compile Include="WPFMenu.cs" />
+    <Compile Include="WPFProgressBar.cs" />
+    <Compile Include="WPFRichTextBox.cs" />
     <Compile Include="WPFSelector.cs" />
     <Compile Include="WPFSlider.cs" />
     <Compile Include="WPFTextBox.cs" />
     <Compile Include="WPFToggleButton.cs" />
+    <Compile Include="WPFTreeView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
