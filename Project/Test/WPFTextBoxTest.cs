@@ -13,45 +13,14 @@ using Codeer.Friendly.Windows.Grasp;
 namespace Test
 {
     [TestClass]
-    public class WPFTextBoxTest
+    public class WPFTextBoxTest : WPFTestBase<TextBox>
     {
-        WindowsAppFriend app;
-        WindowControl mainWindow;
-
-        dynamic target;
-
-        [TestInitialize]
-        public void SetUp()
-        {
-            app = new WindowsAppFriend(Process.Start("Target.exe"));
-            mainWindow = WindowControl.FromZTop(app);
-
-            dynamic win = app.Type<Application>().Current.MainWindow;
-            dynamic grid = win._grid;
-            target = app.Type<TextBox>()();
-            grid.Children.Add(target);
-
-            WindowsAppExpander.LoadAssemblyFromFile(app, GetType().Assembly.Location);
-        }
-
-        [TestCleanup]
-        public void TearDown()
-        {
-            if (app != null)
-            {
-                app.Dispose();
-                Process process = Process.GetProcessById(app.ProcessId);
-                process.CloseMainWindow();
-                app = null;
-            }
-        }
-
         const string TestValue = "It worked!";
 
         [TestMethod]
         public void TestEmulateChangeText()
         {
-            WPFTextBox textBox = new WPFTextBox(target);
+            WPFTextBox textBox = new WPFTextBox(Target);
             textBox.EmulateChangeText(TestValue);
             string textBoxText = textBox.Text;
             Assert.AreEqual(TestValue, textBoxText);
@@ -60,15 +29,17 @@ namespace Test
         [TestMethod]
         public void TestEmulateChangeTextAsync()
         {
-            WPFTextBox textBox = new WPFTextBox(target);
-            app[GetType(), "ChangeTextEvent"](textBox.AppVar);
+            WPFTextBox textBox = new WPFTextBox(Target);
+            CallRemoteMethod("AttachChangeTextEvent", textBox);
             textBox.EmulateChangeText(TestValue, new Async());
-            new NativeMessageBox(mainWindow.WaitForNextModal()).EmulateButtonClick("OK");
+
+            ClickNextMessageBox();
+
             string textBoxText = textBox.Text;
             Assert.AreEqual(TestValue, textBoxText);
         }
 
-        static void ChangeTextEvent(TextBox textbox)
+        static void AttachChangeTextEvent(TextBox textbox)
         {
             TextChangedEventHandler handler = null;
             handler = (s, e) =>
