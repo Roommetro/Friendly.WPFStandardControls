@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Codeer.TestAssistant.GeneratorToolKit;
 
-namespace Ong.Friendly.FormsStandardControls.Generator
+namespace RM.Friendly.WPFStandardControls.Generator
 {
     /// <summary>
     /// 自動生成ユーティリティー

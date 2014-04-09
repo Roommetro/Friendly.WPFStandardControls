@@ -6,7 +6,6 @@ using System.IO;
 using System.Text;
 using System.Windows.Controls;
 using Codeer.TestAssistant.GeneratorToolKit;
-using Ong.Friendly.FormsStandardControls.Generator;
 
 namespace RM.Friendly.WPFStandardControls.Generator
 {

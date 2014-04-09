@@ -85,6 +85,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="WPFCalendar.cs" />
     <Compile Include="WPFControlBase4.cs" />
     <Compile Include="WPFDataGrid.cs" />
   </ItemGroup>

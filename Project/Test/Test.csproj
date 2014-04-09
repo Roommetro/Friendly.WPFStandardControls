@@ -84,7 +84,7 @@
     <Compile Include="ListBox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestUtility.cs" />
-    <Compile Include="WPFCalenderTest.cs" />
+    <Compile Include="WPFCalendarTest.cs" />
     <Compile Include="WPFDataGridTest.cs.cs" />
     <Compile Include="WPFButtonBaseTest.cs" />
     <Compile Include="WPFControlBaseTest.cs" />
