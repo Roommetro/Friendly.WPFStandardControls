@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Controls.Primitives;
 using Codeer.TestAssistant.GeneratorToolKit;
 using System.Windows.Controls;
 
@@ -10,14 +11,14 @@ namespace RM.Friendly.WPFStandardControls.Generator
     /// </summary>
     public class WPFButtonBaseGenerator : GeneratorBase
     {
-        Button _control;
+        ButtonBase _control;
 
         /// <summary>
         /// アタッチ。
         /// </summary>
         protected override void Attach()
         {
-            _control = (Button)ControlObject;
+            _control = (ButtonBase)ControlObject;
             _control.Click += ButtonClick;
         }
 
