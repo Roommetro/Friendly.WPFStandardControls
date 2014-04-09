@@ -8,5 +8,49 @@
       <TargetType>System.Windows.Controls.Primitives.ButtonBase</TargetType>
       <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFButtonBaseGenerator</GeneratorType>
     </PluginClassPair>
-  </NetTypePairs>
+    <PluginClassPair>
+      <TargetType>System.Windows.Controls.Primitives.Selector</TargetType>
+      <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFSelectorGenerator</GeneratorType>
+    </PluginClassPair>
+    <PluginClassPair>
+      <TargetType>System.Windows.Controls.Slider</TargetType>
+      <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFSliderGenerator</GeneratorType>
+    </PluginClassPair>
+    <PluginClassPair>
+      <TargetType>System.Windows.Controls.TextBox</TargetType>
+      <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFTextBoxGenerator</GeneratorType>
+    </PluginClassPair>
+    <PluginClassPair>
+      <TargetType>System.Windows.Controls.Primitives.ToggleButton</TargetType>
+      <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFToggleButtonGenerator</GeneratorType>
+    </PluginClassPair>
+    <PluginClassPair>
+      <TargetType>System.Windows.Controls.Menu</TargetType>
+      <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFMenuGenerator</GeneratorType>
+    </PluginClassPair>
+    <PluginClassPair>
+      <TargetType>System.Windows.Controls.ListView</TargetType>
+      <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFListViewGenerator</GeneratorType>
+    </PluginClassPair>
+    <PluginClassPair>
+      <TargetType>System.Windows.Controls.TreeView</TargetType>
+      <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFTreeViewGenerator</GeneratorType>
+    </PluginClassPair>
+    <PluginClassPair>
+      <TargetType>System.Windows.Controls.Calender</TargetType>
+      <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFCalenderGenerator</GeneratorType>
+    </PluginClassPair>
+    <PluginClassPair>
+      <TargetType>System.Windows.Controls.DateTimePicker</TargetType>
+      <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFDateTimePickerGenerator</GeneratorType>
+    </PluginClassPair>
+    <PluginClassPair>
+      <TargetType>System.Windows.Controls.ProgressBar</TargetType>
+      <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFProgressBarGenerator</GeneratorType>
+    </PluginClassPair>
+    <PluginClassPair>
+      <TargetType>System.Windows.Controls.RichTextBox</TargetType>
+      <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFRichTextBoxGenerator</GeneratorType>
+    </PluginClassPair>
+  </NetTypePairs>  
 </PluginInfo>

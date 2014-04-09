@@ -23,6 +23,34 @@
     <PluginClassPair>
       <TargetType>System.Windows.Controls.Primitives.ToggleButton</TargetType>
       <PluginType>RM.Friendly.WPFStandardControls.WPFToggleButton</PluginType>
-    </PluginClassPair>  
+    </PluginClassPair>
+    <PluginClassPair>
+      <TargetType>System.Windows.Controls.Menu</TargetType>
+      <PluginType>RM.Friendly.WPFStandardControls.WPFMenu</PluginType>
+    </PluginClassPair>
+    <PluginClassPair>
+      <TargetType>System.Windows.Controls.ListView</TargetType>
+      <PluginType>RM.Friendly.WPFStandardControls.WPFListView</PluginType>
+    </PluginClassPair>
+    <PluginClassPair>
+      <TargetType>System.Windows.Controls.TreeView</TargetType>
+      <PluginType>RM.Friendly.WPFStandardControls.WPFTreeView</PluginType>
+    </PluginClassPair>
+    <PluginClassPair>
+      <TargetType>System.Windows.Controls.Calender</TargetType>
+      <PluginType>RM.Friendly.WPFStandardControls.WPFCalender</PluginType>
+    </PluginClassPair>
+    <PluginClassPair>
+      <TargetType>System.Windows.Controls.DateTimePicker</TargetType>
+      <PluginType>RM.Friendly.WPFStandardControls.WPFDateTimePicker</PluginType>
+    </PluginClassPair>
+    <PluginClassPair>
+      <TargetType>System.Windows.Controls.ProgressBar</TargetType>
+      <PluginType>RM.Friendly.WPFStandardControls.WPFProgressBar</PluginType>
+    </PluginClassPair>
+    <PluginClassPair>
+      <TargetType>System.Windows.Controls.RichTextBox</TargetType>
+      <PluginType>RM.Friendly.WPFStandardControls.WPFRichTextBox</PluginType>
+    </PluginClassPair>
   </NetTypePairs>
 </PluginInfo>
