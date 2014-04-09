@@ -67,7 +67,6 @@
     <Compile Include="Inside\Initializer.cs" />
     <Compile Include="WPFButtonBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WPFCalendar.cs" />
     <Compile Include="WPFControlBase.cs" />
     <Compile Include="WPFDateTimePicker.cs" />
     <Compile Include="WPFListView.cs" />
