@@ -18,12 +18,12 @@ namespace RM.Friendly.WPFStandardControls
 
         public void EmulateChangeDate(DateTime? date)
         {
-            InvokeStatic("EmulateChangeDate", date);
+            InvokeStatic(EmulateChangeDate, date);
         }
 
         public void EmulateChangeDate(DateTime? date, Async async)
         {
-            InvokeStatic("EmulateChangeDate", async, date);
+            InvokeStatic(EmulateChangeDate, async, date);
         }
 
         private static void EmulateChangeDate(Calendar calendar, DateTime? date)
