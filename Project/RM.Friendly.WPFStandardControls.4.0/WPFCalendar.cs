@@ -21,6 +21,11 @@ namespace RM.Friendly.WPFStandardControls
             InvokeStatic("EmulateChangeDate", date);
         }
 
+        public void EmulateChangeDate(DateTime? date, Async async)
+        {
+            InvokeStatic("EmulateChangeDate", async, date);
+        }
+
         private static void EmulateChangeDate(Calendar calendar, DateTime? date)
         {
             calendar.SelectedDate = date;
