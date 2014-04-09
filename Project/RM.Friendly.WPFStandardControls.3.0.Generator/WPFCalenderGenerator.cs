@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RM.Friendly.WPFStandardControls.Generator
 {
-    class WPFCalenderGenerator
+    class WPFCalendarGenerator
     {
     }
 }
