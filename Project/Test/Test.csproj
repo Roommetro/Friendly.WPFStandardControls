@@ -88,6 +88,7 @@
     <Compile Include="WPFDataGridTest.cs.cs" />
     <Compile Include="WPFButtonBaseTest.cs" />
     <Compile Include="WPFControlBaseTest.cs" />
+    <Compile Include="WPFDatePickerTest.cs" />
     <Compile Include="WPFDateTimePickerTest.cs" />
     <Compile Include="WPFListViewTest.cs" />
     <Compile Include="WPFMenuTest.cs" />
