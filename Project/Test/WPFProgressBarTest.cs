@@ -45,33 +45,6 @@ namespace Test
             }
         }
 
-        const double TestValue = 10;
-
-        [TestMethod]
-        public void TestEmulateChangeValue()
-        {
-            var progressBar = new WPFProgressBar(_target);
-            progressBar.EmulateChangeValue(TestValue);
-            Assert.AreEqual(TestValue, progressBar.Value);
-        }
-
-        [TestMethod]
-        public void TestEmulateChangeValueAsync()
-        {
-            var progressBar = new WPFProgressBar(_target);
-            _app[GetType(), "ChangeValueEvent"](progressBar.AppVar);
-            var async = new Async();
-            progressBar.EmulateChangeValue(TestValue, async);
-            new NativeMessageBox(_mainWindow.WaitForNextModal()).EmulateButtonClick("OK");
-            async.WaitForCompletion();
-            Assert.AreEqual(TestValue, progressBar.Value);
-        }
-
-        static void ChangeValueEvent(ProgressBar progressBar)
-        {
-            progressBar.ValueChanged += (s, e) => MessageBox.Show("");
-        }
-
         [TestMethod]
         public void TestMinimum()
         {

@@ -38,31 +38,5 @@ namespace RM.Friendly.WPFStandardControls
         {
             get { return Getter<double>("Maximum"); }
         }
-
-        /// <summary>
-        /// 値を変更します。
-        /// </summary>
-        /// <param name="value">値</param>
-        public void EmulateChangeValue(double value)
-        {
-            InvokeStatic("EmulateChangeValue", value);
-        }
-
-        /// <summary>
-        /// 値を変更します。
-        /// 非同期で実行します。
-        /// </summary>
-        /// <param name="value">値</param>
-        /// <param name="async">非同期実行オブジェクト</param>
-        public void EmulateChangeValue(double value, Async async)
-        {
-            InvokeStatic("EmulateChangeValue", async, value);
-        }
-        static void EmulateChangeValue(ProgressBar progressBar, double value)
-        {
-            progressBar.Focus();
-            progressBar.Value = value;
-        }
-
     }
 }
