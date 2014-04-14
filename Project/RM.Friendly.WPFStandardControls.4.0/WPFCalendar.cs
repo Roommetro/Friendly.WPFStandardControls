@@ -6,7 +6,7 @@ using Codeer.Friendly;
 
 namespace RM.Friendly.WPFStandardControls
 {
-    public class WPFCalendar : WPFControlBase4
+    public class WPFCalendar : WPFControlBase4<Calendar>
     {
         public WPFCalendar(AppVar appVar)
             : base(appVar) { }
@@ -18,12 +18,12 @@ namespace RM.Friendly.WPFStandardControls
 
         public void EmulateChangeDate(DateTime? date)
         {
-            InvokeStatic(EmulateChangeDate, date);
+            StaticAction(EmulateChangeDate, date);
         }
 
         public void EmulateChangeDate(DateTime? date, Async async)
         {
-            InvokeStatic(EmulateChangeDate, async, date);
+            StaticAction(EmulateChangeDate, async, date);
         }
 
         private static void EmulateChangeDate(Calendar calendar, DateTime? date)

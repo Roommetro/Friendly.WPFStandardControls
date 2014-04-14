@@ -7,7 +7,7 @@ using Codeer.Friendly.Dynamic;
 
 namespace RM.Friendly.WPFStandardControls
 {
-    public class WPFDatePicker : WPFControlBase4
+    public class WPFDatePicker : WPFControlBase4<DatePicker>
     {
         public WPFDatePicker(AppVar appVar)
             : base(appVar) { }

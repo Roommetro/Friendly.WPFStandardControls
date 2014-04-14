@@ -14,7 +14,7 @@ namespace RM.Friendly.WPFStandardControls
     /// .Net4.0のWPFのコントロールを操作するためのクラスの基本クラスです。
     /// </summary>
 #endif
-    public class WPFControlBase4 : WPFControlBase
+    public class WPFControlBase4<CoreType> : WPFControlBase
     {
 #if ENG
         /// <summary>
@@ -33,34 +33,37 @@ namespace RM.Friendly.WPFStandardControls
             Initializer4.Initialize((WindowsAppFriend)appVar.App);
         }
 
-        protected AppVar InvokeStatic(Action a)
+        //AppVarWrapperに移動予定。
+        //partialにして、別ファイルにいくつか定義するかなー。
+        //Func(戻り値あり)バージョンも定義するか・・・。
+        protected void StaticAction(Action<CoreType> a)
         {
-            return InvokeStatic(a.Method.Name);
+            InvokeStatic(a.Method.Name);
         }
 
-        protected AppVar InvokeStatic<T>(Action<T> a, T t)
+        protected void StaticAction<T>(Action<CoreType, T> a, T t)
         {
-            return InvokeStatic(a.Method.Name, t);
+            InvokeStatic(a.Method.Name, t);
         }
 
-        protected AppVar InvokeStatic<T1, T2>(Action<T1, T2> a, T1 t1, T2 t2)
+        protected void StaticAction<T1, T2>(Action<CoreType, T1, T2> a, T1 t1, T2 t2)
         {
-            return InvokeStatic(a.Method.Name, t1, t2);
+            InvokeStatic(a.Method.Name, t1, t2);
         }
 
-        protected AppVar InvokeStatic(Action a, Async async)
+        protected void StaticAction(Action<CoreType> a, Async async)
         {
-            return InvokeStatic(a.Method.Name, async);
+            InvokeStatic(a.Method.Name, async);
         }
 
-        protected AppVar InvokeStatic<T>(Action<T> a, Async async, T t)
+        protected void StaticAction<T>(Action<CoreType, T> a, Async async, T t)
         {
-            return InvokeStatic(a.Method.Name, async, t);
+            InvokeStatic(a.Method.Name, async, t);
         }
 
-        protected AppVar InvokeStatic<T1, T2>(Action<T1, T2> a, Async async, T1 t1, T2 t2)
+        protected void StaticAction<T1, T2>(Action<CoreType, T1, T2> a, Async async, T1 t1, T2 t2)
         {
-            return InvokeStatic(a.Method.Name, async, t1, t2);
+            InvokeStatic(a.Method.Name, async, t1, t2);
         }
     }
 }

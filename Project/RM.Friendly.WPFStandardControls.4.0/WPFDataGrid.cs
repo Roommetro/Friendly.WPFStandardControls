@@ -18,7 +18,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.DataGridのウィンドウに対応した操作を提供します。
     /// </summary>
 #endif
-    public class WPFDataGrid : WPFControlBase4
+    public class WPFDataGrid : WPFControlBase4<DataGrid>
     {
 #if ENG
         /// <summary>
