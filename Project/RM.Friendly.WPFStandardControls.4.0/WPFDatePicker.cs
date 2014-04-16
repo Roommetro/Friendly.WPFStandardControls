@@ -18,11 +18,11 @@ namespace RM.Friendly.WPFStandardControls
         }
         public void EmulateChangeSelectedDate(DateTime datetime)
         {
-            InvokeStatic("EmulateChangeSelectedDate", datetime);
+            InvokeStatic(EmulateChangeSelectedDate, datetime);
         }
         public void EmulateChangeSelectedDate(DateTime datetime, Async async)
         {
-            InvokeStatic("EmulateChangeSelectedDate", async, datetime);
+            InvokeStatic(EmulateChangeSelectedDate, async, datetime);
         }
         static void EmulateChangeSelectedDate(DatePicker datepicker, DateTime datetime)
         {

@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppVarWrapper.cs" />
+    <Compile Include="AppVarWrapper.Partial.cs" />
     <Compile Include="Inside\Initializer.cs" />
     <Compile Include="WPFButtonBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

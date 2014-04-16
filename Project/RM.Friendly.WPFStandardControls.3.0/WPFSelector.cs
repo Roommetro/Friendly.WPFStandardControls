@@ -14,7 +14,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.Primitives.Selectorのウィンドウに対応した操作を提供します。
     /// </summary>
 #endif
-    public partial class WPFSelector : WPFControlBase
+    public partial class WPFSelector : WPFControlBase<Selector>
     {
 #if ENG
         /// <summary>
@@ -68,7 +68,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeSelectedIndex(int index)
         {
-            InvokeStatic("EmulateChangeSelectedIndex", index);
+            InvokeStatic(EmulateChangeSelectedIndex, index);
         }
 
 #if ENG
@@ -88,7 +88,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeSelectedIndex(int index, Async async)
         {
-            InvokeStatic("EmulateChangeSelectedIndex", async, index);
+            InvokeStatic(EmulateChangeSelectedIndex, async, index);
         }
 
         static void EmulateChangeSelectedIndex(Selector selector, int index)

@@ -13,7 +13,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.Primitives.ToggleButtonのウィンドウに対応した操作を提供します。
     /// </summary>
 #endif
-    public class WPFToggleButton : WPFControlBase
+    public class WPFToggleButton : WPFControlBase<ToggleButton>
     {
 #if ENG
         /// <summary>
@@ -66,7 +66,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateCheck(bool? value)
         {
-            InvokeStatic("EmulateCheck", value);
+            InvokeStatic(EmulateCheck, value);
         }
 
 #if ENG
@@ -86,7 +86,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateCheck(bool? value, Async async)
         {
-            InvokeStatic("EmulateCheck", async, value);
+            InvokeStatic(EmulateCheck, async, value);
         }
 
         private static void EmulateCheck(ToggleButton toggle, bool? value)

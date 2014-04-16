@@ -53,7 +53,7 @@ namespace Test
             }
         }
 
-        protected void CallRemoteMethod(string methodName, WPFControlBase control)
+        protected void CallRemoteMethod(string methodName, WPFControlBase<T> control)
         {
             _app[GetType(), methodName](control.AppVar);
         }

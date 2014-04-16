@@ -13,7 +13,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.TextBoxのウィンドウに対応した操作を提供します。
     /// </summary>
 #endif
-    public class WPFTextBox : WPFControlBase
+    public class WPFTextBox : WPFControlBase<TextBox>
     {
 #if ENG
         /// <summary>
@@ -56,7 +56,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeText(string text)
         {
-            InvokeStatic("EmulateChangeText", text);
+            InvokeStatic(EmulateChangeText, text);
         }
 
 #if ENG
@@ -76,7 +76,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeText(string text, Async async)
         {
-            InvokeStatic("EmulateChangeText", async, text);
+            InvokeStatic(EmulateChangeText, async, text);
         }
 
         private static void EmulateChangeText(TextBox textBox, string value)

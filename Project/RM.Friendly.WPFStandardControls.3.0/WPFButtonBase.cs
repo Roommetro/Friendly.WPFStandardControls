@@ -14,7 +14,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.Primitives.ButtonBaseのウィンドウに対応した操作を提供します。
     /// </summary>
 #endif
-    public class WPFButtonBase : WPFControlBase
+    public class WPFButtonBase : WPFControlBase<ButtonBase>
     {
 #if ENG
         /// <summary>
@@ -41,7 +41,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateClick()
         {
-            InvokeStatic("EmulateClick");
+            InvokeStatic(EmulateClick);
         }
 
 #if ENG
@@ -59,7 +59,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateClick(Async async)
         {
-            InvokeStatic("EmulateClick", async);
+            InvokeStatic(EmulateClick, async);
         }
 
         /// <summary>

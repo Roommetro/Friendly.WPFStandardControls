@@ -17,7 +17,7 @@ namespace RM.Friendly.WPFStandardControls
     /// AppVarラップアイテムの基本クラスです。
     /// </summary>
 #endif
-    public class AppVarWrapper : IAppVarOwner
+    public partial class AppVarWrapper<CoreType> : IAppVarOwner
     {
         WindowsAppFriend _app;
         AppVar _appVar;
@@ -154,36 +154,17 @@ namespace RM.Friendly.WPFStandardControls
             get { return _appVar[operation, operationTypeInfo, async]; }
         }
 
-        /// <summary>
-        /// Utility for getter.
-        /// </summary>
-        /// <typeparam name="T">Type.</typeparam>
-        /// <param name="name">Property name.</param>
-        /// <returns>Value.</returns>
         protected T Getter<T>(string name)
         {
             return (T)this.AppVar[name]().Core;
         }
 
-        /// <summary>
-        /// Utility for invoke InTarget method.
-        /// </summary>
-        /// <param name="methodName">Function name.</param>
-        /// <param name="args">Arguments.</param>
-        /// <returns>AppVar.</returns>
-        protected AppVar InvokeStatic(string methodName, params object[] args)
+        private AppVar InvokeStatic(string methodName, params object[] args)
         {
             return this.InvokeStatic(methodName, null, args);
         }
 
-        /// <summary>
-        /// Utility for invoke InTarget method.
-        /// </summary>
-        /// <param name="methodName">Function name.</param>
-        /// <param name="args">Arguments.</param>
-        /// <param name="async">Asynchronous execution.</param>
-        /// <returns>AppVar.</returns>
-        protected AppVar InvokeStatic(string methodName, Async async, params object[] args)
+        private AppVar InvokeStatic(string methodName, Async async, params object[] args)
         {
             return this.InvokeStatic(methodName, GetType(), async, args);
         }

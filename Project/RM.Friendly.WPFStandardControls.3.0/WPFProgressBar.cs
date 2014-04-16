@@ -12,7 +12,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.ProgressBarのウィンドウに対応した操作を提供します。
     /// </summary>
 #endif
-    public class WPFProgressBar : WPFControlBase
+    public class WPFProgressBar : WPFControlBase<ProgressBar>
     {
 #if ENG
         /// <summary>

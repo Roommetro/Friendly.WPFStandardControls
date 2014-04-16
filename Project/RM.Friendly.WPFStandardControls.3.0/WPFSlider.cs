@@ -15,7 +15,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.Sliderのウィンドウに対応した操作を提供します。
     /// </summary>
 #endif
-    public class WPFSlider : WPFControlBase
+    public class WPFSlider : WPFControlBase<Slider>
     {
 #if ENG
         /// <summary>
@@ -86,7 +86,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeValue(double value)
         {
-            InvokeStatic("EmulateChangeValue", value);
+            InvokeStatic(EmulateChangeValue, value);
         }
 #if ENG
         /// <summary>
@@ -105,7 +105,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeValue(double value, Async async)
         {
-            InvokeStatic("EmulateChangeValue", async, value);
+            InvokeStatic(EmulateChangeValue, async, value);
         }
         static void EmulateChangeValue(Slider slider, double value)
         {

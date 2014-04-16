@@ -13,7 +13,7 @@ namespace RM.Friendly.WPFStandardControls
     /// WPFのコントロールを操作するためのクラスの基本クラスです。
     /// </summary>
 #endif
-    public class WPFControlBase : AppVarWrapper
+    public class WPFControlBase<CoreType> : AppVarWrapper<CoreType>
     {
 #if ENG
         /// <summary>

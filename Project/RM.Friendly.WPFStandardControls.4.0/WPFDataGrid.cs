@@ -58,7 +58,7 @@ namespace RM.Friendly.WPFStandardControls
         /// 現在の選択セルのアイテムインデックス。
         /// </summary>
 #endif
-        public int CurrentItemIndex { get { return (int)InvokeStatic("GetCurrentItemIndex").Core; } }
+        public int CurrentItemIndex { get { return InvokeStatic(GetCurrentItemIndex, Ret<int>()); } }
 
 #if ENG
         /// <summary>
@@ -69,7 +69,7 @@ namespace RM.Friendly.WPFStandardControls
         /// 現在の選択セルの列インデックス。
         /// </summary>
 #endif
-        public int CurrentColIndex { get { return (int)InvokeStatic("GetCurrentColIndex").Core; } }
+        public int CurrentColIndex { get { return InvokeStatic(GetCurrentColIndex, Ret<int>()); } }
 
 #if ENG
         /// <summary>
@@ -86,7 +86,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeCurrentCell(int itemIndex, int col)
         {
-            InvokeStatic("EmulateChangeCurrentCell", itemIndex, col);
+            InvokeStatic(EmulateChangeCurrentCell, itemIndex, col);
         }
 
 #if ENG
@@ -108,7 +108,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeCurrentCell(int itemIndex, int col, Async async)
         {
-            InvokeStatic("EmulateChangeCurrentCell", async, itemIndex, col);
+            InvokeStatic(EmulateChangeCurrentCell, async, itemIndex, col);
         }
 
 #if ENG
@@ -128,7 +128,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateCellCheck(int itemIndex, int col, bool? isChecked)
         {
-            InvokeStatic("EmulateCellCheck", itemIndex, col, isChecked);
+            InvokeStatic(EmulateCellCheck, itemIndex, col, isChecked);
         }
 
 #if ENG
@@ -150,9 +150,9 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="isChecked">チェック状態。</param>
         /// <param name="async">非同期実行オブジェクト。</param>
 #endif
-        public void EmulateCellCheck(int itemIndex, int col, bool isChecked, Async async)
+        public void EmulateCellCheck(int itemIndex, int col, bool? isChecked, Async async)
         {
-            InvokeStatic("EmulateCellCheck", async, itemIndex, col, isChecked);
+            InvokeStatic(EmulateCellCheck, async, itemIndex, col, isChecked);
         }
 
 #if ENG
@@ -172,7 +172,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeCellText(int itemIndex, int col, string text)
         {
-            InvokeStatic("EmulateChangeCellText", itemIndex, col, text);
+            InvokeStatic(EmulateChangeCellText, itemIndex, col, text);
         }
 
 #if ENG
@@ -196,7 +196,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeCellText(int itemIndex, int col, string text, Async async)
         {
-            InvokeStatic("EmulateChangeCellText", async, itemIndex, col, text);
+            InvokeStatic(EmulateChangeCellText, async, itemIndex, col, text);
         }
 
 #if ENG
@@ -216,7 +216,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeCellComboSelect(int itemIndex, int col, int index)
         {
-            InvokeStatic("EmulateChangeCellComboSelect", itemIndex, col, index);
+            InvokeStatic(EmulateChangeCellComboSelect, itemIndex, col, index);
         }
 
 #if ENG
@@ -240,7 +240,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateChangeCellComboSelect(int itemIndex, int col, int index, Async async)
         {
-            InvokeStatic("EmulateChangeCellComboSelect", async, itemIndex, col, index);
+            InvokeStatic(EmulateChangeCellComboSelect, async, itemIndex, col, index);
         }
 
 #if ENG
@@ -258,7 +258,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public string GetCellText(int itemIndex, int col)
         {
-            return (string)InvokeStatic("GetCellText", itemIndex, col).Core;
+            return InvokeStatic(GetCellText, Ret<string>(), itemIndex, col);
         }
 
         static void EmulateChangeCurrentCell(DataGrid grid, int itemIndex, int col)
