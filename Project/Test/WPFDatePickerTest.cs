@@ -21,7 +21,7 @@ namespace Test
         public void TestEmulateChangeSelectedDate()
         {
             var datepicker = new WPFDatePicker(Target);
-            datepicker.EmulateChangeSelectedDate(TestValue);
+            datepicker.EmulateChangeDate(TestValue);
             Assert.AreEqual(TestValue, datepicker.SelectedDate);
         }
 
@@ -31,7 +31,7 @@ namespace Test
             var datepicker = new WPFDatePicker(Target);
             CallRemoteMethod("AttachChangeDateHandler", datepicker);
 
-            datepicker.EmulateChangeSelectedDate(TestValue, new Async());
+            datepicker.EmulateChangeDate(TestValue, new Async());
             ClickNextMessageBox();
             Assert.AreEqual(TestValue, datepicker.SelectedDate);
         }

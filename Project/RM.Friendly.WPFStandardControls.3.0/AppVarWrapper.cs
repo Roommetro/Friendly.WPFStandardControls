@@ -154,6 +154,12 @@ namespace RM.Friendly.WPFStandardControls
             get { return _appVar[operation, operationTypeInfo, async]; }
         }
 
+        /// <summary>
+        /// Getter.
+        /// </summary>
+        /// <typeparam name="T">Type of return value.</typeparam>
+        /// <param name="name">name.</param>
+        /// <returns>Return value.</returns>
         protected T Getter<T>(string name)
         {
             return (T)this.AppVar[name]().Core;
