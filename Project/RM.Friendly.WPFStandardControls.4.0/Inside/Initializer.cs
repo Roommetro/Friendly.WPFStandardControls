@@ -13,7 +13,7 @@ namespace RM.Friendly.WPFStandardControls.Inside
             if (!app.TryGetAppControlInfo(key, out isInit))
             {
                 WindowsAppExpander.LoadAssembly(app, typeof(Initializer4).Assembly);
-                ResourcesLocal.Initialize(app);
+                ResourcesLocal4.Initialize(app);
                 app.AddAppControlInfo(key, true);
             }
         }

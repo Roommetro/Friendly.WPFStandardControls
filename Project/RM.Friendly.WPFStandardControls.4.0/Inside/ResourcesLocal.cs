@@ -8,9 +8,9 @@ namespace RM.Friendly.WPFStandardControls.Inside
     /// ローカライズ済みリソース。
     /// </summary>
     [Serializable]
-    class ResourcesLocal
+    class ResourcesLocal4
     {
-        static internal ResourcesLocal Instance;
+        static internal ResourcesLocal4 Instance;
 
         internal string DataGridErrorNotTextBoxCell;
         internal string DataGridErrorNotComboBoxCell;
@@ -24,9 +24,9 @@ namespace RM.Friendly.WPFStandardControls.Inside
         /// <param name="app">アプリケーション操作クラス。</param>
         internal static void Initialize(WindowsAppFriend app)
         {
-            Instance = new ResourcesLocal();
+            Instance = new ResourcesLocal4();
             Instance.Initialize();
-            app[typeof(ResourcesLocal), "Instance"](Instance);
+            app[typeof(ResourcesLocal4), "Instance"](Instance);
         }
 
         /// <summary>

@@ -1,10 +1,12 @@
 ﻿using Codeer.Friendly;
 using Codeer.Friendly.Windows;
 using RM.Friendly.WPFStandardControls.Inside;
+using System;
 using System.Reflection;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace RM.Friendly.WPFStandardControls
 {
@@ -32,6 +34,47 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public WPFMenuItem(AppVar appVar)
             : base(appVar) { }
+
+#if ENG
+        /// <summary>
+        /// Returns the control's check state.
+        /// </summary>
+#else
+        /// <summary>
+        /// チェック状態を取得します。
+        /// </summary>
+#endif
+        public bool IsChecked { get { return Getter<bool>("IsChecked"); } }
+
+#if ENG
+        /// <summary>
+        /// Returns that item is checkable.
+        /// </summary>
+#else
+        /// <summary>
+        /// チェック可能であるかを取得します。
+        /// </summary>
+#endif
+        public bool IsCheckable { get { return Getter<bool>("IsCheckable"); } }
+
+#if ENG
+        /// <summary>
+        /// Get Visual inside MenuItem on VisualTree.
+        /// </summary>
+        /// <param name="typeFullName">Type full name.</param>
+        /// <returns>AppVar corresponding to a Visual. </returns>
+#else
+        /// <summary>
+        /// VisualTree上でMenuItemの内側にあるVisualを取得します。
+        /// ButtonやRadioButtonなどです。
+        /// </summary>
+        /// <param name="typeFullName">取得したいVisual要素のタイプフルネーム。</param>
+        /// <returns>Visual要素に対応したAppVar。</returns>
+#endif
+        public AppVar GetCoreElement(string typeFullName)
+        {
+            return InvokeStaticRetAppVar(GetCoreElement, Ret<Visual>(), typeFullName);
+        }
 
 #if ENG
         /// <summary>
@@ -65,16 +108,39 @@ namespace RM.Friendly.WPFStandardControls
             InvokeStatic(EmulateClick, async);
         }
 
-        /// <summary>
-        /// クリックです。
-        /// </summary>
-        /// <param name="item">メニューアイテム。</param>
         static void EmulateClick(MenuItem item)
         {
             IInvokeProvider invoker = new MenuItemAutomationPeer(item);
             item.Focus();
             invoker.Invoke();
             InvokeUtility.DoEvents();
+        }
+
+        static Visual GetCoreElement(MenuItem item, string typeFullName)
+        {
+            var element = GetCoreElement((Visual)item, typeFullName);
+            if (element == null)
+            {
+                throw new NotSupportedException(ResourcesLocal3.Instance.ErrorNotFoundElement);
+            }
+            return element;
+        }
+
+        static Visual GetCoreElement(Visual visual, string typeFullName)
+        {
+            foreach (var v in VisualTreeUtility.GetChildren(visual))
+            {
+                if (v.GetType().FullName == typeFullName)
+                {
+                    return v;
+                }
+                Visual o = GetCoreElement(v, typeFullName);
+                if (o != null)
+                {
+                    return o;
+                }
+            }
+            return null;
         }
     }
 }

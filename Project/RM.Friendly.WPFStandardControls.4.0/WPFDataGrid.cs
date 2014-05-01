@@ -265,7 +265,7 @@ namespace RM.Friendly.WPFStandardControls
         {
             if (0 < grid.Items.Count && grid.Items[0].GetType().IsValueType)
             {
-                throw new NotSupportedException(ResourcesLocal.Instance.DataGridErrorNotSupportedStruct);
+                throw new NotSupportedException(ResourcesLocal4.Instance.DataGridErrorNotSupportedStruct);
             }
             grid.Focus();
             grid.CurrentCell = new DataGridCellInfo(grid.Items[itemIndex], grid.Columns[col]);
@@ -282,7 +282,7 @@ namespace RM.Friendly.WPFStandardControls
             }
             catch
             {
-                throw new NotSupportedException(ResourcesLocal.Instance.DataGridErrorHasNotTextProperty);
+                throw new NotSupportedException(ResourcesLocal4.Instance.DataGridErrorHasNotTextProperty);
             }
         }
 
@@ -305,7 +305,7 @@ namespace RM.Friendly.WPFStandardControls
             grid.CellEditEnding -= hanlder;
             if (!success)
             {
-                throw new NotSupportedException(ResourcesLocal.Instance.DataGridErrorNotTextBoxCell);
+                throw new NotSupportedException(ResourcesLocal4.Instance.DataGridErrorNotTextBoxCell);
             }
         }
 
@@ -328,7 +328,7 @@ namespace RM.Friendly.WPFStandardControls
             grid.CellEditEnding -= hanlder;
             if (!success)
             {
-                throw new NotSupportedException(ResourcesLocal.Instance.DataGridErrorNotCheckBoxCell);
+                throw new NotSupportedException(ResourcesLocal4.Instance.DataGridErrorNotCheckBoxCell);
             }
         }
 
@@ -351,7 +351,7 @@ namespace RM.Friendly.WPFStandardControls
             grid.CellEditEnding -= hanlder;
             if (!success)
             {
-                throw new NotSupportedException(ResourcesLocal.Instance.DataGridErrorNotComboBoxCell);
+                throw new NotSupportedException(ResourcesLocal4.Instance.DataGridErrorNotComboBoxCell);
             }
         }
 
@@ -359,7 +359,7 @@ namespace RM.Friendly.WPFStandardControls
         {
             if (0 < grid.Items.Count && grid.Items[0].GetType().IsValueType)
             {
-                throw new NotSupportedException(ResourcesLocal.Instance.DataGridErrorNotSupportedStruct);
+                throw new NotSupportedException(ResourcesLocal4.Instance.DataGridErrorNotSupportedStruct);
             }
             grid.Focus();
             var current = grid.CurrentCell;

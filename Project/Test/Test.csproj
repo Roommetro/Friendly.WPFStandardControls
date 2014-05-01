@@ -91,7 +91,14 @@
     <Compile Include="WPFDatePickerTest.cs" />
     <Compile Include="WPFDateTimePickerTest.cs" />
     <Compile Include="WPFListViewTest.cs" />
-    <Compile Include="WPFMenuTest.cs" />
+    <Compile Include="WPFMenuBaseTestControl.xaml.cs">
+      <DependentUpon>WPFMenuBaseTestControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPFMenuItemTest.cs" />
+    <Compile Include="WPFMenuBaseTest.cs" />
+    <Compile Include="WPFMenuItemTestControl.xaml.cs">
+      <DependentUpon>WPFMenuItemTestControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WPFProgressBarTest.cs" />
     <Compile Include="WPFRichTextBoxTest.cs" />
     <Compile Include="WPFSelectorTest.cs" />
@@ -126,6 +133,16 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="WPFMenuBaseTestControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WPFMenuItemTestControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
