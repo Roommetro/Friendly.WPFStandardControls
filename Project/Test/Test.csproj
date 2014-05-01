@@ -94,6 +94,7 @@
     <Compile Include="WPFMenuBaseTestControl.xaml.cs">
       <DependentUpon>WPFMenuBaseTestControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WPFTreeViewItemTest.cs" />
     <Compile Include="WPFMenuItemTest.cs" />
     <Compile Include="WPFMenuBaseTest.cs" />
     <Compile Include="WPFMenuItemTestControl.xaml.cs">
@@ -106,7 +107,13 @@
     <Compile Include="WPFTestBase.cs" />
     <Compile Include="WPFTextBoxTest.cs" />
     <Compile Include="WPFToggleButtonTest.cs" />
+    <Compile Include="WPFTreeViewItemTestControl.xaml.cs">
+      <DependentUpon>WPFTreeViewItemTestControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WPFTreeViewTest.cs" />
+    <Compile Include="WPFTreeViewTestControl.xaml.cs">
+      <DependentUpon>WPFTreeViewTestControl.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RM.Friendly.WPFStandardControls.3.0.Generator\RM.Friendly.WPFStandardControls.3.0.Generator.csproj">
@@ -140,6 +147,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WPFMenuItemTestControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WPFTreeViewItemTestControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WPFTreeViewTestControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -2,15 +2,9 @@
 
 namespace RM.Friendly.WPFStandardControls.Inside
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public static class InvokeUtility
+    static class InvokeUtility
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public static void DoEvents()
+        internal static void DoEvents()
         {
             DispatcherFrame frame = new DispatcherFrame();
             Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Background,

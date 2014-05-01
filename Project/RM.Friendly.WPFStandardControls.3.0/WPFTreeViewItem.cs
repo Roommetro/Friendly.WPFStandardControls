@@ -37,6 +37,28 @@ namespace RM.Friendly.WPFStandardControls
 
 #if ENG
         /// <summary>
+        /// Get expanding state.
+        /// </summary>
+#else
+        /// <summary>
+        /// 展開状態であるかを取得。
+        /// </summary>
+#endif
+        public bool IsExpanded { get { return Getter<bool>("IsExpanded"); } }
+
+#if ENG
+        /// <summary>
+        /// Get selection state.
+        /// </summary>
+#else
+        /// <summary>
+        /// 選択状態であるかを取得。
+        /// </summary>
+#endif
+        public bool IsSelected { get { return Getter<bool>("IsSelected"); } }
+
+#if ENG
+        /// <summary>
         /// Get item text.
         /// </summary>
 #else
@@ -113,6 +135,7 @@ namespace RM.Friendly.WPFStandardControls
 
         static void EmulateChangeExpanded(TreeViewItem item, bool isExpanded)
         {
+            item.Focus();
             item.IsExpanded = isExpanded;
         }
 
@@ -154,6 +177,7 @@ namespace RM.Friendly.WPFStandardControls
 
         static void EmulateChangeSelected(TreeViewItem item, bool isSelected)
         {
+            item.Focus();
             item.IsSelected = isSelected;
         }
     }

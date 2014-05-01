@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="Test.WPFTreeViewItemTestControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <TreeView x:Name="_tree" HorizontalAlignment="Left" Height="242" Margin="35,31,0,0" VerticalAlignment="Top" Width="228">
+            <TreeViewItem x:Name="_item0" Header="item0">
+                <TreeViewItem x:Name="_item0_0" Header="item0_0"/>
+                <TreeViewItem x:Name="_item0_1" Header="item0_1"/>
+            </TreeViewItem>
+            <Button Content="button" Click="Button_Click"/>
+            <TreeViewItem x:Name="_item1" Header="item1">
+            </TreeViewItem>
+            <TreeViewItem x:Name="_item2" Header="item2">
+                <TreeViewItem x:Name="_item2_0" Header="item2_0"/>
+                <TreeViewItem x:Name="_item2_1" Header="item2_1"/>
+            </TreeViewItem>
+        </TreeView>
+
+    </Grid>
+</UserControl>
