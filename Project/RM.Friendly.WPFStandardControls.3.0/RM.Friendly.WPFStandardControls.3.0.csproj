@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="AppVarWrapper.cs" />
     <Compile Include="AppVarWrapper.Partial.cs" />
+    <Compile Include="Inside\HeaderedItemsControlUtility.cs" />
     <Compile Include="Inside\Initializer.cs" />
     <Compile Include="Inside\InvokeUtility.cs" />
     <Compile Include="Inside\ResourcesLocal.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="WPFControlBase.cs" />
     <Compile Include="WPFListView.cs" />
     <Compile Include="WPFMenuBase.cs" />
+    <Compile Include="WPFTreeViewItem.cs" />
     <Compile Include="WPFMenuItem.cs" />
     <Compile Include="WPFProgressBar.cs" />
     <Compile Include="WPFRichTextBox.cs" />

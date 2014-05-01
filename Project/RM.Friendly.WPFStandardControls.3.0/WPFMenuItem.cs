@@ -57,6 +57,18 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public bool IsCheckable { get { return Getter<bool>("IsCheckable"); } }
 
+
+#if ENG
+        /// <summary>
+        /// Get item text.
+        /// </summary>
+#else
+        /// <summary>
+        /// アイテムのテキストを取得します。
+        /// </summary>
+#endif
+        public string Text { get { return (string)AppVar.App[typeof(HeaderedItemsControlUtility), "GetItemText"](AppVar).Core; } }
+
 #if ENG
         /// <summary>
         /// Get Visual inside MenuItem on VisualTree.
@@ -118,29 +130,12 @@ namespace RM.Friendly.WPFStandardControls
 
         static Visual GetCoreElement(MenuItem item, string typeFullName)
         {
-            var element = GetCoreElement((Visual)item, typeFullName);
+            var element = HeaderedItemsControlUtility.GetCoreElement(item, typeFullName);
             if (element == null)
             {
                 throw new NotSupportedException(ResourcesLocal3.Instance.ErrorNotFoundElement);
             }
             return element;
-        }
-
-        static Visual GetCoreElement(Visual visual, string typeFullName)
-        {
-            foreach (var v in VisualTreeUtility.GetChildren(visual))
-            {
-                if (v.GetType().FullName == typeFullName)
-                {
-                    return v;
-                }
-                Visual o = GetCoreElement(v, typeFullName);
-                if (o != null)
-                {
-                    return o;
-                }
-            }
-            return null;
         }
     }
 }

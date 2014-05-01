@@ -35,120 +35,56 @@ namespace RM.Friendly.WPFStandardControls
         public WPFMenuBase(AppVar appVar)
             : base(appVar) { }
 
-#if ENG
+#if ENG        
         /// <summary>
-        /// メニューアイテムを取得します。
+        /// Get item.
         /// </summary>
-        /// <param name="headerTexts">目的のメニューアイテムまでのヘッダテキストの配列です。</param>
-        /// <returns>メニューアイテム。</returns>
+        /// <param name="headerTexts">The array of text to the target item. </param>
+        /// <returns>Item.</returns>
 #else
         /// <summary>
-        /// Get MenuItem.
+        /// アイテムを取得します。
         /// </summary>
-        /// <param name="headerTexts">The array of header text to the target menu item. </param>
-        /// <returns>MenuItem.</returns>
+        /// <param name="headerTexts">目的のアイテムまでのテキストの配列です。</param>
+        /// <returns>アイテム。</returns>
 #endif
-        public WPFMenuItem GetMenuItem(params string[] headerTexts)
+        public WPFMenuItem GetItem(params string[] headerTexts)
         {
-            return new WPFMenuItem(InvokeStaticRetAppVar(GetMenuItemInTarget, Ret<MenuItem>(), headerTexts));
+            return new WPFMenuItem(InvokeStaticRetAppVar(GetItemInTarget, Ret<MenuItem>(), headerTexts));
         }
 
 #if ENG
         /// <summary>
-        /// Get MenuItem.
+        /// Get item.
         /// </summary>
-        /// <param name="indices">The array of index to the target menu item. </param>
-        /// <returns>Get MenuItem.</returns>
+        /// <param name="indices">The array of index to the target item. </param>
+        /// <returns>Item.</returns>
 #else
         /// <summary>
-        /// メニューアイテムを取得します。
+        /// アイテムを取得します。
         /// </summary>
-        /// <param name="indices">目的のメニューアイテムまでのメニューインデックスの配列です。</param>
-        /// <returns>メニューアイテム。</returns>
+        /// <param name="indices">目的のアイテムまでの各階層でのインデックスの配列です。</param>
+        /// <returns>アイテム。</returns>
 #endif
-        public WPFMenuItem GetMenuItem(params int[] indices)
+        public WPFMenuItem GetItem(params int[] indices)
         {
-            return new WPFMenuItem(InvokeStaticRetAppVar(GetMenuItemInTarget, Ret<MenuItem>(), indices));
+            return new WPFMenuItem(InvokeStaticRetAppVar(GetItemInTarget, Ret<MenuItem>(), indices));
         }
 
-        static MenuItem GetMenuItemInTarget(MenuBase menu, string[] headerTexts)
+        static MenuItem GetItemInTarget(MenuBase menu, string[] headerTexts)
         {
-            GetMenuItemDelegate<string> getMenuItem = (visual, headerText) =>
-            {
-                IsMatchDelegate isMatch = (item) => (item.Header.ToString() == headerText);
-                NextDelegate next = null;
-                next = (v) => GetMenuItem(v, isMatch, next);
-                return GetMenuItem(visual, isMatch, next);
-            };
-            return GetMenuItemInTarget(menu, headerTexts, getMenuItem);
+            return HeaderedItemsControlUtility.GetItem<MenuItem>(menu, headerTexts, ShowNextItem);
         }
 
-        static MenuItem GetMenuItemInTarget(MenuBase menu, int[] indices)
+        static MenuItem GetItemInTarget(MenuBase menu, int[] indices)
         {
-            GetMenuItemDelegate<int> getMenuItem = (visual, index) =>
-            {
-                int currentIndex = 0;
-                IsMatchDelegate isMatch = (v) => (currentIndex++ == index);
-                NextDelegate next = null;
-                next = (v) => GetMenuItem(v, isMatch, next);
-                return GetMenuItem(visual, isMatch, next);
-            };
-            return GetMenuItemInTarget(menu, indices, getMenuItem);
+            return HeaderedItemsControlUtility.GetItem<MenuItem>(menu, indices, ShowNextItem);
         }
 
-        delegate MenuItem GetMenuItemDelegate<T>(Visual v, T param);
-        delegate bool IsMatchDelegate(MenuItem v);
-        delegate MenuItem NextDelegate(Visual v);
-
-        static MenuItem GetMenuItemInTarget<T>(MenuBase menu, T[] indices, GetMenuItemDelegate<T> getMenuItem)
+        static void ShowNextItem(MenuItem item)
         {
-            Visual v = menu;
-            for (int i = 0; i < indices.Length; i++)
-            {
-                var item = getMenuItem(v, indices[i]);
-                if (item == null)
-                {
-                    throw new NotSupportedException(ResourcesLocal3.Instance.ErrorNotFoundMenuItem);
-                }
-                if (i == indices.Length - 1)
-                {
-                    return item;
-                }
-                IInvokeProvider invoker = new MenuItemAutomationPeer(item);
-                invoker.Invoke();
-                v = item;
-            }
-            return null;
-        }
-
-        static MenuItem GetMenuItem(Visual visual, IsMatchDelegate isMatch, NextDelegate next)
-        {
-            foreach (var element in VisualTreeUtility.GetChildren(visual))
-            {
-                Visual o = element;
-                var menuItem = o as MenuItem;
-                if (menuItem != null)
-                {
-                    if (isMatch(menuItem))
-                    {
-                        return menuItem;
-                    }
-                }
-                else
-                {
-                    var popup = o as Popup;
-                    if (popup != null)
-                    {
-                        o = popup.Child as Visual;
-                    }
-                    var nextMenuItem = next(o);
-                    if (nextMenuItem != null)
-                    {
-                        return nextMenuItem;
-                    }
-                }
-            }
-            return null;
+            IInvokeProvider invoker = new MenuItemAutomationPeer(item);
+            invoker.Invoke();
         }
     }
 }

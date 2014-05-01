@@ -120,7 +120,7 @@
   <data name="ErrorNotFoundElement" xml:space="preserve">
     <value>The desire Visual element was not found.</value>
   </data>
-  <data name="ErrorNotFoundMenuItem" xml:space="preserve">
-    <value>The desire menu item was not found.</value>
+  <data name="ErrorNotFoundItem" xml:space="preserve">
+    <value>The desire item was not found.</value>
   </data>
 </root>

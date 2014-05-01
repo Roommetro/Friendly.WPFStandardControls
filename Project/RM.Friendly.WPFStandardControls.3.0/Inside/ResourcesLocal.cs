@@ -12,7 +12,7 @@ namespace RM.Friendly.WPFStandardControls.Inside
     {
         static internal ResourcesLocal3 Instance;
 
-        internal string ErrorNotFoundMenuItem;
+        internal string ErrorNotFoundItem;
         internal string ErrorNotFoundElement;
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace RM.Friendly.WPFStandardControls.Inside
         /// </summary>
         void Initialize()
         {
-            ErrorNotFoundMenuItem = Resources.ErrorNotFoundMenuItem;
+            ErrorNotFoundItem = Resources.ErrorNotFoundItem;
             ErrorNotFoundElement = Resources.ErrorNotFoundElement;
         }
     }

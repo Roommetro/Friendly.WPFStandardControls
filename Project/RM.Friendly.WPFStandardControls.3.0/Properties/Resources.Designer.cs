@@ -70,11 +70,11 @@ namespace RM.Friendly.WPFStandardControls.Properties {
         }
         
         /// <summary>
-        ///   The desire menu item was not found. に類似しているローカライズされた文字列を検索します。
+        ///   The desire item was not found. に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string ErrorNotFoundMenuItem {
+        internal static string ErrorNotFoundItem {
             get {
-                return ResourceManager.GetString("ErrorNotFoundMenuItem", resourceCulture);
+                return ResourceManager.GetString("ErrorNotFoundItem", resourceCulture);
             }
         }
     }

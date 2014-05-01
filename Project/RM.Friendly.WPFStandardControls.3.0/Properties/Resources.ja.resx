@@ -120,7 +120,7 @@
   <data name="ErrorNotFoundElement" xml:space="preserve">
     <value>指定のVisual要素は見つかりませんでした。</value>
   </data>
-  <data name="ErrorNotFoundMenuItem" xml:space="preserve">
-    <value>指定のメニューアイテムは見つかりませんでした。</value>
+  <data name="ErrorNotFoundItem" xml:space="preserve">
+    <value>指定のアイテムは見つかりませんでした。</value>
   </data>
 </root>

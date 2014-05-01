@@ -53,7 +53,7 @@ namespace Test
         public void GetMenuItemStringTest()
         {
             var menu = new WPFMenuBase(_ctrl._menu);
-            var item = menu.GetMenuItem("1", "1-0", "1-0-1");
+            var item = menu.GetItem("1", "1-0", "1-0-1");
             item.EmulateClick();
             Assert.AreEqual("1-0-1", (string)_ctrl.executeCommand);
         }
@@ -62,7 +62,7 @@ namespace Test
         public void GetMenuItemIntTest()
         {
             var menu = new WPFMenuBase(_ctrl._menu);
-            var item = menu.GetMenuItem(1, 0, 1);
+            var item = menu.GetItem(1, 0, 1);
             item.EmulateClick();
             Assert.AreEqual("1-0-1", (string)_ctrl.executeCommand);
         }
@@ -74,10 +74,10 @@ namespace Test
             {
                 ResetConnection();
                 WPFMenuBase menu = new WPFMenuBase(_ctrl._menu);
-                menu.GetMenuItem(3);
+                menu.GetItem(3);
             },
-                "The desire menu item was not found.",
-                "指定のメニューアイテムは見つかりませんでした。");
+                "The desire item was not found.",
+                "指定のアイテムは見つかりませんでした。");
         }
     }
 }

@@ -69,10 +69,17 @@ namespace Test
         }
 
         [TestMethod]
+        public void TextTest()
+        {
+            WPFMenuItem item = new WPFMenuItem(_ctrl._menuItem);
+            Assert.AreEqual("MenuItem", item.Text);
+        }
+
+        [TestMethod]
         public void GetCoreElementTest()
         {
             WPFMenuBase menu = new WPFMenuBase(_ctrl._menu);
-            var item = menu.GetMenuItem(2);
+            var item = menu.GetItem(2);
             var button = new WPFButtonBase(item.GetCoreElement(typeof(Button).FullName));
             button.EmulateClick();
             Assert.IsTrue((bool)_ctrl.menuButtonClicked);
@@ -84,7 +91,7 @@ namespace Test
             TestUtility.TestExceptionMessage(() => {
                 ResetConnection();
                 WPFMenuBase menu = new WPFMenuBase(_ctrl._menu);
-                var item = menu.GetMenuItem(2);
+                var item = menu.GetItem(2);
                 item.GetCoreElement("X");
             },
                 "The desire Visual element was not found.",
