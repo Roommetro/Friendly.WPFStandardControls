@@ -12,7 +12,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.Primitives.Selectorに対応した操作を提供します。
     /// </summary>
 #endif
-    public partial class WPFSelector<CoreType> : WPFControlBase<CoreType>
+    public class WPFSelector<CoreType> : WPFControlBase<CoreType>
         where CoreType : Selector
     {
 #if ENG

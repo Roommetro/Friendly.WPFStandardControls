@@ -13,7 +13,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.TabControlに対応した操作を提供します。
     /// </summary>
 #endif
-    public partial class WPFTabControl : WPFSelector<TabControl>
+    public class WPFTabControl : WPFSelector<TabControl>
     {
 #if ENG
         /// <summary>

@@ -16,7 +16,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.ListBoxに対応した操作を提供します。
     /// </summary>
 #endif
-    public partial class WPFListBox : WPFSelector<ListBox>
+    public class WPFListBox : WPFSelector<ListBox>
     {
 #if ENG
         /// <summary>

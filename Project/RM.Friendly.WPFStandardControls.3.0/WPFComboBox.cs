@@ -14,7 +14,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.ComboBoxに対応した操作を提供します。
     /// </summary>
 #endif
-    public partial class WPFComboBox : WPFSelector<ComboBox>
+    public class WPFComboBox : WPFSelector<ComboBox>
     {
 #if ENG
         /// <summary>
