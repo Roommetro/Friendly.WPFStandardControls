@@ -70,5 +70,15 @@ namespace Test
             int index = listBox.SelectedIndex;
             Assert.AreEqual(3, index);
         }
+
+        [TestMethod]
+        public void EnsureVisible()
+        {
+            listBox.EnsureVisible(99);
+            dynamic item = listBox.Dynamic().ItemContainerGenerator.ContainerFromIndex(99);
+            Assert.IsFalse((bool)app.Type<object>().ReferenceEquals(null, item));
+        }
+
+        
     }
 }

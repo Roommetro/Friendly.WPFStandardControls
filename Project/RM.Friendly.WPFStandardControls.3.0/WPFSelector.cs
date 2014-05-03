@@ -65,7 +65,7 @@ namespace RM.Friendly.WPFStandardControls
         /// </summary>
         /// <param name="index">インデックス。</param>
 #endif
-        virtual public void EmulateChangeSelectedIndex(int index)
+        public void EmulateChangeSelectedIndex(int index)
         {
             InvokeStatic(EmulateChangeSelectedIndex, index);
         }

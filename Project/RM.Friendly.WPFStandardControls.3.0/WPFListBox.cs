@@ -1,10 +1,12 @@
 ﻿using Codeer.Friendly;
+using RM.Friendly.WPFStandardControls.Inside;
+using System.Windows.Automation;
+using System.Windows.Automation.Peers;
+using System.Windows.Automation.Provider;
 using System.Windows.Controls;
 
 namespace RM.Friendly.WPFStandardControls
 {
-
-
 #if ENG
     /// <summary>
     /// Provides operations on controls of type System.Windows.Controls.ListBox.
@@ -29,5 +31,42 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public WPFListBox(AppVar appVar)
             : base(appVar) { }
+
+#if ENG
+        /// <summary>
+        /// It is made for the item of the appointed index to be in a visible state. 
+        /// A visible state is in the state to which creation of ListBoxItem was attained on VisualTree. 
+        /// </summary>
+        /// <param name="index">Item index.</param>
+#else
+        /// <summary>
+        /// 指定のインデックスのアイテムが可視状態になるようにします。
+        /// 可視状態とはListBoxItemがVisualTree上で作成可能になった状態です。
+        /// </summary>
+        /// <param name="index">インデックス。</param>
+#endif
+        virtual public void EnsureVisible(int index)
+        {
+            InvokeStatic(EnsureVisible, index);
+        }
+
+        static void EnsureVisible(ListBox listBox, int index)
+        {
+            listBox.Focus();
+            listBox.ScrollIntoView(listBox.Items[index]);
+            InvokeUtility.DoEvents();
+            if (listBox.ItemContainerGenerator.ContainerFromIndex(index) == null)
+            {
+                ListBoxAutomationPeer peer = new ListBoxAutomationPeer(listBox);
+                var scroll = peer.GetPattern(PatternInterface.Scroll) as IScrollProvider;
+                scroll.SetScrollPercent(scroll.HorizontalScrollPercent, 0);
+                InvokeUtility.DoEvents();
+                while (listBox.ItemContainerGenerator.ContainerFromIndex(index) == null)
+                {
+                    scroll.Scroll(ScrollAmount.NoAmount, ScrollAmount.LargeIncrement);
+                    InvokeUtility.DoEvents();
+                }
+            }
+        }
     }
 }
