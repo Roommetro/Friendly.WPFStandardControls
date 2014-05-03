@@ -43,7 +43,7 @@ namespace RM.Friendly.WPFStandardControls
         {
             get
             {
-                AppVar textBox = AppVar.App[typeof(VisualTreeUtility), "GetCoreElement"](AppVar, typeof(TextBlock).FullName);
+                AppVar textBox = AppVar.App[typeof(VisualTreeUtility), "GetCoreElement"](AppVar, typeof(TextBox).FullName);
                 if ((bool)AppVar.App[typeof(object), "ReferenceEquals"](textBox, null).Core)
                 {
                     return null;
