@@ -16,7 +16,8 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.ListBoxに対応した操作を提供します。
     /// </summary>
 #endif
-    public class WPFListBox : WPFSelector<ListBox>
+    public class WPFListBoxCore<T> : WPFSelector<T>
+        where T : ListBox
     {
 #if ENG
         /// <summary>
@@ -29,7 +30,7 @@ namespace RM.Friendly.WPFStandardControls
         /// </summary>
         /// <param name="appVar">アプリケーション内変数。</param>
 #endif
-        public WPFListBox(AppVar appVar)
+        public WPFListBoxCore(AppVar appVar)
             : base(appVar) { }
 
 #if ENG
@@ -68,5 +69,31 @@ namespace RM.Friendly.WPFStandardControls
                 }
             }
         }
+    }
+
+#if ENG
+    /// <summary>
+    /// Provides operations on controls of type System.Windows.Controls.ListBox.
+    /// </summary>
+#else
+    /// <summary>
+    /// TypeがSystem.Windows.Controls.ListBoxに対応した操作を提供します。
+    /// </summary>
+#endif
+    public class WPFListBox : WPFListBoxCore<ListBox>
+    {
+#if ENG
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="appVar">Application variable object for the control.</param>
+#else
+        /// <summary>
+        /// コンストラクタです。
+        /// </summary>
+        /// <param name="appVar">アプリケーション内変数。</param>
+#endif
+        public WPFListBox(AppVar appVar)
+            : base(appVar) { }
     }
 }

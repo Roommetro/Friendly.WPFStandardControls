@@ -16,7 +16,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.ListViewに対応した操作を提供します。
     /// </summary>
 #endif
-    public class WPFListView : WPFListBox
+    public class WPFListView : WPFListBoxCore<ListView>
     {
 #if ENG
         /// <summary>
