@@ -10,7 +10,7 @@ namespace RM.Friendly.WPFStandardControls
     /// </summary>
 #else
     /// <summary>
-    /// TypeがSystem.Windows.Controls.Primitives.ToggleButtonのウィンドウに対応した操作を提供します。
+    /// TypeがSystem.Windows.Controls.Primitives.ToggleButtonに対応した操作を提供します。
     /// </summary>
 #endif
     public class WPFToggleButton : WPFControlBase<ToggleButton>

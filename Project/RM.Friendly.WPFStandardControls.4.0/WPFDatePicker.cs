@@ -13,7 +13,7 @@ namespace RM.Friendly.WPFStandardControls
     /// </summary>
 #else
     /// <summary>
-    /// TypeがSystem.Windows.Forms.DateTimePickerのウィンドウに対応した操作を提供します。
+    /// TypeがSystem.Windows.Forms.DateTimePickerに対応した操作を提供します。
     /// </summary>
 #endif
     public class WPFDatePicker : WPFControlBase4<DatePicker>

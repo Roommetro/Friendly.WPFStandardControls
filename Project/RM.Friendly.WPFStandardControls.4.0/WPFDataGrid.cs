@@ -15,7 +15,7 @@ namespace RM.Friendly.WPFStandardControls
     /// </summary>
 #else
     /// <summary>
-    /// TypeがSystem.Windows.Controls.DataGridのウィンドウに対応した操作を提供します。
+    /// TypeがSystem.Windows.Controls.DataGridに対応した操作を提供します。
     /// </summary>
 #endif
     public class WPFDataGrid : WPFControlBase4<DataGrid>
@@ -263,11 +263,29 @@ namespace RM.Friendly.WPFStandardControls
 
         static void EmulateChangeCurrentCell(DataGrid grid, int itemIndex, int col)
         {
-            if (0 < grid.Items.Count && grid.Items[0].GetType().IsValueType)
+            object target = grid.Items[itemIndex];
+            for (int i = 0; i < grid.Items.Count; i++)
             {
-                throw new NotSupportedException(ResourcesLocal4.Instance.DataGridErrorNotSupportedStruct);
+                if (i != itemIndex)
+                {
+                    if (target == null)
+                    {
+                        if (grid.Items[i] == null)
+                        {
+                            throw new NotSupportedException(ResourcesLocal4.Instance.DataGridErrorNotSupportedItems);
+                        }
+                    }
+                    else
+                    {
+                        if (target.Equals(grid.Items[i]))
+                        {
+                            throw new NotSupportedException(ResourcesLocal4.Instance.DataGridErrorNotSupportedItems);
+                        }
+                    }
+                }
             }
             grid.Focus();
+            grid.SelectedIndex = itemIndex;
             grid.CurrentCell = new DataGridCellInfo(grid.Items[itemIndex], grid.Columns[col]);
         }
 
@@ -357,25 +375,27 @@ namespace RM.Friendly.WPFStandardControls
 
         static int GetCurrentItemIndex(DataGrid grid)
         {
-            if (0 < grid.Items.Count && grid.Items[0].GetType().IsValueType)
-            {
-                throw new NotSupportedException(ResourcesLocal4.Instance.DataGridErrorNotSupportedStruct);
-            }
             grid.Focus();
             var current = grid.CurrentCell;
             if (current == null || current.Item == null)
             {
                 return -1;
             }
+            int findIndex = -1;
             for (int i = 0; i < grid.Items.Count; i++)
             {
                 if (ReferenceEquals(current.Item, grid.Items[i]))
                 {
-                    return i;
+                    if (findIndex != -1)
+                    {
+                        throw new NotSupportedException(ResourcesLocal4.Instance.DataGridErrorNotSupportedItems);
+                    }
+                    findIndex = i;
                 }
             }
-            return -1;
+            return grid.SelectedIndex;
         }
+
         static int GetCurrentColIndex(DataGrid grid)
         {
             grid.Focus();

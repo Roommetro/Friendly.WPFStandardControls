@@ -1,6 +1,4 @@
-﻿using System.Windows.Controls;
-using Codeer.Friendly;
-using Codeer.Friendly.Windows;
+﻿using Codeer.Friendly;
 using System.Windows.Controls.Primitives;
 
 namespace RM.Friendly.WPFStandardControls
@@ -11,10 +9,11 @@ namespace RM.Friendly.WPFStandardControls
     /// </summary>
 #else
     /// <summary>
-    /// TypeがSystem.Windows.Controls.Primitives.Selectorのウィンドウに対応した操作を提供します。
+    /// TypeがSystem.Windows.Controls.Primitives.Selectorに対応した操作を提供します。
     /// </summary>
 #endif
-    public partial class WPFSelector : WPFControlBase<Selector>
+    public partial class WPFSelector<CoreType> : WPFControlBase<CoreType>
+        where CoreType : Selector
     {
 #if ENG
         /// <summary>
@@ -66,7 +65,7 @@ namespace RM.Friendly.WPFStandardControls
         /// </summary>
         /// <param name="index">インデックス。</param>
 #endif
-        public void EmulateChangeSelectedIndex(int index)
+        virtual public void EmulateChangeSelectedIndex(int index)
         {
             InvokeStatic(EmulateChangeSelectedIndex, index);
         }
@@ -91,7 +90,7 @@ namespace RM.Friendly.WPFStandardControls
             InvokeStatic(EmulateChangeSelectedIndex, async, index);
         }
 
-        static void EmulateChangeSelectedIndex(Selector selector, int index)
+        static void EmulateChangeSelectedIndex(CoreType selector, int index)
         {
             selector.Focus();
             selector.SelectedIndex = index;

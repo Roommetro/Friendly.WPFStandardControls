@@ -11,7 +11,7 @@ namespace RM.Friendly.WPFStandardControls
     /// </summary>
 #else
     /// <summary>
-    /// TypeがSystem.Windows.Controls.Primitives.ButtonBaseのウィンドウに対応した操作を提供します。
+    /// TypeがSystem.Windows.Controls.Primitives.ButtonBaseに対応した操作を提供します。
     /// </summary>
 #endif
     public class WPFButtonBase : WPFControlBase<ButtonBase>

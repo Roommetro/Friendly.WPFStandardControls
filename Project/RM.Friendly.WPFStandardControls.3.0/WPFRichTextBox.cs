@@ -13,7 +13,7 @@ namespace RM.Friendly.WPFStandardControls
     /// </summary>
 #else
     /// <summary>
-    /// TypeがSystem.Windows.Controls.RichTextBoxのウィンドウに対応した操作を提供します。
+    /// TypeがSystem.Windows.Controls.RichTextBoxに対応した操作を提供します。
     /// </summary>
 #endif
     public class WPFRichTextBox : WPFControlBase<RichTextBox>

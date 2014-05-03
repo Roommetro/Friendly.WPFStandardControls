@@ -25,17 +25,27 @@ namespace Test
             CSP
         }
 
+        [Serializable]
         public class Item
         {
             public string Name { get; set; }
             public ProgramingLanguage Language { get; set; }
             public bool IsActive { get; set; }
-        }
 
-        [Serializable]
-        public struct ItemStruct
-        {
-            public string Name { get; set; }
+            public override bool Equals(object obj)
+            {
+                Item item = obj as Item;
+                if (item == null)
+                {
+                    return false;
+                }
+                return Name == item.Name && Language == item.Language && IsActive == item.IsActive;
+            }
+
+            public override int GetHashCode()
+            {
+                return 0;
+            }
         }
 
         WindowsAppFriend app;
@@ -65,6 +75,7 @@ namespace Test
                 MessageBox.Show("");
             };
         }
+
         void ResetConnection()
         {
             int id = app.ProcessId;
@@ -217,20 +228,16 @@ namespace Test
         }
 
         [TestMethod]
-        public void TestNotSupportedStruct()
+        public void TestNotSupportedItems()
         {
-            dataGrid.Dynamic().ItemsSource = new ItemStruct[] 
+            dataGrid.Dynamic().ItemsSource = new Item[] 
             {
-                new ItemStruct(){ Name = "A" },
-                new ItemStruct(){ Name = "B" },
+                new Item(){ Name = "A" },
+                new Item(){ Name = "A" },
             };
             TestUtility.TestExceptionMessage(() => { ResetConnection(); dataGrid.EmulateChangeCellText(0, 0, "xxx"); },
-                "The operation is invalid for DataGrid of strut items.",
-                "構造体のアイテムを持つDataGridに対して、この処理は有効ではありません。");
-
-            TestUtility.TestExceptionMessage(() => { ResetConnection(); var index = dataGrid.CurrentItemIndex; },
-                    "The operation is invalid for DataGrid of strut items.",
-                    "構造体のアイテムを持つDataGridに対して、この処理は有効ではありません。");
+                "When there are a target item and other equivalent items, this operation cannot be performed correctly.",
+                "目的のアイテムと同値の他のアイテムがある場合、この操作を正しく実行することができません。");
         }
     }
 }

@@ -5,7 +5,7 @@ namespace RM.Friendly.WPFStandardControls.Inside
 {
     static class VisualTreeUtility
     {
-        static public IEnumerable<Visual> GetChildren(Visual v)
+        public static IEnumerable<Visual> GetChildren(Visual v)
         {
             if (v != null)
             {
@@ -32,6 +32,23 @@ namespace RM.Friendly.WPFStandardControls.Inside
                     return v;
                 }
                 object o = FindVisualItem<T>(v, param, isMatchParam);
+                if (o != null)
+                {
+                    return o;
+                }
+            }
+            return null;
+        }
+
+        public static Visual GetCoreElement(Visual visual, string typeFullName)
+        {
+            foreach (var v in VisualTreeUtility.GetChildren(visual))
+            {
+                if (v.GetType().FullName == typeFullName)
+                {
+                    return v;
+                }
+                Visual o = GetCoreElement(v, typeFullName);
                 if (o != null)
                 {
                     return o;

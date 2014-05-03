@@ -126,8 +126,8 @@
   <data name="DataGridErrorNotComboBoxCell" xml:space="preserve">
     <value>The cell is not a ComboBox.</value>
   </data>
-  <data name="DataGridErrorNotSupportedStruct" xml:space="preserve">
-    <value>The operation is invalid for DataGrid of strut items.</value>
+  <data name="DataGridErrorNotSupportedItems" xml:space="preserve">
+    <value>When there are a target item and other equivalent items, this operation cannot be performed correctly.</value>
   </data>
   <data name="DataGridErrorNotTextBoxCell" xml:space="preserve">
     <value>The cell is not a TextBox.</value>

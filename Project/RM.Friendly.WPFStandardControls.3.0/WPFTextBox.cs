@@ -10,7 +10,7 @@ namespace RM.Friendly.WPFStandardControls
     /// </summary>
 #else
     /// <summary>
-    /// TypeがSystem.Windows.Controls.TextBoxのウィンドウに対応した操作を提供します。
+    /// TypeがSystem.Windows.Controls.TextBoxに対応した操作を提供します。
     /// </summary>
 #endif
     public class WPFTextBox : WPFControlBase<TextBox>

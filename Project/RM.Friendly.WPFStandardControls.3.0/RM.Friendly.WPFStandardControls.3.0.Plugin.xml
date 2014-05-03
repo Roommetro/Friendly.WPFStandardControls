@@ -9,8 +9,16 @@
       <PluginType>RM.Friendly.WPFStandardControls.WPFButtonBase</PluginType>
     </PluginClassPair>
     <PluginClassPair>
-      <TargetType>System.Windows.Controls.Primitives.Selector</TargetType>
-      <PluginType>RM.Friendly.WPFStandardControls.WPFSelector</PluginType>
+      <TargetType>System.Windows.Controls.ComboBox</TargetType>
+      <PluginType>RM.Friendly.WPFStandardControls.WPFComboBox</PluginType>
+    </PluginClassPair>
+    <PluginClassPair>
+      <TargetType>System.Windows.Controls.TabControl</TargetType>
+      <PluginType>RM.Friendly.WPFStandardControls.WPFTabControl</PluginType>
+    </PluginClassPair>
+    <PluginClassPair>
+      <TargetType>System.Windows.Controls.ListBox</TargetType>
+      <PluginType>RM.Friendly.WPFStandardControls.WPFListBox</PluginType>
     </PluginClassPair>  
     <PluginClassPair>
       <TargetType>System.Windows.Controls.Slider</TargetType>

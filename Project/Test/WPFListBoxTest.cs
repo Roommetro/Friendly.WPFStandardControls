@@ -14,11 +14,11 @@ using Codeer.Friendly.Windows.NativeStandardControls;
 namespace Test
 {
     [TestClass]
-    public class WPFSelectorTest
+    public class WPFListBoxTest
     {
         WindowsAppFriend app;
 
-        WPFSelector selector;
+        WPFListBox listBox;
 
         [TestInitialize]
         public void TestInitialize() {
@@ -29,7 +29,7 @@ namespace Test
             dynamic target = app.Type<ListBox>()();
             grid.Children.Add(target);
             target.ItemsSource = Enumerable.Range(0, 100).Select(i => "value " + i).ToArray();
-            selector = new WPFSelector(target);
+            listBox = new WPFListBox(target);
         }
 
         [TestCleanup]
@@ -40,13 +40,13 @@ namespace Test
         [TestMethod]
         public void SelectedIndexの値を取得して設定できる()
         {
-            var index = selector.SelectedIndex;
+            var index = listBox.SelectedIndex;
             Assert.AreEqual(-1, (int)index);
 
             //selector.SelectedIndex = 3;
-            selector.EmulateChangeSelectedIndex(3);
+            listBox.EmulateChangeSelectedIndex(3);
 
-            index = selector.SelectedIndex;
+            index = listBox.SelectedIndex;
             Assert.AreEqual(3, (int)index);
         }
 
@@ -61,13 +61,13 @@ namespace Test
         [TestMethod]
         public void SelectedIndexAsync()
         {
-            app.Type<WPFSelectorTest>().AddSelectionEvent(selector.AppVar);
+            app.Type<WPFListBoxTest>().AddSelectionEvent(listBox.AppVar);
             Async async = new Async();
             WindowControl main = WindowControl.FromZTop(app);
-            selector.EmulateChangeSelectedIndex(3, async);
+            listBox.EmulateChangeSelectedIndex(3, async);
             new NativeMessageBox(main.WaitForNextModal()).EmulateButtonClick("OK");
             async.WaitForCompletion();
-            int index = selector.SelectedIndex;
+            int index = listBox.SelectedIndex;
             Assert.AreEqual(3, index);
         }
     }

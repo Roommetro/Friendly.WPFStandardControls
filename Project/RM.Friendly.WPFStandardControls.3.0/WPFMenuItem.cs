@@ -130,7 +130,7 @@ namespace RM.Friendly.WPFStandardControls
 
         static Visual GetCoreElement(MenuItem item, string typeFullName)
         {
-            var element = HeaderedItemsControlUtility.GetCoreElement(item, typeFullName);
+            var element = VisualTreeUtility.GetCoreElement(item, typeFullName);
             if (element == null)
             {
                 throw new NotSupportedException(ResourcesLocal3.Instance.ErrorNotFoundElement);

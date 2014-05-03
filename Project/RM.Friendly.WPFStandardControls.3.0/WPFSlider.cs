@@ -12,7 +12,7 @@ namespace RM.Friendly.WPFStandardControls
     /// </summary>
 #else
     /// <summary>
-    /// TypeがSystem.Windows.Controls.Sliderのウィンドウに対応した操作を提供します。
+    /// TypeがSystem.Windows.Controls.Sliderに対応した操作を提供します。
     /// </summary>
 #endif
     public class WPFSlider : WPFControlBase<Slider>

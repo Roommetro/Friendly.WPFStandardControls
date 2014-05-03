@@ -85,9 +85,12 @@
     </Compile>
     <Compile Include="WPFButtonBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WPFComboBox.cs" />
     <Compile Include="WPFControlBase.cs" />
+    <Compile Include="WPFListBox.cs" />
     <Compile Include="WPFListView.cs" />
     <Compile Include="WPFMenuBase.cs" />
+    <Compile Include="WPFTabControl.cs" />
     <Compile Include="WPFTreeViewItem.cs" />
     <Compile Include="WPFMenuItem.cs" />
     <Compile Include="WPFProgressBar.cs" />

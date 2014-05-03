@@ -39,25 +39,8 @@ namespace RM.Friendly.WPFStandardControls.Inside
 
         internal static string GetItemText(Visual item)
         {
-            TextBlock text = GetCoreElement(item, typeof(TextBlock).FullName) as TextBlock;
+            TextBlock text = VisualTreeUtility.GetCoreElement(item, typeof(TextBlock).FullName) as TextBlock;
             return (text == null) ? string.Empty : text.Text;
-        }
-
-        internal static Visual GetCoreElement(Visual visual, string typeFullName)
-        {
-            foreach (var v in VisualTreeUtility.GetChildren(visual))
-            {
-                if (v.GetType().FullName == typeFullName)
-                {
-                    return v;
-                }
-                Visual o = GetCoreElement(v, typeFullName);
-                if (o != null)
-                {
-                    return o;
-                }
-            }
-            return null;
         }
 
         static TItem GetItem<TItem, T>(Visual parent, T[] indices, GetItemDelegate<TItem, T> getItem, ShowNextItem<TItem> showNextItem)
