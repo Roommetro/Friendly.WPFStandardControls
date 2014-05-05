@@ -91,6 +91,10 @@
     <Compile Include="WPFDatePickerTest.cs" />
     <Compile Include="WPFDateTimePickerTest.cs" />
     <Compile Include="WPFComboBoxTest.cs" />
+    <Compile Include="WPFListViewTestControl.xaml.cs">
+      <DependentUpon>WPFListViewTestControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPFTabControlTest.cs" />
     <Compile Include="WPFListViewTest.cs" />
     <Compile Include="WPFMenuBaseTestControl.xaml.cs">
       <DependentUpon>WPFMenuBaseTestControl.xaml</DependentUpon>
@@ -143,6 +147,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="WPFListViewTestControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WPFMenuBaseTestControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

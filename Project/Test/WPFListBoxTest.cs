@@ -38,7 +38,7 @@ namespace Test
         }
 
         [TestMethod]
-        public void SelectedIndexの値を取得して設定できる()
+        public void SelectedIndex()
         {
             var index = listBox.SelectedIndex;
             Assert.AreEqual(-1, (int)index);
