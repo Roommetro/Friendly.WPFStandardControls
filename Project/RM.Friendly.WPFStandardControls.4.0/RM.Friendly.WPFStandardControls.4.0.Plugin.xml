@@ -3,6 +3,7 @@
   <AssemblyString>RM.Friendly.WPFStandardControls.4.0, Version=0.0.4.0, Culture=neutral, PublicKeyToken=804da7e4293a9f15</AssemblyString>
   <Company>Room Metro</Company>
   <WebPage>http://metrostyledev.net/</WebPage>
+  <CompileNeedAssembly>RM.Friendly.WPFStandardControls.CompileNeedAssembly4.GetAssemblys</CompileNeedAssembly>
   <NetTypePairs>
     <PluginClassPair>
       <TargetType>System.Windows.Controls.DataGrid</TargetType>

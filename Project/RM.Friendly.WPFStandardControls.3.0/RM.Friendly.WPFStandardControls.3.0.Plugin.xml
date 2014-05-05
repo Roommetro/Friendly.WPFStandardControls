@@ -3,6 +3,7 @@
   <AssemblyString>RM.Friendly.WPFStandardControls.3.0, Version=0.0.4.0, Culture=neutral, PublicKeyToken=1b8f25b96765ebb0</AssemblyString>
   <Company>Room Metro</Company>
   <WebPage>http://metrostyledev.net/</WebPage>
+  <CompileNeedAssembly>RM.Friendly.WPFStandardControls.CompileNeedAssembly3.GetAssemblys</CompileNeedAssembly>
   <NetTypePairs>
     <PluginClassPair>
       <TargetType>System.Windows.Controls.Primitives.ButtonBase</TargetType>
