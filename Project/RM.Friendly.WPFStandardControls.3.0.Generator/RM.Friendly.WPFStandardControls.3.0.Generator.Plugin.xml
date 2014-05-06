@@ -13,6 +13,11 @@
       <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFSelectorGenerator</GeneratorType>
     </PluginClassPair>
     <PluginClassPair>
+      <TargetType>System.Windows.Controls.TabControl</TargetType>
+      <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFSelectorGenerator</GeneratorType>
+      <IsGeneratorSearchChildren>true</IsGeneratorSearchChildren>
+    </PluginClassPair>
+    <PluginClassPair>
       <TargetType>System.Windows.Controls.Slider</TargetType>
       <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFSliderGenerator</GeneratorType>
     </PluginClassPair>
