@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Controls;
 using Codeer.TestAssistant.GeneratorToolKit;
 
-namespace Codeer.Friendly.WPFStandardControls.Generator
+namespace RM.Friendly.WPFStandardControls.Generator
 {
     /// <summary>
     /// コード生成

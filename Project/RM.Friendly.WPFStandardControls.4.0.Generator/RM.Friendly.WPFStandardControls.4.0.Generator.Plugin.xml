@@ -8,5 +8,13 @@
       <TargetType>System.Windows.Controls.DataGrid</TargetType>
       <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFDataGridGenerator</GeneratorType>
     </PluginClassPair>
+    <PluginClassPair>
+      <TargetType>System.Windows.Controls.DatePicker</TargetType>
+      <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFDatePickerGenerator</GeneratorType>
+    </PluginClassPair>
+    <PluginClassPair>
+      <TargetType>System.Windows.Controls.Calendar</TargetType>
+      <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFCalendarGenerator</GeneratorType>
+    </PluginClassPair>
   </NetTypePairs>
 </PluginInfo>
