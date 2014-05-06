@@ -4,12 +4,12 @@ using System.Windows.Controls.Primitives;
 using Codeer.TestAssistant.GeneratorToolKit;
 using System.Windows;
 
-namespace Codeer.Friendly.WpfStandardControls.Generator
+namespace Codeer.Friendly.WPFStandardControls.Generator
 {
     /// <summary>
     /// コード生成
     /// </summary>
-    public class WpfToggleButtonGenerator : GeneratorBase
+    public class WPFToggleButtonGenerator : GeneratorBase
     {
         ToggleButton _control;
 

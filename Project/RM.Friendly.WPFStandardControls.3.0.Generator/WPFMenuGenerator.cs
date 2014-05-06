@@ -9,7 +9,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
     /// <summary>
     /// コード生成
     /// </summary>
-    class WPFWPFMenuGeneratorGenerator : GeneratorBase
+    class WPFMenuGeneratorGenerator : GeneratorBase
     {
         Menu _control;
 

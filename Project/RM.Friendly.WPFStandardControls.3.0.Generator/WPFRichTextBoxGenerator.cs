@@ -13,11 +13,12 @@ namespace RM.Friendly.WPFStandardControls.Generator
     class WPFRichTextBoxGenerator : GeneratorBase
     {
         RichTextBox _control;
-
+        string _lastText = string.Empty;
         protected override void Attach()
         {
             _control = (RichTextBox)ControlObject;
             _control.TextChanged += TextChanged;
+            _lastText = GetText(_control);
         }
 
         protected override void Detach()
@@ -29,23 +30,21 @@ namespace RM.Friendly.WPFStandardControls.Generator
         {
             if (_control.IsFocused)
             {
-                var literal = GenerateUtility.ToLiteral(GetText(_control));
-                if (string.IsNullOrEmpty(literal))
+                var text = GetText(_control);
+                if (text.IndexOf(_lastText) != 0)
                 {
                     AddSentence(new TokenName(),
                             ".EmulateClearText(",
                             new TokenAsync(CommaType.Non),
                             ");");
                 }
-                else
-                {
-                    AddSentence(new TokenName(),
-                                ".EmulateAppendText(",
-                                literal,
-                                new TokenAsync(CommaType.Before),
-                                ");");
-                }
+                AddSentence(new TokenName(),
+                            ".EmulateAppendText(",
+                            GenerateUtility.ToLiteral(text),
+                            new TokenAsync(CommaType.Before),
+                            ");");
             }
+            _lastText = GetText(_control);
         }
 
         public override void Optimize(List<Sentence> code)

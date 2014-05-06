@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Windows.Controls;
 using Codeer.TestAssistant.GeneratorToolKit;
 
-namespace Codeer.Friendly.WpfStandardControls.Generator
+namespace Codeer.Friendly.WPFStandardControls.Generator
 {
     /// <summary>
     /// コード生成
     /// </summary>
-    public class WpfDataGridGenerator : GeneratorBase
+    public class WPFDataGridGenerator : GeneratorBase
     {
         DataGrid _control;
 
