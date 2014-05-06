@@ -36,10 +36,10 @@ namespace RM.Friendly.WPFStandardControls.Generator
         /// <param name="e">イベント内容</param>
         void SelectedDateChanged(object sender, EventArgs e)
         {
-            if (_control.IsFocused && _control.SelectedDate.Value != null)
+            if (_control.SelectedDate.Value != null)
             {
                 DateTime day = _control.SelectedDate.Value;
-                AddSentence(new TokenName(), ".EmulateChangeDate(new DateTime(", day.Year, ", ", day.Month, ", ", day.Day, ")", _control.SelectedDate, new TokenAsync(CommaType.Before), ");");
+                AddSentence(new TokenName(), ".EmulateChangeDate(new DateTime(", day.Year, ", ", day.Month, ", ", day.Day, ")", new TokenAsync(CommaType.Before), ");");
             }
         }
     }

@@ -12,7 +12,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
     /// <summary>
     /// 自動生成ユーティリティー
     /// </summary>
-    static class GenerateUtility
+    public static class GenerateUtility
     {
         /// <summary>
         /// 重複したセンテンスの削除。
@@ -20,7 +20,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
         /// <param name="generator">ジェネレータ。</param>
         /// <param name="list">リスト。</param>
         /// <param name="pattern">パターン。</param>
-        internal static void RemoveDuplicationSentence(GeneratorBase generator, List<Sentence> list, object[] pattern)
+        public static void RemoveDuplicationSentence(GeneratorBase generator, List<Sentence> list, object[] pattern)
         {
             Sentence old = null;
             for (int i = list.Count - 1; 0 <= i; i--)
@@ -82,7 +82,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
         /// <param name="generator">ジェネレータ。</param>
         /// <param name="list">リスト。</param>
         /// <param name="function">関数。</param>
-        internal static void RemoveDuplicationFunction(GeneratorBase generator, List<Sentence> list, string function)
+        public static void RemoveDuplicationFunction(GeneratorBase generator, List<Sentence> list, string function)
         {
             bool findChangeText = false;
             for (int i = list.Count - 1; 0 <= i; i--)
@@ -132,7 +132,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
         /// </summary>
         /// <param name="text">テキスト。</param>
         /// <returns>調整済み行。</returns>
-        static internal string AdjustText(string text)
+        public static string AdjustText(string text)
         {
             text = text.Replace("\"", "\"\"");
             string[] lines = text.Replace("\r\n", "\n").Replace("\r", "\n").Split(new char[] { '\n' });
@@ -153,7 +153,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        static internal string ToLiteral(string text)
+        public static string ToLiteral(string text)
         {
             using (var writer = new StringWriter())
             using (var provider = CodeDomProvider.CreateProvider("CSharp"))

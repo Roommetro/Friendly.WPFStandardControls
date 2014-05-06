@@ -78,6 +78,12 @@
     <None Include="packages.config" />
     <None Include="RM.Friendly.WPFStandardControls.4.0.Generator.snk" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RM.Friendly.WPFStandardControls.3.0.Generator\RM.Friendly.WPFStandardControls.3.0.Generator.csproj">
+      <Project>{fc6ade89-7704-4d3b-919d-615abe2baac6}</Project>
+      <Name>RM.Friendly.WPFStandardControls.3.0.Generator</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Release Copy "$(TargetPath)" "../../../ReleaseBinary/$(TargetFileName)"

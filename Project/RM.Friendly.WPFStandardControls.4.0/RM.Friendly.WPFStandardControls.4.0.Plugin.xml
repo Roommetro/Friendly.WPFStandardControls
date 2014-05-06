@@ -11,11 +11,11 @@
     </PluginClassPair>
     <PluginClassPair>
       <TargetType>System.Windows.Controls.Calendar</TargetType>
-      <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFCalendarGenerator</GeneratorType>
+      <PluginType>RM.Friendly.WPFStandardControls.WPFCalendar</PluginType>
     </PluginClassPair>
     <PluginClassPair>
       <TargetType>System.Windows.Controls.DatePicker</TargetType>
-      <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFDatePickerGenerator</GeneratorType>
-    </PluginClassPair> 
+      <PluginType>RM.Friendly.WPFStandardControls.WPFDatePicker</PluginType>
+  </PluginClassPair> 
   </NetTypePairs>
 </PluginInfo>
