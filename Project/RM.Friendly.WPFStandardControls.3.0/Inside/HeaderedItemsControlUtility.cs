@@ -16,7 +16,7 @@ namespace RM.Friendly.WPFStandardControls.Inside
         {
             GetItemDelegate<TItem, string> getItem = (visual, headerText) =>
             {
-                IsMatch<TItem> isMatch = (item) => (GetItemText(item) == headerText);
+                IsMatch<TItem> isMatch = (item) => (VisualTreeUtility.GetItemText(item) == headerText);
                 Next<TItem> next = null;
                 next = (v) => GetItemCore(v, isMatch, next);
                 return GetItemCore(visual, isMatch, next);
@@ -35,12 +35,6 @@ namespace RM.Friendly.WPFStandardControls.Inside
                 return GetItemCore(visual, isMatch, next);
             };
             return GetItem<TItem, int>(parent, indices, getItem, showNextItem);
-        }
-
-        internal static string GetItemText(Visual item)
-        {
-            TextBlock text = VisualTreeUtility.GetCoreElement(item, typeof(TextBlock).FullName) as TextBlock;
-            return (text == null) ? string.Empty : text.Text;
         }
 
         static TItem GetItem<TItem, T>(Visual parent, T[] indices, GetItemDelegate<TItem, T> getItem, ShowNextItem<TItem> showNextItem)

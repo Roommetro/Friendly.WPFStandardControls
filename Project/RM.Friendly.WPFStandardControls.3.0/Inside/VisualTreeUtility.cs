@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace RM.Friendly.WPFStandardControls.Inside
@@ -55,6 +56,12 @@ namespace RM.Friendly.WPFStandardControls.Inside
                 }
             }
             return null;
+        }
+
+        public static string GetItemText(Visual item)
+        {
+            TextBlock text = VisualTreeUtility.GetCoreElement(item, typeof(TextBlock).FullName) as TextBlock;
+            return (text == null) ? string.Empty : text.Text;
         }
     }
 }
