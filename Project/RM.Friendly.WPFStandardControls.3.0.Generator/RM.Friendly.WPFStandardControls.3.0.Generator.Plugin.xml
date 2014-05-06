@@ -29,24 +29,8 @@
       <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFMenuGenerator</GeneratorType>
     </PluginClassPair>
     <PluginClassPair>
-      <TargetType>System.Windows.Controls.ListView</TargetType>
-      <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFListViewGenerator</GeneratorType>
-    </PluginClassPair>
-    <PluginClassPair>
       <TargetType>System.Windows.Controls.TreeView</TargetType>
       <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFTreeViewGenerator</GeneratorType>
-    </PluginClassPair>
-    <PluginClassPair>
-      <TargetType>System.Windows.Controls.Calender</TargetType>
-      <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFCalenderGenerator</GeneratorType>
-    </PluginClassPair>
-    <PluginClassPair>
-      <TargetType>System.Windows.Controls.DateTimePicker</TargetType>
-      <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFDateTimePickerGenerator</GeneratorType>
-    </PluginClassPair>
-    <PluginClassPair>
-      <TargetType>System.Windows.Controls.ProgressBar</TargetType>
-      <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFProgressBarGenerator</GeneratorType>
     </PluginClassPair>
     <PluginClassPair>
       <TargetType>System.Windows.Controls.RichTextBox</TargetType>
