@@ -12,6 +12,7 @@ using System.Globalization;
 using System.Threading;
 using Codeer.Friendly.Windows.Grasp;
 using Codeer.Friendly.Windows.NativeStandardControls;
+using System.Linq;
 
 namespace Test
 {
@@ -31,6 +32,30 @@ namespace Test
             public string Name { get; set; }
             public ProgramingLanguage Language { get; set; }
             public bool IsActive { get; set; }
+
+            public override bool Equals(object obj)
+            {
+                Item item = obj as Item;
+                if (item == null)
+                {
+                    return false;
+                }
+                return Name == item.Name && Language == item.Language && IsActive == item.IsActive;
+            }
+
+            public override int GetHashCode()
+            {
+                return 0;
+            }
+        }
+
+        [Serializable]
+        public struct ItemStruct
+        {
+            public string Name { get; set; }
+            public ProgramingLanguage Language { get; set; }
+            public bool IsActive { get; set; }
+
 
             public override bool Equals(object obj)
             {
@@ -227,18 +252,27 @@ namespace Test
                 "指定のセルはTextプロパティーを持っていません。");
         }
 
-        /*@@@
+
         [TestMethod]
-        public void TestNotSupportedItems()
+        public void TestSameDataClass()
         {
-            dataGrid.Dynamic().ItemsSource = new Item[] 
-            {
-                new Item(){ Name = "A" },
-                new Item(){ Name = "A" },
-            };
-            TestUtility.TestExceptionMessage(() => { ResetConnection(); dataGrid.EmulateChangeCellText(0, 0, "xxx"); },
-                "When there are a target item and other equivalent items, this operation cannot be performed correctly.",
-                "目的のアイテムと同値の他のアイテムがある場合、この操作を正しく実行することができません。");
-        }*/
+            dataGrid.Dynamic().ItemsSource =
+                Enumerable.Range(0, 100).Select(i => new Item() { Name = "A" }).ToArray();
+            ResetConnection();
+            dataGrid.EmulateChangeCurrentCell(99, 1);
+            Assert.AreEqual(99, dataGrid.CurrentItemIndex);
+            Assert.AreEqual(1, dataGrid.CurrentColIndex);
+        }
+
+        [TestMethod]
+        public void TestSameDataStruct()
+        {
+            dataGrid.Dynamic().ItemsSource =
+                Enumerable.Range(0, 100).Select(i => new ItemStruct() { Name = "A" }).ToArray();
+            ResetConnection();
+            dataGrid.EmulateChangeCurrentCell(99, 1);
+            Assert.AreEqual(99, dataGrid.CurrentItemIndex);
+            Assert.AreEqual(1, dataGrid.CurrentColIndex);
+        }
     }
 }

@@ -265,12 +265,6 @@ namespace RM.Friendly.WPFStandardControls
             return InvokeStatic(GetCellText, Ret<string>(), itemIndex, col);
         }
 
-        static DataGridRow GetRow(DataGrid grid, int itemIndex)
-        {
-            EnsureRowVisible(grid, itemIndex);
-            return (DataGridRow)grid.ItemContainerGenerator.ContainerFromIndex(itemIndex);
-        }
-
         static void EnsureRowVisible(DataGrid grid, int itemIndex)
         {
             grid.Focus();
@@ -292,7 +286,13 @@ namespace RM.Friendly.WPFStandardControls
 
         static DataGridCell GetCell(DataGrid grid, int itemIndex, int col)
         {
-            DataGridRow row = GetRow(grid, itemIndex);
+            EnsureRowVisible(grid, itemIndex);
+            DataGridRow row = (DataGridRow)grid.ItemContainerGenerator.ContainerFromIndex(itemIndex);
+            return GetCell(grid, row, col);
+        }
+
+        static DataGridCell GetCell(DataGrid grid, DataGridRow row, int col)
+        {
             grid.ScrollIntoView(row, grid.Columns[col]);
             var presenter =
                    (DataGridCellsPresenter)VisualTreeUtility.GetCoreElement(row, typeof(DataGridCellsPresenter).FullName);
@@ -396,15 +396,31 @@ namespace RM.Friendly.WPFStandardControls
             {
                 return -1;
             }
+            grid.Focus();
+            var current = grid.CurrentCell;
+
             if (grid.Items[0].GetType().IsValueType)
             {
-                throw new NotSupportedException(ResourcesLocal4.Instance.DataGridErrorNotSupportedItems);
-                //@@@CellInfoにして全セル比較とか
+                for (int itemIndex = 0; itemIndex < grid.Items.Count; itemIndex++)
+                {
+                    DataGridRow row = (DataGridRow)grid.ItemContainerGenerator.ContainerFromIndex(itemIndex);
+                    if (row == null)
+                    {
+                        continue;
+                    }
+                    for (int col = 0; col < grid.Columns.Count; col++)
+                    {
+                        DataGridCell cell = GetCell(grid, row, col);
+                        if (current == new DataGridCellInfo(cell))
+                        {
+                            return itemIndex;
+                        }
+                    }
+                }
+                return -1;
             }
             else
             {
-                grid.Focus();
-                var current = grid.CurrentCell;
                 if (current == null || current.Item == null)
                 {
                     return -1;
