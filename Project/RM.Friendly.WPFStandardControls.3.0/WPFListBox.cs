@@ -55,17 +55,17 @@ namespace RM.Friendly.WPFStandardControls
         {
             listBox.Focus();
             listBox.ScrollIntoView(listBox.Items[index]);
-            InvokeUtility.DoEvents();
+            listBox.UpdateLayout();
             if (listBox.ItemContainerGenerator.ContainerFromIndex(index) == null)
             {
                 ListBoxAutomationPeer peer = new ListBoxAutomationPeer(listBox);
                 var scroll = peer.GetPattern(PatternInterface.Scroll) as IScrollProvider;
                 scroll.SetScrollPercent(scroll.HorizontalScrollPercent, 0);
-                InvokeUtility.DoEvents();
+                listBox.UpdateLayout();
                 while (listBox.ItemContainerGenerator.ContainerFromIndex(index) == null)
                 {
                     scroll.Scroll(ScrollAmount.NoAmount, ScrollAmount.LargeIncrement);
-                    InvokeUtility.DoEvents();
+                    listBox.UpdateLayout();
                 }
             }
         }

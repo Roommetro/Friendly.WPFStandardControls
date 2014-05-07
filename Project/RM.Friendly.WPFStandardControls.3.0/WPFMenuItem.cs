@@ -67,7 +67,7 @@ namespace RM.Friendly.WPFStandardControls
         /// アイテムのテキストを取得します。
         /// </summary>
 #endif
-        public string Text { get { return (string)AppVar.App[typeof(VisualTreeUtility), "GetItemText"](AppVar).Core; } }
+        public string Text { get { return (string)AppVar.App[typeof(HeaderedItemsControlUtility), "GetItemText"](AppVar).Core; } }
 
 #if ENG
         /// <summary>

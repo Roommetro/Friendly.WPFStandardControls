@@ -4,8 +4,16 @@ using System.Windows.Media;
 
 namespace RM.Friendly.WPFStandardControls.Inside
 {
-    static class VisualTreeUtility
+    /// <summary>
+    /// VisualTreeUtility
+    /// </summary>
+    public static class VisualTreeUtility
     {
+        /// <summary>
+        /// Enumerate visual tree children.
+        /// </summary>
+        /// <param name="v">visual</param>
+        /// <returns>children</returns>
         public static IEnumerable<Visual> GetChildren(Visual v)
         {
             if (v != null)
@@ -22,8 +30,23 @@ namespace RM.Friendly.WPFStandardControls.Inside
             }
         }
 
+        /// <summary>
+        /// IsMatchParam
+        /// </summary>
+        /// <typeparam name="T">Param type.</typeparam>
+        /// <param name="v">Visual.</param>
+        /// <param name="param">Param.</param>
+        /// <returns>Is match.</returns>
         public delegate bool IsMatchParam<T>(Visual v, T param);
 
+        /// <summary>
+        /// FindVisualItem
+        /// </summary>
+        /// <typeparam name="T">Param type.</typeparam>
+        /// <param name="visual">Visual.</param>
+        /// <param name="param">Param.</param>
+        /// <param name="isMatchParam">IsMatchParam.</param>
+        /// <returns>Match object.</returns>
         public static object FindVisualItem<T>(Visual visual, T param, IsMatchParam<T> isMatchParam)
         {
             foreach (var v in VisualTreeUtility.GetChildren(visual))
@@ -41,6 +64,12 @@ namespace RM.Friendly.WPFStandardControls.Inside
             return null;
         }
 
+        /// <summary>
+        /// GetCoreElement.
+        /// </summary>
+        /// <param name="visual">Root.</param>
+        /// <param name="typeFullName">Type full name.</param>
+        /// <returns>Match visual.</returns>
         public static Visual GetCoreElement(Visual visual, string typeFullName)
         {
             foreach (var v in VisualTreeUtility.GetChildren(visual))
@@ -56,12 +85,6 @@ namespace RM.Friendly.WPFStandardControls.Inside
                 }
             }
             return null;
-        }
-
-        public static string GetItemText(Visual item)
-        {
-            TextBlock text = VisualTreeUtility.GetCoreElement(item, typeof(TextBlock).FullName) as TextBlock;
-            return (text == null) ? string.Empty : text.Text;
         }
     }
 }

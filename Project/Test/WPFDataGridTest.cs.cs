@@ -227,6 +227,7 @@ namespace Test
                 "指定のセルはTextプロパティーを持っていません。");
         }
 
+        /*@@@
         [TestMethod]
         public void TestNotSupportedItems()
         {
@@ -238,6 +239,6 @@ namespace Test
             TestUtility.TestExceptionMessage(() => { ResetConnection(); dataGrid.EmulateChangeCellText(0, 0, "xxx"); },
                 "When there are a target item and other equivalent items, this operation cannot be performed correctly.",
                 "目的のアイテムと同値の他のアイテムがある場合、この操作を正しく実行することができません。");
-        }
+        }*/
     }
 }

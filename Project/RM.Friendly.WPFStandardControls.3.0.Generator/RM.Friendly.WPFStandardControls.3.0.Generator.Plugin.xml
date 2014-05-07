@@ -30,8 +30,8 @@
       <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFToggleButtonGenerator</GeneratorType>
     </PluginClassPair>
     <PluginClassPair>
-      <TargetType>System.Windows.Controls.Menu</TargetType>
-      <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFMenuGenerator</GeneratorType>
+      <TargetType>System.Windows.Controls.MenuBase</TargetType>
+      <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFMenuBaseGenerator</GeneratorType>
     </PluginClassPair>
     <PluginClassPair>
       <TargetType>System.Windows.Controls.TreeView</TargetType>

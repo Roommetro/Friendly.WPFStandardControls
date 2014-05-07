@@ -34,8 +34,8 @@
       <PluginType>RM.Friendly.WPFStandardControls.WPFToggleButton</PluginType>
     </PluginClassPair>
     <PluginClassPair>
-      <TargetType>System.Windows.Controls.Menu</TargetType>
-      <PluginType>RM.Friendly.WPFStandardControls.WPFMenu</PluginType>
+      <TargetType>System.Windows.Controls.MenuBase</TargetType>
+      <PluginType>RM.Friendly.WPFStandardControls.WPFMenuBase</PluginType>
     </PluginClassPair>
     <PluginClassPair>
       <TargetType>System.Windows.Controls.ListView</TargetType>

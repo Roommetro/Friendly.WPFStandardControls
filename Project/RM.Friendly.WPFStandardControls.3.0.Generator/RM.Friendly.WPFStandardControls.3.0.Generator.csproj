@@ -64,7 +64,7 @@
     <Compile Include="GenerateUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WPFButtonBaseGenerator.cs" />
-    <Compile Include="WPFMenuGenerator.cs" />
+    <Compile Include="WPFMenuBaseGenerator.cs" />
     <Compile Include="WPFRichTextBoxGenerator.cs" />
     <Compile Include="WPFSelectorGenerator.cs" />
     <Compile Include="WPFSliderGenerator.cs" />

@@ -6,6 +6,10 @@ using Codeer.Friendly;
 using Codeer.Friendly.Dynamic;
 using Codeer.Friendly.Windows;
 using RM.Friendly.WPFStandardControls.Inside;
+using System.Windows.Controls.Primitives;
+using System.Windows.Automation.Peers;
+using System.Windows.Automation.Provider;
+using System.Windows.Automation;
 
 namespace RM.Friendly.WPFStandardControls
 {
@@ -261,32 +265,45 @@ namespace RM.Friendly.WPFStandardControls
             return InvokeStatic(GetCellText, Ret<string>(), itemIndex, col);
         }
 
-        static void EmulateChangeCurrentCell(DataGrid grid, int itemIndex, int col)
+        static DataGridRow GetRow(DataGrid grid, int itemIndex)
         {
-            object target = grid.Items[itemIndex];
-            for (int i = 0; i < grid.Items.Count; i++)
+            EnsureRowVisible(grid, itemIndex);
+            return (DataGridRow)grid.ItemContainerGenerator.ContainerFromIndex(itemIndex);
+        }
+
+        static void EnsureRowVisible(DataGrid grid, int itemIndex)
+        {
+            grid.Focus();
+            grid.ScrollIntoView(grid.Items[itemIndex]);
+            grid.UpdateLayout();
+            if (grid.ItemContainerGenerator.ContainerFromIndex(itemIndex) == null)
             {
-                if (i != itemIndex)
+                DataGridAutomationPeer peer = new DataGridAutomationPeer(grid);
+                var scroll = peer.GetPattern(PatternInterface.Scroll) as IScrollProvider;
+                scroll.SetScrollPercent(scroll.HorizontalScrollPercent, 0);
+                grid.UpdateLayout();
+                while (grid.ItemContainerGenerator.ContainerFromIndex(itemIndex) == null)
                 {
-                    if (target == null)
-                    {
-                        if (grid.Items[i] == null)
-                        {
-                            throw new NotSupportedException(ResourcesLocal4.Instance.DataGridErrorNotSupportedItems);
-                        }
-                    }
-                    else
-                    {
-                        if (target.Equals(grid.Items[i]))
-                        {
-                            throw new NotSupportedException(ResourcesLocal4.Instance.DataGridErrorNotSupportedItems);
-                        }
-                    }
+                    scroll.Scroll(ScrollAmount.NoAmount, ScrollAmount.LargeIncrement);
+                    grid.UpdateLayout();
                 }
             }
+        }
+
+        static DataGridCell GetCell(DataGrid grid, int itemIndex, int col)
+        {
+            DataGridRow row = GetRow(grid, itemIndex);
+            grid.ScrollIntoView(row, grid.Columns[col]);
+            var presenter =
+                   (DataGridCellsPresenter)VisualTreeUtility.GetCoreElement(row, typeof(DataGridCellsPresenter).FullName);
+            return (DataGridCell)presenter.ItemContainerGenerator.ContainerFromIndex(col);
+        }
+
+        static void EmulateChangeCurrentCell(DataGrid grid, int itemIndex, int col)
+        {
             grid.Focus();
             grid.SelectedIndex = itemIndex;
-            grid.CurrentCell = new DataGridCellInfo(grid.Items[itemIndex], grid.Columns[col]);
+            grid.CurrentCell = new DataGridCellInfo(GetCell(grid, itemIndex, col));
         }
 
         static string GetCellText(DataGrid grid, int itemIndex, int col)
@@ -375,25 +392,32 @@ namespace RM.Friendly.WPFStandardControls
 
         static int GetCurrentItemIndex(DataGrid grid)
         {
-            grid.Focus();
-            var current = grid.CurrentCell;
-            if (current == null || current.Item == null)
+            if (grid.Items.Count == 0)
             {
                 return -1;
             }
-            int findIndex = -1;
-            for (int i = 0; i < grid.Items.Count; i++)
+            if (grid.Items[0].GetType().IsValueType)
             {
-                if (ReferenceEquals(current.Item, grid.Items[i]))
-                {
-                    if (findIndex != -1)
-                    {
-                        throw new NotSupportedException(ResourcesLocal4.Instance.DataGridErrorNotSupportedItems);
-                    }
-                    findIndex = i;
-                }
+                throw new NotSupportedException(ResourcesLocal4.Instance.DataGridErrorNotSupportedItems);
+                //@@@CellInfoにして全セル比較とか
             }
-            return grid.SelectedIndex;
+            else
+            {
+                grid.Focus();
+                var current = grid.CurrentCell;
+                if (current == null || current.Item == null)
+                {
+                    return -1;
+                }
+                for (int i = 0; i < grid.Items.Count; i++)
+                {
+                    if (ReferenceEquals(current.Item, grid.Items[i]))
+                    {
+                        return i;
+                    }
+                }
+                return -1;
+            }
         }
 
         static int GetCurrentColIndex(DataGrid grid)
