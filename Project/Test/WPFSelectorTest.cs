@@ -14,11 +14,11 @@ using Codeer.Friendly.Windows.NativeStandardControls;
 namespace Test
 {
     [TestClass]
-    public class WPFTabControlTest
+    public class WPFSelectorTest
     {
         WindowsAppFriend app;
 
-        WPFTabControl tabControl;
+        WPFSelector tabControl;
 
         [TestInitialize]
         public void TestInitialize() {
@@ -29,7 +29,7 @@ namespace Test
             dynamic target = app.Type<TabControl>()();
             grid.Children.Add(target);
             target.ItemsSource = Enumerable.Range(0, 10).Select(i => "value " + i).ToArray();
-            tabControl = new WPFTabControl(target);
+            tabControl = new WPFSelector(target);
         }
 
         [TestCleanup]

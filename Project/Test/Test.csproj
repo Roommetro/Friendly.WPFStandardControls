@@ -94,6 +94,7 @@
     <Compile Include="WPFListViewTestControl.xaml.cs">
       <DependentUpon>WPFListViewTestControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WPFSelectorTest.cs" />
     <Compile Include="WPFTabControlTest.cs" />
     <Compile Include="WPFListViewTest.cs" />
     <Compile Include="WPFMenuBaseTestControl.xaml.cs">

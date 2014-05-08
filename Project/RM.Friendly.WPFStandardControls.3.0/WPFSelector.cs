@@ -12,7 +12,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.Primitives.Selectorに対応した操作を提供します。
     /// </summary>
 #endif
-    public class WPFSelector<CoreType> : WPFControlBase<CoreType>
+    public class WPFSelectorCore<CoreType> : WPFControlBase<CoreType>
         where CoreType : Selector
     {
 #if ENG
@@ -26,7 +26,7 @@ namespace RM.Friendly.WPFStandardControls
         /// </summary>
         /// <param name="appVar">アプリケーション内変数。</param>
 #endif
-        public WPFSelector(AppVar appVar)
+        public WPFSelectorCore(AppVar appVar)
             : base(appVar) { }
 
 #if ENG
@@ -95,5 +95,31 @@ namespace RM.Friendly.WPFStandardControls
             selector.Focus();
             selector.SelectedIndex = index;
         }
+    }
+
+#if ENG
+    /// <summary>
+    /// Provides operations on controls of type System.Windows.Controls.Primitives.Selector.
+    /// </summary>
+#else
+    /// <summary>
+    /// TypeがSystem.Windows.Controls.Primitives.Selectorに対応した操作を提供します。
+    /// </summary>
+#endif
+    public class WPFSelector : WPFSelectorCore<Selector>
+    {
+#if ENG
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="appVar">Application variable object for the control.</param>
+#else
+        /// <summary>
+        /// コンストラクタです。
+        /// </summary>
+        /// <param name="appVar">アプリケーション内変数。</param>
+#endif
+        public WPFSelector(AppVar appVar)
+            : base(appVar) { }
     }
 }
