@@ -1,16 +1,75 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
 namespace RM.Friendly.WPFStandardControls.Inside
 {
-    static class HeaderedItemsControlUtility
+    /// <summary>
+    /// HeaderedItemsControlUtility
+    /// </summary>
+    public static class HeaderedItemsControlUtility
     {
         internal delegate void ShowNextItem<TItem>(TItem item) where TItem : Visual;
         delegate TItem GetItemDelegate<TItem, TCondition>(Visual v, TCondition condition) where TItem : Visual;
         delegate bool IsMatch<TItem>(TItem v) where TItem : Visual;
         delegate TItem Next<TItem>(Visual v) where TItem : Visual;
+
+        /// <summary>
+        /// GetChildren
+        /// </summary>
+        /// <typeparam name="T">Child item type.</typeparam>
+        /// <param name="v">visual.</param>
+        /// <param name="itmes">Children.</param>
+        public static void GetChildren<T>(Visual v, List<T> itmes)
+            where T : class
+        {
+            foreach (var element in VisualTreeUtility.GetChildren(v))
+            {
+                var menuItem = element as T;
+                if (menuItem != null)
+                {
+                    itmes.Add(menuItem);
+                }
+                else
+                {
+                    var next = element;
+                    var popup = next as Popup;
+                    if (popup != null)
+                    {
+                        next = popup.Child as Visual;
+                    }
+                    GetChildren(next, itmes);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get item text.
+        /// </summary>
+        /// <param name="item">Item.</param>
+        /// <returns>text.</returns>
+        public static string GetItemText(Visual item)
+        {
+            var block = VisualTreeUtility.GetCoreElement(item, typeof(TextBlock).FullName) as TextBlock;
+            if (block != null)
+            {
+                if (!string.IsNullOrEmpty(block.Text))
+                {
+                    return block.Text;
+                }
+            }
+            var access = VisualTreeUtility.GetCoreElement(item, typeof(AccessText).FullName) as AccessText;
+            if (access != null)
+            {
+                if (!string.IsNullOrEmpty(access.Text))
+                {
+                    return access.Text;
+                }
+            }
+            return string.Empty;
+        }
 
         internal static TItem GetItem<TItem>(Visual parent, string[] headerTexts, ShowNextItem<TItem> showNextItem) where TItem : Visual
         {
@@ -87,20 +146,6 @@ namespace RM.Friendly.WPFStandardControls.Inside
                 }
             }
             return null;
-        }
-
-        static string GetItemText(Visual item)
-        {
-            TextBlock block = VisualTreeUtility.GetCoreElement(item, typeof(TextBlock).FullName) as TextBlock;
-            if (block != null)
-            {
-                 return block.Text;
-            }
-            if (item != null)
-            {
-                return item.ToString();
-            }
-            return string.Empty;
         }
     }
 }

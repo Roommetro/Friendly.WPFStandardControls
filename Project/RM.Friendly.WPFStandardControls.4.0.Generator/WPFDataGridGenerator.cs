@@ -5,16 +5,10 @@ using Codeer.TestAssistant.GeneratorToolKit;
 
 namespace RM.Friendly.WPFStandardControls.Generator
 {
-    /// <summary>
-    /// コード生成
-    /// </summary>
     public class WPFDataGridGenerator : GeneratorBase
     {
         DataGrid _control;
 
-        /// <summary>
-        /// アタッチ。
-        /// </summary>
         protected override void Attach()
         {
             _control = (DataGrid)ControlObject;
@@ -22,20 +16,12 @@ namespace RM.Friendly.WPFStandardControls.Generator
             _control.CurrentCellChanged += CurrentCellChanged;
         }
 
-        /// <summary>
-        /// ディタッチ。
-        /// </summary>
         protected override void Detach()
         {
             _control.CellEditEnding -= CellEditEnding;
             _control.CurrentCellChanged -= CurrentCellChanged;
         }
 
-        /// <summary>
-        /// 選択インデックス変更
-        /// </summary>
-        /// <param name="sender">イベント送信元</param>
-        /// <param name="e">イベント内容</param>
         void CurrentCellChanged(object sender, EventArgs e)
         {
             var current = _control.CurrentCell;
@@ -59,11 +45,6 @@ namespace RM.Friendly.WPFStandardControls.Generator
             }
         }
 
-        /// <summary>
-        /// 内容変更
-        /// </summary>
-        /// <param name="sender">イベント送信元</param>
-        /// <param name="e">イベント内容</param>
         void CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             int col = -1;

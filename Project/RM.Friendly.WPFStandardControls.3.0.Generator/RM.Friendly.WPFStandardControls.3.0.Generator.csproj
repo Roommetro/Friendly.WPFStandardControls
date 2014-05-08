@@ -31,7 +31,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\RM.Friendly.WPFStandardControls.3.0.Generator.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -50,6 +51,10 @@
     <DocumentationFile>bin\Release-English\RM.Friendly.WPFStandardControls.3.0.Generator.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Codeer.Friendly, Version=2.2.0.0, Culture=neutral, PublicKeyToken=6c44da6fca38aa86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Codeer.Friendly.2.2.0\lib\net20\Codeer.Friendly.dll</HintPath>
+    </Reference>
     <Reference Include="Codeer.TestAssistant.GeneratorToolKit">
       <HintPath>..\packages\Codeer.TestAssistant.GeneratorToolKit.1.0.0\lib\net20\Codeer.TestAssistant.GeneratorToolKit.dll</HintPath>
     </Reference>
@@ -65,6 +70,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WPFButtonBaseGenerator.cs" />
     <Compile Include="WPFMenuBaseGenerator.cs" />
+    <Compile Include="WPFMenuItemGenerator.cs" />
     <Compile Include="WPFRichTextBoxGenerator.cs" />
     <Compile Include="WPFSelectorGenerator.cs" />
     <Compile Include="WPFSliderGenerator.cs" />
@@ -78,6 +84,12 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="RM.Friendly.WPFStandardControls.3.0.Generator.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RM.Friendly.WPFStandardControls.3.0\RM.Friendly.WPFStandardControls.3.0.csproj">
+      <Project>{80d0bb7b-61d0-4c48-b877-6e35f7d90c74}</Project>
+      <Name>RM.Friendly.WPFStandardControls.3.0</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

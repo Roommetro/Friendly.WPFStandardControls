@@ -124,7 +124,12 @@ namespace RM.Friendly.WPFStandardControls
             textBox.AppendText(text);
         }
 
-        static string GetText(RichTextBox rich)
+        /// <summary>
+        /// Get text.
+        /// </summary>
+        /// <param name="rich">RichTextBox.</param>
+        /// <returns>Text.</returns>
+        public static string GetText(RichTextBox rich)
         {
             var block = rich.Document.Blocks.FirstBlock;
             if (block == null)

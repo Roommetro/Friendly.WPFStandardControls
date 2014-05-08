@@ -3,6 +3,13 @@
   <AssemblyString>RM.Friendly.WPFStandardControls.3.0.Generator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=41822cddf2e8cce7</AssemblyString>
   <Company>Room Metro</Company>
   <WebPage>http://metrostyledev.net/</WebPage>
+  <LoadDllInfos>
+    <LoadDllInfo>
+      <IsNative>false</IsNative>
+      <LoadDllType>StartupPath</LoadDllType>
+      <Name>RM.Friendly.WPFStandardControls.3.0.dll</Name>
+    </LoadDllInfo>
+  </LoadDllInfos>  
   <NetTypePairs>
     <PluginClassPair>
       <TargetType>System.Windows.Controls.Primitives.ButtonBase</TargetType>
@@ -30,9 +37,13 @@
       <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFToggleButtonGenerator</GeneratorType>
     </PluginClassPair>
     <PluginClassPair>
-      <TargetType>System.Windows.Controls.MenuBase</TargetType>
+      <TargetType>System.Windows.Controls.Menu</TargetType>
       <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFMenuBaseGenerator</GeneratorType>
     </PluginClassPair>
+    <PluginClassPair>
+      <TargetType>System.Windows.Controls.MenuItem</TargetType>
+      <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFMenuItemGenerator</GeneratorType>
+    </PluginClassPair> 
     <PluginClassPair>
       <TargetType>System.Windows.Controls.TreeView</TargetType>
       <GeneratorType>RM.Friendly.WPFStandardControls.Generator.WPFTreeViewGenerator</GeneratorType>

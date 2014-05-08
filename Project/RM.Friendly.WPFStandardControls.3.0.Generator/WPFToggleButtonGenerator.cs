@@ -6,16 +6,10 @@ using System.Windows;
 
 namespace RM.Friendly.WPFStandardControls.Generator
 {
-    /// <summary>
-    /// コード生成
-    /// </summary>
     public class WPFToggleButtonGenerator : GeneratorBase
     {
         ToggleButton _control;
 
-        /// <summary>
-        /// アタッチ。
-        /// </summary>
         protected override void Attach()
         {
             _control = (ToggleButton)ControlObject;
@@ -24,9 +18,6 @@ namespace RM.Friendly.WPFStandardControls.Generator
             _control.Indeterminate += ChangeCheck;
         }
 
-        /// <summary>
-        /// ディタッチ。
-        /// </summary>
         protected override void Detach()
         {
             _control.Checked -= ChangeCheck;
@@ -34,11 +25,6 @@ namespace RM.Friendly.WPFStandardControls.Generator
             _control.Indeterminate -= ChangeCheck;
         }
 
-        /// <summary>
-        /// チェック状態変化
-        /// </summary>
-        /// <param name="sender">イベント送信元</param>
-        /// <param name="e">イベント内容</param>
         void ChangeCheck(object sender, RoutedEventArgs e)
         {
             if (_control.IsFocused)
