@@ -10,7 +10,7 @@
         /// Get Assemblys.
         /// </summary>
         /// <returns>Assemblys.</returns>
-        public static string[] GetAssemblys()
+        public static string[] GetAssemblies()
         {
             return new string[] { "System.Xaml.dll" };
         }

@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Controls;
 using Codeer.TestAssistant.GeneratorToolKit;
 using System.Windows.Documents;
+using RM.Friendly.WPFStandardControls.Inside;
 
 namespace RM.Friendly.WPFStandardControls.Generator
 {
@@ -18,7 +19,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
         {
             _control = (RichTextBox)ControlObject;
             _control.TextChanged += TextChanged;
-            _lastText = WPFRichTextBox.GetText(_control);
+            _lastText = RichTextBoxUtility.GetText(_control);
         }
 
         protected override void Detach()
@@ -30,7 +31,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
         {
             if (_control.IsFocused)
             {
-                var text = WPFRichTextBox.GetText(_control);
+                var text = RichTextBoxUtility.GetText(_control);
                 if (text.IndexOf(_lastText) != 0)
                 {
                     AddSentence(new TokenName(),
@@ -44,7 +45,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
                             new TokenAsync(CommaType.Before),
                             ");");
             }
-            _lastText = WPFRichTextBox.GetText(_control);
+            _lastText = RichTextBoxUtility.GetText(_control);
         }
 
         public override void Optimize(List<Sentence> code)

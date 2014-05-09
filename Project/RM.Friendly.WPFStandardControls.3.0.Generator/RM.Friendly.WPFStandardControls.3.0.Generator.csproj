@@ -48,7 +48,8 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>bin\Release-English\RM.Friendly.WPFStandardControls.3.0.Generator.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Codeer.Friendly, Version=2.2.0.0, Culture=neutral, PublicKeyToken=6c44da6fca38aa86, processorArchitecture=MSIL">

@@ -73,6 +73,7 @@
     <Compile Include="Inside\Initializer.cs" />
     <Compile Include="Inside\InvokeUtility.cs" />
     <Compile Include="Inside\ResourcesLocal.cs" />
+    <Compile Include="Inside\RichTextBoxUtility.cs" />
     <Compile Include="Inside\VisualTreeUtility.cs" />
     <Compile Include="Properties\Resources.ja.Designer.cs">
       <DependentUpon>Resources.ja.resx</DependentUpon>
