@@ -60,7 +60,9 @@ https://www.nuget.org/packages/Ong.Friendly.FormsStandardControls/
 * For getting the desired window.  
 https://www.nuget.org/packages/Codeer.Friendly.Windows.Grasp/  
 
-
+============================
+If you use PinInterface, you map control simple.  
+https://www.nuget.org/packages/VSHTC.Friendly.PinInterface/
 
 
 
