@@ -11,24 +11,24 @@ http://www.english.codeer.co.jp/test-automation/friendly-fundamental
 Friendly.WPFStandardControls defines the following classes.   
 They can operate WPF control easily from another process.   
 
-*WPFButtonBase  
-*WPFComboBox  
-*WPFListBox  
-*WPFListView  
-*WPFMenuBase  
-*WPFMenuItem  
-*WPFProgressBar  
-*WPFRichTextBox  
-*WPFSelector  
-*WPFSlider  
-*WPFTabControl  
-*WPFTextBox  
-*WPFToggleButton  
-*WPFTreeView  
-*WPFTreeViewItem  
-*WPFCalendar  
-*WPFDatePicker  
-*WPFDataGrid  
+* WPFButtonBase  
+* WPFComboBox  
+* WPFListBox  
+* WPFListView  
+* WPFMenuBase  
+* WPFMenuItem  
+* WPFProgressBar  
+* WPFRichTextBox  
+* WPFSelector  
+* WPFSlider  
+* WPFTabControl  
+* WPFTextBox  
+* WPFToggleButton  
+* WPFTreeView  
+* WPFTreeViewItem  
+* WPFCalendar  
+* WPFDatePicker  
+* WPFDataGrid  
 
 ============================
 ```cs  
