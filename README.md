@@ -51,7 +51,7 @@ https://www.nuget.org/packages/RM.Friendly.WPFStandardControls/
 ============================
 If you want to operate other gui, you get following libraries.  
 
-* or Win32.  
+* For Win32.  
 https://www.nuget.org/packages/Codeer.Friendly.Windows.NativeStandardControls/  
 
 * For WinForms.  
