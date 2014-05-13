@@ -33,7 +33,7 @@ They can operate WPF control easily from another process.
 ============================
 ```cs  
 //sample  
-var process = Process.GetProcessesByName("WPFTarget.vshost")[0];  
+var process = Process.GetProcessesByName("WPFTarget")[0];  
 using (var app = new WindowsAppFriend(process))  
 {  
     var main = app.Type(typeof(Application)).Current.MainWindow;  
