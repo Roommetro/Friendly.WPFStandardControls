@@ -31,6 +31,7 @@ WPFDatePicker
 WPFDataGrid  
 
 ============================
+```cs  
 //sample  
 var process = Process.GetProcessesByName("WPFTarget.vshost")[0];  
 using (var app = new WindowsAppFriend(process))  
@@ -41,3 +42,4 @@ using (var app = new WindowsAppFriend(process))
     grid.EmulateChangeCellComboSelect(0, 1, 2);  
     grid.EmulateCellCheck(0, 2, true);  
 }  
+```
