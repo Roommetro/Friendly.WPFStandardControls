@@ -36,7 +36,7 @@ They can operate WPF control easily from a separate process.
 var process = Process.GetProcessesByName("WPFTarget")[0];  
 using (var app = new WindowsAppFriend(process))  
 {  
-    var main = app.Type(typeof(Application)).Current.MainWindow;  
+    dynamic main = app.Type(typeof(Application)).Current.MainWindow;  
     var grid = new WPFDataGrid(main._grid);  
     grid.EmulateChangeCellText(0, 0, "abc");  
     grid.EmulateChangeCellComboSelect(0, 1, 2);  
