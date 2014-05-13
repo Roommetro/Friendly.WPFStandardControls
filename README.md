@@ -9,7 +9,7 @@ http://www.english.codeer.co.jp/test-automation/friendly-fundamental
 
 ============================
 Friendly.WPFStandardControls defines the following classes.   
-They can operate WPF control easily from another process.   
+They can operate WPF control easily from a separate process.  
 
 * WPFButtonBase  
 * WPFComboBox  
