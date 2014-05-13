@@ -43,3 +43,24 @@ using (var app = new WindowsAppFriend(process))
     grid.EmulateCellCheck(0, 2, true);  
 }  
 ```
+
+============================
+Download form nuget.  
+https://www.nuget.org/packages/RM.Friendly.WPFStandardControls/  
+
+============================
+If you want to operate other gui, you get following libraries.  
+
+* or Win32.  
+https://www.nuget.org/packages/Codeer.Friendly.Windows.NativeStandardControls/  
+
+* For WinForms.  
+https://www.nuget.org/packages/Ong.Friendly.FormsStandardControls/  
+
+* For getting the desired window.  
+https://www.nuget.org/packages/Codeer.Friendly.Windows.Grasp/  
+
+
+
+
+
