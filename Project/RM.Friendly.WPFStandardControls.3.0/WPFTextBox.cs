@@ -81,6 +81,7 @@ namespace RM.Friendly.WPFStandardControls
 
         private static void EmulateChangeText(TextBox textBox, string value)
         {
+            textBox.Focus();
             textBox.Text = value;
         }
     }

@@ -81,6 +81,7 @@ namespace RM.Friendly.WPFStandardControls
 
         private static void EmulateClearText(RichTextBox textBox)
         {
+            textBox.Focus();
             textBox.Document.Blocks.Clear();
         }
 
@@ -122,6 +123,7 @@ namespace RM.Friendly.WPFStandardControls
 
         static void EmulateAppendText(RichTextBox textBox, string text)
         {
+            textBox.Focus();
             textBox.AppendText(text);
         }
 

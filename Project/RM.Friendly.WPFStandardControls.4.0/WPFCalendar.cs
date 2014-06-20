@@ -83,6 +83,7 @@ namespace RM.Friendly.WPFStandardControls
 
         private static void EmulateChangeDate(Calendar calendar, DateTime? date)
         {
+            calendar.Focus();
             calendar.SelectedDate = date;
         }
     }
