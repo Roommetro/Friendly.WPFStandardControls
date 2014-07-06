@@ -52,9 +52,9 @@
     </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Codeer.Friendly, Version=2.3.0.0, Culture=neutral, PublicKeyToken=6c44da6fca38aa86, processorArchitecture=MSIL">
+    <Reference Include="Codeer.Friendly, Version=2.4.0.0, Culture=neutral, PublicKeyToken=6c44da6fca38aa86, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Codeer.Friendly.2.3.0\lib\net20\Codeer.Friendly.dll</HintPath>
+      <HintPath>..\packages\Codeer.Friendly.2.4.0\lib\net20\Codeer.Friendly.dll</HintPath>
     </Reference>
     <Reference Include="Codeer.TestAssistant.GeneratorToolKit">
       <HintPath>..\packages\Codeer.TestAssistant.GeneratorToolKit.1.0.0\lib\net20\Codeer.TestAssistant.GeneratorToolKit.dll</HintPath>
@@ -80,7 +80,9 @@
     <Compile Include="WPFTreeViewGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="RM.Friendly.WPFStandardControls.3.0.Generator.Plugin.xml" />
+    <Content Include="RM.Friendly.WPFStandardControls.3.0.Generator.Plugin.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

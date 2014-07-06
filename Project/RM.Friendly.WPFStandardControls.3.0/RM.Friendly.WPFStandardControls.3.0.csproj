@@ -50,13 +50,13 @@
     <DocumentationFile>bin\Release-English\RM.Friendly.WPFStandardControls.3.0.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Codeer.Friendly, Version=2.3.0.0, Culture=neutral, PublicKeyToken=6c44da6fca38aa86, processorArchitecture=MSIL">
+    <Reference Include="Codeer.Friendly, Version=2.4.0.0, Culture=neutral, PublicKeyToken=6c44da6fca38aa86, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Codeer.Friendly.2.3.0\lib\net20\Codeer.Friendly.dll</HintPath>
+      <HintPath>..\packages\Codeer.Friendly.2.4.0\lib\net20\Codeer.Friendly.dll</HintPath>
     </Reference>
-    <Reference Include="Codeer.Friendly.Windows, Version=2.4.1.0, Culture=neutral, PublicKeyToken=532f270f1da385b3, processorArchitecture=MSIL">
+    <Reference Include="Codeer.Friendly.Windows, Version=2.4.3.0, Culture=neutral, PublicKeyToken=532f270f1da385b3, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Codeer.Friendly.Windows.2.4.1\lib\net20\Codeer.Friendly.Windows.dll</HintPath>
+      <HintPath>..\packages\Codeer.Friendly.Windows.2.4.3\lib\net20\Codeer.Friendly.Windows.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -110,7 +110,9 @@
     <None Include="RM.Friendly.WPFStandardControls.3.0.snk" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="RM.Friendly.WPFStandardControls.3.0.Plugin.xml" />
+    <Content Include="RM.Friendly.WPFStandardControls.3.0.Plugin.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.ja.resx">
