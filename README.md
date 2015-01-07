@@ -1,9 +1,9 @@
 Friendly.WPFStandardControls
 ============================
 
-You must learn Friendly first.  
-Because this library is built on Friendly Layer.  
-But, it is very easy.  
+This library is a layer on top of
+Friendly, so you must learn that first.
+But it is very easy to learn.
 
 http://www.english.codeer.co.jp/test-automation/friendly-fundamental  
 
@@ -45,11 +45,11 @@ using (var app = new WindowsAppFriend(process))
 ```
 
 ============================
-Download form nuget.  
+Download from NuGet.  
 https://www.nuget.org/packages/RM.Friendly.WPFStandardControls/  
 
 ============================
-If you want to operate other gui, you get following libraries.  
+For other GUI types, use the following libraries:
 
 * For Win32.  
 https://www.nuget.org/packages/Codeer.Friendly.Windows.NativeStandardControls/  
@@ -57,7 +57,7 @@ https://www.nuget.org/packages/Codeer.Friendly.Windows.NativeStandardControls/
 * For WinForms.  
 https://www.nuget.org/packages/Ong.Friendly.FormsStandardControls/  
 
-* For getting the desired window.  
+* For getting the target window.  
 https://www.nuget.org/packages/Codeer.Friendly.Windows.Grasp/  
 
 ============================
