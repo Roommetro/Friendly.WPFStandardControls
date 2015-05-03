@@ -13,6 +13,7 @@ namespace RM.Friendly.WPFStandardControls
 #else
     /// <summary>
     /// Binding情報から要素を取得するためのユーティリティー
+    /// @@@
     /// </summary>
 #endif
     public static class SearcherInTarget
