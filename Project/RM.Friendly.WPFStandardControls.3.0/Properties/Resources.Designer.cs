@@ -77,5 +77,14 @@ namespace RM.Friendly.WPFStandardControls.Properties {
                 return ResourceManager.GetString("ErrorNotFoundItem", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Not single. count = {0} に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string NotSingle {
+            get {
+                return ResourceManager.GetString("NotSingle", resourceCulture);
+            }
+        }
     }
 }

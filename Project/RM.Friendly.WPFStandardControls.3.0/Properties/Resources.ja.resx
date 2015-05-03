@@ -123,4 +123,7 @@
   <data name="ErrorNotFoundItem" xml:space="preserve">
     <value>指定のアイテムは見つかりませんでした。</value>
   </data>
+  <data name="NotSingle" xml:space="preserve">
+    <value>要素が一つではありませんでした。 count = {0}</value>
+  </data>
 </root>

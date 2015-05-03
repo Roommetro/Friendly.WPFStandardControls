@@ -63,7 +63,7 @@ namespace RM.Friendly.WPFStandardControls
             }
             _app = (WindowsAppFriend)appVar.App;
             _appVar = appVar;
-            Initializer3.Initialize(_app);
+            WPFStandardControls_3.Injection(_app);
         }
 
 #if ENG

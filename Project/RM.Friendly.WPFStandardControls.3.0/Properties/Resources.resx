@@ -123,4 +123,7 @@
   <data name="ErrorNotFoundItem" xml:space="preserve">
     <value>The desire item was not found.</value>
   </data>
+  <data name="NotSingle" xml:space="preserve">
+    <value>Not single. count = {0}</value>
+  </data>
 </root>

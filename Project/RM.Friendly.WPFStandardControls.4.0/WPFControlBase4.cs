@@ -31,7 +31,7 @@ namespace RM.Friendly.WPFStandardControls
         protected WPFControlBase4(AppVar appVar)
             : base(appVar)
         {
-            Initializer4.Initialize((WindowsAppFriend)appVar.App);
+            WPFStandardControls_4.Injection((WindowsAppFriend)appVar.App);
         }
     }
 }
