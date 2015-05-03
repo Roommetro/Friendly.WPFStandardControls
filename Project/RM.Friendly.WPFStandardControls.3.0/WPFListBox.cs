@@ -95,5 +95,24 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public WPFListBox(AppVar appVar)
             : base(appVar) { }
+
+#if ENG
+        /// <summary>
+        /// Getitem.
+        /// </summary>
+        /// <param name="index">Item index.</param>
+        /// <returns>Item.</returns>
+#else
+        /// <summary>
+        /// アイテムの取得。
+        /// </summary>
+        /// <param name="index">インデックス。</param>
+        /// <returns>アイテム。</returns>
+#endif
+        public WPFListBoxItem GetItem(int index)
+        {
+            EnsureVisible(index);
+            return new WPFListBoxItem(this["ItemContainerGenerator"]()["ContainerFromIndex"](index));
+        }
     }
 }

@@ -264,6 +264,44 @@ namespace RM.Friendly.WPFStandardControls
         {
             return InvokeStatic(GetCellText, Ret<string>(), itemIndex, col);
         }
+        
+#if ENG
+        /// <summary>
+        /// Get row.
+        /// </summary>
+        /// <param name="itemIndex">Item index of the cell.</param>
+        /// <returns>DataGridRow in target app.</returns>
+#else
+        /// <summary>
+        /// 行取得。
+        /// </summary>
+        /// <param name="itemIndex">アイテムインデックス。</param>
+        /// <returns>対象プロセス内のDataGridRow。</returns>
+#endif
+        public WPFDataGridRow GetRow(int itemIndex)
+        {
+            return new WPFDataGridRow(App.Type(GetType()).GetRow(this, itemIndex));
+        }
+        
+#if ENG
+        /// <summary>
+        /// Get cell.
+        /// </summary>
+        /// <param name="itemIndex">Item index of the cell.</param>
+        /// <param name="col">Column number of the cell.</param>
+        /// <returns>DataGridCell in target app.</returns>
+#else
+        /// <summary>
+        /// セル取得。
+        /// </summary>
+        /// <param name="itemIndex">アイテムインデックス。</param>
+        /// <param name="col">列。</param>
+        /// <returns>対象プロセス内のDataGridCel</returns>
+#endif
+        public WPFDataGridCell GetCell(int itemIndex, int col)
+        {
+            return new WPFDataGridCell(App.Type(GetType()).GetCell(this, itemIndex, col));
+        }
 
         static void EnsureRowVisible(DataGrid grid, int itemIndex)
         {
@@ -284,11 +322,15 @@ namespace RM.Friendly.WPFStandardControls
             }
         }
 
-        static DataGridCell GetCell(DataGrid grid, int itemIndex, int col)
+        static DataGridRow GetRow(DataGrid grid, int itemIndex)
         {
             EnsureRowVisible(grid, itemIndex);
-            DataGridRow row = (DataGridRow)grid.ItemContainerGenerator.ContainerFromIndex(itemIndex);
-            return GetCell(grid, row, col);
+            return (DataGridRow)grid.ItemContainerGenerator.ContainerFromIndex(itemIndex);
+        }
+
+        static DataGridCell GetCell(DataGrid grid, int itemIndex, int col)
+        {
+            return GetCell(grid, GetRow(grid, itemIndex), col);
         }
 
         static DataGridCell GetCell(DataGrid grid, DataGridRow row, int col)

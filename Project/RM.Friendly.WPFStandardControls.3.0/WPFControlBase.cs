@@ -1,6 +1,7 @@
 ﻿using Codeer.Friendly;
 using Codeer.Friendly.Windows;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace RM.Friendly.WPFStandardControls
 {
@@ -13,7 +14,7 @@ namespace RM.Friendly.WPFStandardControls
     /// WPFのコントロールを操作するためのクラスの基本クラスです。
     /// </summary>
 #endif
-    public class WPFControlBase<CoreType> : AppVarWrapper<CoreType>
+    public class WPFControlBase<CoreType> : AppVarWrapper<CoreType> where CoreType : UIElement
     {
 #if ENG
         /// <summary>

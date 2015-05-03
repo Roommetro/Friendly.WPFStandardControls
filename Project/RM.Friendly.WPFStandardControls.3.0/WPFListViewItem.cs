@@ -1,21 +1,25 @@
-﻿using System;
-using Codeer.Friendly;
+﻿using Codeer.Friendly;
 using Codeer.Friendly.Windows;
 using RM.Friendly.WPFStandardControls.Inside;
-using System.Windows;
+using System;
+using System.Reflection;
+using System.Windows.Automation.Peers;
+using System.Windows.Automation.Provider;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace RM.Friendly.WPFStandardControls
 {
 #if ENG
     /// <summary>
-    /// This is the base class for classes that operate on basic controls in .Net4.0 System.Windows.Controls.
+    /// Provides operations on controls of type System.Windows.Controls.ListViewItem.
     /// </summary>
 #else
     /// <summary>
-    /// .Net4.0のWPFのコントロールを操作するためのクラスの基本クラスです。
+    /// TypeがSystem.Windows.Controls.ListViewItemに対応した操作を提供します。
     /// </summary>
 #endif
-    public class WPFControlBase4<CoreType> : WPFControlBase<CoreType> where CoreType : UIElement
+    public class WPFListViewItem : WPFListBoxItemCore<ListViewItem>
     {
 #if ENG
         /// <summary>
@@ -28,10 +32,7 @@ namespace RM.Friendly.WPFStandardControls
         /// </summary>
         /// <param name="appVar">アプリケーション内変数。</param>
 #endif
-        protected WPFControlBase4(AppVar appVar)
-            : base(appVar)
-        {
-            Initializer4.Initialize((WindowsAppFriend)appVar.App);
-        }
+        public WPFListViewItem(AppVar appVar)
+            : base(appVar) { }
     }
 }

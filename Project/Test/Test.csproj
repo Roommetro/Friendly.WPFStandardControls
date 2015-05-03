@@ -106,6 +106,7 @@
     <Compile Include="WPFMenuBaseTestControl.xaml.cs">
       <DependentUpon>WPFMenuBaseTestControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WPFTextBlockTest.cs" />
     <Compile Include="WPFTreeViewItemTest.cs" />
     <Compile Include="WPFMenuItemTest.cs" />
     <Compile Include="WPFMenuBaseTest.cs" />

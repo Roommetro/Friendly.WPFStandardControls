@@ -92,9 +92,12 @@
     <Compile Include="WPFComboBox.cs" />
     <Compile Include="WPFControlBase.cs" />
     <Compile Include="WPFListBox.cs" />
+    <Compile Include="WPFListBoxItem.cs" />
     <Compile Include="WPFListView.cs" />
+    <Compile Include="WPFListViewItem.cs" />
     <Compile Include="WPFMenuBase.cs" />
     <Compile Include="WPFTabControl.cs" />
+    <Compile Include="WPFTextBlock.cs" />
     <Compile Include="WPFTreeViewItem.cs" />
     <Compile Include="WPFMenuItem.cs" />
     <Compile Include="WPFProgressBar.cs" />
