@@ -6,7 +6,7 @@ namespace RM.Friendly.WPFStandardControls
 {
 #if ENG
     /// <summary>
-    /// IEnumerable<DependencyObject> in target app.
+    /// IEnumerable＜DependencyObject＞ in target app.
     /// </summary>
 #else
     /// <summary>
@@ -18,7 +18,7 @@ namespace RM.Friendly.WPFStandardControls
 
 #if ENG
         /// <summary>
-        /// IEnumerable<DependencyObject> in target app.
+        /// IEnumerable＜DependencyObject＞ in target app.
         /// </summary>
 #else
         /// <summary>
