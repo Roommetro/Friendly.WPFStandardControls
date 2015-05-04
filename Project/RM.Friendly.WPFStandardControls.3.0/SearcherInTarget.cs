@@ -25,6 +25,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <summary>
         /// Search by binding from DependencyObject collection.
         /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
         /// <param name="collection">DependencyObject collection.</param>
         /// <param name="path">Binding path.</param>
         /// <param name="dataItem">DataItem.</param>
@@ -33,14 +34,15 @@ namespace RM.Friendly.WPFStandardControls
         /// <summary>
         /// Binding情報から要素を検索。
         /// </summary>
+        /// <typeparam name="T">検索対象のタイプ。</typeparam>
         /// <param name="collection">DependencyObjectのコレクション。</param>
         /// <param name="path">バインディングパス。</param>
         /// <param name="dataItem">DataItem。</param>
         /// <returns>ヒットした要素。</returns>
 #endif
-        public static IEnumerable<DependencyObject> ByBinding(IEnumerable<DependencyObject> collection, string path, object dataItem = null)
+        public static IEnumerable<T> ByBinding<T>(IEnumerable<T> collection, string path, object dataItem = null) where T : DependencyObject
         {
-            List<DependencyObject> list = new List<DependencyObject>();
+            List<T> list = new List<T>();
             foreach (var e in collection)
             {
                 if (IsMatch(e, path, dataItem))
@@ -49,6 +51,12 @@ namespace RM.Friendly.WPFStandardControls
                 }
             }
             return list;
+        }
+        
+        //操作プロセスからの呼び出し
+        static IEnumerable<DependencyObject> ByBinding(IEnumerable<DependencyObject> collection, string path, object dataItem = null)
+        {
+            return ByBinding<DependencyObject>(collection, path, dataItem);
         }
 
 #if ENG
@@ -66,9 +74,14 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="collection">DependencyObjectのコレクション。</param>
         /// <returns>ヒットした要素。</returns>
 #endif
-        public static IEnumerable<DependencyObject> ByType<T>(IEnumerable<DependencyObject> collection)
+        public static IEnumerable<T> ByType<T>(IEnumerable<DependencyObject> collection) where T : DependencyObject
         {
-            return ByType(collection, typeof(T).FullName);
+            List<T> list = new List<T>();
+            foreach (var e in ByType(collection, typeof(T).FullName))
+            {
+                list.Add((T)e);
+            }
+            return list;
         }
 
 #if ENG

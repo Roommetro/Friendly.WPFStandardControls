@@ -33,7 +33,6 @@ namespace RM.Friendly.WPFStandardControls
         public static WPFDependencyObjectCollection VisualTree(this AppVar start, TreeRunDirection direction = TreeRunDirection.Descendants)
         {
             var app = (WindowsAppFriend)start.App;
-            WPFStandardControls_3_5.Injection(app);
             return TreeUtility.VisualTree(start, direction);
         }
 
@@ -55,7 +54,6 @@ namespace RM.Friendly.WPFStandardControls
         public static WPFDependencyObjectCollection VisualTree(this IAppVarOwner start, TreeRunDirection direction = TreeRunDirection.Descendants)
         {
             var app = (WindowsAppFriend)start.AppVar.App;
-            WPFStandardControls_3_5.Injection(app);
             return TreeUtility.VisualTree(start.AppVar, direction);
         }
 
@@ -77,7 +75,6 @@ namespace RM.Friendly.WPFStandardControls
         public static WPFDependencyObjectCollection LogicalTree(this AppVar start, TreeRunDirection direction = TreeRunDirection.Descendants)
         {
             var app = (WindowsAppFriend)start.App;
-            WPFStandardControls_3_5.Injection(app);
             return TreeUtility.LogicalTree(start, direction);
         }
 
@@ -99,7 +96,6 @@ namespace RM.Friendly.WPFStandardControls
         public static WPFDependencyObjectCollection LogicalTree(this IAppVarOwner start, TreeRunDirection direction = TreeRunDirection.Descendants)
         {
             var app = (WindowsAppFriend)start.AppVar.App;
-            WPFStandardControls_3_5.Injection(app);
             return TreeUtility.LogicalTree(start.AppVar, direction);
         }
     }

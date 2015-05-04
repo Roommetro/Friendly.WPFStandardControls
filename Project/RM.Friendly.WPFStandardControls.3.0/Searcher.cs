@@ -1,5 +1,6 @@
 ﻿using Codeer.Friendly.Windows;
 using RM.Friendly.WPFStandardControls.Inside;
+using System.Windows;
 
 namespace RM.Friendly.WPFStandardControls
 {
@@ -31,12 +32,37 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="dataItem">DataItem。</param>
         /// <returns>ヒットした要素。</returns>
 #endif
+        public static WPFDependencyObjectCollection<T> ByBinding<T>(WPFDependencyObjectCollection<T> collection, string path, object dataItem = null) where T : DependencyObject
+        {
+            var app = (WindowsAppFriend)collection.AppVar.App;
+            WPFStandardControls_3.Injection(app);
+            return new WPFDependencyObjectCollection<T>(app[typeof(SearcherInTarget), "ByBinding"](collection, path, dataItem));
+        }
+
+#if ENG
+        /// <summary>
+        /// Search by binding from DependencyObject collection.
+        /// </summary>
+        /// <param name="collection">DependencyObject collection.</param>
+        /// <param name="path">Binding path.</param>
+        /// <param name="dataItem">DataItem.</param>
+        /// <returns>Hit elements.</returns>
+#else
+        /// <summary>
+        /// Binding情報から要素を検索。
+        /// </summary>
+        /// <param name="collection">DependencyObjectのコレクション。</param>
+        /// <param name="path">バインディングパス。</param>
+        /// <param name="dataItem">DataItem。</param>
+        /// <returns>ヒットした要素。</returns>
+#endif
         public static WPFDependencyObjectCollection ByBinding(WPFDependencyObjectCollection collection, string path, object dataItem = null)
         {
             var app = (WindowsAppFriend)collection.AppVar.App;
             WPFStandardControls_3.Injection(app);
             return new WPFDependencyObjectCollection(app[typeof(SearcherInTarget), "ByBinding"](collection, path, dataItem));
         }
+
 #if ENG
         /// <summary>
         /// Search by Type from DependencyObject collection.
@@ -52,9 +78,9 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="collection">DependencyObjectのコレクション。</param>
         /// <returns>ヒットした要素。</returns>
 #endif
-        public static WPFDependencyObjectCollection ByType<T>(WPFDependencyObjectCollection collection)
+        public static WPFDependencyObjectCollection<T> ByType<T>(WPFDependencyObjectCollection collection) where T : DependencyObject
         {
-            return ByType(collection, typeof(T).FullName);
+            return new WPFDependencyObjectCollection<T>(ByType(collection, typeof(T).FullName).AppVar);
         }
 
 #if ENG

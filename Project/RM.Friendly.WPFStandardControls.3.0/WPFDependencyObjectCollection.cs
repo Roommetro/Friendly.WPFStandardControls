@@ -1,6 +1,7 @@
 ﻿using Codeer.Friendly;
 using RM.Friendly.WPFStandardControls.Properties;
 using System;
+using System.Windows;
 
 namespace RM.Friendly.WPFStandardControls
 {
@@ -91,5 +92,30 @@ namespace RM.Friendly.WPFStandardControls
             }
             return AppVar["[]"](0);
         }
+    }
+
+#if ENG
+    /// <summary>
+    /// IEnumerable＜T＞ in target app.
+    /// </summary>
+#else
+    /// <summary>
+    /// DependencyObjectのコレクションです。
+    /// </summary>
+#endif
+    public class WPFDependencyObjectCollection<T> : WPFDependencyObjectCollection where T : DependencyObject
+    {
+#if ENG
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="appVar">Application variable object for the control.</param>
+#else
+        /// <summary>
+        /// コンストラクタです。
+        /// </summary>
+        /// <param name="appVar">アプリケーション内変数。</param>
+#endif
+        public WPFDependencyObjectCollection(AppVar appVar) : base(appVar) { }
     }
 }

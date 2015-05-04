@@ -38,7 +38,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="dataItem">DataItem。</param>
         /// <returns>ヒットした要素。</returns>
 #endif
-        public static IEnumerable<DependencyObject> ByBinding(this IEnumerable<DependencyObject> collection, string path, object dataItem = null)
+        public static IEnumerable<T> ByBinding<T>(this IEnumerable<T> collection, string path, object dataItem = null) where T : DependencyObject
         {
             return SearcherInTarget.ByBinding(collection, path, dataItem);
         }
@@ -58,7 +58,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="collection">DependencyObjectのコレクション。</param>
         /// <returns>ヒットした要素。</returns>
 #endif
-        public static IEnumerable<DependencyObject> ByType<T>(this IEnumerable<DependencyObject> collection)
+        public static IEnumerable<T> ByType<T>(this IEnumerable<DependencyObject> collection) where T : DependencyObject
         {
             return SearcherInTarget.ByType<T>(collection);
         }
