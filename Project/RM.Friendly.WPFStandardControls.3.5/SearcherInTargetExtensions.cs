@@ -9,11 +9,14 @@ namespace RM.Friendly.WPFStandardControls
 #if ENG
     /// <summary>
     /// Search by binding.
+    /// In order to run inside the target process, you will need to injection the RM.Friendly.WPFStandardControls.3.5.dll.
+    /// Use the RM.Friendly.WPFStandardControls.WPFStandardControls_3_5.Injection method.
     /// </summary>
 #else
     /// <summary>
     /// Binding情報から要素を取得するためのユーティリティー
-    /// @@@
+    /// 対象プロセス内部で実行するためには、RM.Friendly.WPFStandardControls.3.5.dllをインジェクションする必要があります。
+    /// RM.Friendly.WPFStandardControls.WPFStandardControls_3_5.Injectionメソッドを利用してください。
     /// </summary>
 #endif
     public static class SearcherInTargetExtensions

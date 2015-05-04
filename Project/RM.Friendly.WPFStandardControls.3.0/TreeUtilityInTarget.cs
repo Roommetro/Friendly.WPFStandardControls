@@ -8,11 +8,14 @@ namespace RM.Friendly.WPFStandardControls
 #if ENG
     /// <summary>
     /// VisualTree and LogicalTree utility.
+    /// In order to run inside the target process, you will need to injection the RM.Friendly.WPFStandardControls.3.dll.
+    /// Use the RM.Friendly.WPFStandardControls.WPFStandardControls_3.Injection method.
     /// </summary>
 #else
     /// <summary>
     /// VisualTreeとLogicalTreeのユーティリティー。
-    /// @@@
+    /// 対象プロセス内部で実行するためには、RM.Friendly.WPFStandardControls.3.dllをインジェクションする必要があります。
+    /// RM.Friendly.WPFStandardControls.WPFStandardControls_3.Injectionメソッドを利用してください。
     /// </summary>
 #endif
     public static class TreeUtilityInTarget
