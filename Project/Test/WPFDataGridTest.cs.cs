@@ -274,5 +274,69 @@ namespace Test
             Assert.AreEqual(99, dataGrid.CurrentItemIndex);
             Assert.AreEqual(1, dataGrid.CurrentColIndex);
         }
+
+        [TestMethod]
+        public void GetRowEmulateChangeSelected()
+        {
+            var item = dataGrid.GetRow(99);
+            item.EmulateChangeSelected(false);
+            Assert.IsFalse(item.IsSelected);
+            item.EmulateChangeSelected(true);
+            Assert.IsTrue(item.IsSelected);
+        }
+
+        [TestMethod]
+        public void GetRowEmulateChangeSelectedAsync()
+        {
+            WindowControl windowControl = WindowControl.FromZTop(app);
+            var item = dataGrid.GetRow(99);
+            app.Type(GetType()).MessageBoxEvent(item);
+            var a = new Async();
+            item.EmulateChangeSelected(true, a);
+            Assert.IsTrue(item.IsSelected);
+            new NativeMessageBox(windowControl.WaitForNextModal()).EmulateButtonClick("OK");
+            a.WaitForCompletion();
+        }
+
+        static void MessageBoxEvent(DataGridRow item)
+        {
+            item.Selected += delegate
+            {
+                MessageBox.Show("");
+            };
+        }
+
+        [TestMethod]
+        public void GetCellEmulateChangeSelected()
+        {
+            dataGrid.Dynamic().SelectionUnit = DataGridSelectionUnit.Cell;
+            var item = dataGrid.GetCell(99, 1);
+            item.EmulateChangeSelected(false);
+            Assert.IsFalse(item.IsSelected);
+            item.EmulateChangeSelected(true);
+            Assert.IsTrue(item.IsSelected);
+        }
+
+        [TestMethod]
+        public void GetCellEmulateChangeSelectedAsync()
+        {
+            dataGrid.Dynamic().SelectionUnit = DataGridSelectionUnit.Cell;
+            WindowControl windowControl = WindowControl.FromZTop(app);
+            var item = dataGrid.GetCell(99, 1);
+            app.Type(GetType()).MessageBoxEvent(item);
+            var a = new Async();
+            item.EmulateChangeSelected(true, a);
+            Assert.IsTrue(item.IsSelected);
+            new NativeMessageBox(windowControl.WaitForNextModal()).EmulateButtonClick("OK");
+            a.WaitForCompletion();
+        }
+
+        static void MessageBoxEvent(DataGridCell item)
+        {
+            item.Selected += delegate
+            {
+                MessageBox.Show("");
+            };
+        }
     }
 }

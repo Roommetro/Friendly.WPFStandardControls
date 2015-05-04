@@ -79,6 +79,35 @@ namespace Test
             Assert.IsFalse((bool)app.Type<object>().ReferenceEquals(null, item));
         }
 
-        
+        [TestMethod]
+        public void GetItemEmulateChangeSelected()
+        {
+            var item = listBox.GetItem(99);
+            item.EmulateChangeSelected(false);
+            Assert.IsFalse(item.IsSelected);
+            item.EmulateChangeSelected(true);
+            Assert.IsTrue(item.IsSelected);
+        }
+
+        [TestMethod]
+        public void GetItemEmulateChangeSelectedAsync()
+        {
+            WindowControl windowControl = WindowControl.FromZTop(app);
+            var item = listBox.GetItem(99);
+            app.Type(GetType()).MessageBoxEvent(item);
+            var a = new Async();
+            item.EmulateChangeSelected(true, a);
+            Assert.IsTrue(item.IsSelected);
+            new NativeMessageBox(windowControl.WaitForNextModal()).EmulateButtonClick("OK");
+            a.WaitForCompletion();
+        }
+
+        static void MessageBoxEvent(ListBoxItem item)
+        {
+            item.Selected += delegate
+            {
+                MessageBox.Show("");
+            };
+        }
     }
 }

@@ -6,6 +6,9 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using RM.Friendly.WPFStandardControls;
+using Codeer.Friendly.Windows.Grasp;
+using Codeer.Friendly;
+using Codeer.Friendly.Windows.NativeStandardControls;
 
 namespace Test
 {
@@ -58,6 +61,39 @@ namespace Test
 
             index = listView.SelectedIndex;
             Assert.AreEqual(3, (int)index);
+        }
+
+        [TestMethod]
+        public void GetItemEmulateChangeSelected()
+        {
+            var listView = new WPFListView(_ctrl.listView);
+            var item = listView.GetItem(99);
+            item.EmulateChangeSelected(false);
+            Assert.IsFalse(item.IsSelected);
+            item.EmulateChangeSelected(true);
+            Assert.IsTrue(item.IsSelected);
+        }
+
+        [TestMethod]
+        public void GetItemEmulateChangeSelectedAsync()
+        {
+            var listView = new WPFListView(_ctrl.listView);
+            WindowControl windowControl = WindowControl.FromZTop(_app);
+            var item = listView.GetItem(99);
+            _app.Type(GetType()).MessageBoxEvent(item);
+            var a = new Async();
+            item.EmulateChangeSelected(true, a);
+            Assert.IsTrue(item.IsSelected);
+            new NativeMessageBox(windowControl.WaitForNextModal()).EmulateButtonClick("OK");
+            a.WaitForCompletion();
+        }
+
+        static void MessageBoxEvent(ListViewItem item)
+        {
+            item.Selected += delegate
+            {
+                MessageBox.Show("");
+            };
         }
     }
 }
