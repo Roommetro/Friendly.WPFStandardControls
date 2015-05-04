@@ -70,6 +70,18 @@ namespace Test
             Assert.AreEqual(button1, _ctrl._button1);
             Assert.AreEqual(0, ((AppVar)_ctrl._listView).LogicalTree().ByType<ListViewItem>().Count);
         }
+        class MyAppVar : IAppVarOwner
+        {
+            public AppVar AppVar { get; set; }
+        }
+
+        [TestMethod]
+        public void TestLogicalTreeExtensionsForIAppVarOwner()
+        {
+            AppVar button1 = new MyAppVar() { AppVar = _ctrl }.LogicalTree().ByBinding("Button1Command").Single();
+            Assert.AreEqual(button1, _ctrl._button1);
+            Assert.AreEqual(0, new WPFListView(_ctrl._listView).LogicalTree().ByType<ListViewItem>().Count);
+        }
 
         [TestMethod]
         public void TestLogicalTreeInTargetExtensions()
@@ -82,6 +94,18 @@ namespace Test
             var b = ctrl.LogicalTree().ByBinding("Button1Command").Single();
             Assert.AreEqual(button1, b);
             Assert.AreEqual(0, listView.LogicalTree().ByType<ListViewItem>().Count());
+        }
+
+        [TestMethod]
+        public void TestLogicalAncestors()
+        {
+            var collection = ((AppVar)_ctrl._button1).LogicalTree(TreeRunDirection.Ancestors);
+            Assert.AreEqual(collection[0], _ctrl._button1);
+            Assert.AreEqual(collection[collection.Count - 1], _app.Type<Application>().Current.MainWindow);
+
+            AppVar item = ((AppVar)_ctrl._listView).VisualTree().ByType<ListViewItem>()[0];
+            collection = item.LogicalTree(TreeRunDirection.Ancestors);
+            Assert.AreEqual(1, collection.Count);
         }
 
         [TestMethod]
@@ -111,6 +135,27 @@ namespace Test
             AppVar button1 = ((AppVar)_ctrl).VisualTree().ByBinding("Button1Command").Single();
             Assert.AreEqual(button1, _ctrl._button1);
             Assert.AreEqual(3, ((AppVar)_ctrl._listView).VisualTree().ByType<ListViewItem>().Count);
+        }
+
+        [TestMethod]
+        public void TestVisualTreeExtensionsForIAppVarOwner()
+        {
+            AppVar button1 = new MyAppVar() { AppVar = _ctrl }.VisualTree().ByBinding("Button1Command").Single();
+            Assert.AreEqual(button1, _ctrl._button1);
+            Assert.AreEqual(3, new WPFListView(_ctrl._listView).VisualTree().ByType<ListViewItem>().Count);
+        }
+
+        [TestMethod]
+        public void TestVisualAncestors()
+        {
+            var collection = ((AppVar)_ctrl._button1).VisualTree(TreeRunDirection.Ancestors);
+            Assert.AreEqual(collection[0], _ctrl._button1);
+            Assert.AreEqual(collection[collection.Count - 1], _app.Type<Application>().Current.MainWindow);
+
+            AppVar item = ((AppVar)_ctrl._listView).VisualTree().ByType<ListViewItem>()[0];
+            collection = item.VisualTree(TreeRunDirection.Ancestors);
+            Assert.AreEqual(collection[0], item);
+            Assert.AreEqual(collection[collection.Count - 1], _app.Type<Application>().Current.MainWindow);
         }
 
         [TestMethod]

@@ -80,7 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompileNeedAssembly4.cs" />
-    <Compile Include="Inside\WPFStandardControls_4.cs" />
+    <Compile Include="WPFStandardControls_4.cs" />
     <Compile Include="Inside\ResourcesLocal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.ja.Designer.cs">
