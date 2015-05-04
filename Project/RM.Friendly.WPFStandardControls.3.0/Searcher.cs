@@ -76,7 +76,7 @@ namespace RM.Friendly.WPFStandardControls
         {
             var app = (WindowsAppFriend)collection.AppVar.App;
             WPFStandardControls_3.Injection(app);
-            return new WPFDependencyObjectCollection(app[typeof(SearcherInTarget), "ByBinding"](collection, typeFullName));
+            return new WPFDependencyObjectCollection(app[typeof(SearcherInTarget), "ByType"](collection, typeFullName));
         }
     }
 }

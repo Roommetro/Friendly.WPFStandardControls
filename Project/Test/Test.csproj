@@ -87,9 +87,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DelegateCommand.cs" />
     <Compile Include="ListBox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchTest.cs" />
     <Compile Include="TestUtility.cs" />
+    <Compile Include="ViewModelBase.cs" />
     <Compile Include="WPFCalendarTest.cs" />
     <Compile Include="WPFDataGridTest.cs.cs" />
     <Compile Include="WPFButtonBaseTest.cs" />
@@ -97,6 +100,9 @@
     <Compile Include="WPFDatePickerTest.cs" />
     <Compile Include="WPFDateTimePickerTest.cs" />
     <Compile Include="WPFComboBoxTest.cs" />
+    <Compile Include="SearchTestControl.xaml.cs">
+      <DependentUpon>SearchTestControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WPFListViewTestControl.xaml.cs">
       <DependentUpon>WPFListViewTestControl.xaml</DependentUpon>
     </Compile>
@@ -137,6 +143,10 @@
       <Project>{80d0bb7b-61d0-4c48-b877-6e35f7d90c74}</Project>
       <Name>RM.Friendly.WPFStandardControls.3.0</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RM.Friendly.WPFStandardControls.3.5\RM.Friendly.WPFStandardControls.3.5.csproj">
+      <Project>{a8db68b1-04fe-4002-9537-4c3d0a70d91d}</Project>
+      <Name>RM.Friendly.WPFStandardControls.3.5</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RM.Friendly.WPFStandardControls.4.0.Generator\RM.Friendly.WPFStandardControls.4.0.Generator.csproj">
       <Project>{355db38c-a2bc-491f-89bf-7996bd72accc}</Project>
       <Name>RM.Friendly.WPFStandardControls.4.0.Generator</Name>
@@ -155,6 +165,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="SearchTestControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="WPFListViewTestControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

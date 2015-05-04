@@ -36,7 +36,7 @@ namespace RM.Friendly.WPFStandardControls
         {
             var app = (WindowsAppFriend)start.App;
             WPFStandardControls_3.Injection(app);
-            return new WPFDependencyObjectCollection(app[typeof(SearcherInTarget), "VisualTree"](start, direction));
+            return new WPFDependencyObjectCollection(app[typeof(TreeUtilityInTarget), "VisualTree"](start, direction));
         }
 
 #if ENG
@@ -58,7 +58,7 @@ namespace RM.Friendly.WPFStandardControls
         {
             var app = (WindowsAppFriend)start.App;
             WPFStandardControls_3.Injection(app);
-            return new WPFDependencyObjectCollection(app[typeof(SearcherInTarget), "LogicalTree"](start, direction));
+            return new WPFDependencyObjectCollection(app[typeof(TreeUtilityInTarget), "LogicalTree"](start, direction));
         }
     }
 }

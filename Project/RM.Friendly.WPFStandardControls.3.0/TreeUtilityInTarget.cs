@@ -89,7 +89,7 @@ namespace RM.Friendly.WPFStandardControls
             return list;
         }
 
-        static DependencyObject[] GetVisualTreeAncestor(DependencyObject obj)
+        static IEnumerable<DependencyObject> GetVisualTreeAncestor(DependencyObject obj)
         {
             List<DependencyObject> list = new List<DependencyObject>();
             while (obj != null)
@@ -97,10 +97,10 @@ namespace RM.Friendly.WPFStandardControls
                 list.Add(obj);
                 obj = VisualTreeHelper.GetParent(obj);
             }
-            return list.ToArray();
+            return list;
         }
 
-        static DependencyObject[] GetLogicalTreDescendants(DependencyObject obj)
+        static IEnumerable<DependencyObject> GetLogicalTreDescendants(DependencyObject obj)
         {
             List<DependencyObject> list = new List<DependencyObject>();
             list.Add(obj);
@@ -112,10 +112,10 @@ namespace RM.Friendly.WPFStandardControls
                     list.AddRange(GetLogicalTreDescendants(d));
                 }
             }
-            return list.ToArray();
+            return list;
         }
 
-        static DependencyObject[] GetLogicalTreeAncestor(DependencyObject obj)
+        static IEnumerable<DependencyObject> GetLogicalTreeAncestor(DependencyObject obj)
         {
             List<DependencyObject> list = new List<DependencyObject>();
             while (obj != null)
@@ -123,7 +123,7 @@ namespace RM.Friendly.WPFStandardControls
                 list.Add(obj);
                 obj = LogicalTreeHelper.GetParent(obj);
             }
-            return list.ToArray();
+            return list;
         }
     }
 }
