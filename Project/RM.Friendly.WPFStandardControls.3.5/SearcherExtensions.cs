@@ -34,33 +34,9 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="dataItem">DataItem。</param>
         /// <returns>ヒットした要素。</returns>
 #endif
-        public static WPFDependencyObjectCollection ByBinding<T>(this WPFDependencyObjectCollection<T> collection, string path, object dataItem = null) where T : DependencyObject
+        public static IWPFDependencyObjectCollection<T> ByBinding<T>(this IWPFDependencyObjectCollection<T> collection, string path, object dataItem = null) where T : DependencyObject
         {
-            var app = (WindowsAppFriend)collection.AppVar.App;
             return Searcher.ByBinding<T>(collection, path, dataItem);
-        }
-
-#if ENG
-        /// <summary>
-        /// Search by binding from DependencyObject collection.
-        /// </summary>
-        /// <param name="collection">DependencyObject collection.</param>
-        /// <param name="path">Binding path.</param>
-        /// <param name="dataItem">DataItem.</param>
-        /// <returns>Hit elements.</returns>
-#else
-        /// <summary>
-        /// Binding情報から要素を検索。
-        /// </summary>
-        /// <param name="collection">DependencyObjectのコレクション。</param>
-        /// <param name="path">バインディングパス。</param>
-        /// <param name="dataItem">DataItem。</param>
-        /// <returns>ヒットした要素。</returns>
-#endif
-        public static WPFDependencyObjectCollection ByBinding(this WPFDependencyObjectCollection collection, string path, object dataItem = null)
-        {
-            var app = (WindowsAppFriend)collection.AppVar.App;
-            return Searcher.ByBinding(collection, path, dataItem);
         }
 
 #if ENG
@@ -78,9 +54,8 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="collection">DependencyObjectのコレクション。</param>
         /// <returns>ヒットした要素。</returns>
 #endif
-        public static WPFDependencyObjectCollection<T> ByType<T>(this WPFDependencyObjectCollection collection) where T : DependencyObject
+        public static IWPFDependencyObjectCollection<T> ByType<T>(this  IWPFDependencyObjectCollection<DependencyObject> collection) where T : DependencyObject
         {
-            var app = (WindowsAppFriend)collection.AppVar.App;
             return Searcher.ByType<T>(collection);
         }
 
@@ -99,9 +74,8 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="typeFullName">検索対象のタイプ。</param>
         /// <returns>ヒットした要素。</returns>
 #endif
-        public static WPFDependencyObjectCollection ByType(this WPFDependencyObjectCollection collection, string typeFullName)
+        public static IWPFDependencyObjectCollection<DependencyObject> ByType(this IWPFDependencyObjectCollection<DependencyObject> collection, string typeFullName)
         {
-            var app = (WindowsAppFriend)collection.AppVar.App;
             return Searcher.ByType(collection, typeFullName);
         }
     }

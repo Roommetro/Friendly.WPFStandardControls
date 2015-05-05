@@ -1,7 +1,5 @@
-﻿using System;
+﻿using Codeer.Friendly;
 using System.Windows;
-using Codeer.Friendly;
-using RM.Friendly.WPFStandardControls.Properties;
 
 namespace RM.Friendly.WPFStandardControls
 {
@@ -14,19 +12,8 @@ namespace RM.Friendly.WPFStandardControls
     /// DependencyObjectのコレクションです。
     /// </summary>
 #endif
-    public class WPFDependencyObjectCollection<T> : IWPFDependencyObjectCollection<T>, IAppVarOwner where T : DependencyObject
+    public interface IWPFDependencyObjectCollection<out T> where T : DependencyObject
     {
-#if ENG
-        /// <summary>
-        /// List＜DependencyObject＞ in target app.
-        /// </summary>
-#else
-        /// <summary>
-        /// 対象プロセス内のList＜DependencyObject＞ です。
-        /// </summary>
-#endif
-        public AppVar AppVar { get; private set; }
-
 #if ENG
         /// <summary>
         /// Count.
@@ -35,8 +22,8 @@ namespace RM.Friendly.WPFStandardControls
         /// <summary>
         /// コレクションの数。
         /// </summary>
-#endif    
-        public int Count { get { return (int)AppVar["Count"]().Core; } }
+#endif
+        int Count { get; }
 
 #if ENG
         /// <summary>
@@ -51,20 +38,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="index">インデックス。</param>
         /// <returns>対象プロセス内での指定のインデックスのDependencyObject。</returns>
 #endif
-        public AppVar this[int index]
-        {
-            get { return AppVar["[]"](index); }
-        }
-
-        internal WPFDependencyObjectCollection(AppVar appVar)
-        {
-            AppVar = appVar;
-        }
-
-        internal WPFDependencyObjectCollection(IAppVarOwner appVar)
-        {
-            AppVar = appVar.AppVar;
-        }
+        AppVar this[int index] { get; }
 
 #if ENG
         /// <summary>
@@ -77,13 +51,7 @@ namespace RM.Friendly.WPFStandardControls
         /// </summary>
         /// <returns></returns>
 #endif
-        public AppVar Single()
-        {
-            if (Count != 1)
-            {
-                throw new NotSupportedException(string.Format(Resources.NotSingle, Count));
-            }
-            return AppVar["[]"](0);
-        }
+        AppVar Single();
     }
+
 }

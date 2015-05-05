@@ -1,6 +1,7 @@
 ﻿using Codeer.Friendly;
 using Codeer.Friendly.Windows;
 using RM.Friendly.WPFStandardControls.Inside;
+using System.Windows;
 
 namespace RM.Friendly.WPFStandardControls
 {
@@ -32,11 +33,11 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="direction">走査方向。</param>
         /// <returns>列挙されたDependencyObject。</returns>
 #endif
-        public static WPFDependencyObjectCollection VisualTree(AppVar start, TreeRunDirection direction = TreeRunDirection.Descendants)
+        public static IWPFDependencyObjectCollection<DependencyObject> VisualTree(AppVar start, TreeRunDirection direction = TreeRunDirection.Descendants)
         {
             var app = (WindowsAppFriend)start.App;
             WPFStandardControls_3.Injection(app);
-            return new WPFDependencyObjectCollection(app[typeof(TreeUtilityInTarget), "VisualTree"](start, direction));
+            return new WPFDependencyObjectCollection<DependencyObject>(app[typeof(TreeUtilityInTarget), "VisualTree"](start, direction));
         }
 
 #if ENG
@@ -54,11 +55,11 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="direction">走査方向。</param>
         /// <returns>列挙されたDependencyObject。</returns>
 #endif
-        public static WPFDependencyObjectCollection LogicalTree(AppVar start, TreeRunDirection direction = TreeRunDirection.Descendants)
+        public static IWPFDependencyObjectCollection<DependencyObject> LogicalTree(AppVar start, TreeRunDirection direction = TreeRunDirection.Descendants)
         {
             var app = (WindowsAppFriend)start.App;
             WPFStandardControls_3.Injection(app);
-            return new WPFDependencyObjectCollection(app[typeof(TreeUtilityInTarget), "LogicalTree"](start, direction));
+            return new WPFDependencyObjectCollection<DependencyObject>(app[typeof(TreeUtilityInTarget), "LogicalTree"](start, direction));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Codeer.Friendly;
 using Codeer.Friendly.Windows;
 using RM.Friendly.WPFStandardControls.Inside;
+using System.Windows;
 
 namespace RM.Friendly.WPFStandardControls
 {
@@ -30,7 +31,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="direction">走査方向。</param>
         /// <returns>列挙されたDependencyObject。</returns>
 #endif
-        public static WPFDependencyObjectCollection VisualTree(this AppVar start, TreeRunDirection direction = TreeRunDirection.Descendants)
+        public static IWPFDependencyObjectCollection<DependencyObject> VisualTree(this AppVar start, TreeRunDirection direction = TreeRunDirection.Descendants)
         {
             var app = (WindowsAppFriend)start.App;
             return TreeUtility.VisualTree(start, direction);
@@ -51,7 +52,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="direction">走査方向。</param>
         /// <returns>列挙されたDependencyObject。</returns>
 #endif
-        public static WPFDependencyObjectCollection VisualTree(this IAppVarOwner start, TreeRunDirection direction = TreeRunDirection.Descendants)
+        public static IWPFDependencyObjectCollection<DependencyObject> VisualTree(this IAppVarOwner start, TreeRunDirection direction = TreeRunDirection.Descendants)
         {
             var app = (WindowsAppFriend)start.AppVar.App;
             return TreeUtility.VisualTree(start.AppVar, direction);
@@ -72,7 +73,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="direction">走査方向。</param>
         /// <returns>列挙されたDependencyObject。</returns>
 #endif
-        public static WPFDependencyObjectCollection LogicalTree(this AppVar start, TreeRunDirection direction = TreeRunDirection.Descendants)
+        public static IWPFDependencyObjectCollection<DependencyObject> LogicalTree(this AppVar start, TreeRunDirection direction = TreeRunDirection.Descendants)
         {
             var app = (WindowsAppFriend)start.App;
             return TreeUtility.LogicalTree(start, direction);
@@ -93,7 +94,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="direction">走査方向。</param>
         /// <returns>列挙されたDependencyObject。</returns>
 #endif
-        public static WPFDependencyObjectCollection LogicalTree(this IAppVarOwner start, TreeRunDirection direction = TreeRunDirection.Descendants)
+        public static IWPFDependencyObjectCollection<DependencyObject> LogicalTree(this IAppVarOwner start, TreeRunDirection direction = TreeRunDirection.Descendants)
         {
             var app = (WindowsAppFriend)start.AppVar.App;
             return TreeUtility.LogicalTree(start.AppVar, direction);
