@@ -19,6 +19,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <summary>
         /// Search by binding from DependencyObject collection.
         /// </summary>
+        /// <typeparam name="T">Type of collection.</typeparam>
         /// <param name="collection">DependencyObject collection.</param>
         /// <param name="path">Binding path.</param>
         /// <param name="dataItem">DataItem.</param>
@@ -27,6 +28,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <summary>
         /// Binding情報から要素を検索。
         /// </summary>
+        /// <typeparam name="T">コレクションのタイプ。</typeparam>
         /// <param name="collection">DependencyObjectのコレクション。</param>
         /// <param name="path">バインディングパス。</param>
         /// <param name="dataItem">DataItem。</param>
@@ -37,6 +39,7 @@ namespace RM.Friendly.WPFStandardControls
             var app = (WindowsAppFriend)collection.AppVar.App;
             return Searcher.ByBinding<T>(collection, path, dataItem);
         }
+
 #if ENG
         /// <summary>
         /// Search by binding from DependencyObject collection.
@@ -59,6 +62,7 @@ namespace RM.Friendly.WPFStandardControls
             var app = (WindowsAppFriend)collection.AppVar.App;
             return Searcher.ByBinding(collection, path, dataItem);
         }
+
 #if ENG
         /// <summary>
         /// Search by Type from DependencyObject collection.

@@ -10,6 +10,7 @@ using Codeer.Friendly.Windows.Grasp;
 using Codeer.Friendly;
 using Codeer.Friendly.Windows.NativeStandardControls;
 using System.Linq;
+using System.Windows.Controls.Primitives;
 
 namespace Test
 {
@@ -295,7 +296,6 @@ namespace Test
             Assert.AreEqual(2, collection.Count());
             collection = ctrl.LogicalTree().ByType<Button>();
             Assert.AreEqual(2, collection.Count());
-
             var list = ctrl.LogicalTree().ByType(typeof(ListView).FullName).Single();
             Assert.AreEqual(list, listView);
             list = ctrl.LogicalTree().ByType <ListView>().Single();

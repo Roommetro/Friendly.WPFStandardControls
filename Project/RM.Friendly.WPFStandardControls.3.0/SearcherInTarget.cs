@@ -25,7 +25,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <summary>
         /// Search by binding from DependencyObject collection.
         /// </summary>
-        /// <typeparam name="T">Target type.</typeparam>
+        /// <typeparam name="T">Type of collection.</typeparam>
         /// <param name="collection">DependencyObject collection.</param>
         /// <param name="path">Binding path.</param>
         /// <param name="dataItem">DataItem.</param>
@@ -34,7 +34,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <summary>
         /// Binding情報から要素を検索。
         /// </summary>
-        /// <typeparam name="T">検索対象のタイプ。</typeparam>
+        /// <typeparam name="T">コレクションのタイプ。</typeparam>
         /// <param name="collection">DependencyObjectのコレクション。</param>
         /// <param name="path">バインディングパス。</param>
         /// <param name="dataItem">DataItem。</param>
