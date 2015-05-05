@@ -23,6 +23,7 @@ They can operate WPF control easily from a separate process.
 * WPFSlider  
 * WPFTabControl  
 * WPFTextBox  
+* WPFTextBlock
 * WPFToggleButton  
 * WPFTreeView  
 * WPFTreeViewItem  
@@ -43,7 +44,20 @@ using (var app = new WindowsAppFriend(process))
     grid.EmulateCellCheck(0, 2, true);  
 }  
 ```
+```cs  
+//sample : identify the elements.
+var process = Process.GetProcessesByName("WPFTarget")[0];  
+using (var app = new WindowsAppFriend(process))  
+{  
+    AppVar main = _app.Type<Application>().Current.MainWindow;
+    var logicalTree = main.LogicalTree();
 
+    var textBox = new WPFTextBox(logicalTree.ByBinding("Memo").ByType<TextBox>().Single());
+    var textBlock = new WPFTextBlock(logicalTree.ByBinding("Memo").ByType<TextBlock>().Single());
+    var button = new WPFButtonBase(logicalTree.ByBinding("CommandOK").Single());
+    var listBox = new WPFListBox(logicalTree.ByBinding("Persons").Single());
+}  
+```
 ============================
 Download from NuGet.  
 https://www.nuget.org/packages/RM.Friendly.WPFStandardControls/  
