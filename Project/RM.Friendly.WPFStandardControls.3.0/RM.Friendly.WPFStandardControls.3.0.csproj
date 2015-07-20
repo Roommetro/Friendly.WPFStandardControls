@@ -70,6 +70,9 @@
   <ItemGroup>
     <Compile Include="AppVarWrapper.cs" />
     <Compile Include="AppVarWrapper.Partial.cs" />
+    <Compile Include="ButtonSearcher.cs" />
+    <Compile Include="ButtonSearcherInTarget.cs" />
+    <Compile Include="Inside\CastUtility.cs" />
     <Compile Include="IWPFDependencyObjectCollection.cs" />
     <Compile Include="Searcher.cs" />
     <Compile Include="SearcherInTarget.cs" />

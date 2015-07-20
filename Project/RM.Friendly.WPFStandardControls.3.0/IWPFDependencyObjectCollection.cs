@@ -53,5 +53,4 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         AppVar Single();
     }
-
 }

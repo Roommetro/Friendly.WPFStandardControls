@@ -3,6 +3,7 @@ using Codeer.Friendly.Windows;
 using RM.Friendly.WPFStandardControls.Inside;
 using System;
 using System.Reflection;
+using System.Windows;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
 using System.Windows.Controls;
@@ -67,6 +68,17 @@ namespace RM.Friendly.WPFStandardControls
         /// </summary>
 #endif
         public string Text { get { return (string)AppVar.App[typeof(HeaderedItemsControlUtility), "GetItemText"](AppVar).Core; } }
+
+#if ENG
+        /// <summary>
+        /// Get ContentPresenter of Header.
+        /// </summary>
+#else
+        /// <summary>
+        /// ヘッダーのContentPresenterを取得します。
+        /// </summary>
+#endif
+        public AppVar HeaderContent { get { return App[typeof(VisualTreeUtility), "GetCoreElement"](this, typeof(ContentPresenter).FullName); } }
 
 #if ENG
         /// <summary>

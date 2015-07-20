@@ -7,22 +7,22 @@ namespace RM.Friendly.WPFStandardControls
 {
 #if ENG
     /// <summary>
-    /// Collection of DependencyObject in target app.
+    /// Collection of T in target app.
     /// </summary>
 #else
     /// <summary>
-    /// DependencyObjectのコレクションです。
+    /// Tのコレクションです。
     /// </summary>
 #endif
     public class WPFDependencyObjectCollection<T> : IWPFDependencyObjectCollection<T>, IAppVarOwner where T : DependencyObject
     {
 #if ENG
         /// <summary>
-        /// List＜DependencyObject＞ in target app.
+        /// List＜T＞ in target app.
         /// </summary>
 #else
         /// <summary>
-        /// 対象プロセス内のList＜DependencyObject＞ です。
+        /// 対象プロセス内のList＜T＞ です。
         /// </summary>
 #endif
         public AppVar AppVar { get; private set; }
@@ -40,28 +40,50 @@ namespace RM.Friendly.WPFStandardControls
 
 #if ENG
         /// <summary>
-        /// DependencyObject of index in target app .
+        /// T of index in target app .
         /// </summary>
         /// <param name="index">Index.</param>
-        /// <returns>DependencyObject of index in target app .</returns>
+        /// <returns>T of index in target app .</returns>
 #else
         /// <summary>
-        /// 対象プロセス内での指定のインデックスのDependencyObject。
+        /// 対象プロセス内での指定のインデックスのT。
         /// </summary>
         /// <param name="index">インデックス。</param>
-        /// <returns>対象プロセス内での指定のインデックスのDependencyObject。</returns>
+        /// <returns>対象プロセス内での指定のインデックスのT。</returns>
 #endif
         public AppVar this[int index]
         {
             get { return AppVar["[]"](index); }
         }
 
-        internal WPFDependencyObjectCollection(AppVar appVar)
+#if ENG
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="appVar">List＜T＞ in target app.</param>
+#else
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="appVar">対象プロセス内のList＜T＞ </param>
+#endif
+        public WPFDependencyObjectCollection(AppVar appVar)
         {
             AppVar = appVar;
         }
 
-        internal WPFDependencyObjectCollection(IAppVarOwner appVar)
+#if ENG
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="appVar">List＜T＞ in target app.</param>
+#else
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="appVar">対象プロセス内のList＜T＞ </param>
+#endif
+        public WPFDependencyObjectCollection(IAppVarOwner appVar)
         {
             AppVar = appVar.AppVar;
         }

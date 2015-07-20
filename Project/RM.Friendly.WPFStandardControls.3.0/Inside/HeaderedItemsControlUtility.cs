@@ -52,7 +52,7 @@ namespace RM.Friendly.WPFStandardControls.Inside
         /// <returns>text.</returns>
         public static string GetItemText(Visual item)
         {
-            var block = VisualTreeUtility.GetCoreElement(item, typeof(TextBlock).FullName) as TextBlock;
+            var block = VisualTreeUtility.GetCoreElement(item, typeof(TextBlock)) as TextBlock;
             if (block != null)
             {
                 if (!string.IsNullOrEmpty(block.Text))
@@ -60,7 +60,7 @@ namespace RM.Friendly.WPFStandardControls.Inside
                     return block.Text;
                 }
             }
-            var access = VisualTreeUtility.GetCoreElement(item, typeof(AccessText).FullName) as AccessText;
+            var access = VisualTreeUtility.GetCoreElement(item, typeof(AccessText)) as AccessText;
             if (access != null)
             {
                 if (!string.IsNullOrEmpty(access.Text))

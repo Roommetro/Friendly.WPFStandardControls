@@ -87,6 +87,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ButtonSearchTest.cs" />
+    <Compile Include="ButtonSearchTestControl.xaml.cs">
+      <DependentUpon>ButtonSearchTestControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="ListBox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -165,6 +169,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ButtonSearchTestControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SearchTestControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

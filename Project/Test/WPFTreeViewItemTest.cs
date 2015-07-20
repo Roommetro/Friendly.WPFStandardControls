@@ -109,6 +109,16 @@ namespace Test
         }
 
         [TestMethod]
+        public void HeaderContentTest()
+        {
+            WPFTreeView tree = new WPFTreeView(_ctrl._tree);
+            var item = tree.GetItem(1);
+            var button = new WPFButtonBase(item.HeaderContent.VisualTree().ByType<Button>().Single());
+            button.EmulateClick();
+            Assert.IsTrue((bool)_ctrl.treeButtonClicked);
+        }
+
+        [TestMethod]
         public void GetCoreElementNotFoundTest()
         {
             TestUtility.TestExceptionMessage(() => {

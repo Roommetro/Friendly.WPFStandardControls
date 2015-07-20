@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Codeer.Friendly.DotNetExecutor;
+using System;
+using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -72,13 +74,30 @@ namespace RM.Friendly.WPFStandardControls.Inside
         /// <returns>Match visual.</returns>
         public static Visual GetCoreElement(Visual visual, string typeFullName)
         {
+            TypeFinder finder = new TypeFinder();
+            var type = finder.GetType(typeFullName);
+            if (type == null) 
+            {
+                return null;
+            }
+            return GetCoreElement(visual, type);
+        }
+
+        /// <summary>
+        /// GetCoreElement.
+        /// </summary>
+        /// <param name="visual">Root.</param>
+        /// <param name="type">Type.</param>
+        /// <returns>Match visual.</returns>
+        public static Visual GetCoreElement(Visual visual, Type type)
+        {
             foreach (var v in VisualTreeUtility.GetChildren(visual))
             {
-                if (v.GetType().FullName == typeFullName)
+                if (type.IsAssignableFrom(v.GetType()))
                 {
                     return v;
                 }
-                Visual o = GetCoreElement(v, typeFullName);
+                Visual o = GetCoreElement(v, type);
                 if (o != null)
                 {
                     return o;

@@ -337,7 +337,7 @@ namespace RM.Friendly.WPFStandardControls
         {
             grid.ScrollIntoView(row, grid.Columns[col]);
             var presenter =
-                   (DataGridCellsPresenter)VisualTreeUtility.GetCoreElement(row, typeof(DataGridCellsPresenter).FullName);
+                   (DataGridCellsPresenter)VisualTreeUtility.GetCoreElement(row, typeof(DataGridCellsPresenter));
             return (DataGridCell)presenter.ItemContainerGenerator.ContainerFromIndex(col);
         }
 

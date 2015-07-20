@@ -1,4 +1,5 @@
-﻿using Codeer.Friendly.Windows;
+﻿using Codeer.Friendly;
+using Codeer.Friendly.Windows;
 using RM.Friendly.WPFStandardControls.Inside;
 using System.Windows;
 
@@ -34,7 +35,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="dataItem">DataItem。</param>
         /// <returns>ヒットした要素。</returns>
 #endif
-        public static IWPFDependencyObjectCollection<T> ByBinding<T>(this IWPFDependencyObjectCollection<T> collection, string path, object dataItem = null) where T : DependencyObject
+        public static IWPFDependencyObjectCollection<T> ByBinding<T>(this IWPFDependencyObjectCollection<T> collection, string path, ExplicitAppVar dataItem = null) where T : DependencyObject
         {
             return Searcher.ByBinding<T>(collection, path, dataItem);
         }

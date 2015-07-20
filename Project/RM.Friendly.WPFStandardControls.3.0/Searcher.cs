@@ -35,7 +35,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="dataItem">DataItem。</param>
         /// <returns>ヒットした要素。</returns>
 #endif
-        public static IWPFDependencyObjectCollection<T> ByBinding<T>(IWPFDependencyObjectCollection<T> collection, string path, object dataItem = null) where T : DependencyObject
+        public static IWPFDependencyObjectCollection<T> ByBinding<T>(IWPFDependencyObjectCollection<T> collection, string path, ExplicitAppVar dataItem = null) where T : DependencyObject
         {
             var app = (WindowsAppFriend)((IAppVarOwner)collection).AppVar.App;
             WPFStandardControls_3.Injection(app);

@@ -243,6 +243,8 @@ namespace Test
             Assert.AreEqual(2, collection.Count);
             collection = Searcher.ByType<Button>(TreeUtility.LogicalTree(target));
             Assert.AreEqual(2, collection.Count);
+            collection = Searcher.ByType<ButtonBase>(TreeUtility.LogicalTree(target));
+            Assert.AreEqual(2, collection.Count);
 
             var list = Searcher.ByType(TreeUtility.LogicalTree(target), typeof(ListView).FullName).Single();
             Assert.AreEqual(list, _ctrl._listView);
@@ -262,6 +264,8 @@ namespace Test
             Assert.AreEqual(2, collection.Count());
             collection = SearcherInTarget.ByType<Button>(TreeUtilityInTarget.LogicalTree(ctrl));
             Assert.AreEqual(2, collection.Count());
+            collection = SearcherInTarget.ByType<ButtonBase>(TreeUtilityInTarget.LogicalTree(ctrl));
+            Assert.AreEqual(2, collection.Count());
 
             var list = SearcherInTarget.ByType(TreeUtilityInTarget.LogicalTree(ctrl), typeof(ListView).FullName).Single();
             Assert.AreEqual(list, listView);
@@ -276,6 +280,8 @@ namespace Test
             var collection = target.LogicalTree().ByType(typeof(Button).FullName);
             Assert.AreEqual(2, collection.Count);
             collection = target.LogicalTree().ByType<Button>();
+            Assert.AreEqual(2, collection.Count);
+            collection = target.LogicalTree().ByType<ButtonBase>();
             Assert.AreEqual(2, collection.Count);
 
             var list = target.LogicalTree().ByType(typeof(ListView).FullName).Single();
@@ -295,6 +301,8 @@ namespace Test
             var collection = ctrl.LogicalTree().ByType(typeof(Button).FullName);
             Assert.AreEqual(2, collection.Count());
             collection = ctrl.LogicalTree().ByType<Button>();
+            Assert.AreEqual(2, collection.Count());
+            collection = ctrl.LogicalTree().ByType<ButtonBase>();
             Assert.AreEqual(2, collection.Count());
             var list = ctrl.LogicalTree().ByType(typeof(ListView).FullName).Single();
             Assert.AreEqual(list, listView);

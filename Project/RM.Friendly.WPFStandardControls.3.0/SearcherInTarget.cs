@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Codeer.Friendly.DotNetExecutor;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
@@ -8,13 +9,13 @@ namespace RM.Friendly.WPFStandardControls
 {
 #if ENG
     /// <summary>
-    /// Search by binding.
+    /// Search by binding or type.
     /// In order to run inside the target process, you will need to injection the RM.Friendly.WPFStandardControls.3.dll.
     /// Use the RM.Friendly.WPFStandardControls.WPFStandardControls_3.Injection method.
     /// </summary>
 #else
     /// <summary>
-    /// Binding情報から要素を取得するためのユーティリティー
+    /// Binding情報、タイプから要素を取得するためのユーティリティー
     /// 対象プロセス内部で実行するためには、RM.Friendly.WPFStandardControls.3.dllをインジェクションする必要があります。
     /// RM.Friendly.WPFStandardControls.WPFStandardControls_3.Injectionメソッドを利用してください。
     /// </summary>
@@ -102,9 +103,11 @@ namespace RM.Friendly.WPFStandardControls
         public static IEnumerable<DependencyObject> ByType(IEnumerable<DependencyObject> collection, string typeFullName)
         {
             List<DependencyObject> list = new List<DependencyObject>();
+            var finder = new TypeFinder();
+            var type = finder.GetType(typeFullName);
             foreach (var e in collection)
             {
-                if (e.GetType().FullName == typeFullName)
+                if (type.IsAssignableFrom(e.GetType()))
                 {
                     list.Add(e);
                 }
