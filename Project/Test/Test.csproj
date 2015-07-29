@@ -98,6 +98,10 @@
     <Compile Include="TestUtility.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="WPFCalendarTest.cs" />
+    <Compile Include="WPFContextMenuTest.cs" />
+    <Compile Include="WPFContextMenuTestControl.xaml.cs">
+      <DependentUpon>WPFContextMenuTestControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WPFDataGridTest.cs.cs" />
     <Compile Include="WPFButtonBaseTest.cs" />
     <Compile Include="WPFControlBaseTest.cs" />
@@ -174,6 +178,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SearchTestControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPFContextMenuTestControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
