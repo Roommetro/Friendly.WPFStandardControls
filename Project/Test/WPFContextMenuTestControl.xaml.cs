@@ -27,9 +27,11 @@ namespace Test
             _list1.ItemsSource = new[] { "a", "b", "c" };
             _list2.ItemsSource = new[] { "a", "b", "c" };
             _list3.ItemsSource = new[] { "a", "b", "c" };
+            _isModal = false;
+            _isModal.ToString();
         }
 
-        public bool _isModal;
+        bool _isModal;
         List<string> _commands = new List<string>();
         private void Executed(object sender, ExecutedRoutedEventArgs e)
         {

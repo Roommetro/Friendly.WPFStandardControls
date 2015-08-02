@@ -80,6 +80,8 @@
     <Compile Include="Inside\HeaderedItemsControlUtility.cs" />
     <Compile Include="WPFContextMenu.cs" />
     <Compile Include="WPFContextMenuItem.cs" />
+    <Compile Include="WPFExpander.cs" />
+    <Compile Include="WPFPasswordBox.cs" />
     <Compile Include="WPFStandardControls_3.cs" />
     <Compile Include="Inside\InvokeUtility.cs" />
     <Compile Include="Inside\ResourcesLocal.cs" />
