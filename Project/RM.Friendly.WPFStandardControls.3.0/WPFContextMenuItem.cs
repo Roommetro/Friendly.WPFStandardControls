@@ -2,10 +2,12 @@
 using RM.Friendly.WPFStandardControls.Inside;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Windows;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 
 namespace RM.Friendly.WPFStandardControls
 {
@@ -111,7 +113,7 @@ namespace RM.Friendly.WPFStandardControls
         {
             using (var item = GetItem())
             {
-                var count = (int)item.Item["Items"]()["Count"]().Core;
+                var count = (int)item.Item.App[GetType(), "GetItemCount"](item.Item).Core;
                 var items = new WPFContextMenuItem[count];
                 for (int i = 0; i < count; i++)
                 {
@@ -121,6 +123,22 @@ namespace RM.Friendly.WPFStandardControls
                 }
                 return items;
             }
+        }
+
+        static int GetItemCount(MenuItem item)
+        {
+            IInvokeProvider invoker = new MenuItemAutomationPeer(item);
+            invoker.Invoke();
+            foreach (var p in SearcherInTarget.ByType<Popup>(TreeUtilityInTarget.VisualTree(item)))
+            {
+                int count = 0;
+                foreach (var e in SearcherInTarget.ByType<MenuItem>(TreeUtilityInTarget.VisualTree(p.Child)))
+                {
+                    count++;
+                }
+                return count;
+            }
+            return 0;
         }
 
 #if ENG

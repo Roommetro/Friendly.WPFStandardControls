@@ -107,13 +107,18 @@ namespace RM.Friendly.WPFStandardControls
             return items;
         }
 
-        static int GetItemCount(UIElement target)
+        internal static int GetItemCount(UIElement target)
         {
             Clean cleaner = null;
             try
             {
                 var menu = OpenMenu(target, out cleaner);
-                return menu.Items.Count;
+                int count = 0;
+                foreach (var e in SearcherInTarget.ByType<MenuItem>(TreeUtilityInTarget.VisualTree(menu))) 
+                {
+                    count++;
+                }
+                return count;
             }
             finally
             {

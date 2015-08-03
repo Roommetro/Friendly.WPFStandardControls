@@ -25,4 +25,10 @@ namespace Test
             InitializeComponent();
         }
     }
+
+    public enum CommandPrameterType 
+    {
+        A,
+        B,
+    }
 }

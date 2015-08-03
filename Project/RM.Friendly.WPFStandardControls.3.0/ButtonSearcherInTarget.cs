@@ -45,6 +45,19 @@ namespace RM.Friendly.WPFStandardControls
             return CastUtility.CastList<DependencyObject, T>(ByCommandCore(CastUtility.CastList<T, DependencyObject>(collection), command));
         }
 
+        static IEnumerable<DependencyObject> ByCommandCore(IEnumerable<DependencyObject> collection, ICommand command)
+        {
+            List<DependencyObject> result = new List<DependencyObject>();
+            foreach (ButtonBase e in collection)
+            {
+                if (ReferenceEquals(command, e.Command))
+                {
+                    result.Add(e);
+                }
+            }
+            return result;
+        }
+
 #if ENG
         /// <summary>
         /// Search by CommandParameter from ButtonBase collection.
@@ -67,19 +80,6 @@ namespace RM.Friendly.WPFStandardControls
             return CastUtility.CastList<DependencyObject, T>(ByCommandParameterCore(CastUtility.CastList<T, DependencyObject>(collection), commandParameter));
         }
 
-        static IEnumerable<DependencyObject> ByCommandCore(IEnumerable<DependencyObject> collection, ICommand command)
-        {
-            List<DependencyObject> result = new List<DependencyObject>();
-            foreach (ButtonBase e in collection)
-            {
-                if (ReferenceEquals(command, e.Command))
-                {
-                    result.Add(e);
-                }
-            }
-            return result;
-        }
-
         static IEnumerable<DependencyObject> ByCommandParameterCore(IEnumerable<DependencyObject> collection, object commandParameter)
         {
             List<DependencyObject> result = new List<DependencyObject>();
@@ -87,6 +87,74 @@ namespace RM.Friendly.WPFStandardControls
             {
                 if ((commandParameter == null && e.CommandParameter == null) ||
                     commandParameter.Equals(e.CommandParameter))
+                {
+                    result.Add(e);
+                }
+            }
+            return result;
+        }
+
+#if ENG
+        /// <summary>
+        /// Search by CommandParameter.ToString() from ButtonBase collection.
+        /// </summary>
+        /// <typeparam name="T">Type of collection.</typeparam>
+        /// <param name="collection">ButtonBase collection.</param>
+        /// <param name="commandParameter">Command parameter.</param>
+        /// <returns>Hit elements.</returns>
+#else
+        /// <summary>
+        /// コマンドパラメータをToString()で文字列化した文字列から要素を検索。
+        /// </summary>
+        /// <typeparam name="T">コレクションのタイプ。</typeparam>
+        /// <param name="collection">DependencyObjectのコレクション。</param>
+        /// <param name="commandParameterText">文字列。</param>
+        /// <returns>ヒットした要素。</returns>
+#endif
+        public static IEnumerable<T> ByCommandParameterText<T>(IEnumerable<T> collection, string commandParameterText) where T : ButtonBase
+        {
+            return CastUtility.CastList<DependencyObject, T>(ByCommandParameterTextCore(CastUtility.CastList<T, DependencyObject>(collection), commandParameterText));
+        }
+
+        static IEnumerable<DependencyObject> ByCommandParameterTextCore(IEnumerable<DependencyObject> collection, string commandParameterText)
+        {
+            List<DependencyObject> result = new List<DependencyObject>();
+            foreach (ButtonBase e in collection)
+            {
+                if (e.CommandParameter != null && e.CommandParameter.ToString() == commandParameterText)
+                {
+                    result.Add(e);
+                }
+            }
+            return result;
+        }
+
+#if ENG
+        /// <summary>
+        /// Search by flag of IsCancel.
+        /// </summary>
+        /// <typeparam name="T">Type of collection.</typeparam>
+        /// <param name="collection">ButtonBase collection.</param>
+        /// <returns>Hit elements.</returns>
+#else
+        /// <summary>
+        /// IsCancelフラグが立っているボタンを検索。
+        /// </summary>
+        /// <typeparam name="T">コレクションのタイプ。</typeparam>
+        /// <param name="collection">DependencyObjectのコレクション。</param>
+        /// <returns>ヒットした要素。</returns>
+#endif
+        public static IEnumerable<T> ByIsCancel<T>(IEnumerable<T> collection) where T : Button
+        {
+            return CastUtility.CastList<DependencyObject, T>(ByIsCancelCore(CastUtility.CastList<T, DependencyObject>(collection)));
+        }
+
+        static IEnumerable<DependencyObject> ByIsCancelCore(IEnumerable<DependencyObject> collection)
+        {
+            List<DependencyObject> result = new List<DependencyObject>();
+            foreach (Button e in collection)
+            {
+                if (e.IsCancel)
                 {
                     result.Add(e);
                 }

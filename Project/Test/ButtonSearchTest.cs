@@ -136,5 +136,137 @@ namespace Test
             var button3 = buttons.ByCommandParameter("button3").Single();
             Assert.AreEqual(button3, button3Expected);
         }
+
+        [TestMethod]
+        public void TestByCommandParameterEnum()
+        {
+            var buttons = TreeUtility.LogicalTree((AppVar)_ctrl).ByType<Button>();
+            AppVar button4 = ButtonSearcher.ByCommandParameter(buttons, CommandPrameterType.A).Single();
+            Assert.AreEqual(button4, _ctrl._button4);
+            button4 = ButtonSearcher.ByCommandParameter(buttons, new ExplicitAppVar(_app.Copy(CommandPrameterType.A))).Single();
+            Assert.AreEqual(button4, _ctrl._button4);
+        }
+
+        [TestMethod]
+        public void TestByCommandParameterEnumExtensions()
+        {
+            var buttons = ((AppVar)_ctrl).LogicalTree().ByType<Button>();
+            AppVar button4 = buttons.ByCommandParameter(CommandPrameterType.A).Single();
+            Assert.AreEqual(button4, _ctrl._button4);
+            button4 = buttons.ByCommandParameter(new ExplicitAppVar(_app.Copy(CommandPrameterType.A))).Single();
+            Assert.AreEqual(button4, _ctrl._button4);
+        }
+
+
+        [TestMethod]
+        public void TestByCommandParameterEnumInTarget()
+        {
+            _app.Type(GetType()).TestByCommandParameterEnumInTarget(_ctrl, _ctrl._button4);
+        }
+
+        static void TestByCommandParameterEnumInTarget(ButtonSearchTestControl ctrl, Button button4Expected)
+        {
+            var buttons = TreeUtilityInTarget.LogicalTree(ctrl).ByType<Button>();
+            var button4 = ButtonSearcherInTarget.ByCommandParameter(buttons, CommandPrameterType.A).Single();
+            Assert.AreEqual(button4, button4Expected);
+        }
+
+        [TestMethod]
+        public void TestByCommandParameterEnumInTargetExtensions()
+        {
+            _app.Type(GetType()).TestByCommandParameterEnumInTargetExtensions(_ctrl, _ctrl._button4);
+        }
+
+        static void TestByCommandParameterEnumInTargetExtensions(ButtonSearchTestControl ctrl, Button button4Expected)
+        {
+            var buttons = ctrl.LogicalTree().ByType<Button>();
+            var button4 = buttons.ByCommandParameter(CommandPrameterType.A).Single();
+            Assert.AreEqual(button4, button4Expected);
+        }
+
+        [TestMethod]
+        public void TestByCommandParameterText()
+        {
+            var buttons = TreeUtility.LogicalTree((AppVar)_ctrl).ByType<Button>();
+            AppVar button4 = ButtonSearcher.ByCommandParameterText(buttons, "A").Single();
+            Assert.AreEqual(button4, _ctrl._button4);
+        }
+
+        [TestMethod]
+        public void TestByCommandParameterTextExtensions()
+        {
+            var buttons = ((AppVar)_ctrl).LogicalTree().ByType<Button>();
+            AppVar button4 = buttons.ByCommandParameterText("A").Single();
+            Assert.AreEqual(button4, _ctrl._button4);
+        }
+
+        [TestMethod]
+        public void TestByCommandParameterTextInTarget()
+        {
+            _app.Type(GetType()).TestByCommandParameterTextInTarget(_ctrl, _ctrl._button4);
+        }
+
+
+        static void TestByCommandParameterTextInTarget(ButtonSearchTestControl ctrl, Button button4Expected)
+        {
+            var buttons = TreeUtilityInTarget.LogicalTree(ctrl).ByType<Button>();
+            var button4 = ButtonSearcherInTarget.ByCommandParameterText(buttons, "A").Single();
+            Assert.AreEqual(button4, button4Expected);
+        }
+
+        [TestMethod]
+        public void TestByCommandParameterTextInTargetExtensions()
+        {
+            _app.Type(GetType()).TestByCommandParameterTextInTargetExtensions(_ctrl, _ctrl._button4);
+        }
+
+        static void TestByCommandParameterTextInTargetExtensions(ButtonSearchTestControl ctrl, Button button4Expected)
+        {
+            var buttons = ctrl.LogicalTree().ByType<Button>();
+            var button4 = buttons.ByCommandParameterText("A").Single();
+            Assert.AreEqual(button4, button4Expected);
+        }
+
+        [TestMethod]
+        public void TestByIsCancel()
+        {
+            var buttons = TreeUtility.LogicalTree((AppVar)_ctrl).ByType<Button>();
+            AppVar button5 = ButtonSearcher.ByIsCancel(buttons).Single();
+            Assert.AreEqual(button5, _ctrl._button5);
+        }
+
+        [TestMethod]
+        public void TestByIsCancelExtensions()
+        {
+            var buttons = ((AppVar)_ctrl).LogicalTree().ByType<Button>();
+            AppVar button5 = buttons.ByIsCancel().Single();
+            Assert.AreEqual(button5, _ctrl._button5);
+        }
+
+        [TestMethod]
+        public void TestByIsCancelInTarget()
+        {
+            _app.Type(GetType()).TestByIsCancelInTarget(_ctrl, _ctrl._button5);
+        }
+
+        static void TestByIsCancelInTarget(ButtonSearchTestControl ctrl, Button button5Expected)
+        {
+            var buttons = TreeUtilityInTarget.LogicalTree(ctrl).ByType<Button>();
+            var button5 = ButtonSearcherInTarget.ByIsCancel(buttons).Single();
+            Assert.AreEqual(button5, button5Expected);
+        }
+
+        [TestMethod]
+        public void TestByIsCancelInTargetExtensions()
+        {
+            _app.Type(GetType()).TestByIsCancelInTargetExtensions(_ctrl, _ctrl._button5);
+        }
+
+        static void TestByIsCancelInTargetExtensions(ButtonSearchTestControl ctrl, Button button5Expected)
+        {
+            var buttons = ctrl.LogicalTree().ByType<Button>();
+            var button5 = buttons.ByIsCancel().Single();
+            Assert.AreEqual(button5, button5Expected);
+        }
     }
 }

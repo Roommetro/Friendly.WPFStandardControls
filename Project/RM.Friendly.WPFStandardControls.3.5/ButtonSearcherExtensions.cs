@@ -1,5 +1,6 @@
 ﻿using Codeer.Friendly;
 using System.Collections.Generic;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
@@ -103,6 +104,48 @@ namespace RM.Friendly.WPFStandardControls
         public static IWPFDependencyObjectCollection<T> ByCommandParameter<T>(this IWPFDependencyObjectCollection<T> collection, ExplicitAppVar commandParameter) where T : ButtonBase
         {
             return ButtonSearcher.ByCommandParameter<T>(collection, commandParameter);
+        }
+
+#if ENG
+        /// <summary>
+        /// Search by CommandParameter.ToString() from ButtonBase collection.
+        /// </summary>
+        /// <typeparam name="T">Type of collection.</typeparam>
+        /// <param name="collection">ButtonBase collection.</param>
+        /// <param name="commandParameter">Command parameter.</param>
+        /// <returns>Hit elements.</returns>
+#else
+        /// <summary>
+        /// コマンドパラメータをToString()で文字列化した文字列から要素を検索。
+        /// </summary>
+        /// <typeparam name="T">コレクションのタイプ。</typeparam>
+        /// <param name="collection">DependencyObjectのコレクション。</param>
+        /// <param name="commandParameterText">文字列。</param>
+        /// <returns>ヒットした要素。</returns>
+#endif
+        public static IWPFDependencyObjectCollection<T> ByCommandParameterText<T>(this IWPFDependencyObjectCollection<T> collection, string commandParameterText) where T : ButtonBase
+        {
+            return ButtonSearcher.ByCommandParameterText<T>(collection, commandParameterText);
+        }
+
+#if ENG
+        /// <summary>
+        /// Search by flag of IsCancel.
+        /// </summary>
+        /// <typeparam name="T">Type of collection.</typeparam>
+        /// <param name="collection">ButtonBase collection.</param>
+        /// <returns>Hit elements.</returns>
+#else
+        /// <summary>
+        /// IsCancelフラグが立っているボタンを検索。
+        /// </summary>
+        /// <typeparam name="T">コレクションのタイプ。</typeparam>
+        /// <param name="collection">DependencyObjectのコレクション。</param>
+        /// <returns>ヒットした要素。</returns>
+#endif
+        public static IWPFDependencyObjectCollection<T> ByIsCancel<T>(this IWPFDependencyObjectCollection<T> collection) where T : Button
+        {
+            return ButtonSearcher.ByIsCancel<T>(collection);
         }
     }
 }

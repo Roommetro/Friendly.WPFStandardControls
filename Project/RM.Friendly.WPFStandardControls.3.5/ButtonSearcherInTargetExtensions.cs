@@ -65,5 +65,47 @@ namespace RM.Friendly.WPFStandardControls
         {
             return ButtonSearcherInTarget.ByCommandParameter<T>(collection, commandParameter);
         }
+
+#if ENG
+        /// <summary>
+        /// Search by CommandParameter.ToString() from ButtonBase collection.
+        /// </summary>
+        /// <typeparam name="T">Type of collection.</typeparam>
+        /// <param name="collection">ButtonBase collection.</param>
+        /// <param name="commandParameter">Command parameter.</param>
+        /// <returns>Hit elements.</returns>
+#else
+        /// <summary>
+        /// コマンドパラメータをToString()で文字列化したmonoから要素を検索。
+        /// </summary>
+        /// <typeparam name="T">コレクションのタイプ。</typeparam>
+        /// <param name="collection">DependencyObjectのコレクション。</param>
+        /// <param name="commandParameterText">文字列。</param>
+        /// <returns>ヒットした要素。</returns>
+#endif
+        public static IEnumerable<T> ByCommandParameterText<T>(this IEnumerable<T> collection, string commandParameterText) where T : ButtonBase
+        {
+            return ButtonSearcherInTarget.ByCommandParameterText<T>(collection, commandParameterText);
+        }
+
+#if ENG
+        /// <summary>
+        /// Search by flag of IsCancel.
+        /// </summary>
+        /// <typeparam name="T">Type of collection.</typeparam>
+        /// <param name="collection">ButtonBase collection.</param>
+        /// <returns>Hit elements.</returns>
+#else
+        /// <summary>
+        /// IsCancelフラグが立っているボタンを検索。
+        /// </summary>
+        /// <typeparam name="T">コレクションのタイプ。</typeparam>
+        /// <param name="collection">DependencyObjectのコレクション。</param>
+        /// <returns>ヒットした要素。</returns>
+#endif
+        public static IEnumerable<T> ByIsCancel<T>(this IEnumerable<T> collection) where T : Button
+        {
+            return ButtonSearcherInTarget.ByIsCancel<T>(collection);
+        }
     }
 }
