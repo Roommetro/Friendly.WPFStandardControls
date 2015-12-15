@@ -78,6 +78,7 @@
     <Compile Include="SearcherInTarget.cs" />
     <Compile Include="CompileNeedAssembly3.cs" />
     <Compile Include="Inside\HeaderedItemsControlUtility.cs" />
+    <Compile Include="WPFContentControl.cs" />
     <Compile Include="WPFContextMenu.cs" />
     <Compile Include="WPFContextMenuItem.cs" />
     <Compile Include="WPFExpander.cs" />
