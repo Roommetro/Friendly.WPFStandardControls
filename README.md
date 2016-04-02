@@ -5,7 +5,7 @@ This library is a layer on top of
 Friendly, so you must learn that first.
 But it is very easy to learn.
 
-http://www.english.codeer.co.jp/test-automation/friendly-fundamental  
+https://github.com/Codeer-Software/Friendly.Windows  
 
 ============================
 Friendly.WPFStandardControls defines the following classes.   
