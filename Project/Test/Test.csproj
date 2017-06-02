@@ -92,6 +92,10 @@
       <DependentUpon>ButtonSearchTestControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="DelegateCommand.cs" />
+    <Compile Include="EnumerableTest.cs" />
+    <Compile Include="EnumerableTestControl.xaml.cs">
+      <DependentUpon>EnumerableTestControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ListBox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchTest.cs" />
@@ -177,6 +181,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="ButtonSearchTestControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EnumerableTestControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
