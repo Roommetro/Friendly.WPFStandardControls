@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="ButtonSearcherExtensions.cs" />
     <Compile Include="ButtonSearcherInTargetExtensions.cs" />
+    <Compile Include="WPFCollectionExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearcherExtensions.cs" />
     <Compile Include="SearcherInTargetExtensions.cs" />
