@@ -7,7 +7,7 @@ But it is very easy to learn.
 
 https://github.com/Codeer-Software/Friendly.Windows  
 
-============================
+***
 Friendly.WPFStandardControls defines the following classes.   
 They can operate WPF control easily from a separate process.  
 
@@ -31,7 +31,7 @@ They can operate WPF control easily from a separate process.
 * WPFDatePicker  
 * WPFDataGrid  
 
-============================
+***
 ```cs  
 //sample  
 var process = Process.GetProcessesByName("WPFTarget")[0];  
@@ -58,11 +58,14 @@ using (var app = new WindowsAppFriend(process))
     var listBox = new WPFListBox(logicalTree.ByBinding("Persons").Single());
 }  
 ```
-============================
+### More samples.
+https://github.com/Roommetro/Friendly.WPFStandardControls/tree/master/Project/Test
+
+***
 Download from NuGet.  
 https://www.nuget.org/packages/RM.Friendly.WPFStandardControls/  
 
-============================
+***
 For other GUI types, use the following libraries:
 
 * For Win32.  
@@ -74,7 +77,7 @@ https://www.nuget.org/packages/Ong.Friendly.FormsStandardControls/
 * For getting the target window.  
 https://www.nuget.org/packages/Codeer.Friendly.Windows.Grasp/  
 
-============================
+***
 If you use PinInterface, you map control simple.  
 https://www.nuget.org/packages/VSHTC.Friendly.PinInterface/
 
