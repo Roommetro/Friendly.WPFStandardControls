@@ -7,6 +7,12 @@ But it is very easy to learn.
 
 https://github.com/Codeer-Software/Friendly.Windows  
 
+## Getting Started
+Install Friendly.WPFStandardControls from NuGet
+
+    Install-Package RM.Friendly.WPFStandardControls
+https://www.nuget.org/packages/RM.Friendly.WPFStandardControls/
+
 ***
 Friendly.WPFStandardControls defines the following classes.   
 They can operate WPF control easily from a separate process.  
@@ -62,14 +68,10 @@ using (var app = new WindowsAppFriend(process))
 https://github.com/Roommetro/Friendly.WPFStandardControls/tree/master/Project/Test
 
 ***
-Download from NuGet.  
-https://www.nuget.org/packages/RM.Friendly.WPFStandardControls/  
-
-***
 For other GUI types, use the following libraries:
 
 * For Win32.  
-https://www.nuget.org/packages/Codeer.Friendly.Windows.NativeStandardControls/  
+https://www.nuget.org/packages/Codeer.Friendly.Windows.NativeStandardControls/ 
 
 * For WinForms.  
 https://www.nuget.org/packages/Ong.Friendly.FormsStandardControls/  
