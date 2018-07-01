@@ -1,5 +1,6 @@
 ﻿using Codeer.Friendly;
 using Codeer.Friendly.Windows;
+using Codeer.TestAssistant.GeneratorToolKit;
 using System.Reflection;
 using System.Windows.Controls.Primitives;
 
@@ -14,6 +15,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.Primitives.ButtonBaseに対応した操作を提供します。
     /// </summary>
 #endif
+    [ControlDriver(TypeFullName = "System.Windows.Controls.Primitives.ButtonBase")]
     public class WPFButtonBase : WPFControlBase<ButtonBase>
     {
 #if ENG

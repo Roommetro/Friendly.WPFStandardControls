@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Controls;
 using Codeer.TestAssistant.GeneratorToolKit;
 
 namespace RM.Friendly.WPFStandardControls.Generator
 {
+    [Generator("RM.Friendly.WPFStandardControls.WPFDataGrid")]
     public class WPFDataGridGenerator : GeneratorBase
     {
         DataGrid _control;

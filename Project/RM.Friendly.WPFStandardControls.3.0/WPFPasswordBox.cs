@@ -1,5 +1,6 @@
 ﻿using Codeer.Friendly;
 using Codeer.Friendly.Windows;
+using Codeer.TestAssistant.GeneratorToolKit;
 using System.Windows.Controls;
 
 namespace RM.Friendly.WPFStandardControls
@@ -13,6 +14,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.PasswordBoxに対応した操作を提供します。
     /// </summary>
 #endif
+    [ControlDriver(TypeFullName = "System.Windows.Controls.PasswordBox")]
     public class WPFPasswordBox : WPFControlBase<PasswordBox>
     {
 #if ENG

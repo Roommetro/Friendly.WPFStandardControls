@@ -1,5 +1,6 @@
 ﻿using Codeer.Friendly;
 using Codeer.Friendly.Windows;
+using Codeer.TestAssistant.GeneratorToolKit;
 using RM.Friendly.WPFStandardControls.Inside;
 using System;
 using System.Reflection;
@@ -19,6 +20,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.ListBoxItemに対応した操作を提供します。
     /// </summary>
 #endif
+    [ControlDriver(TypeFullName = "System.Windows.Controls.ListBoxItem")]
     public class WPFListBoxItemCore<T> : WPFControlBase<T> where T: ListBoxItem
     {
 #if ENG

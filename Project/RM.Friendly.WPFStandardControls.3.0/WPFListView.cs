@@ -1,4 +1,5 @@
 ﻿using Codeer.Friendly;
+using Codeer.TestAssistant.GeneratorToolKit;
 using RM.Friendly.WPFStandardControls.Inside;
 using System.Windows.Automation;
 using System.Windows.Automation.Peers;
@@ -16,6 +17,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.ListViewに対応した操作を提供します。
     /// </summary>
 #endif
+    [ControlDriver(TypeFullName = "System.Windows.Controls.ListView")]
     public class WPFListView : WPFListBoxCore<ListView>
     {
 #if ENG

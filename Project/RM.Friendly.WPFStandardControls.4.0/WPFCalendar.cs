@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Controls;
 using Codeer.Friendly;
+using Codeer.TestAssistant.GeneratorToolKit;
 
 namespace RM.Friendly.WPFStandardControls
 {
@@ -15,6 +14,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.Calendarに対応した操作を提供します。
     /// </summary>
 #endif
+    [ControlDriver(TypeFullName = "System.Windows.Controls.Calendar")]
     public class WPFCalendar : WPFControlBase4<Calendar>
     {
 #if ENG

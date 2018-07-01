@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Controls.Primitives;
+﻿using System.Windows.Controls.Primitives;
 using Codeer.TestAssistant.GeneratorToolKit;
 using System.Windows;
 
 namespace RM.Friendly.WPFStandardControls.Generator
 {
+    [Generator("RM.Friendly.WPFStandardControls.WPFToggleButton")]
     public class WPFToggleButtonGenerator : GeneratorBase
     {
         ToggleButton _control;

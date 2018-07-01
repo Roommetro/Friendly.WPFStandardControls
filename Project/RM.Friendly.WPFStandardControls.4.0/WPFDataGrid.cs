@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Reflection;
 using System.Windows.Controls;
-using System.Collections.Generic;
 using Codeer.Friendly;
 using Codeer.Friendly.Dynamic;
-using Codeer.Friendly.Windows;
 using RM.Friendly.WPFStandardControls.Inside;
 using System.Windows.Controls.Primitives;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
 using System.Windows.Automation;
+using Codeer.TestAssistant.GeneratorToolKit;
 
 namespace RM.Friendly.WPFStandardControls
 {
@@ -22,6 +20,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.DataGridに対応した操作を提供します。
     /// </summary>
 #endif
+    [ControlDriver(TypeFullName = "System.Windows.Controls.DataGrid")]
     public class WPFDataGrid : WPFControlBase4<DataGrid>
     {
 #if ENG

@@ -1,4 +1,5 @@
 ﻿using Codeer.Friendly;
+using Codeer.TestAssistant.GeneratorToolKit;
 using RM.Friendly.WPFStandardControls.Inside;
 using System.Windows.Controls;
 
@@ -14,6 +15,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.ComboBoxに対応した操作を提供します。
     /// </summary>
 #endif
+    [ControlDriver(TypeFullName = "System.Windows.Controls.ComboBox")]
     public class WPFComboBox : WPFSelectorCore<ComboBox>
     {
 #if ENG

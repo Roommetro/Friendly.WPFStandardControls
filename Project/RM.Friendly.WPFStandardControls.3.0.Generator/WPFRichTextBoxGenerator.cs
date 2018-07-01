@@ -1,17 +1,12 @@
-﻿using System;
-using System.CodeDom;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Windows.Controls;
 using Codeer.TestAssistant.GeneratorToolKit;
-using System.Windows.Documents;
 using RM.Friendly.WPFStandardControls.Inside;
 
 namespace RM.Friendly.WPFStandardControls.Generator
 {
-    class WPFRichTextBoxGenerator : GeneratorBase
+    [Generator("RM.Friendly.WPFStandardControls.WPFRichTextBox")]
+    public class WPFRichTextBoxGenerator : GeneratorBase
     {
         RichTextBox _control;
         string _lastText = string.Empty;

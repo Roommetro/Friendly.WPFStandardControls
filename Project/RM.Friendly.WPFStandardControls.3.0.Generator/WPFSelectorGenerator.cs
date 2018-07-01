@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Controls.Primitives;
 using Codeer.TestAssistant.GeneratorToolKit;
 
 namespace RM.Friendly.WPFStandardControls.Generator
 {
+    [Generator("RM.Friendly.WPFStandardControls.WPFSelector")]
     public class WPFSelectorGenerator : GeneratorBase
     {
         Selector _control;

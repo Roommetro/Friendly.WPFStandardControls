@@ -2,6 +2,7 @@
 using System.Reflection;
 using Codeer.Friendly.Windows;
 using Codeer.Friendly.Windows.Grasp;
+using Codeer.TestAssistant.GeneratorToolKit;
 using RM.Friendly.WPFStandardControls.Inside;
 
 namespace RM.Friendly.WPFStandardControls
@@ -34,6 +35,7 @@ namespace RM.Friendly.WPFStandardControls
             object isInit;
             if (!app.TryGetAppControlInfo(key, out isInit))
             {
+                WindowsAppExpander.LoadAssembly(app, typeof(ControlDriverAttribute).Assembly);
                 WindowsAppExpander.LoadAssembly(app, typeof(WindowControl).Assembly);
                 WindowsAppExpander.LoadAssembly(app, typeof(WPFStandardControls_3).Assembly);
                 ResourcesLocal3.Initialize(app);

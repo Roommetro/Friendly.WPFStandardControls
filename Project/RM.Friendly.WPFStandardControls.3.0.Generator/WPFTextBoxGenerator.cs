@@ -1,15 +1,11 @@
-﻿using System;
-using System.CodeDom;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Windows.Controls;
 using Codeer.TestAssistant.GeneratorToolKit;
 
 namespace RM.Friendly.WPFStandardControls.Generator
 {
-    class WPFTextBoxGenerator : GeneratorBase
+    [Generator("RM.Friendly.WPFStandardControls.WPFTextBox")]
+    public class WPFTextBoxGenerator : GeneratorBase
     {
         TextBox _control;
 

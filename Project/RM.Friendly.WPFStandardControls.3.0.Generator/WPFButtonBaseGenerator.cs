@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Controls.Primitives;
 using Codeer.TestAssistant.GeneratorToolKit;
-using System.Windows.Controls;
 
 namespace RM.Friendly.WPFStandardControls.Generator
 {
+    [Generator("RM.Friendly.WPFStandardControls.WPFButtonBase")]
     public class WPFButtonBaseGenerator : GeneratorBase
     {
         ButtonBase _control;

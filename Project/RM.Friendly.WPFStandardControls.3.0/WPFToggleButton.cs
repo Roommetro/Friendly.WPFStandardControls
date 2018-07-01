@@ -1,5 +1,6 @@
 ﻿using Codeer.Friendly;
 using Codeer.Friendly.Windows;
+using Codeer.TestAssistant.GeneratorToolKit;
 using System.Windows.Controls.Primitives;
 
 namespace RM.Friendly.WPFStandardControls
@@ -13,6 +14,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.Primitives.ToggleButtonに対応した操作を提供します。
     /// </summary>
 #endif
+    [ControlDriver(TypeFullName = "System.Windows.Controls.Primitives.ToggleButton")]
     public class WPFToggleButton : WPFControlBase<ToggleButton>
     {
 #if ENG

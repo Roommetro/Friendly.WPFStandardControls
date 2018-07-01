@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Windows.Controls;
 using Codeer.TestAssistant.GeneratorToolKit;
-using System.Windows.Media;
-using RM.Friendly.WPFStandardControls.Inside;
 using System.Windows;
 
 namespace RM.Friendly.WPFStandardControls.Generator
 {
+    [Generator("RM.Friendly.WPFStandardControls.WPFMenuItem")]
     public class WPFMenuItemGenerator : GeneratorBase
     {
         MenuItem _control;

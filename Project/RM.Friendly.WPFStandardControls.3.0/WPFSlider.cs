@@ -1,4 +1,5 @@
 ﻿using Codeer.Friendly;
+using Codeer.TestAssistant.GeneratorToolKit;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,6 +16,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.Sliderに対応した操作を提供します。
     /// </summary>
 #endif
+    [ControlDriver(TypeFullName = "System.Windows.Controls.Slider")]
     public class WPFSlider : WPFControlBase<Slider>
     {
 #if ENG

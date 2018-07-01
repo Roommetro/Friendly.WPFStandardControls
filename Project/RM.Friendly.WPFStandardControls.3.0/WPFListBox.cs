@@ -1,4 +1,5 @@
 ﻿using Codeer.Friendly;
+using Codeer.TestAssistant.GeneratorToolKit;
 using RM.Friendly.WPFStandardControls.Inside;
 using System.Windows.Automation;
 using System.Windows.Automation.Peers;
@@ -16,6 +17,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.ListBoxに対応した操作を提供します。
     /// </summary>
 #endif
+    [ControlDriver(TypeFullName = "System.Windows.Controls.ListBox")]
     public class WPFListBoxCore<T> : WPFSelectorCore<T>
         where T : ListBox
     {

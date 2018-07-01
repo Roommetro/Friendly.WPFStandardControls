@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Controls;
 using Codeer.TestAssistant.GeneratorToolKit;
 
 namespace RM.Friendly.WPFStandardControls.Generator
 {
-    class WPFSliderGenerator : GeneratorBase
+    [Generator("RM.Friendly.WPFStandardControls.WPFSlider")]
+    public class WPFSliderGenerator : GeneratorBase
     {
         Slider _control;
 

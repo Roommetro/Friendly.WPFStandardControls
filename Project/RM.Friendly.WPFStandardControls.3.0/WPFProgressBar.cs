@@ -1,5 +1,6 @@
 ﻿using System.Windows.Controls;
 using Codeer.Friendly;
+using Codeer.TestAssistant.GeneratorToolKit;
 
 namespace RM.Friendly.WPFStandardControls
 {
@@ -12,6 +13,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.ProgressBarに対応した操作を提供します。
     /// </summary>
 #endif
+    [ControlDriver(TypeFullName = "System.Windows.Controls.ProgressBar")]
     public class WPFProgressBar : WPFControlBase<ProgressBar>
     {
 #if ENG

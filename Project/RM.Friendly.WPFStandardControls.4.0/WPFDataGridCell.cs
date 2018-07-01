@@ -1,11 +1,6 @@
-﻿using System;
-using System.Reflection;
-using System.Windows.Controls;
-using System.Collections.Generic;
+﻿using System.Windows.Controls;
 using Codeer.Friendly;
-using Codeer.Friendly.Dynamic;
-using Codeer.Friendly.Windows;
-using RM.Friendly.WPFStandardControls.Inside;
+using Codeer.TestAssistant.GeneratorToolKit;
 
 namespace RM.Friendly.WPFStandardControls
 {
@@ -18,6 +13,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.DataGridCellに対応した操作を提供します。
     /// </summary>
 #endif
+    [ControlDriver(TypeFullName = "System.Windows.Controls.DataGridCell")]
     public class WPFDataGridCell : WPFControlBase4<DataGridCell>
     {
 #if ENG

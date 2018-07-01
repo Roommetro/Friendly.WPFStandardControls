@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using Codeer.TestAssistant.GeneratorToolKit;
 using System.Windows.Controls;
 
 namespace RM.Friendly.WPFStandardControls.Generator
 {
+    [Generator("RM.Friendly.WPFStandardControls.WPFDatePicker")]
     public class WPFDatePickerGenerator : GeneratorBase
     {
         DatePicker _control;

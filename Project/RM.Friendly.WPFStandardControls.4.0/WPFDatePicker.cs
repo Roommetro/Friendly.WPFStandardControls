@@ -1,9 +1,7 @@
 ﻿using Codeer.Friendly;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Controls;
-using Codeer.Friendly.Dynamic;
+using Codeer.TestAssistant.GeneratorToolKit;
 
 namespace RM.Friendly.WPFStandardControls
 {
@@ -16,6 +14,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Forms.DateTimePickerに対応した操作を提供します。
     /// </summary>
 #endif
+    [ControlDriver(TypeFullName = "System.Windows.Controls.DatePicker")]
     public class WPFDatePicker : WPFControlBase4<DatePicker>
     {
 #if ENG
