@@ -59,8 +59,8 @@
     <Reference Include="Codeer.Friendly.Windows.Grasp.2.0, Version=2.7.1.0, Culture=neutral, PublicKeyToken=92809a28945fb91d, processorArchitecture=MSIL">
       <HintPath>..\packages\Codeer.Friendly.Windows.Grasp.2.7.1\lib\net20\Codeer.Friendly.Windows.Grasp.2.0.dll</HintPath>
     </Reference>
-    <Reference Include="Codeer.TestAssistant.GeneratorToolKit, Version=2.0.0.0, Culture=neutral, PublicKeyToken=f7af39ab9bcf13fe, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.TestAssistant.GeneratorToolKit.2.0.0\lib\net20\Codeer.TestAssistant.GeneratorToolKit.dll</HintPath>
+    <Reference Include="Codeer.TestAssistant.GeneratorToolKit, Version=2.1.0.0, Culture=neutral, PublicKeyToken=f7af39ab9bcf13fe, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.TestAssistant.GeneratorToolKit.2.1.0\lib\net20\Codeer.TestAssistant.GeneratorToolKit.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
