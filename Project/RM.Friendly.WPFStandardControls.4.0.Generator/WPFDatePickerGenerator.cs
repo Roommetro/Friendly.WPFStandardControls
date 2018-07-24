@@ -4,8 +4,8 @@ using System.Windows.Controls;
 
 namespace RM.Friendly.WPFStandardControls.Generator
 {
-    [Generator("RM.Friendly.WPFStandardControls.WPFDatePicker")]
-    public class WPFDatePickerGenerator : GeneratorBase
+    [CaptureCodeGenerator("RM.Friendly.WPFStandardControls.WPFDatePicker")]
+    public class WPFDatePickerGenerator : CaptureCodeGeneratorBase
     {
         DatePicker _control;
 

@@ -4,8 +4,8 @@ using Codeer.TestAssistant.GeneratorToolKit;
 
 namespace RM.Friendly.WPFStandardControls.Generator
 {
-    [Generator("RM.Friendly.WPFStandardControls.WPFSelector")]
-    public class WPFSelectorGenerator : GeneratorBase
+    [CaptureCodeGenerator("RM.Friendly.WPFStandardControls.WPFSelector")]
+    public class WPFSelectorGenerator : CaptureCodeGeneratorBase
     {
         Selector _control;
 

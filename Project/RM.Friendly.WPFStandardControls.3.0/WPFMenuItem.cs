@@ -20,7 +20,6 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.MenuItemに対応した操作を提供します。
     /// </summary>
 #endif
-    [ControlDriver(TypeFullName = "System.Windows.Controls.MenuItem")]
     public class WPFMenuItem : WPFControlBase<MenuItem>
     {
 #if ENG

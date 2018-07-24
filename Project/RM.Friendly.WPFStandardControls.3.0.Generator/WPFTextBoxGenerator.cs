@@ -4,8 +4,8 @@ using Codeer.TestAssistant.GeneratorToolKit;
 
 namespace RM.Friendly.WPFStandardControls.Generator
 {
-    [Generator("RM.Friendly.WPFStandardControls.WPFTextBox")]
-    public class WPFTextBoxGenerator : GeneratorBase
+    [CaptureCodeGenerator("RM.Friendly.WPFStandardControls.WPFTextBox")]
+    public class WPFTextBoxGenerator : CaptureCodeGeneratorBase
     {
         TextBox _control;
 

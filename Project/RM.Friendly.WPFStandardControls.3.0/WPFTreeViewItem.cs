@@ -21,7 +21,6 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.TreeViewItemに対応した操作を提供します。
     /// </summary>
 #endif
-    [ControlDriver(TypeFullName = "System.Windows.Controls.TreeViewItem")]
     public class WPFTreeViewItem : WPFControlBase<TreeViewItem>
     {
 #if ENG

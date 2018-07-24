@@ -5,8 +5,8 @@ using RM.Friendly.WPFStandardControls.Inside;
 
 namespace RM.Friendly.WPFStandardControls.Generator
 {
-    [Generator("RM.Friendly.WPFStandardControls.WPFRichTextBox")]
-    public class WPFRichTextBoxGenerator : GeneratorBase
+    [CaptureCodeGenerator("RM.Friendly.WPFStandardControls.WPFRichTextBox")]
+    public class WPFRichTextBoxGenerator : CaptureCodeGeneratorBase
     {
         RichTextBox _control;
         string _lastText = string.Empty;

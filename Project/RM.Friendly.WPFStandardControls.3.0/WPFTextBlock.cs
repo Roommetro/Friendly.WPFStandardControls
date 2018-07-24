@@ -14,7 +14,6 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.TextBlockに対応した操作を提供します。
     /// </summary>
 #endif
-    [ControlDriver(TypeFullName = "System.Windows.Controls.TextBlock")]
     public class WPFTextBlock : WPFControlBase<TextBlock>
     {
 #if ENG

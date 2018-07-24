@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{34394EA7-BF96-4BD1-8664-5008E18C79CB}"
 EndProject
@@ -22,6 +22,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RM.Friendly.WPFStandardCont
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RM.Friendly.WPFStandardControls.3.5", "RM.Friendly.WPFStandardControls.3.5\RM.Friendly.WPFStandardControls.3.5.csproj", "{A8DB68B1-04FE-4002-9537-4C3D0A70D91D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{6BD5E2EB-B3BC-4125-8121-AD32B90834CB}"
+	ProjectSection(SolutionItems) = preProject
+		Nuget\Friendly.WPFStandardControls.nuspec = Nuget\Friendly.WPFStandardControls.nuspec
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,5 +80,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5D8E534F-1843-4131-95F5-95C7232FC3CC}
 	EndGlobalSection
 EndGlobal

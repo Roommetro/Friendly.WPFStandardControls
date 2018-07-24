@@ -4,8 +4,8 @@ using Codeer.TestAssistant.GeneratorToolKit;
 
 namespace RM.Friendly.WPFStandardControls.Generator
 {
-    [Generator("RM.Friendly.WPFStandardControls.WPFDataGrid")]
-    public class WPFDataGridGenerator : GeneratorBase
+    [CaptureCodeGenerator("RM.Friendly.WPFStandardControls.WPFDataGrid")]
+    public class WPFDataGridGenerator : CaptureCodeGeneratorBase
     {
         DataGrid _control;
 

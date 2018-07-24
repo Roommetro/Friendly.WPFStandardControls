@@ -4,8 +4,8 @@ using System.Windows;
 
 namespace RM.Friendly.WPFStandardControls.Generator
 {
-    [Generator("RM.Friendly.WPFStandardControls.WPFToggleButton")]
-    public class WPFToggleButtonGenerator : GeneratorBase
+    [CaptureCodeGenerator("RM.Friendly.WPFStandardControls.WPFToggleButton")]
+    public class WPFToggleButtonGenerator : CaptureCodeGeneratorBase
     {
         ToggleButton _control;
 

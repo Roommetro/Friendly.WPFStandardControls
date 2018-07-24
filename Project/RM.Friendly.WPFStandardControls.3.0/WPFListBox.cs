@@ -17,7 +17,6 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.ListBoxに対応した操作を提供します。
     /// </summary>
 #endif
-    [ControlDriver(TypeFullName = "System.Windows.Controls.ListBox")]
     public class WPFListBoxCore<T> : WPFSelectorCore<T>
         where T : ListBox
     {
@@ -82,6 +81,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.ListBoxに対応した操作を提供します。
     /// </summary>
 #endif
+    [ControlDriver(TypeFullName = "System.Windows.Controls.ListBox")]
     public class WPFListBox : WPFListBoxCore<ListBox>
     {
 #if ENG

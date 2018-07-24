@@ -4,8 +4,8 @@ using Codeer.TestAssistant.GeneratorToolKit;
 
 namespace RM.Friendly.WPFStandardControls.Generator
 {
-    [Generator("RM.Friendly.WPFStandardControls.WPFButtonBase")]
-    public class WPFButtonBaseGenerator : GeneratorBase
+    [CaptureCodeGenerator("RM.Friendly.WPFStandardControls.WPFButtonBase")]
+    public class WPFButtonBaseGenerator : CaptureCodeGeneratorBase
     {
         ButtonBase _control;
 

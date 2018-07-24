@@ -5,8 +5,8 @@ using System.Windows;
 
 namespace RM.Friendly.WPFStandardControls.Generator
 {
-    [Generator("RM.Friendly.WPFStandardControls.WPFMenuItem")]
-    public class WPFMenuItemGenerator : GeneratorBase
+    [CaptureCodeGenerator("RM.Friendly.WPFStandardControls.WPFMenuItem")]
+    public class WPFMenuItemGenerator : CaptureCodeGeneratorBase
     {
         MenuItem _control;
         delegate void DetachEvent();

@@ -4,8 +4,8 @@ using System.Windows.Controls;
 
 namespace RM.Friendly.WPFStandardControls.Generator
 {
-    [Generator("RM.Friendly.WPFStandardControls.WPFCalendar")]
-    public class WPFCalendarGenerator : GeneratorBase
+    [CaptureCodeGenerator("RM.Friendly.WPFStandardControls.WPFCalendar")]
+    public class WPFCalendarGenerator : CaptureCodeGeneratorBase
     {
         Calendar _control;
 

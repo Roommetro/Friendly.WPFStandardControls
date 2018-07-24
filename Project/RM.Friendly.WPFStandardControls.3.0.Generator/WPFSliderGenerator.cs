@@ -4,8 +4,8 @@ using Codeer.TestAssistant.GeneratorToolKit;
 
 namespace RM.Friendly.WPFStandardControls.Generator
 {
-    [Generator("RM.Friendly.WPFStandardControls.WPFSlider")]
-    public class WPFSliderGenerator : GeneratorBase
+    [CaptureCodeGenerator("RM.Friendly.WPFStandardControls.WPFSlider")]
+    public class WPFSliderGenerator : CaptureCodeGeneratorBase
     {
         Slider _control;
 

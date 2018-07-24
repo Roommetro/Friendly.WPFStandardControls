@@ -7,8 +7,8 @@ using System.Windows;
 
 namespace RM.Friendly.WPFStandardControls.Generator
 {
-    [Generator("RM.Friendly.WPFStandardControls.WPFTreeView")]
-    public class WPFTreeViewGenerator : GeneratorBase
+    [CaptureCodeGenerator("RM.Friendly.WPFStandardControls.WPFTreeView")]
+    public class WPFTreeViewGenerator : CaptureCodeGeneratorBase
     {
         TreeView _control;
         delegate void DetachEvent();
