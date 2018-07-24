@@ -36,6 +36,7 @@ namespace RM.Friendly.WPFStandardControls
             if (!app.TryGetAppControlInfo(key, out isInit))
             {
                 WindowsAppExpander.LoadAssembly(app, typeof(ControlDriverAttribute).Assembly);
+                WindowsAppExpander.LoadAssembly(app, typeof(IWPFControlIdentifyCodeGenerator).Assembly);
                 WindowsAppExpander.LoadAssembly(app, typeof(WindowControl).Assembly);
                 WindowsAppExpander.LoadAssembly(app, typeof(WPFStandardControls_3).Assembly);
                 ResourcesLocal3.Initialize(app);
