@@ -244,7 +244,7 @@ namespace Test
             collection = Searcher.ByType<Button>(TreeUtility.LogicalTree(target));
             Assert.AreEqual(2, collection.Count);
             collection = Searcher.ByType<ButtonBase>(TreeUtility.LogicalTree(target));
-            Assert.AreEqual(2, collection.Count);
+            Assert.AreEqual(3, collection.Count);
 
             var list = Searcher.ByType(TreeUtility.LogicalTree(target), typeof(ListView).FullName).Single();
             Assert.AreEqual(list, _ctrl._listView);
@@ -265,7 +265,7 @@ namespace Test
             collection = SearcherInTarget.ByType<Button>(TreeUtilityInTarget.LogicalTree(ctrl));
             Assert.AreEqual(2, collection.Count());
             collection = SearcherInTarget.ByType<ButtonBase>(TreeUtilityInTarget.LogicalTree(ctrl));
-            Assert.AreEqual(2, collection.Count());
+            Assert.AreEqual(3, collection.Count());
 
             var list = SearcherInTarget.ByType(TreeUtilityInTarget.LogicalTree(ctrl), typeof(ListView).FullName).Single();
             Assert.AreEqual(list, listView);
@@ -282,7 +282,7 @@ namespace Test
             collection = target.LogicalTree().ByType<Button>();
             Assert.AreEqual(2, collection.Count);
             collection = target.LogicalTree().ByType<ButtonBase>();
-            Assert.AreEqual(2, collection.Count);
+            Assert.AreEqual(3, collection.Count);
 
             var list = target.LogicalTree().ByType(typeof(ListView).FullName).Single();
             Assert.AreEqual(list, _ctrl._listView);
@@ -303,11 +303,30 @@ namespace Test
             collection = ctrl.LogicalTree().ByType<Button>();
             Assert.AreEqual(2, collection.Count());
             collection = ctrl.LogicalTree().ByType<ButtonBase>();
-            Assert.AreEqual(2, collection.Count());
+            Assert.AreEqual(3, collection.Count());
             var list = ctrl.LogicalTree().ByType(typeof(ListView).FullName).Single();
             Assert.AreEqual(list, listView);
             list = ctrl.LogicalTree().ByType <ListView>().Single();
             Assert.AreEqual(list, listView);
         }
+
+        [TestMethod]
+        public void TestContentTextExtensions()
+        {
+            AppVar target = _ctrl;
+            var collection = target.LogicalTree().ByType<ContentControl>();
+            string name = collection.ByContentText("abc").Single().Dynamic().GetType().Name;
+            Assert.AreEqual("CheckBox", name);
+        }
+        
+        [TestMethod]
+        public void TestContentTextExtensionsInTarget()
+        {
+            string name = _app.Type(GetType()).TestContentTextExtensionsInTarget(_ctrl);
+            Assert.AreEqual("CheckBox", name);
+        }
+
+        static string TestContentTextExtensionsInTarget(SearchTestControl ctrl)
+            => ctrl.LogicalTree().ByType<ContentControl>().ByContentText("abc").Single().GetType().Name;
     }
 }

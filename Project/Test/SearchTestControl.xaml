@@ -18,6 +18,7 @@
         <Button x:Name="_button2" Content="Button" HorizontalAlignment="Left" Margin="10,250,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Button2Command}"/>
         <Grid x:Name="_grid" HorizontalAlignment="Left" Height="48" Margin="10,283,0,0" VerticalAlignment="Top" Width="241">
             <TextBlock x:Name="_textBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="{Binding DataText}" VerticalAlignment="Top"/>
+            <CheckBox Content="abc" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         </Grid>
     </Grid>
 </UserControl>
