@@ -132,6 +132,7 @@
     <Compile Include="WPFTextBox.cs" />
     <Compile Include="WPFToggleButton.cs" />
     <Compile Include="WPFTreeView.cs" />
+    <Compile Include="WPFUserControl.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
