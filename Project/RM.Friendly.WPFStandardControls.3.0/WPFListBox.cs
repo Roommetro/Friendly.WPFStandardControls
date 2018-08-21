@@ -1,6 +1,7 @@
 ﻿using Codeer.Friendly;
 using Codeer.TestAssistant.GeneratorToolKit;
 using RM.Friendly.WPFStandardControls.Inside;
+using System;
 using System.Windows.Automation;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
@@ -116,5 +117,44 @@ namespace RM.Friendly.WPFStandardControls
             EnsureVisible(index);
             return new WPFListBoxItem(this["ItemContainerGenerator"]()["ContainerFromIndex"](index));
         }
+    }
+
+#if ENG
+    /// <summary>
+    /// Provides operations on controls of type System.Windows.Controls.ListBox.
+    /// </summary>
+    /// <typeparam name="TItemUserControlDriver">UserControlDriver of item.</typeparam>
+#else
+    /// <summary>
+    /// TypeがSystem.Windows.Controls.ListBoxに対応した操作を提供します。
+    /// </summary>
+    /// <typeparam name="TItemUserControlDriver">アイテムのUserControlDriver</typeparam>
+#endif
+    public class WPFListBox<TItemUserControlDriver> : WPFListBox where TItemUserControlDriver : class
+    {
+#if ENG
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="appVar">Application variable object for the control.</param>
+#else
+        /// <summary>
+        /// コンストラクタです。
+        /// </summary>
+        /// <param name="appVar">アプリケーション内変数。</param>
+#endif
+        public WPFListBox(AppVar appVar) : base(appVar) { }
+
+#if ENG
+        /// <summary>
+        /// UserControlDriver of selected item.
+        /// </summary>
+#else
+        /// <summary>
+        /// 選択アイテムに割当たるUserControlDriver
+        /// </summary
+#endif
+        [UserControlDriverGetter]
+        public TItemUserControlDriver SelectedItemDriver => UserControlDriverUtility.AttachDriver<TItemUserControlDriver>(GetItem(SelectedIndex));
     }
 }

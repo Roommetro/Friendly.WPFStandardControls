@@ -53,4 +53,44 @@ namespace RM.Friendly.WPFStandardControls
             return new WPFListViewItem(this["ItemContainerGenerator"]()["ContainerFromIndex"](index));
         }
     }
+
+#if ENG
+    /// <summary>
+    /// Provides operations on controls of type System.Windows.Controls.ListView.
+    /// </summary>
+    /// <typeparam name="TItemUserControlDriver">UserControlDriver of item.</typeparam>
+#else
+    /// <summary>
+    /// TypeがSystem.Windows.Controls.ListViewに対応した操作を提供します。
+    /// </summary>
+    /// <typeparam name="TItemUserControlDriver">アイテムのUserControlDriver</typeparam>
+#endif
+    public class WPFListView<TItemUserControlDriver> : WPFListView where TItemUserControlDriver : class
+    {
+#if ENG
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="appVar">Application variable object for the control.</param>
+#else
+        /// <summary>
+        /// コンストラクタです。
+        /// </summary>
+        /// <param name="appVar">アプリケーション内変数。</param>
+#endif
+        public WPFListView(AppVar appVar)
+            : base(appVar) { }
+
+#if ENG
+        /// <summary>
+        /// UserControlDriver of selected item.
+        /// </summary>
+#else
+        /// <summary>
+        /// 選択アイテムに割当たるUserControlDriver
+        /// </summary
+#endif
+        [UserControlDriverGetter]
+        public TItemUserControlDriver SelectedItemDriver => UserControlDriverUtility.AttachDriver<TItemUserControlDriver>(GetItem(SelectedIndex));
+    }
 }

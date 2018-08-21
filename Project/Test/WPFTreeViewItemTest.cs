@@ -119,6 +119,25 @@ namespace Test
         }
 
         [TestMethod]
+        public void UserControlDriverTest()
+        {
+            var tree = new WPFTreeView<ItemControlDriver>(_ctrl._tree);
+            WPFTreeViewItem item0 = new WPFTreeViewItem(_ctrl._item0);
+            item0.EmulateChangeSelected(true);
+            Assert.AreEqual("item0", tree.SelectedItemDriver.Text.Text);
+        }
+
+        public class ItemControlDriver
+        {
+            public AppVar AppVar { get; set; }
+            public WPFTextBlock Text => new WPFTextBlock(AppVar.VisualTree().ByType<TextBlock>().Single());
+            public ItemControlDriver(AppVar a)
+            {
+                AppVar = a;
+            }
+        }
+
+        [TestMethod]
         public void GetCoreElementNotFoundTest()
         {
             TestUtility.TestExceptionMessage(() => {

@@ -102,6 +102,25 @@ namespace Test
             a.WaitForCompletion();
         }
 
+        [TestMethod]
+        public void UserControlDriverTest()
+        {
+            var listEx = new WPFListBox<ItemControlDriver>(listBox.AppVar);
+            listEx.EmulateChangeSelectedIndex(0);
+            Assert.AreEqual("value 0", listEx.SelectedItemDriver.Text.Text);
+        }
+
+        public class ItemControlDriver
+        {
+            public AppVar AppVar { get; set; }
+            public WPFTextBlock Text => new WPFTextBlock(AppVar.VisualTree().ByType<TextBlock>().Single());
+
+            public ItemControlDriver(AppVar a)
+            {
+                AppVar = a;
+            }
+        }
+
         static void MessageBoxEvent(ListBoxItem item)
         {
             item.Selected += delegate

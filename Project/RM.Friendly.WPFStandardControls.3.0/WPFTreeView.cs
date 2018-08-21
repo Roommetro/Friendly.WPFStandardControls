@@ -72,6 +72,8 @@ namespace RM.Friendly.WPFStandardControls
             return new WPFTreeViewItem(InvokeStaticRetAppVar(GetItemInTarget, Ret<TreeViewItem>(), indices));
         }
 
+        public WPFTreeViewItem SelectedItem => new WPFTreeViewItem(InvokeStaticRetAppVar(GetSelectedItemInTarget, Ret<TreeViewItem>()));
+
         static TreeViewItem GetItemInTarget(TreeView tree, string[] headerTexts)
         {
             return HeaderedItemsControlUtility.GetItem<TreeViewItem>(tree, headerTexts, ShowNextItem);
@@ -82,6 +84,8 @@ namespace RM.Friendly.WPFStandardControls
             return HeaderedItemsControlUtility.GetItem<TreeViewItem>(tree, indices, ShowNextItem);
         }
 
+        static TreeViewItem GetSelectedItemInTarget(TreeView tree) => (TreeViewItem)tree.ItemContainerGenerator.ContainerFromItem(tree.SelectedItem);
+
         static void ShowNextItem(TreeViewItem item)
         {
             var peer = new TreeViewItemAutomationPeer(item);
@@ -89,5 +93,45 @@ namespace RM.Friendly.WPFStandardControls
             expander.Expand();
             InvokeUtility.DoEvents();
         }
+    }
+
+#if ENG
+    /// <summary>
+    /// Provides operations on controls of type System.Windows.Controls.WPFTreeView.
+    /// </summary>
+    /// <typeparam name="TItemUserControlDriver">UserControlDriver of item.</typeparam>
+#else
+    /// <summary>
+    /// TypeがSystem.Windows.Controls.WPFTreeViewに対応した操作を提供します。
+    /// </summary>
+    /// <typeparam name="TItemUserControlDriver">アイテムのUserControlDriver</typeparam>
+#endif
+    public class WPFTreeView<TItemUserControlDriver> : WPFTreeView where TItemUserControlDriver : class
+    {
+#if ENG
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="appVar">Application variable object for the control.</param>
+#else
+        /// <summary>
+        /// コンストラクタです。
+        /// </summary>
+        /// <param name="appVar">アプリケーション内変数。</param>
+#endif
+        public WPFTreeView(AppVar appVar)
+            : base(appVar) { }
+
+#if ENG
+        /// <summary>
+        /// UserControlDriver of selected item.
+        /// </summary>
+#else
+        /// <summary>
+        /// 選択アイテムに割当たるUserControlDriver
+        /// </summary
+#endif
+        [UserControlDriverGetter]
+        public TItemUserControlDriver SelectedItemDriver => UserControlDriverUtility.AttachDriver<TItemUserControlDriver>(SelectedItem);
     }
 }
