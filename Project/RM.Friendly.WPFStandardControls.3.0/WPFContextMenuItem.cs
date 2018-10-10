@@ -113,7 +113,7 @@ namespace RM.Friendly.WPFStandardControls
         {
             using (var item = GetItem())
             {
-                var count = (int)item.Item.App[GetType(), "GetItemCount"](item.Item).Core;
+                var count = (int)item.Item.App[typeof(WPFContextMenuItem), "GetItemCount"](item.Item).Core;
                 var items = new WPFContextMenuItem[count];
                 for (int i = 0; i < count; i++)
                 {
@@ -153,7 +153,7 @@ namespace RM.Friendly.WPFStandardControls
         public void EmulateClick()
         {
             var item = GetItem();
-            _target.App[GetType(), "EmulateClick"](item.Item, item.Clean);
+            _target.App[typeof(WPFContextMenuItem), "EmulateClick"](item.Item, item.Clean);
         }
 
 #if ENG
@@ -172,7 +172,7 @@ namespace RM.Friendly.WPFStandardControls
         public void EmulateClick(Async async)
         {
             var item = GetItem();
-            _target.App[GetType(), "EmulateClick", async](item.Item, item.Clean);
+            _target.App[typeof(WPFContextMenuItem), "EmulateClick", async](item.Item, item.Clean);
         }
 
         static void EmulateClick(MenuItem item, WPFContextMenu.Clean clean)
@@ -201,7 +201,7 @@ namespace RM.Friendly.WPFStandardControls
         DynamicMenuItem GetItem()
         {
             AppVar clean = _target.App.Dim();
-            var item = _target.App[GetType(), "GetItemInTarget"](_target, _indices, clean);
+            var item = _target.App[typeof(WPFContextMenuItem), "GetItemInTarget"](_target, _indices, clean);
             return new DynamicMenuItem() { Item = new WPFMenuItem(item), Clean = clean };
         }
 

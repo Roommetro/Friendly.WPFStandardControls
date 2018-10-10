@@ -28,6 +28,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{6BD5E2EB
 		Nuget\Friendly.WPFStandardControls.nuspec = Nuget\Friendly.WPFStandardControls.nuspec
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotInstallProject", "NotInstallProject\NotInstallProject.csproj", "{6095C1D2-448D-4EC1-BE9B-4F269AE58BCD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,12 @@ Global
 		{A8DB68B1-04FE-4002-9537-4C3D0A70D91D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A8DB68B1-04FE-4002-9537-4C3D0A70D91D}.Release-English|Any CPU.ActiveCfg = Release-English|Any CPU
 		{A8DB68B1-04FE-4002-9537-4C3D0A70D91D}.Release-English|Any CPU.Build.0 = Release-English|Any CPU
+		{6095C1D2-448D-4EC1-BE9B-4F269AE58BCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6095C1D2-448D-4EC1-BE9B-4F269AE58BCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6095C1D2-448D-4EC1-BE9B-4F269AE58BCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6095C1D2-448D-4EC1-BE9B-4F269AE58BCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6095C1D2-448D-4EC1-BE9B-4F269AE58BCD}.Release-English|Any CPU.ActiveCfg = Release|Any CPU
+		{6095C1D2-448D-4EC1-BE9B-4F269AE58BCD}.Release-English|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

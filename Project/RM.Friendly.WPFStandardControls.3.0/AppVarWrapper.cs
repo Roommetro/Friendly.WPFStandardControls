@@ -5,6 +5,7 @@ using RM.Friendly.WPFStandardControls.Inside;
 using System.Reflection;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Codeer.Friendly.DotNetExecutor;
 
 namespace RM.Friendly.WPFStandardControls
 {
@@ -19,6 +20,8 @@ namespace RM.Friendly.WPFStandardControls
 #endif
     public partial class AppVarWrapper<CoreType> : IAppVarOwner
     {
+        static Dictionary<Type, Type> _invokeTypes = new Dictionary<Type, Type>();
+
         WindowsAppFriend _app;
         AppVar _appVar;
 
@@ -172,7 +175,7 @@ namespace RM.Friendly.WPFStandardControls
 
         private AppVar InvokeStatic(string methodName, Async async, params object[] args)
         {
-            return this.InvokeStatic(methodName, GetType(), async, args);
+            return this.InvokeStatic(methodName, GetInvokeType(), async, args);
         }
 
         private AppVar InvokeStatic(string methodName, Type targetType, Async async, params object[] args)
@@ -183,5 +186,17 @@ namespace RM.Friendly.WPFStandardControls
             var op = async == null ? this.App[targetType, methodName] : this.App[targetType, methodName, async];
             return op(arguments.ToArray());
         }
+#if ENG
+        /// <summary>
+        /// Type for invoke in target
+        /// </summary>
+        /// <returns>Type for invoke in target.</returns>
+#else
+        /// <summary>
+        /// 対象プロセス内部で実行する型の取得
+        /// </summary>
+        /// <returns>対象プロセス内部で実行する型</returns>
+#endif
+        protected virtual Type GetInvokeType() => GetType();
     }
 }

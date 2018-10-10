@@ -9,6 +9,7 @@ using System.Windows;
 using RM.Friendly.WPFStandardControls;
 using Codeer.Friendly.Windows.Grasp;
 using Codeer.Friendly.Windows.NativeStandardControls;
+using NotInstallProject;
 
 namespace Test
 {
@@ -127,16 +128,6 @@ namespace Test
             Assert.AreEqual("item0", tree.SelectedItemDriver.Text.Text);
         }
 
-        public class ItemControlDriver
-        {
-            public AppVar AppVar { get; set; }
-            public WPFTextBlock Text => new WPFTextBlock(AppVar.VisualTree().ByType<TextBlock>().Single());
-            public ItemControlDriver(AppVar a)
-            {
-                AppVar = a;
-            }
-        }
-
         [TestMethod]
         public void GetCoreElementNotFoundTest()
         {
@@ -149,6 +140,5 @@ namespace Test
                 "The desire Visual element was not found.",
                 "指定のVisual要素は見つかりませんでした。");
         }
-
     }
 }

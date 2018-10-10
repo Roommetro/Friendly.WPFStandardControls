@@ -92,5 +92,18 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         [UserControlDriverGetter]
         public TItemUserControlDriver SelectedItemDriver => UserControlDriverUtility.AttachDriver<TItemUserControlDriver>(GetItem(SelectedIndex));
+
+#if ENG
+        /// <summary>
+        /// Type for invoke in target
+        /// </summary>
+        /// <returns>Type for invoke in target.</returns>
+#else
+        /// <summary>
+        /// 対象プロセス内部で実行する型の取得
+        /// </summary>
+        /// <returns>対象プロセス内部で実行する型</returns>
+#endif
+        protected override System.Type GetInvokeType() => typeof(WPFListView);
     }
 }

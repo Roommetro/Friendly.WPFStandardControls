@@ -81,7 +81,7 @@ namespace RM.Friendly.WPFStandardControls
         public WPFContextMenuItem GetItem(params string[] headerTexts)
         {
             AppVar clean = Target.App.Dim();
-            var indices = (int[])Target.App[GetType(), "GetIndices"](Target, headerTexts).Core;
+            var indices = (int[])Target.App[typeof(WPFContextMenu), "GetIndices"](Target, headerTexts).Core;
             return new WPFContextMenuItem(Target, indices);
         }
 
@@ -98,7 +98,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public WPFContextMenuItem[] GetItems() 
         {
-            var count = (int)Target.App[GetType(), "GetItemCount"](Target).Core;
+            var count = (int)Target.App[typeof(WPFContextMenu), "GetItemCount"](Target).Core;
             var items = new WPFContextMenuItem[count];
             for (int i = 0; i < count; i++) 
             {

@@ -154,6 +154,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NotInstallProject\NotInstallProject.csproj">
+      <Project>{6095c1d2-448d-4ec1-be9b-4f269ae58bcd}</Project>
+      <Name>NotInstallProject</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RM.Friendly.WPFStandardControls.3.0.Generator\RM.Friendly.WPFStandardControls.3.0.Generator.csproj">
       <Project>{fc6ade89-7704-4d3b-919d-615abe2baac6}</Project>
       <Name>RM.Friendly.WPFStandardControls.3.0.Generator</Name>

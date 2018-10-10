@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6095C1D2-448D-4EC1-BE9B-4F269AE58BCD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NotInstallProject</RootNamespace>
+    <AssemblyName>NotInstallProject</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Codeer.Friendly, Version=2.5.2.0, Culture=neutral, PublicKeyToken=6c44da6fca38aa86, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.2.5.2\lib\net40\Codeer.Friendly.dll</HintPath>
+    </Reference>
+    <Reference Include="Codeer.Friendly.Dynamic, Version=2.5.2.0, Culture=neutral, PublicKeyToken=376bc779077733e8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.2.5.2\lib\net40\Codeer.Friendly.Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="Codeer.Friendly.Windows, Version=2.9.0.0, Culture=neutral, PublicKeyToken=532f270f1da385b3, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.Windows.2.9.0\lib\net20\Codeer.Friendly.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Codeer.Friendly.Windows.Grasp.2.0, Version=2.7.1.0, Culture=neutral, PublicKeyToken=92809a28945fb91d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.Windows.Grasp.2.7.1\lib\net35\Codeer.Friendly.Windows.Grasp.2.0.dll</HintPath>
+    </Reference>
+    <Reference Include="Codeer.Friendly.Windows.Grasp.3.5, Version=2.7.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.Windows.Grasp.2.7.1\lib\net35\Codeer.Friendly.Windows.Grasp.3.5.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ItemControlDriver.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RM.Friendly.WPFStandardControls.3.0.Generator\RM.Friendly.WPFStandardControls.3.0.Generator.csproj">
+      <Project>{fc6ade89-7704-4d3b-919d-615abe2baac6}</Project>
+      <Name>RM.Friendly.WPFStandardControls.3.0.Generator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RM.Friendly.WPFStandardControls.3.0\RM.Friendly.WPFStandardControls.3.0.csproj">
+      <Project>{80d0bb7b-61d0-4c48-b877-6e35f7d90c74}</Project>
+      <Name>RM.Friendly.WPFStandardControls.3.0</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RM.Friendly.WPFStandardControls.3.5\RM.Friendly.WPFStandardControls.3.5.csproj">
+      <Project>{a8db68b1-04fe-4002-9537-4c3d0a70d91d}</Project>
+      <Name>RM.Friendly.WPFStandardControls.3.5</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RM.Friendly.WPFStandardControls.4.0.Generator\RM.Friendly.WPFStandardControls.4.0.Generator.csproj">
+      <Project>{355db38c-a2bc-491f-89bf-7996bd72accc}</Project>
+      <Name>RM.Friendly.WPFStandardControls.4.0.Generator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RM.Friendly.WPFStandardControls.4.0\RM.Friendly.WPFStandardControls.4.0.csproj">
+      <Project>{287af20a-edb1-4de0-bf0f-8d37fd92de73}</Project>
+      <Name>RM.Friendly.WPFStandardControls.4.0</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

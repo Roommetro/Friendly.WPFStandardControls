@@ -279,7 +279,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public WPFDataGridRow GetRow(int itemIndex)
         {
-            return new WPFDataGridRow(App.Type(GetType()).GetRow(this, itemIndex));
+            return new WPFDataGridRow(App.Type(typeof(WPFDataGrid)).GetRow(this, itemIndex));
         }
         
 #if ENG
@@ -299,7 +299,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public WPFDataGridCell GetCell(int itemIndex, int col)
         {
-            return new WPFDataGridCell(App.Type(GetType()).GetCell(this, itemIndex, col));
+            return new WPFDataGridCell(App.Type(typeof(WPFDataGrid)).GetCell(this, itemIndex, col));
         }
 
         static void EnsureRowVisible(DataGrid grid, int itemIndex)

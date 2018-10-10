@@ -57,7 +57,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateOpen()
         {
-            App[GetType(), "EmulateChangeExpanded"](this, true);
+            App[typeof(WPFExpander), "EmulateChangeExpanded"](this, true);
         }
 
 #if ENG
@@ -75,7 +75,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateOpen(Async async)
         {
-            App[GetType(), "EmulateChangeExpanded", async](this, true);
+            App[typeof(WPFExpander), "EmulateChangeExpanded", async](this, true);
         }
 
 #if ENG
@@ -89,7 +89,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateClose()
         {
-            App[GetType(), "EmulateChangeExpanded"](this, false);
+            App[typeof(WPFExpander), "EmulateChangeExpanded"](this, false);
         }
 
 #if ENG
@@ -107,7 +107,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public void EmulateClose(Async async)
         {
-            App[GetType(), "EmulateChangeExpanded", async](this, false);
+            App[typeof(WPFExpander), "EmulateChangeExpanded", async](this, false);
         }
 
 

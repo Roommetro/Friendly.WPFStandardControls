@@ -9,6 +9,7 @@ using RM.Friendly.WPFStandardControls;
 using Codeer.Friendly.Windows.Grasp;
 using Codeer.Friendly;
 using Codeer.Friendly.Windows.NativeStandardControls;
+using NotInstallProject;
 
 namespace Test
 {
@@ -94,17 +95,6 @@ namespace Test
             var listEx = new WPFListView<ItemControlDriver>(_ctrl.listView);
             listEx.EmulateChangeSelectedIndex(0);
             Assert.AreEqual("0", listEx.SelectedItemDriver.Text.Text);
-        }
-
-
-        public class ItemControlDriver
-        {
-            public AppVar AppVar { get; set; }
-            public WPFTextBlock Text => new WPFTextBlock(AppVar.VisualTree().ByType<TextBlock>()[0]);
-            public ItemControlDriver(AppVar a)
-            {
-                AppVar = a;
-            }
         }
 
         static void MessageBoxEvent(ListViewItem item)
