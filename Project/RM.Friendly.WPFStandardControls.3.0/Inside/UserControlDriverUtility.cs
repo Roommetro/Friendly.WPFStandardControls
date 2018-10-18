@@ -7,5 +7,8 @@ namespace RM.Friendly.WPFStandardControls.Inside
     {
         internal static T AttachDriver<T>(IAppVarOwner appVar) where T : class
             => (T)Activator.CreateInstance(typeof(T), appVar.AppVar);
+
+        internal static T AttachDriver<T>(AppVar appVar) where T : class
+            => (T)Activator.CreateInstance(typeof(T), appVar);
     }
 }

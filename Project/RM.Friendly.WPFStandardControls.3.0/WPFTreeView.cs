@@ -132,7 +132,14 @@ namespace RM.Friendly.WPFStandardControls
         /// </summary
 #endif
         [UserControlDriverGetter]
-        public TItemUserControlDriver SelectedItemDriver => UserControlDriverUtility.AttachDriver<TItemUserControlDriver>(SelectedItem);
+        public TItemUserControlDriver SelectedItemDriver
+        {
+            get
+            {
+                if (this["SelectedItem"]().IsNull) return null;
+                return UserControlDriverUtility.AttachDriver<TItemUserControlDriver>(SelectedItem);
+            }
+        }
 
 #if ENG
         /// <summary>

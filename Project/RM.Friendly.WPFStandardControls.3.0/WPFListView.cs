@@ -91,8 +91,14 @@ namespace RM.Friendly.WPFStandardControls
         /// </summary
 #endif
         [UserControlDriverGetter]
-        public TItemUserControlDriver SelectedItemDriver => UserControlDriverUtility.AttachDriver<TItemUserControlDriver>(GetItem(SelectedIndex));
-
+        public TItemUserControlDriver SelectedItemDriver
+        {
+            get
+            {
+                if (SelectedIndex == -1) return null;
+                return UserControlDriverUtility.AttachDriver<TItemUserControlDriver>(this["ItemContainerGenerator"]()["ContainerFromIndex"](SelectedIndex));
+            }
+        }
 #if ENG
         /// <summary>
         /// Type for invoke in target
