@@ -104,11 +104,19 @@ namespace Test
         }
 
         [TestMethod]
-        public void UserControlDriverTest()
+        public void SelectedItemDriverTest()
         {
             var listEx = new WPFListBox<ItemControlDriver>(listBox.AppVar);
             listEx.EmulateChangeSelectedIndex(0);
             Assert.AreEqual("value 0", listEx.SelectedItemDriver.Text.Text);
+        }
+
+        [TestMethod]
+        public void GetItemDriverTest()
+        {
+            var listEx = new WPFListBox<ItemControlDriver>(listBox.AppVar);
+            listEx.EmulateChangeSelectedIndex(0);
+            Assert.AreEqual("value 1", listEx.GetItemDriver(1).Text.Text);
         }
 
         static void MessageBoxEvent(ListBoxItem item)

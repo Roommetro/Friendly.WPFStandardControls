@@ -99,6 +99,23 @@ namespace RM.Friendly.WPFStandardControls
                 return UserControlDriverUtility.AttachDriver<TItemUserControlDriver>(this["ItemContainerGenerator"]()["ContainerFromIndex"](SelectedIndex));
             }
         }
+
+#if ENG
+        /// <summary>
+        /// Get item's UserControlDriver.
+        /// </summary>
+        /// <param name="index">Item index.</param>
+        /// <returns>UserControlDriver.</returns>
+#else
+        /// <summary>
+        /// 指定のインデックスのアイテムに割当たったUserControlDriverを取得
+        /// </summary>
+        /// <param name="index">インデックス。</param>
+        /// <returns>UserControlDriver</returns>
+#endif
+        public TItemUserControlDriver GetItemDriver(int index)
+            => UserControlDriverUtility.AttachDriver<TItemUserControlDriver>(GetItem(index));
+
 #if ENG
         /// <summary>
         /// Type for invoke in target

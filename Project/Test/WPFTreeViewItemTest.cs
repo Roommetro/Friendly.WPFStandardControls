@@ -120,12 +120,21 @@ namespace Test
         }
 
         [TestMethod]
-        public void UserControlDriverTest()
+        public void SelectedItemDriverTest()
         {
             var tree = new WPFTreeView<ItemControlDriver>(_ctrl._tree);
             WPFTreeViewItem item0 = new WPFTreeViewItem(_ctrl._item0);
             item0.EmulateChangeSelected(true);
             Assert.AreEqual("item0", tree.SelectedItemDriver.Text.Text);
+        }
+
+        [TestMethod]
+        public void GetItemDriverTest()
+        {
+            var tree = new WPFTreeView<ItemControlDriver>(_ctrl._tree);
+            WPFTreeViewItem item0 = new WPFTreeViewItem(_ctrl._item0);
+            item0.EmulateChangeSelected(true);
+            Assert.AreEqual("item0", tree.GetItemDriver("item0").Text.Text);
         }
 
         [TestMethod]

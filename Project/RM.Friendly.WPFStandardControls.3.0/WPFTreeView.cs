@@ -143,6 +143,38 @@ namespace RM.Friendly.WPFStandardControls
 
 #if ENG
         /// <summary>
+        /// Get item's UserControlDriver.
+        /// </summary>
+        /// <param name="headerTexts">目的のアイテムまでのテキストの配列です。</param>
+        /// <returns>UserControlDriver.</returns>
+#else
+        /// <summary>
+        /// 指定のインデックスのアイテムに割当たったUserControlDriverを取得
+        /// </summary>
+        /// <param name="index">インデックス。</param>
+        /// <returns>UserControlDriver</returns>
+#endif
+        public TItemUserControlDriver GetItemDriver(params string[] headerTexts)
+            => UserControlDriverUtility.AttachDriver<TItemUserControlDriver>(GetItem(headerTexts));
+
+#if ENG
+        /// <summary>
+        /// Get item's UserControlDriver.
+        /// </summary>
+        /// <param name="index">Item index.</param>
+        /// <returns>UserControlDriver.</returns>
+#else
+        /// <summary>
+        /// 指定のインデックスのアイテムに割当たったUserControlDriverを取得
+        /// </summary>
+        /// <param name="indices">目的のアイテムまでの各階層でのインデックスの配列です。</param>
+        /// <returns>UserControlDriver</returns>
+#endif
+        public TItemUserControlDriver GetItemDriver(params int[] indices)
+            => UserControlDriverUtility.AttachDriver<TItemUserControlDriver>(GetItem(indices));
+
+#if ENG
+        /// <summary>
         /// Type for invoke in target
         /// </summary>
         /// <returns>Type for invoke in target.</returns>

@@ -90,11 +90,19 @@ namespace Test
         }
 
         [TestMethod]
-        public void UserControlDriverTest()
+        public void SelectedItemDriverTest()
         {
             var listEx = new WPFListView<ItemControlDriver>(_ctrl.listView);
             listEx.EmulateChangeSelectedIndex(0);
             Assert.AreEqual("0", listEx.SelectedItemDriver.Text.Text);
+        }
+
+        [TestMethod]
+        public void GetItemDriverTest()
+        {
+            var listEx = new WPFListView<ItemControlDriver>(_ctrl.listView);
+            listEx.EmulateChangeSelectedIndex(0);
+            Assert.AreEqual("1", listEx.GetItemDriver(1).Text.Text);
         }
 
         static void MessageBoxEvent(ListViewItem item)
