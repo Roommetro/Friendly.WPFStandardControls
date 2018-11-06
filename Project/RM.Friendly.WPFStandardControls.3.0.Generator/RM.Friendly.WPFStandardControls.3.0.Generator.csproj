@@ -77,6 +77,9 @@
     <Compile Include="WPFMenuBaseGenerator.cs" />
     <Compile Include="WPFMenuItemGenerator.cs" />
     <Compile Include="WPFRichTextBoxGenerator.cs" />
+    <Compile Include="WPFComboBoxGenerator.cs" />
+    <Compile Include="WPFListBoxGenerator.cs" />
+    <Compile Include="WPFTabControlGenerator.cs" />
     <Compile Include="WPFSelectorGenerator.cs" />
     <Compile Include="WPFSliderGenerator.cs" />
     <Compile Include="WPFTextBoxGenerator.cs" />
