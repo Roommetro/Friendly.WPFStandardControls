@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Media;
 using Codeer.TestAssistant.GeneratorToolKit;
 
 namespace RM.Friendly.WPFStandardControls.Generator
@@ -7,22 +11,61 @@ namespace RM.Friendly.WPFStandardControls.Generator
     [CaptureCodeGenerator("RM.Friendly.WPFStandardControls.WPFComboBox")]
     public class WPFComboBoxGenerator : CaptureCodeGeneratorBase
     {
-        Selector _control;
+        ComboBox _control;
+        TextBox _textBox;
 
         protected override void Attach()
         {
-            _control = (Selector)ControlObject;
+            _control = (ComboBox)ControlObject;
             _control.SelectionChanged += SelectionChanged;
+            
+            foreach (var e in GetVisualTreDescendants(_control))
+            {
+                _textBox = e as TextBox;
+                if (_textBox != null) break;
+            }
+            if (_textBox != null) _textBox.TextChanged += TextBoxChanged;
         }
 
         protected override void Detach()
         {
-            _control.SelectionChanged -= SelectionChanged;
+            if (_control != null) _control.SelectionChanged -= SelectionChanged;
+            if (_textBox != null) _textBox.TextChanged -= TextBoxChanged;
+        }
+
+        void TextBoxChanged(object sender, TextChangedEventArgs e)
+        {
+            if (_textBox.IsFocused)
+            {
+                var literal = GenerateUtility.ToLiteral(_textBox.Text);
+                AddSentence(new TokenName(),
+                            ".TextBox.EmulateChangeText(",
+                            literal,
+                            new TokenAsync(CommaType.Before),
+                            ");");
+            }
+        }
+
+        public override void Optimize(List<Sentence> code)
+        {
+            GenerateUtility.RemoveDuplicationFunction(this, code, "TextBox.EmulateChangeText");
         }
 
         void SelectionChanged(object sender, EventArgs e)
         {
             AddSentence(new TokenName(), ".EmulateChangeSelectedIndex(" + _control.SelectedIndex, new TokenAsync(CommaType.Before), ");");
+        }
+
+        static IEnumerable<DependencyObject> GetVisualTreDescendants(DependencyObject obj)
+        {
+            List<DependencyObject> list = new List<DependencyObject>();
+            list.Add(obj);
+            int count = VisualTreeHelper.GetChildrenCount(obj);
+            for (int i = 0; i < count; i++)
+            {
+                list.AddRange(GetVisualTreDescendants(VisualTreeHelper.GetChild(obj, i)));
+            }
+            return list;
         }
     }
 }
