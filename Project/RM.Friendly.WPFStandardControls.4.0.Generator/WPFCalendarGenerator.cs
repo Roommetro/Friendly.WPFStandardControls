@@ -22,7 +22,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
 
         void SelectedDatesChanged(object sender, EventArgs e)
         {
-            if (_control.SelectedDate.Value != null)
+            if (_control.SelectedDate != null)
             {
                 DateTime day = _control.SelectedDate.Value;
                 AddSentence(new TokenName(), ".EmulateChangeDate(new DateTime(", day.Year, ", ", day.Month, ", ", day.Day, ")", new TokenAsync(CommaType.Before), ");");
