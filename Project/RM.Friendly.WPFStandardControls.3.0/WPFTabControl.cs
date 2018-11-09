@@ -14,7 +14,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.TabControlに対応した操作を提供します。
     /// </summary>
 #endif
-    [ControlDriver(TypeFullName = "System.Windows.Controls.TabControl")]
+    [ControlDriver(TypeFullName = "System.Windows.Controls.TabControl", SearchDescendantUserControls = true)]
     public class WPFTabControl : WPFSelectorCore<TabControl>
     {
 #if ENG
