@@ -22,10 +22,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
 
         void ButtonClick(object sender, EventArgs e)
         {
-            if (_control.IsFocused)
-            {
-                AddSentence(new TokenName(), ".EmulateClick(", new TokenAsync(CommaType.Non), ");");
-            }
+            AddSentence(new TokenName(), ".EmulateClick(", new TokenAsync(CommaType.Non), ");");
         }
     }
 }

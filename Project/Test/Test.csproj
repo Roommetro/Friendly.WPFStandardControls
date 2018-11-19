@@ -61,11 +61,11 @@
     <Reference Include="Codeer.Friendly.Windows.Grasp.3.5, Version=2.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Codeer.Friendly.Windows.Grasp.2.8.0\lib\net35\Codeer.Friendly.Windows.Grasp.3.5.dll</HintPath>
     </Reference>
-    <Reference Include="Codeer.Friendly.Windows.NativeStandardControls, Version=2.9.7.0, Culture=neutral, PublicKeyToken=90759bf0c8b8639e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.Friendly.Windows.NativeStandardControls.2.9.7\lib\net20\Codeer.Friendly.Windows.NativeStandardControls.dll</HintPath>
+    <Reference Include="Codeer.Friendly.Windows.NativeStandardControls, Version=2.10.1.0, Culture=neutral, PublicKeyToken=90759bf0c8b8639e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.Windows.NativeStandardControls.2.10.1\lib\net20\Codeer.Friendly.Windows.NativeStandardControls.dll</HintPath>
     </Reference>
-    <Reference Include="Codeer.Friendly.Windows.NativeStandardControls.Generator, Version=2.9.7.0, Culture=neutral, PublicKeyToken=eea982eb65b72dea, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.Friendly.Windows.NativeStandardControls.2.9.7\lib\net20\Codeer.Friendly.Windows.NativeStandardControls.Generator.dll</HintPath>
+    <Reference Include="Codeer.Friendly.Windows.NativeStandardControls.Generator, Version=2.10.1.0, Culture=neutral, PublicKeyToken=eea982eb65b72dea, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.Windows.NativeStandardControls.2.10.1\lib\net20\Codeer.Friendly.Windows.NativeStandardControls.Generator.dll</HintPath>
     </Reference>
     <Reference Include="Codeer.TestAssistant.GeneratorToolKit, Version=2.28.0.0, Culture=neutral, PublicKeyToken=f7af39ab9bcf13fe, processorArchitecture=MSIL">
       <HintPath>..\packages\Codeer.TestAssistant.GeneratorToolKit.2.28.0\lib\net30\Codeer.TestAssistant.GeneratorToolKit.dll</HintPath>
