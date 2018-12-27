@@ -66,10 +66,22 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreateDriver\BindingExpressionCache.cs" />
+    <Compile Include="CreateDriver\CollectionUtility.cs" />
+    <Compile Include="CreateDriver\ControlAndFieldName.cs" />
+    <Compile Include="CreateDriver\CreateMenu.cs" />
+    <Compile Include="CreateDriver\DriverCreatorUtils.cs" />
+    <Compile Include="CreateDriver\DriverElementNameGeneratorAdaptor.cs" />
+    <Compile Include="CreateDriver\DriverInfo.cs" />
+    <Compile Include="CreateDriver\ReflectionAccessor.cs" />
+    <Compile Include="CreateDriver\WPFCustomIdentify.cs" />
+    <Compile Include="CreateDriver\WPFDriverCreator.cs" />
+    <Compile Include="CreateDriver\WPFUtility.cs" />
     <Compile Include="GenerateUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WPFListViewGenerator.cs" />
