@@ -23,6 +23,14 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             _customNameGenerator = new DriverElementNameGeneratorAdaptor(dom);
         }
 
+        public void CreateItemsControlDriver(string driverName, ItemsControl ctrl)
+        {
+            if (ctrl.Items.Count == 0) return;
+            var item = ctrl.ItemContainerGenerator.ContainerFromIndex(0);
+            var info = CreateDriverInfo(item, driverName + ".cs");
+            DriverCreatorAdapter.AddCode(driverName + ".cs", GenerateCode(null, item, DriverCreatorAdapter.SelectedNamespace, driverName, info.Usings, info.Members, new List<Type>()), info.Target);
+        }
+
         public void CreateDriver(DependencyObject root)
         {
             //FormとUserControlを全取得

@@ -9,6 +9,7 @@ using System.Windows.Media;
 
 namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
 {
+    //TODO 多分いらない
     internal static class WPFUtility
     {
         private static readonly Dictionary<string, ControlDriverInfo> TypeFullNameAndControlDriver = new Dictionary<string, ControlDriverInfo>();

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.CodeDom.Compiler;
 using System.Windows;
+using System.Windows.Forms;
+using System.Windows.Controls;
 
 namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
 {
@@ -17,6 +19,21 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                     using (var dom = CodeDomProvider.CreateProvider("CSharp"))
                     {
                         new WPFDriverCreator(dom).CreateDriver(ctrl);
+                    }
+                };
+            }
+
+            if (target is ItemsControl itemsControl)
+            {
+                dic["Create Items Control Driver(&I)"] = () =>
+                {
+                    using (var form = new InputDriverNameForm())
+                    {
+                        if (form.ShowDialog() != DialogResult.OK) return;
+                        using (var dom = CodeDomProvider.CreateProvider("CSharp"))
+                        {
+                            new WPFDriverCreator(dom).CreateItemsControlDriver(form.DriverName, itemsControl);
+                        }
                     }
                 };
             }

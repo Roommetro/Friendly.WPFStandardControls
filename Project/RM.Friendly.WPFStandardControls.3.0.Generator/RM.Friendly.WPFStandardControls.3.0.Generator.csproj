@@ -78,6 +78,12 @@
     <Compile Include="CreateDriver\DriverCreatorUtils.cs" />
     <Compile Include="CreateDriver\DriverElementNameGeneratorAdaptor.cs" />
     <Compile Include="CreateDriver\DriverInfo.cs" />
+    <Compile Include="CreateDriver\InputDriverNameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateDriver\InputDriverNameForm.designer.cs">
+      <DependentUpon>InputDriverNameForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="CreateDriver\ReflectionAccessor.cs" />
     <Compile Include="CreateDriver\WPFCustomIdentify.cs" />
     <Compile Include="CreateDriver\WPFDriverCreator.cs" />
@@ -114,6 +120,11 @@
       <Project>{80d0bb7b-61d0-4c48-b877-6e35f7d90c74}</Project>
       <Name>RM.Friendly.WPFStandardControls.3.0</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CreateDriver\InputDriverNameForm.resx">
+      <DependentUpon>InputDriverNameForm.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
