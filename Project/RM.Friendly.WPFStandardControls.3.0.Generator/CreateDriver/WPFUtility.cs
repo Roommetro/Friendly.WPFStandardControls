@@ -9,17 +9,15 @@ using System.Windows.Media;
 
 namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
 {
-    //TODO 多分いらない
+    //TODO 多分いらないコードが多い
     internal static class WPFUtility
     {
-        private static readonly Dictionary<string, ControlDriverInfo> TypeFullNameAndControlDriver = new Dictionary<string, ControlDriverInfo>();
-
         public static List<DependencyObject> GetVisualTreeDescendants(DependencyObject obj, bool stopWindowOrUserControl, int index)
         {
             var list = new List<DependencyObject> { obj };
 
             if (stopWindowOrUserControl && (0 < index) && ((obj is UserControl) || (obj is Page) || (obj is Window))) return list;
-            var info = DriverCreatorUtils.GetDriverInfo(obj, TypeFullNameAndControlDriver);
+            var info = DriverCreatorUtils.GetDriverInfo(obj, DriverCreatorAdapter.TypeFullNameAndControlDriver);
             if ((info != null) && !info.SearchDescendantUserControls) return list;
 
             index++;
@@ -47,7 +45,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             var list = new List<DependencyObject> { obj };
 
             if (stopWindowOrUserControl && (0 < index) && ((obj is UserControl) || (obj is Page) || (obj is Window))) return list;
-            var info = DriverCreatorUtils.GetDriverInfo(obj, TypeFullNameAndControlDriver);
+            var info = DriverCreatorUtils.GetDriverInfo(obj, DriverCreatorAdapter.TypeFullNameAndControlDriver);
             if (info != null && !info.SearchDescendantUserControls) return list;
 
             index++;

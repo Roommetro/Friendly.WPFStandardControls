@@ -8,6 +8,9 @@ using System.Windows.Data;
 
 namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
 {
+    //名前が重複したらダメになる。
+    //MakeDriverTypeを呼びすぎてる。
+
     internal class WPFDriverCreator
     {
         private const string TodoComment = "// TODO It is not the best way to identify. Please change to a better method.";
