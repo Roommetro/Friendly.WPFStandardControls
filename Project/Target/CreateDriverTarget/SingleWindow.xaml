@@ -1,0 +1,88 @@
+﻿<Window x:Class="Target.CreateDriverTarget.SingleWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Target.CreateDriverTarget"
+        mc:Ignorable="d"
+        Title="SingleWindow" Height="450" Width="800" Loaded="Window_Loaded">
+    <Grid>
+        <Grid VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Menu x:Name="Menu1" Grid.Row="0">
+                <MenuItem x:Name="MenuItem1" Header="MenuItem1">
+                    <MenuItem x:Name="MenuItem2" Header="MenuItem2" />
+                    <Separator />
+                    <MenuItem x:Name="MenuItem3" Header="MenuItem3" />
+                </MenuItem>
+            </Menu>
+            <ToolBarPanel Grid.Row="1">
+                <ToolBar>
+                    <Button x:Name="Button2" Content="Button"/>
+                    <ToggleButton x:Name="ToggleButton1" Content="ToggleButton"/>
+                </ToolBar>
+            </ToolBarPanel>
+        </Grid>
+        <Button x:Name="Button1" Content="Button" HorizontalAlignment="Left" Margin="26,58,0,0" VerticalAlignment="Top" Width="75"/>
+        <CheckBox x:Name="CheckBox1" Content="CheckBox" HorizontalAlignment="Left" Margin="26,96,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="RadioButton1" Content="RadioButton" HorizontalAlignment="Left" Margin="26,116,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="RadioButton2" Content="RadioButton" HorizontalAlignment="Left" Margin="26,136,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="ComboBox1" HorizontalAlignment="Left" Margin="152,58,0,0" VerticalAlignment="Top" Width="120" IsEditable="True"/>
+        <ComboBox x:Name="ComboBox2" HorizontalAlignment="Left" Margin="152,89,0,0" VerticalAlignment="Top" Width="120"/>
+        <ListBox x:Name="ListBox1" HorizontalAlignment="Left" Height="100" Margin="26,172,0,0" VerticalAlignment="Top" Width="246">
+            <ListBoxItem Content="ListBoxItem1"/>
+            <ListBoxItem Content="ListBoxItem2"/>
+        </ListBox>
+        <ListView x:Name="ListView1" HorizontalAlignment="Left" Height="100" Margin="26,277,0,0" VerticalAlignment="Top" Width="246">
+            <ListView.View>
+                <GridView AllowsColumnReorder="False">
+                    <GridViewColumn Header="GridViewColumn1"/>
+                </GridView>
+            </ListView.View>
+            <ListViewItem Content="ListViewItem1"/>
+        </ListView>
+        <TreeView x:Name="TreeView1" HorizontalAlignment="Left" Height="150" Margin="277,58,0,0" VerticalAlignment="Top" Width="195">
+            <TreeViewItem Header="TreeViewItem1">
+                <TreeViewItem Header="TreeViewItem1-1"/>
+                <TreeViewItem Header="TreeViewItem1-2"/>
+            </TreeViewItem>
+            <TreeViewItem Header="TreeViewItem2"/>
+        </TreeView>
+        <Expander x:Name="Expander1" Header="Expander" HorizontalAlignment="Left" Height="73" Margin="477,58,0,0" VerticalAlignment="Top" Width="100">
+            <Grid Background="#FFE5E5E5"/>
+        </Expander>
+        <PasswordBox x:Name="PasswordBox1" HorizontalAlignment="Left" Margin="323,386,0,0" VerticalAlignment="Top" Width="160" Password="Password"/>
+        <ProgressBar x:Name="ProgressBar1" HorizontalAlignment="Left" Height="10" Margin="630,58,0,0" VerticalAlignment="Top" Width="100"/>
+        <RichTextBox x:Name="RichTextBox1" HorizontalAlignment="Left" Margin="226,384,0,15" Width="92">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text="RichTextBox"/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <Slider x:Name="Slider1" HorizontalAlignment="Left" Margin="598,93,0,0" VerticalAlignment="Top" Width="184"/>
+        <TextBlock x:Name="TextBlock1" HorizontalAlignment="Left" Margin="26,388,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" RenderTransformOrigin="-0.199,0.558"/>
+        <TextBox x:Name="TextBox1" HorizontalAlignment="Left" Height="23" Margin="101,383,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <DatePicker x:Name="DatePicker1" HorizontalAlignment="Left" Margin="504,371,0,0" VerticalAlignment="Top" Width="140"/>
+        <DataGrid x:Name="DataGrid1" HorizontalAlignment="Left" Height="109" Margin="477,136,0,0" VerticalAlignment="Top" Width="305">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="DataGridTextColumn"/>
+                <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="DataGridCheckBoxColumn"/>
+                <DataGridComboBoxColumn ClipboardContentBinding="{x:Null}" Header="DataGridComboBoxColumn" SelectedValueBinding="{x:Null}" SelectedItemBinding="{x:Null}" TextBinding="{x:Null}"/>
+                <DataGridHyperlinkColumn Binding="{x:Null}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="DataGridHyperlinkColumn"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TabControl x:Name="TabControl1" HorizontalAlignment="Left" Height="109" Margin="477,250,0,0" VerticalAlignment="Top" Width="299">
+            <TabItem Header="TabItem">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="TabItem">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
+        <Calendar x:Name="Calendar1" HorizontalAlignment="Left" Margin="293,211,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</Window>

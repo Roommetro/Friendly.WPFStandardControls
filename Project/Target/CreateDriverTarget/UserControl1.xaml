@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="Target.CreateDriverTarget.UserControl1"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Target.CreateDriverTarget"
+             mc:Ignorable="d" 
+             d:DesignHeight="208.491" d:DesignWidth="338.679">
+    <Grid>
+        <Button x:Name="Button1" Content="Button" HorizontalAlignment="Left" Margin="38,39,0,0" VerticalAlignment="Top" Width="75"/>
+        <ListBox x:Name="ListBox1" HorizontalAlignment="Left" Height="100" Margin="154,39,0,0" VerticalAlignment="Top" Width="100">
+            <ListBoxItem Content="ListBoxItem1"/>
+            <ListBoxItem Content="ListBoxItem2"/>
+        </ListBox>
+
+    </Grid>
+</UserControl>

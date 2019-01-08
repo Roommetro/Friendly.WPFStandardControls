@@ -1,0 +1,22 @@
+using Codeer.Friendly.Dynamic;
+using Codeer.Friendly;
+using Codeer.Friendly.Windows;
+using Codeer.Friendly.Windows.Grasp;
+using Codeer.TestAssistant.GeneratorToolKit;
+using RM.Friendly.WPFStandardControls;
+
+namespace TestCode
+{
+    [UserControlDriver(TypeFullName = "Target.CreateDriverTarget.UserControl1")]
+    public class UserControl1_Driver
+    {
+        public WPFUserControl Core { get; }
+        public WPFButtonBase Button1 => new WPFButtonBase(Core.Dynamic().Button1);
+        public WPFListBox ListBox1 => new WPFListBox(Core.Dynamic().ListBox1);
+
+        public UserControl1_Driver(AppVar core)
+        {
+            Core = new WPFUserControl(core);
+        }
+    }
+}

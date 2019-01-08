@@ -11,7 +11,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
     //名前が重複したらダメになる。
     //MakeDriverTypeを呼びすぎてる。
 
-    internal class WPFDriverCreator
+    public class WPFDriverCreator
     {
         private const string TodoComment = "// TODO It is not the best way to identify. Please change to a better method.";
         private const string Indent = "    ";

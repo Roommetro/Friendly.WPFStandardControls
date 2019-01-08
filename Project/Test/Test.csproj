@@ -61,11 +61,11 @@
     <Reference Include="Codeer.Friendly.Windows.Grasp.3.5, Version=2.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Codeer.Friendly.Windows.Grasp.2.8.0\lib\net35\Codeer.Friendly.Windows.Grasp.3.5.dll</HintPath>
     </Reference>
-    <Reference Include="Codeer.Friendly.Windows.NativeStandardControls, Version=2.10.1.0, Culture=neutral, PublicKeyToken=90759bf0c8b8639e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.Friendly.Windows.NativeStandardControls.2.10.1\lib\net20\Codeer.Friendly.Windows.NativeStandardControls.dll</HintPath>
+    <Reference Include="Codeer.Friendly.Windows.NativeStandardControls, Version=2.10.6.0, Culture=neutral, PublicKeyToken=90759bf0c8b8639e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.Windows.NativeStandardControls.2.10.6\lib\net20\Codeer.Friendly.Windows.NativeStandardControls.dll</HintPath>
     </Reference>
-    <Reference Include="Codeer.Friendly.Windows.NativeStandardControls.Generator, Version=2.10.1.0, Culture=neutral, PublicKeyToken=eea982eb65b72dea, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.Friendly.Windows.NativeStandardControls.2.10.1\lib\net20\Codeer.Friendly.Windows.NativeStandardControls.Generator.dll</HintPath>
+    <Reference Include="Codeer.Friendly.Windows.NativeStandardControls.Generator, Version=2.10.6.0, Culture=neutral, PublicKeyToken=eea982eb65b72dea, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.Windows.NativeStandardControls.2.10.6\lib\net20\Codeer.Friendly.Windows.NativeStandardControls.Generator.dll</HintPath>
     </Reference>
     <Reference Include="Codeer.TestAssistant.GeneratorToolKit, Version=2.28.0.0, Culture=neutral, PublicKeyToken=f7af39ab9bcf13fe, processorArchitecture=MSIL">
       <HintPath>..\packages\Codeer.TestAssistant.GeneratorToolKit.2.28.0\lib\net30\Codeer.TestAssistant.GeneratorToolKit.dll</HintPath>
@@ -100,8 +100,14 @@
       <DependentUpon>ButtonSearchTestControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="DelegateCommand.cs" />
+    <Compile Include="GeneratorTest\CreateDriverTest.cs" />
     <Compile Include="ListBox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="SearchTest.cs" />
     <Compile Include="TestUtility.cs" />
     <Compile Include="ViewModelBase.cs" />
@@ -185,7 +191,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Page Include="ButtonSearchTestControl.xaml">
@@ -220,6 +228,30 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SingleWindow_Driver.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\UserControlWindow_Driver.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\UserControl1_Driver.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TabUserControlWindow_Driver.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\UserControl2_Driver.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NestedUserControl1_Driver.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
