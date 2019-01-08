@@ -11,6 +11,8 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
     //名前が重複したらダメになる。
     //MakeDriverTypeを呼びすぎてる。
 
+    //TODO Tookkit3.0は削除していいかな？　このライブラリと強く結びつけてもいいかも
+
     public class WPFDriverCreator
     {
         private const string TodoComment = "// TODO It is not the best way to identify. Please change to a better method.";
