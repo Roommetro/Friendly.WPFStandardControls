@@ -22,18 +22,36 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             return driver.Substring(0, index);
         }
 
-        public static string MakeDriverType(object control, Dictionary<string, WindowDriverInfo> typeFullNameAndWindowDriver)
-            => MakeDriverType(control, typeFullNameAndWindowDriver, out _);
+        public static string MakeDriverType(string selectedNamespace, object control, Dictionary<string, WindowDriverInfo> typeFullNameAndWindowDriver)
+            => MakeDriverType(selectedNamespace, control, typeFullNameAndWindowDriver, out _);
 
-        public static string MakeDriverType(object control, Dictionary<string, WindowDriverInfo> typeFullNameAndWindowDriver, out string nameSpace)
+        public static string MakeDriverType(string selectedNamespace, object control, Dictionary<string, WindowDriverInfo> typeFullNameAndWindowDriver, out string nameSpace)
         {
             nameSpace = string.Empty;
-            if (typeFullNameAndWindowDriver.TryGetValue(control.GetType().FullName, out var typeFullName))
+            if (typeFullNameAndWindowDriver.TryGetValue(control.GetType().FullName, out var info))
             {
-                nameSpace = GetTypeNamespace(typeFullName.DriverTypeFullName);
-                return GetTypeName(typeFullName.DriverTypeFullName);
+                nameSpace = GetTypeNamespace(info.DriverTypeFullName);
+                return GetTypeName(info.DriverTypeFullName);
             }
-            return control.GetType().Name + Suffix;
+
+            var name = control.GetType().Name + Suffix;
+            var fullName = selectedNamespace + "." + name;
+            
+            var nameList = new List<string>();
+            foreach (var e in typeFullNameAndWindowDriver)
+            {
+                nameList.Add(e.Value.DriverTypeFullName);
+            }
+
+            int index = 1;
+            while (nameList.Contains(fullName))
+            {
+                name = control.GetType().Name + Suffix + index++;
+                fullName = selectedNamespace + "." + name;
+            }
+
+            typeFullNameAndWindowDriver[control.GetType().FullName] = new WindowDriverInfo { DriverTypeFullName = fullName };
+            return name;
         }
 
         public static string GetDriverTypeFullName<T>(T ctrl, Dictionary<string, ControlDriverInfo> netTypeAndDriverType)
