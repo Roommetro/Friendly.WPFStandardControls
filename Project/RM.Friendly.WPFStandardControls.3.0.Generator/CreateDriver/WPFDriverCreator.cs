@@ -16,13 +16,13 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
         private readonly CodeDomProvider _dom;
         private readonly DriverElementNameGeneratorAdaptor _customNameGenerator;
         private readonly WPFCustomIdentify _customIdentify = new WPFCustomIdentify();
-        private readonly Dictionary<string, WindowDriverInfo> _typeFullNameAndWindowDriver = new Dictionary<string, WindowDriverInfo>();
+        private readonly DriverTypeNameManager _driverTypeNameManager;
 
         public WPFDriverCreator(CodeDomProvider dom)
         {
             _dom = dom;
             _customNameGenerator = new DriverElementNameGeneratorAdaptor(dom);
-            _typeFullNameAndWindowDriver = new Dictionary<string, WindowDriverInfo>(DriverCreatorAdapter.TypeFullNameAndWindowDriver);
+            _driverTypeNameManager = new DriverTypeNameManager(DriverCreatorAdapter.SelectedNamespace, DriverCreatorAdapter.TypeFullNameAndWindowDriver);
         }
 
         public void CreateItemsControlDriver(string driverName, ItemsControl ctrl)
@@ -45,7 +45,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             var driverInfos = new Dictionary<Type, DriverInfo<DependencyObject>>();
             foreach (var e in targets)
             {
-                var fileName = $"{DriverCreatorUtils.MakeDriverType(DriverCreatorAdapter.SelectedNamespace, e.Value, _typeFullNameAndWindowDriver)}.cs";
+                var fileName = $"{_driverTypeNameManager.MakeDriverType(e.Value)}.cs";
                 var info = CreateDriverInfo(e.Value, fileName);
                 driverInfos[e.Key] = info;
             }
@@ -53,7 +53,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             //変換
             foreach (var e in driverInfos)
             {
-                var driverName = DriverCreatorUtils.MakeDriverType(DriverCreatorAdapter.SelectedNamespace, e.Value.Target, _typeFullNameAndWindowDriver, out var nameSpace);
+                var driverName = _driverTypeNameManager.MakeDriverType(e.Value.Target, out var nameSpace);
                 if (string.IsNullOrEmpty(nameSpace)) nameSpace = DriverCreatorAdapter.SelectedNamespace;
 
                 //コード生成
@@ -150,7 +150,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                 {
                     mappedControls.Add(e.Control);
                     var name = _customNameGenerator.MakeDriverPropName(e.Control, e.Name, names);
-                    var typeName = DriverCreatorUtils.MakeDriverType(DriverCreatorAdapter.SelectedNamespace, e.Control, _typeFullNameAndWindowDriver, out var nameSpace);
+                    var typeName = _driverTypeNameManager.MakeDriverType(e.Control, out var nameSpace);
                     var key = $"Core.Dynamic().{e.Name}";
                     controlAndDefines.Add(new ControlAndDefine(e.Control, $"public {typeName} {name} => new {typeName}({key});"));
                     if (!string.IsNullOrEmpty(nameSpace) && (nameSpace != DriverCreatorAdapter.SelectedNamespace) && !driverInfo.Usings.Contains(nameSpace)) driverInfo.Usings.Add(nameSpace);
@@ -382,7 +382,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                 code.Add($"{Indent}public static class {driverClassName}_Extensions");
                 code.Add($"{Indent}{{");
                 var funcName = GetFuncName(driverClassName);
-                var rootDriver = DriverCreatorUtils.MakeDriverType(DriverCreatorAdapter.SelectedNamespace, root, _typeFullNameAndWindowDriver, out var rootNameSpace);
+                var rootDriver = _driverTypeNameManager.MakeDriverType(root, out var rootNameSpace);
                 if (!string.IsNullOrEmpty(rootNameSpace) && !usings.Contains(rootNameSpace) && (rootNameSpace != nameSpace))
                 {
                     code.Insert(nextUsingIndex, $"using {rootNameSpace};");

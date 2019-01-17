@@ -5,62 +5,30 @@ using System.Reflection;
 
 namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
 {
-    internal static class DriverCreatorUtils
+    internal class DriverCreatorUtils
     {
-        public static string Suffix { get; } = "_Driver";
+        internal const string Suffix = "_Driver";
 
-        public static string GetTypeName(string driver)
+        internal static string GetTypeName(string driver)
         {
             var sp = driver.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
             return sp[sp.Length - 1];
         }
 
-        public static string GetTypeNamespace(string driver)
+        internal static string GetTypeNamespace(string driver)
         {
             var index = driver.LastIndexOf(".");
             if (index == -1) return driver;
             return driver.Substring(0, index);
         }
 
-        public static string MakeDriverType(string selectedNamespace, object control, Dictionary<string, WindowDriverInfo> typeFullNameAndWindowDriver)
-            => MakeDriverType(selectedNamespace, control, typeFullNameAndWindowDriver, out _);
-
-        public static string MakeDriverType(string selectedNamespace, object control, Dictionary<string, WindowDriverInfo> typeFullNameAndWindowDriver, out string nameSpace)
-        {
-            nameSpace = string.Empty;
-            if (typeFullNameAndWindowDriver.TryGetValue(control.GetType().FullName, out var info))
-            {
-                nameSpace = GetTypeNamespace(info.DriverTypeFullName);
-                return GetTypeName(info.DriverTypeFullName);
-            }
-
-            var name = control.GetType().Name + Suffix;
-            var fullName = selectedNamespace + "." + name;
-            
-            var nameList = new List<string>();
-            foreach (var e in typeFullNameAndWindowDriver)
-            {
-                nameList.Add(e.Value.DriverTypeFullName);
-            }
-
-            int index = 1;
-            while (nameList.Contains(fullName))
-            {
-                name = control.GetType().Name + Suffix + index++;
-                fullName = selectedNamespace + "." + name;
-            }
-
-            typeFullNameAndWindowDriver[control.GetType().FullName] = new WindowDriverInfo { DriverTypeFullName = fullName };
-            return name;
-        }
-
-        public static string GetDriverTypeFullName<T>(T ctrl, Dictionary<string, ControlDriverInfo> netTypeAndDriverType)
+        internal static string GetDriverTypeFullName<T>(T ctrl, Dictionary<string, ControlDriverInfo> netTypeAndDriverType)
         {
             var info = GetDriverInfo(ctrl, netTypeAndDriverType);
             return (info == null) || !info.DriverMappingEnabled ? string.Empty : info.ControlDriverTypeFullName;
         }
 
-        public static ControlDriverInfo GetDriverInfo<T>(T ctrl, Dictionary<string, ControlDriverInfo> netTypeAndDriverType)
+        internal static ControlDriverInfo GetDriverInfo<T>(T ctrl, Dictionary<string, ControlDriverInfo> netTypeAndDriverType)
         {
             for (var type = ctrl.GetType(); type != null; type = type.BaseType)
             {
@@ -69,7 +37,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             return null;
         }
 
-        public static ControlAndFieldName<T>[] GetFields<T>(object obj, params Type[] endTypesSrc) where T : class
+        internal static ControlAndFieldName<T>[] GetFields<T>(object obj, params Type[] endTypesSrc) where T : class
         {
             var endTypes = new List<Type>(endTypesSrc);
             var list = new List<ControlAndFieldName<T>>();

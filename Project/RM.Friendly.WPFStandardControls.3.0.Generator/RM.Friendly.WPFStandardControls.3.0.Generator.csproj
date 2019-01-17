@@ -78,6 +78,7 @@
     <Compile Include="CreateDriver\DriverCreatorUtils.cs" />
     <Compile Include="CreateDriver\DriverElementNameGeneratorAdaptor.cs" />
     <Compile Include="CreateDriver\DriverInfo.cs" />
+    <Compile Include="CreateDriver\DriverTypeNameManager.cs" />
     <Compile Include="CreateDriver\InputDriverNameForm.cs">
       <SubType>Form</SubType>
     </Compile>
