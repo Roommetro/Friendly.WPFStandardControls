@@ -131,6 +131,9 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                 //不正なフィールド名のものは取得できない
                 if (!_dom.IsValidIdentifier(e.Name)) continue;
 
+                //すでにマップされているかチェック
+                if (CollectionUtility.HasReference(mappedControls, e.Control)) continue;
+
                 //コントロールドライバ
                 var driver = DriverCreatorUtils.GetDriverTypeFullName(e.Control, DriverCreatorAdapter.TypeFullNameAndControlDriver);
                 if (!string.IsNullOrEmpty(driver))
