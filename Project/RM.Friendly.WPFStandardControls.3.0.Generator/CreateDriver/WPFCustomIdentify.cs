@@ -26,7 +26,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
         public WPFCustomIdentify()
         {
             //WPFの要素特定クラス取得
-            var identifyGeneratorType = ReflectionAccessor.GetType("Codeer.TestAssistant.GeneratorToolKit.IWPFControlIdentifyCodeGenerator");
+            var identifyGeneratorType = typeof(IWPFControlIdentifyCodeGenerator);
             var identifyGenerateMethod = identifyGeneratorType.GetMethod("GenerateIdentifyCode");
             var identifyPriority = identifyGeneratorType.GetProperty("Priority");
 

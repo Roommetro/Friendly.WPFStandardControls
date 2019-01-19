@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.CodeDom.Compiler;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Controls;
+using System.Windows.Forms;
 
 namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
 {
     internal class CreateMenu : IWindowAnalysisMenuAction
     {
-        public Dictionary<string, System.Windows.Forms.MethodInvoker> GetAction(object target, WindowAnalysisTreeInfo info)
+        public Dictionary<string, MenuAction> GetAction(object target, WindowAnalysisTreeInfo info)
         {
-            var dic = new Dictionary<string, System.Windows.Forms.MethodInvoker>();
+            var dic = new Dictionary<string, MenuAction>();
             if (target is DependencyObject ctrl)
             {
                 dic["Create Driver(&C)"] = () =>

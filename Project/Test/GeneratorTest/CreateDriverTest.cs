@@ -6,6 +6,7 @@ using System.Windows;
 using Codeer.TestAssistant.GeneratorToolKit;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RM.Friendly.WPFStandardControls;
+using RM.Friendly.WPFStandardControls.Generator;
 using Target.CreateDriverTarget;
 
 namespace Test.GeneratorTest
