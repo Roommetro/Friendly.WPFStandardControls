@@ -250,6 +250,9 @@
   <ItemGroup>
     <None Include="Resources\NestedUserControl1_Driver.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CaptureTest\" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

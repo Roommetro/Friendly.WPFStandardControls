@@ -52,8 +52,11 @@ namespace RM.Friendly.WPFStandardControls.Generator
         }
 
         void SelectionChanged(object sender, EventArgs e)
-        {
-            AddSentence(new TokenName(), ".EmulateChangeSelectedIndex(" + _control.SelectedIndex, new TokenAsync(CommaType.Before), ");");
+        {   
+            if (_control.IsMouseCaptured || _control.IsKeyboardFocused || _control.IsFocused)
+            {
+                AddSentence(new TokenName(), ".EmulateChangeSelectedIndex(" + _control.SelectedIndex, new TokenAsync(CommaType.Before), ");");
+            }
         }
 
         static IEnumerable<DependencyObject> GetVisualTreDescendants(DependencyObject obj)
