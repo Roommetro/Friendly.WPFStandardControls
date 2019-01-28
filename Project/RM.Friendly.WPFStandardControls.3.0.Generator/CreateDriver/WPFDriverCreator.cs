@@ -22,7 +22,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
         {
             _dom = dom;
             _customNameGenerator = new DriverElementNameGeneratorAdaptor(dom);
-            _driverTypeNameManager = new DriverTypeNameManager(DriverCreatorAdapter.SelectedNamespace, DriverCreatorAdapter.TypeFullNameAndWindowDriver);
+            _driverTypeNameManager = new DriverTypeNameManager(DriverCreatorAdapter.SelectedNamespace, DriverCreatorAdapter.TypeFullNameAndWindowDriver, DriverCreatorAdapter.TypeFullNameAndUserControlDriver);
         }
 
         public void CreateItemsControlDriver(string driverName, ItemsControl ctrl)
@@ -38,6 +38,13 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             //FormとUserControlを全取得
             var recursiveCheck = new List<DependencyObject>();
             var targets = new Dictionary<Type, DependencyObject>();
+
+            //ルートはUserControlでなくても指定されたらUserControlDriverを作れるようにする
+            if (root is Control)
+            {
+                targets[root.GetType()] = root;
+            }
+
             var getFromControlTreeOnly = new List<Type>();
             GetAllWindowAndUserControl(false, root, targets, getFromControlTreeOnly, recursiveCheck);
 
@@ -90,11 +97,11 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             }
             if (!(control is FrameworkElement)) return;
 
-            foreach (var e in WPFUtility.GetLogicalTreeDescendants(control, true, 0))
+            foreach (var e in WPFUtility.GetLogicalTreeDescendants(control, true, true, 0))
             {
                 GetAllWindowAndUserControl(true, e, targets, getFromControlTreeOnly, recursiveCheck);
             }
-            foreach (var e in WPFUtility.GetVisualTreeDescendants(control, true, 0))
+            foreach (var e in WPFUtility.GetVisualTreeDescendants(control, true, true, 0))
             {
                 GetAllWindowAndUserControl(true, e, targets, getFromControlTreeOnly, recursiveCheck);
             }
@@ -135,7 +142,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                 if (CollectionUtility.HasReference(mappedControls, e.Control)) continue;
 
                 //コントロールドライバ
-                var driver = DriverCreatorUtils.GetDriverTypeFullName(e.Control, DriverCreatorAdapter.TypeFullNameAndControlDriver);
+                var driver = DriverCreatorUtils.GetDriverTypeFullName(e.Control, DriverCreatorAdapter.TypeFullNameAndControlDriver, DriverCreatorAdapter.TypeFullNameAndUserControlDriver);
                 if (!string.IsNullOrEmpty(driver))
                 {
                     mappedControls.Add(e.Control);
@@ -168,7 +175,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             try
             {
                 // LogicalTree順のコントロールリスト取得
-                var controlList = WPFUtility.GetLogicalTreeDescendants(targetControl, true, 0);
+                var controlList = WPFUtility.GetLogicalTreeDescendants(targetControl, true, true, 0);
 
                 // フィールドをタブオーダーでソート
                 controlAndDefines.Sort((l, r) => controlList.IndexOf(l.Control) - controlList.IndexOf(r.Control));
@@ -185,8 +192,10 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
 
         private void CreateDriverInfoFindFromControlTree(DependencyObject target, DriverInfo<DependencyObject> driverInfo, List<ControlAndDefine> controlAndDefines, List<DependencyObject> mappedControls, List<string> names, string fileName)
         {
-            var logical = WPFUtility.GetLogicalTreeDescendants(target, true, 0);
-            var visual = WPFUtility.GetVisualTreeDescendants(target, true, 0);
+            var logical = WPFUtility.GetLogicalTreeDescendants(target, true, true, 0);
+            var visual = WPFUtility.GetVisualTreeDescendants(target, true, true, 0);
+            var logicalForGetter = WPFUtility.GetLogicalTreeDescendants(target, false, false, 0);
+            var visualForGetter = WPFUtility.GetVisualTreeDescendants(target, false, false, 0);
             foreach (var tree in new[] { logical, visual })
             {
                 var cache = new BindingExpressionCache();
@@ -196,13 +205,13 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                     if (CollectionUtility.HasReference(mappedControls, ctrl)) continue;
 
                     //コントロールドライバ検索
-                    var driver = DriverCreatorUtils.GetDriverTypeFullName(ctrl, DriverCreatorAdapter.TypeFullNameAndControlDriver);
+                    var driver = DriverCreatorUtils.GetDriverTypeFullName(ctrl, DriverCreatorAdapter.TypeFullNameAndControlDriver, DriverCreatorAdapter.TypeFullNameAndUserControlDriver);
                     if (!string.IsNullOrEmpty(driver))
                     {
                         var name = _customNameGenerator.MakeDriverPropName(ctrl, string.Empty, names);
                         var typeName = DriverCreatorUtils.GetTypeName(driver);
                         var nameSpace = DriverCreatorUtils.GetTypeNamespace(driver);
-                        var getter = MakeCodeGetFromTree(logical, visual, ctrl, cache, driverInfo.Usings, out var nogood);
+                        var getter = MakeCodeGetFromTree(logicalForGetter, visualForGetter, ctrl, cache, driverInfo.Usings, out var nogood);
                         var code = $"public {typeName} {name} => new {typeName}({getter});";
                         if (nogood)
                         {

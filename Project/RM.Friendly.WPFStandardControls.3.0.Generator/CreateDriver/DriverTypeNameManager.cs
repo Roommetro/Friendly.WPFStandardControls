@@ -7,11 +7,13 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
     {
         string _selectedNamespace;
         Dictionary<string, WindowDriverInfo> _typeFullNameAndWindowDriver;
+        Dictionary<string, UserControlDriverInfo> _typeFullNameAndUserControlDriver;
 
-        internal DriverTypeNameManager(string selectedNamespace, Dictionary<string, WindowDriverInfo> typeFullNameAndWindowDriver)
+        internal DriverTypeNameManager(string selectedNamespace, Dictionary<string, WindowDriverInfo> typeFullNameAndWindowDriver, Dictionary<string, UserControlDriverInfo> typeFullNameAndUserControlDriver)
         {
             _selectedNamespace = selectedNamespace;
             _typeFullNameAndWindowDriver = new Dictionary<string, WindowDriverInfo>(typeFullNameAndWindowDriver);
+            _typeFullNameAndUserControlDriver = new Dictionary<string, UserControlDriverInfo>(typeFullNameAndUserControlDriver);
         }
 
         internal string MakeDriverType(object control)

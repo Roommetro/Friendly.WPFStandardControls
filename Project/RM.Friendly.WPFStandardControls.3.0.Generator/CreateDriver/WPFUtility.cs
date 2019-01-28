@@ -12,19 +12,28 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
     //TODO 多分いらないコードが多い
     internal static class WPFUtility
     {
-        public static List<DependencyObject> GetVisualTreeDescendants(DependencyObject obj, bool stopWindowOrUserControl, int index)
+        public static List<DependencyObject> GetVisualTreeDescendants(DependencyObject obj, bool stopWindowOrUserControl, bool stopControlDriver, int index)
         {
             var list = new List<DependencyObject> { obj };
 
-            if (stopWindowOrUserControl && (0 < index) && ((obj is UserControl) || (obj is Page) || (obj is Window))) return list;
-            var info = DriverCreatorUtils.GetDriverInfo(obj, DriverCreatorAdapter.TypeFullNameAndControlDriver);
-            if ((info != null) && !info.SearchDescendantUserControls) return list;
+            if (stopWindowOrUserControl && (0 < index))
+            {
+                if (((obj is UserControl) || (obj is Page) || (obj is Window))) return list;
+                var info = DriverCreatorUtils.GetDriverInfo(obj, DriverCreatorAdapter.TypeFullNameAndUserControlDriver);
+                if (info != null) return list;
+            }
+
+            if (stopControlDriver)
+            {
+                var info = DriverCreatorUtils.GetDriverInfo(obj, DriverCreatorAdapter.TypeFullNameAndControlDriver);
+                if ((info != null) && !info.SearchDescendantUserControls) return list;
+            }
 
             index++;
             int count = VisualTreeHelper.GetChildrenCount(obj);
             for (int i = 0; i < count; i++)
             {
-                list.AddRange(GetVisualTreeDescendants(VisualTreeHelper.GetChild(obj, i), stopWindowOrUserControl, index));
+                list.AddRange(GetVisualTreeDescendants(VisualTreeHelper.GetChild(obj, i), stopWindowOrUserControl, stopControlDriver, index));
             }
             return list;
         }
@@ -40,20 +49,24 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             return list;
         }
 
-        public static List<DependencyObject> GetLogicalTreeDescendants(DependencyObject obj, bool stopWindowOrUserControl, int index)
+        public static List<DependencyObject> GetLogicalTreeDescendants(DependencyObject obj, bool stopWindowOrUserControl, bool stopControlDriver, int index)
         {
             var list = new List<DependencyObject> { obj };
 
             if (stopWindowOrUserControl && (0 < index) && ((obj is UserControl) || (obj is Page) || (obj is Window))) return list;
-            var info = DriverCreatorUtils.GetDriverInfo(obj, DriverCreatorAdapter.TypeFullNameAndControlDriver);
-            if (info != null && !info.SearchDescendantUserControls) return list;
+
+            if (stopControlDriver)
+            {
+                var info = DriverCreatorUtils.GetDriverInfo(obj, DriverCreatorAdapter.TypeFullNameAndControlDriver);
+                if (info != null && !info.SearchDescendantUserControls) return list;
+            }
 
             index++;
             foreach (var e in LogicalTreeHelper.GetChildren(obj))
             {
                 if (e is DependencyObject d)
                 {
-                    list.AddRange(GetLogicalTreeDescendants(d, stopWindowOrUserControl, index));
+                    list.AddRange(GetLogicalTreeDescendants(d, stopWindowOrUserControl, stopControlDriver, index));
                 }
             }
             return list;
@@ -82,8 +95,8 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
 
         public static bool ExistMany(DependencyObject root, Type type)
         {
-            var children = GetLogicalTreeDescendants(root, false, 0);
-            foreach (var e in GetVisualTreeDescendants(root, false, 0))
+            var children = GetLogicalTreeDescendants(root, false, true, 0);
+            foreach (var e in GetVisualTreeDescendants(root, false, true, 0))
             {
                 if (!CollectionUtility.HasReference(children, e)) children.Add(e);
             }
