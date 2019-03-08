@@ -242,17 +242,24 @@ namespace Test
         {
             Assert.AreEqual("99", dataGrid.GetCellText(99, 0));
             Assert.AreEqual("C", dataGrid.GetCellText(0, 1));
+            Assert.AreEqual("false", dataGrid.GetCellText(0, 2));
+
+            var cell = dataGrid.GetCell(0, 2);
+            var checkBox = cell.VisualTree().ByType<CheckBox>().Single().Dynamic();
+
+            checkBox.IsChecked = null;
+            Assert.AreEqual("null", dataGrid.GetCellText(0, 2));
+            checkBox.IsChecked = true;
+            Assert.AreEqual("true", dataGrid.GetCellText(0, 2));
         }
 
         [TestMethod]
-        public void TestGetCellTextException()
+        public void TestRowColCount()
         {
-            TestUtility.TestExceptionMessage(() => { ResetConnection(); dataGrid.GetCellText(0, 2); },
-                "The cell does not have Text property.",
-                "指定のセルはTextプロパティーを持っていません。");
+            Assert.AreEqual(101, dataGrid.ItemCount);
+            Assert.AreEqual(3, dataGrid.ColCount);
         }
-
-
+        
         [TestMethod]
         public void TestSameDataClass()
         {

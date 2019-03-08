@@ -8,6 +8,9 @@ using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
 using System.Windows.Automation;
 using Codeer.TestAssistant.GeneratorToolKit;
+using System.Windows;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace RM.Friendly.WPFStandardControls
 {
@@ -73,6 +76,28 @@ namespace RM.Friendly.WPFStandardControls
         /// </summary>
 #endif
         public int CurrentColIndex { get { return InvokeStatic(GetCurrentColIndex, Ret<int>()); } }
+
+#if ENG
+        /// <summary>
+        /// Item count.
+        /// </summary>
+#else
+        /// <summary>
+        /// アイテム数
+        /// </summary>
+#endif
+        public int ItemCount { get { return this.Dynamic().Items.Count; } }
+
+#if ENG
+        /// <summary>
+        /// Column count.
+        /// </summary>
+#else
+        /// <summary>
+        /// カラム数
+        /// </summary>
+#endif
+        public int ColCount { get { return this.Dynamic().Columns.Count; } }
 
 #if ENG
         /// <summary>
@@ -263,7 +288,7 @@ namespace RM.Friendly.WPFStandardControls
         {
             return InvokeStatic(GetCellText, Ret<string>(), itemIndex, col);
         }
-        
+
 #if ENG
         /// <summary>
         /// Get row.
@@ -351,15 +376,34 @@ namespace RM.Friendly.WPFStandardControls
         {
             EmulateChangeCurrentCell(grid, itemIndex, col);
             DataGridRow temp = grid.ItemContainerGenerator.ContainerFromIndex(itemIndex) as DataGridRow;
-            dynamic text = grid.Columns[col].GetCellContent(temp);
-            try
+            object obj = grid.Columns[col].GetCellContent(temp);
+            if (obj.GetType().GetProperty("Text") != null)
             {
-                return text.Text;
+                dynamic text = obj;
+                try
+                {
+                    return text.Text;
+                }
+                catch
+                {
+                    throw new NotSupportedException(ResourcesLocal4.Instance.DataGridErrorHasNotTextProperty);
+                }
             }
-            catch
+
+            var framework = obj as FrameworkElement;
+            if (framework != null)
             {
-                throw new NotSupportedException(ResourcesLocal4.Instance.DataGridErrorHasNotTextProperty);
+                var textBlock = framework.VisualTree().ByType<TextBlock>().FirstOrDefault();
+                if (textBlock != null) return textBlock.Text;
+                var textBox = framework.VisualTree().ByType<TextBox>().FirstOrDefault();
+                if (textBox != null) return textBox.Text;
+                var checkBox = framework.VisualTree().ByType<CheckBox>().FirstOrDefault();
+                if (checkBox != null)
+                {
+                    return checkBox.IsChecked == null ? "null" : checkBox.IsChecked.Value.ToString().ToLower();
+                }
             }
+            throw new NotSupportedException(ResourcesLocal4.Instance.DataGridErrorHasNotTextProperty);
         }
 
         static void EmulateChangeCellText(DataGrid grid, int itemIndex, int col, string text)
