@@ -374,7 +374,7 @@ namespace RM.Friendly.WPFStandardControls
 
         static string GetCellText(DataGrid grid, int itemIndex, int col)
         {
-            EmulateChangeCurrentCell(grid, itemIndex, col);
+            EnsureRowVisible(grid, itemIndex);
             DataGridRow temp = grid.ItemContainerGenerator.ContainerFromIndex(itemIndex) as DataGridRow;
             object obj = grid.Columns[col].GetCellContent(temp);
             if (obj.GetType().GetProperty("Text") != null)
