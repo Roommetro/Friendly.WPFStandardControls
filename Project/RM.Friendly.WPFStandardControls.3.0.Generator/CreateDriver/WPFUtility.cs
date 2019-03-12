@@ -15,19 +15,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
         public static List<DependencyObject> GetVisualTreeDescendants(DependencyObject obj, bool stopWindowOrUserControl, bool stopControlDriver, int index)
         {
             var list = new List<DependencyObject> { obj };
-
-            if (stopWindowOrUserControl && (0 < index))
-            {
-                if (((obj is UserControl) || (obj is Page) || (obj is Window))) return list;
-                var info = DriverCreatorUtils.GetDriverInfo(obj, DriverCreatorAdapter.TypeFullNameAndUserControlDriver);
-                if (info != null) return list;
-            }
-
-            if (stopControlDriver)
-            {
-                var info = DriverCreatorUtils.GetDriverInfo(obj, DriverCreatorAdapter.TypeFullNameAndControlDriver);
-                if ((info != null) && !info.SearchDescendantUserControls) return list;
-            }
+            if (IsStopSearch(obj, stopWindowOrUserControl, stopControlDriver, index)) return list;
 
             index++;
             int count = VisualTreeHelper.GetChildrenCount(obj);
@@ -52,14 +40,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
         public static List<DependencyObject> GetLogicalTreeDescendants(DependencyObject obj, bool stopWindowOrUserControl, bool stopControlDriver, int index)
         {
             var list = new List<DependencyObject> { obj };
-
-            if (stopWindowOrUserControl && (0 < index) && ((obj is UserControl) || (obj is Page) || (obj is Window))) return list;
-
-            if (stopControlDriver)
-            {
-                var info = DriverCreatorUtils.GetDriverInfo(obj, DriverCreatorAdapter.TypeFullNameAndControlDriver);
-                if (info != null && !info.SearchDescendantUserControls) return list;
-            }
+            if (IsStopSearch(obj, stopWindowOrUserControl, stopControlDriver, index)) return list;
 
             index++;
             foreach (var e in LogicalTreeHelper.GetChildren(obj))
@@ -108,7 +89,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             return 1 < count;
         }
 
-        private static IEnumerable<DependencyProperty> GetDependencyProperties(object obj)
+        static IEnumerable<DependencyProperty> GetDependencyProperties(object obj)
         {
             var list = new List<DependencyProperty>();
             var propertyDescriptors = TypeDescriptor.GetProperties(obj, new Attribute[] { new PropertyFilterAttribute(PropertyFilterOptions.All) });
@@ -121,6 +102,23 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                 }
             }
             return list;
+        }
+
+        static bool IsStopSearch(DependencyObject obj, bool stopWindowOrUserControl, bool stopControlDriver, int index)
+        {
+            if (stopWindowOrUserControl && (0 < index))
+            {
+                if (((obj is UserControl) || (obj is Page) || (obj is Window))) return true;
+                var info = DriverCreatorUtils.GetDriverInfo(obj, DriverCreatorAdapter.TypeFullNameAndUserControlDriver);
+                if (info != null) return true;
+            }
+
+            if (stopControlDriver)
+            {
+                var info = DriverCreatorUtils.GetDriverInfo(obj, DriverCreatorAdapter.TypeFullNameAndControlDriver);
+                if (info != null && !info.SearchDescendantUserControls) return true;
+            }
+            return false;
         }
     }
 }
