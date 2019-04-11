@@ -41,7 +41,7 @@ namespace RM.Friendly.WPFStandardControls
             switch (direction)
             {
                 case TreeRunDirection.Descendants:
-                    return GetVisualTreDescendants(start);
+                    return GetVisualTreeDescendants(start);
                 case TreeRunDirection.Ancestors:
                     return GetVisualTreeAncestor(start);
                 default:
@@ -77,14 +77,16 @@ namespace RM.Friendly.WPFStandardControls
             }
         }
 
-        static IEnumerable<DependencyObject> GetVisualTreDescendants(DependencyObject obj)
+        static IEnumerable<DependencyObject> GetVisualTreeDescendants(DependencyObject obj)
         {
             List<DependencyObject> list = new List<DependencyObject>();
             list.Add(obj);
             int count = VisualTreeHelper.GetChildrenCount(obj);
             for (int i = 0; i < count; i++)
             {
-                list.AddRange(GetVisualTreDescendants(VisualTreeHelper.GetChild(obj, i)));
+                var child = VisualTreeHelper.GetChild(obj, i);
+                if (child == null) continue;
+                list.AddRange(GetVisualTreeDescendants(child));
             }
             return list;
         }

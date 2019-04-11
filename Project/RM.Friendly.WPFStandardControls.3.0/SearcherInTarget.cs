@@ -140,9 +140,17 @@ namespace RM.Friendly.WPFStandardControls
             return false;
         }
 
+        //静的に決まるのでキャッシュしておく
+        static Dictionary<string, DependencyProperty[]> _cacheDependencyProperty = new Dictionary<string, DependencyProperty[]>();
+
         static IEnumerable<DependencyProperty> GetDependencyProperties(object obj)
         {
             List<DependencyProperty> list = new List<DependencyProperty>();
+            if (obj == null) return list;
+
+            var typeFullName = obj.GetType().FullName;
+            if (_cacheDependencyProperty.TryGetValue(typeFullName, out var value)) return value;
+
             PropertyDescriptorCollection propertyDescriptors =
                 TypeDescriptor.GetProperties(obj, new Attribute[] { new PropertyFilterAttribute(PropertyFilterOptions.All) });
             foreach (PropertyDescriptor property in propertyDescriptors)
@@ -153,7 +161,9 @@ namespace RM.Friendly.WPFStandardControls
                     list.Add(dpd.DependencyProperty);
                 }
             }
-            return list;
+            value = list.ToArray();
+            _cacheDependencyProperty[typeFullName] = value;
+            return value;
         }
     }
 }

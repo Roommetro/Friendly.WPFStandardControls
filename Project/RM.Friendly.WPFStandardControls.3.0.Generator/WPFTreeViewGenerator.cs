@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using Codeer.TestAssistant.GeneratorToolKit;
 using RM.Friendly.WPFStandardControls.Inside;
 using System.Windows;
+using System.Windows.Media;
 
 namespace RM.Friendly.WPFStandardControls.Generator
 {
@@ -19,7 +20,8 @@ namespace RM.Friendly.WPFStandardControls.Generator
             _control = ControlObject as TreeView;
             List<TreeViewItem> items = new List<TreeViewItem>();
             HeaderedItemsControlUtility.GetChildren(_control, items);
-            foreach (var element in items)
+            
+            foreach (var element in GetTreeChildren(_control, 0))
             {
                 var item = element;
                 string text = HeaderedItemsControlUtility.GetItemText(item);
@@ -30,7 +32,8 @@ namespace RM.Friendly.WPFStandardControls.Generator
 
                 RoutedEventHandler opened = (s, e) =>
                 {
-                    Expanded(item, new string[] { text });
+                    if (!ReferenceEquals(e.Source, item)) return;
+                    Expanded(item, true, new string[] { text });
                 };
                 item.Expanded += opened;
 
@@ -39,22 +42,18 @@ namespace RM.Friendly.WPFStandardControls.Generator
                     SelectedChanged(item, new string[] { text });
                 };
                 item.Selected += click;
-                item.Unselected += click;
 
                 _detach.Add(() =>
                 {
                     item.Expanded -= opened;
                     item.Selected -= click;
-                    item.Unselected -= click;
                 });
+
+                if (item.IsExpanded)
+                {
+                    Expanded(item, false, new string[] { text });
+                }
             }
-        }
-
-        private void Collapsed(TreeViewItem item, string[] texts)
-        {
-            AddSentence(new TokenName(), ".GetItem(" + MakeGetArgs(texts) + ").EmulateChangeExpanded(false",
-              new TokenAsync(CommaType.Non), ");");
-
         }
 
         protected override void Detach()
@@ -65,12 +64,41 @@ namespace RM.Friendly.WPFStandardControls.Generator
             }
         }
 
-        delegate void MyAction();
-
-        void Expanded(TreeViewItem parentItem, string[] texts)
+        static IEnumerable<TreeViewItem> GetTreeChildren(DependencyObject control, int index)
         {
-            AddSentence(new TokenName(), ".GetItem(" + MakeGetArgs(texts) + ").EmulateChangeExpanded(true",
+            var list = new List<TreeViewItem>();
+            if (index != 0)
+            {
+                var item = control as TreeViewItem;
+                if (item != null)
+                {
+                    list.Add(item);
+                    return list;
+                }
+            }
+            int count = VisualTreeHelper.GetChildrenCount(control);
+            for (int i = 0; i < count; i++)
+            {
+                var child = VisualTreeHelper.GetChild(control, i);
+                if (child == null) continue;
+                list.AddRange(GetTreeChildren(child, index + 1));
+            }
+            return list;
+        }
+
+        void Collapsed(TreeViewItem item, string[] texts)
+        {
+            AddSentence(new TokenName(), ".GetItem(" + MakeGetArgs(texts) + ").EmulateChangeExpanded(false",
               new TokenAsync(CommaType.Non), ");");
+        }
+
+        void Expanded(TreeViewItem parentItem, bool isInEvent, string[] texts)
+        {
+            if (isInEvent)
+            {
+                AddSentence(new TokenName(), ".GetItem(" + MakeGetArgs(texts) + ").EmulateChangeExpanded(true",
+                  new TokenAsync(CommaType.Non), ");");
+            }
 
             RoutedEventHandler closedForGenerate = null;
             closedForGenerate = (s, ee) =>
@@ -80,11 +108,15 @@ namespace RM.Friendly.WPFStandardControls.Generator
             };
             parentItem.Collapsed += closedForGenerate;
 
-            parentItem.Dispatcher.BeginInvoke((MyAction)delegate
+            //念のためにディタッチ時に全部削除
+            _detach.Add(() =>
             {
-                List<TreeViewItem> items = new List<TreeViewItem>();
-                HeaderedItemsControlUtility.GetChildren(parentItem, items);
-                foreach (var element in items)
+                parentItem.Collapsed -= closedForGenerate;
+            });
+
+            System.Windows.Forms.MethodInvoker eventConnection = () =>
+            {
+                foreach (var element in GetTreeChildren(parentItem, 0))
                 {
                     var item = element;
                     string text = HeaderedItemsControlUtility.GetItemText(item);
@@ -98,7 +130,8 @@ namespace RM.Friendly.WPFStandardControls.Generator
 
                     RoutedEventHandler opened = (s, e) =>
                     {
-                        Expanded(item, nextTexts.ToArray());
+                        if (!ReferenceEquals(e.Source, item)) return;
+                        Expanded(item, true, nextTexts.ToArray());
                     };
                     item.Expanded += opened;
 
@@ -107,30 +140,52 @@ namespace RM.Friendly.WPFStandardControls.Generator
                         SelectedChanged(item, nextTexts.ToArray());
                     };
                     item.Selected += click;
-                    item.Unselected += click;
-
 
                     RoutedEventHandler closed = null;
                     closed = (s, ee) =>
                     {
                         item.Expanded -= opened;
                         item.Selected -= click;
-                        item.Unselected -= click;
                         parentItem.Collapsed -= closed;
                     };
                     parentItem.Collapsed += closed;
+                    
+                    //念のためにディタッチ時に全部削除
+                    _detach.Add(() =>
+                    {
+                        item.Expanded -= opened;
+                        item.Selected -= click;
+                        parentItem.Collapsed -= closed;
+                    });
+
                 }
-            });
+            };
+
+            if (isInEvent)
+            {
+                var timer = new System.Windows.Forms.Timer { Interval = 1 };
+                timer.Tick += (_, __) =>
+                {
+                    eventConnection();
+                    timer.Stop();
+                };
+                timer.Start();
+            }
+            else
+            {
+                eventConnection();
+            }
         }
 
         void SelectedChanged(TreeViewItem item, string[] texts)
         {
+            if (!item.IsFocused) return;
             AddSentence(new TokenName(), ".GetItem(" + MakeGetArgs(texts) + ").EmulateChangeSelected(",
                 (item.IsSelected ? "true" : "false"),
                 new TokenAsync(CommaType.Non), ");");
         }
 
-        private static string MakeGetArgs(string[] texts)
+        static string MakeGetArgs(string[] texts)
         {
             StringBuilder getArgs = new StringBuilder();
             foreach (var element in texts)

@@ -61,18 +61,7 @@ namespace Test
             Assert.IsFalse(item0.IsSelected);
             Assert.IsTrue(item0_0.IsSelected);
         }
-
-        [TestMethod]
-        public void EmulteChangeSelectedAsyncTest()
-        {
-            WPFTreeViewItem item = new WPFTreeViewItem(_ctrl._item1);
-            Async async = new Async();
-            WindowControl windowControl = WindowControl.FromZTop(_app);
-            item.EmulateChangeSelected(true, async);
-            new NativeMessageBox(windowControl.WaitForNextModal()).EmulateButtonClick("OK");
-            async.WaitForCompletion();
-        }
-
+        
         [TestMethod]
         public void ExpandedTest()
         {

@@ -19,7 +19,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
             _control = (ComboBox)ControlObject;
             _control.SelectionChanged += SelectionChanged;
             
-            foreach (var e in GetVisualTreDescendants(_control))
+            foreach (var e in GetVisualTreeDescendants(_control))
             {
                 _textBox = e as TextBox;
                 if (_textBox != null) break;
@@ -59,14 +59,14 @@ namespace RM.Friendly.WPFStandardControls.Generator
             }
         }
 
-        static IEnumerable<DependencyObject> GetVisualTreDescendants(DependencyObject obj)
+        static IEnumerable<DependencyObject> GetVisualTreeDescendants(DependencyObject obj)
         {
             List<DependencyObject> list = new List<DependencyObject>();
             list.Add(obj);
             int count = VisualTreeHelper.GetChildrenCount(obj);
             for (int i = 0; i < count; i++)
             {
-                list.AddRange(GetVisualTreDescendants(VisualTreeHelper.GetChild(obj, i)));
+                list.AddRange(GetVisualTreeDescendants(VisualTreeHelper.GetChild(obj, i)));
             }
             return list;
         }

@@ -96,6 +96,7 @@
     <Compile Include="ButtonSearchTestControl.xaml.cs">
       <DependentUpon>ButtonSearchTestControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CaptureTest\Capture.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="GeneratorTest\CreateDriverTest.cs" />
     <Compile Include="ListBox.cs" />
@@ -250,9 +251,7 @@
   <ItemGroup>
     <None Include="Resources\NestedUserControl1_Driver.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CaptureTest\" />
-  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
