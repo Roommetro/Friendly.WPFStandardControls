@@ -3,6 +3,9 @@ using Codeer.Friendly.Windows;
 using Codeer.TestAssistant.GeneratorToolKit;
 using RM.Friendly.WPFStandardControls.Inside;
 using System;
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Automation;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
 using System.Windows.Controls;
@@ -76,23 +79,118 @@ namespace RM.Friendly.WPFStandardControls
 
         static TreeViewItem GetItemInTarget(TreeView tree, string[] headerTexts)
         {
-            return HeaderedItemsControlUtility.GetItem<TreeViewItem>(tree, headerTexts, ShowNextItem);
+            return GetItemEx(tree, tree, headerTexts, 0);
         }
 
         static TreeViewItem GetItemInTarget(TreeView tree, int[] indices)
         {
-            return HeaderedItemsControlUtility.GetItem<TreeViewItem>(tree, indices, ShowNextItem);
+            return GetItemEx(tree, tree, indices, 0);
         }
 
         static TreeViewItem GetSelectedItemInTarget(TreeView tree) => (TreeViewItem)tree.ItemContainerGenerator.ContainerFromItem(tree.SelectedItem);
 
         static void ShowNextItem(TreeViewItem item)
         {
+            if (item.IsExpanded) return;
             var peer = new TreeViewItemAutomationPeer(item);
             IExpandCollapseProvider expander = peer;
             expander.Expand();
             InvokeUtility.DoEvents();
         }
+
+        static TreeViewItem GetItemEx(TreeView tree, ItemsControl parent, string[] headerTexts, int index)
+        {
+            for (int i = 0; i < parent.Items.Count; i++)
+            {
+                var item = GetItemAndScrollIntoView(tree, parent, i);
+                var text = HeaderedItemsControlUtility.GetItemText(item);
+                if (text == headerTexts[index])
+                {
+                    if (index == headerTexts.Length - 1)
+                    {
+                        item.BringIntoView();
+                        return item;
+                    }
+                    else
+                    {
+                        ShowNextItem(item);
+                        return GetItemEx(tree, item, headerTexts, index + 1);
+                    }
+                }
+            }
+
+            throw new NotSupportedException(ResourcesLocal3.Instance.ErrorNotFoundItem);
+        }
+
+        static TreeViewItem GetItemEx(TreeView tree, ItemsControl parent, int[] headerTexts, int index)
+        {
+            var targetIndex = headerTexts[index];
+            if (parent.Items.Count <= targetIndex) throw new NotSupportedException(ResourcesLocal3.Instance.ErrorNotFoundItem);
+
+            var item = GetItemAndScrollIntoView(tree, parent, targetIndex);
+
+            if (index == headerTexts.Length - 1)
+            {
+                item.BringIntoView();
+                return item;
+            }
+            else
+            {
+                ShowNextItem(item);
+                return GetItemEx(tree, item, headerTexts, index + 1);
+            }
+        }
+
+        static TreeViewItem GetItemAndScrollIntoView(TreeView tree, ItemsControl parent, int i)
+        {
+            var peer = ItemsControlAutomationPeer.CreatePeerForElement(tree);
+            var scrollProvider = peer.GetPattern(PatternInterface.Scroll) as IScrollProvider;
+            var direction = ScrollAmount.SmallIncrement;
+            while (true)
+            {
+                var item = parent.ItemContainerGenerator.ContainerFromIndex(i) as TreeViewItem;
+                if (item != null)
+                {
+                    item.BringIntoView();
+                    InvokeUtility.DoEvents();
+                    return item;
+                }
+
+                if (scrollProvider.VerticalScrollPercent == 100)
+                {
+                    direction = ScrollAmount.SmallDecrement;
+                }
+                if (direction == ScrollAmount.SmallDecrement && scrollProvider.VerticalScrollPercent == 0)
+                {
+                    throw new NotSupportedException(ResourcesLocal3.Instance.ErrorNotFoundItem);
+                }
+                scrollProvider.Scroll(ScrollAmount.NoAmount, direction);
+                InvokeUtility.DoEvents();
+            }
+        }
+
+        static TreeViewItem[] GetTreeChildren(DependencyObject control, int index)
+        {
+            var list = new List<TreeViewItem>();
+            if (index != 0)
+            {
+                var item = control as TreeViewItem;
+                if (item != null)
+                {
+                    list.Add(item);
+                    return list.ToArray();
+                }
+            }
+            int count = VisualTreeHelper.GetChildrenCount(control);
+            for (int i = 0; i < count; i++)
+            {
+                var child = VisualTreeHelper.GetChild(control, i);
+                if (child == null) continue;
+                list.AddRange(GetTreeChildren(child, index + 1));
+            }
+            return list.ToArray();
+        }
+
     }
 
 #if ENG
