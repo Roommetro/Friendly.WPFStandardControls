@@ -4,7 +4,6 @@ using System.Windows.Controls;
 using Codeer.TestAssistant.GeneratorToolKit;
 using RM.Friendly.WPFStandardControls.Inside;
 using System.Windows;
-using System.Windows.Media;
 
 namespace RM.Friendly.WPFStandardControls.Generator
 {
@@ -14,167 +13,122 @@ namespace RM.Friendly.WPFStandardControls.Generator
         TreeView _control;
         delegate void DetachEvent();
         List<DetachEvent> _detach = new List<DetachEvent>();
+        List<TreeViewItem> _attachedItems = new List<TreeViewItem>();
+
+        protected override void Detach()
+        {
+            foreach (var e in _detach)
+            {
+                e();
+            }
+        }
 
         protected override void Attach()
         {
             _control = ControlObject as TreeView;
-            List<TreeViewItem> items = new List<TreeViewItem>();
-            HeaderedItemsControlUtility.GetChildren(_control, items);
-            
-            foreach (var element in GetTreeChildren(_control, 0))
-            {
-                var item = element;
-                string text = HeaderedItemsControlUtility.GetItemText(item);
-                if (string.IsNullOrEmpty(text))
-                {
-                    continue;
-                }
-
-                RoutedEventHandler opened = (s, e) =>
-                {
-                    if (!ReferenceEquals(e.Source, item)) return;
-                    Expanded(item, true, new string[] { text });
-                };
-                item.Expanded += opened;
-
-                RoutedEventHandler click = (s, e) =>
-                {
-                    SelectedChanged(item, new string[] { text });
-                };
-                item.Selected += click;
-
-                _detach.Add(() =>
-                {
-                    item.Expanded -= opened;
-                    item.Selected -= click;
-                });
-
-                if (item.IsExpanded)
-                {
-                    Expanded(item, false, new string[] { text });
-                }
-            }
+            AttachChildren(new string[0], _control);
         }
 
-        protected override void Detach()
+        void AttachChildren(string[] texts, ItemsControl itemsControl)
         {
-            foreach (var element in _detach)
+            //仮想化対応 50ミリ周期でイベントハンドリングしていないTreeViewItemを監視する
+            //初回はすぐに実行されるようにする
+            var timer = new System.Windows.Forms.Timer { Interval = 1 };
+            int[] next = null;
+
+            System.Windows.Forms.MethodInvoker eventConnection = () =>
             {
-                element();
-            }
+                timer.Interval = 50;
+
+                //子要素取得
+                var exists = GetTreeChildren(itemsControl, next, out var notExists);
+                foreach (var item in exists)
+                {
+                    string text = HeaderedItemsControlUtility.GetItemText(item);
+
+                    List<string> nextTexts = new List<string>(texts);
+                    nextTexts.Add(text);
+                    EventConnection(item, false, nextTexts.ToArray());
+                }
+
+                //仮想化でまだ存在していない要素があればそれを監視させる
+                next = notExists;
+
+                //全てアタッチしたら終了
+                if (next.Length == 0)
+                {
+                    timer?.Stop();
+                }
+            };
+
+            //タイマ処理
+            timer.Tick += (_, __) =>
+            {
+                try
+                {
+                    eventConnection();
+                }
+                catch
+                {
+                    timer.Stop();
+                }
+            };
+            timer.Start();
         }
 
-        static IEnumerable<TreeViewItem> GetTreeChildren(DependencyObject control, int index)
+        void EventConnection(TreeViewItem item, bool isInEvent, string[] texts)
         {
-            var list = new List<TreeViewItem>();
-            if (index != 0)
+            //既に処理した要素は無視
+            if (_attachedItems.Contains(item)) return;
+            _attachedItems.Add(item);
+
+            if (isInEvent)
             {
-                var item = control as TreeViewItem;
-                if (item != null)
-                {
-                    list.Add(item);
-                    return list;
-                }
             }
-            int count = VisualTreeHelper.GetChildrenCount(control);
-            for (int i = 0; i < count; i++)
+
+            //Expandedイベント
+            RoutedEventHandler opened = (s, e) =>
             {
-                var child = VisualTreeHelper.GetChild(control, i);
-                if (child == null) continue;
-                list.AddRange(GetTreeChildren(child, index + 1));
+                if (!ReferenceEquals(e.Source, item)) return;
+                AddSentence(new TokenName(), ".GetItem(" + MakeGetArgs(texts) + ").EmulateChangeExpanded(true",
+                  new TokenAsync(CommaType.Non), ");");
+
+                AttachChildren(texts, item);
+            };
+            item.Expanded += opened;
+
+            //選択イベント
+            RoutedEventHandler selected = (s, e) =>
+            {
+                SelectedChanged(item, texts);
+            };
+            item.Selected += selected;
+
+            RoutedEventHandler closedForGenerate = (s, ee) =>
+            {
+                Collapsed(item, texts);
+            };
+            item.Collapsed += closedForGenerate;
+
+            //イベント削除用に記憶
+            _detach.Add(() =>
+            {
+                item.Expanded -= opened;
+                item.Selected -= selected;
+                item.Collapsed -= closedForGenerate;
+            });
+
+            //開いている場合は子要素にも同様の処理を行う
+            if (item.IsExpanded)
+            {
+                AttachChildren(texts, item);
             }
-            return list;
         }
 
         void Collapsed(TreeViewItem item, string[] texts)
         {
             AddSentence(new TokenName(), ".GetItem(" + MakeGetArgs(texts) + ").EmulateChangeExpanded(false",
               new TokenAsync(CommaType.Non), ");");
-        }
-
-        void Expanded(TreeViewItem parentItem, bool isInEvent, string[] texts)
-        {
-            if (isInEvent)
-            {
-                AddSentence(new TokenName(), ".GetItem(" + MakeGetArgs(texts) + ").EmulateChangeExpanded(true",
-                  new TokenAsync(CommaType.Non), ");");
-            }
-
-            RoutedEventHandler closedForGenerate = null;
-            closedForGenerate = (s, ee) =>
-            {
-                Collapsed(parentItem, texts);
-                parentItem.Collapsed -= closedForGenerate;
-            };
-            parentItem.Collapsed += closedForGenerate;
-
-            //念のためにディタッチ時に全部削除
-            _detach.Add(() =>
-            {
-                parentItem.Collapsed -= closedForGenerate;
-            });
-
-            System.Windows.Forms.MethodInvoker eventConnection = () =>
-            {
-                foreach (var element in GetTreeChildren(parentItem, 0))
-                {
-                    var item = element;
-                    string text = HeaderedItemsControlUtility.GetItemText(item);
-                    if (string.IsNullOrEmpty(text))
-                    {
-                        continue;
-                    }
-
-                    List<string> nextTexts = new List<string>(texts);
-                    nextTexts.Add(text);
-
-                    RoutedEventHandler opened = (s, e) =>
-                    {
-                        if (!ReferenceEquals(e.Source, item)) return;
-                        Expanded(item, true, nextTexts.ToArray());
-                    };
-                    item.Expanded += opened;
-
-                    RoutedEventHandler click = (s, e) =>
-                    {
-                        SelectedChanged(item, nextTexts.ToArray());
-                    };
-                    item.Selected += click;
-
-                    RoutedEventHandler closed = null;
-                    closed = (s, ee) =>
-                    {
-                        item.Expanded -= opened;
-                        item.Selected -= click;
-                        parentItem.Collapsed -= closed;
-                    };
-                    parentItem.Collapsed += closed;
-                    
-                    //念のためにディタッチ時に全部削除
-                    _detach.Add(() =>
-                    {
-                        item.Expanded -= opened;
-                        item.Selected -= click;
-                        parentItem.Collapsed -= closed;
-                    });
-
-                }
-            };
-
-            if (isInEvent)
-            {
-                var timer = new System.Windows.Forms.Timer { Interval = 1 };
-                timer.Tick += (_, __) =>
-                {
-                    eventConnection();
-                    timer.Stop();
-                };
-                timer.Start();
-            }
-            else
-            {
-                eventConnection();
-            }
         }
 
         void SelectedChanged(TreeViewItem item, string[] texts)
@@ -197,6 +151,35 @@ namespace RM.Friendly.WPFStandardControls.Generator
                 getArgs.Append(GenerateUtility.ToLiteral(element));
             }
             return getArgs.ToString();
+        }
+
+        static TreeViewItem[] GetTreeChildren(ItemsControl control, int[] idnexes, out int[] notExists)
+        {
+            var listNotExists = new List<int>();
+            var list = new List<TreeViewItem>();
+            if (idnexes == null)
+            {
+                var allIndexes = new List<int>();
+                for (int i = 0; i < control.Items.Count; i++)
+                {
+                    allIndexes.Add(i);
+                }
+                idnexes = allIndexes.ToArray();
+            }
+            foreach (var i in idnexes)
+            {
+                var item = control.ItemContainerGenerator.ContainerFromIndex(i) as TreeViewItem;
+                if (item == null)
+                {
+                    listNotExists.Add(i);
+                }
+                else
+                {
+                    list.Add(item);
+                }
+            }
+            notExists = listNotExists.ToArray();
+            return list.ToArray();
         }
     }
 }
