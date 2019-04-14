@@ -13,7 +13,7 @@ namespace RM.Friendly.WPFStandardControls.Inside
         public static void DoEvents()
         {
             DispatcherFrame frame = new DispatcherFrame();
-            Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Background,
+            Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle,
                 new DispatcherOperationCallback(ExitFrames), frame);
             Dispatcher.PushFrame(frame);
         }
