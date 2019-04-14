@@ -66,7 +66,6 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="UIAutomationClient" />
     <Reference Include="UIAutomationClientsideProviders" />
     <Reference Include="UIAutomationProvider" />
@@ -81,8 +80,6 @@
     <Compile Include="ContentControlSearcher.cs" />
     <Compile Include="ContentControlSearcherInTarget.cs" />
     <Compile Include="Inside\CastUtility.cs" />
-    <Compile Include="Inside\NativeMethods.cs" />
-    <Compile Include="Inside\SendInputEx.cs" />
     <Compile Include="IWPFDependencyObjectCollection.cs" />
     <Compile Include="Searcher.cs" />
     <Compile Include="SearcherInTarget.cs" />

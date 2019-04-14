@@ -23,8 +23,7 @@ namespace RM.Friendly.WPFStandardControls
     public class WPFContextMenuItem
     {
         AppVar _target;
-        object[] _indices;
-        bool _openByKey;
+        int[] _indices;
 #if ENG
         /// <summary>
         /// Returns the control's check state.
@@ -93,11 +92,10 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="target">コンテキストメニューを開くときにフォーカスの当たっている要素。</param>
         /// <param name="indices">目的のアイテムまでの各階層でのインデックスの配列です。</param>
 #endif
-        internal WPFContextMenuItem(AppVar target, bool openByKey, object[] indices)
+        internal WPFContextMenuItem(AppVar target, int[] indices)
         {
             _target = target;
             _indices = indices;
-            _openByKey = openByKey;
         }
 
 #if ENG
@@ -113,16 +111,15 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public WPFContextMenuItem[] GetItems()
         {
-            
             using (var item = GetItem())
             {
                 var count = (int)item.Item.App[typeof(WPFContextMenuItem), "GetItemCount"](item.Item).Core;
                 var items = new WPFContextMenuItem[count];
                 for (int i = 0; i < count; i++)
                 {
-                    var next = new List<object>(_indices);
+                    var next = new List<int>(_indices);
                     next.Add(i);
-                    items[i] = new WPFContextMenuItem(_target, _openByKey, next.ToArray());
+                    items[i] = new WPFContextMenuItem(_target, next.ToArray());
                 }
                 return items;
             }
@@ -184,7 +181,7 @@ namespace RM.Friendly.WPFStandardControls
             item.Focus();
             invoker.Invoke();
             InvokeUtility.DoEvents();
-            if (clean != null) clean();
+            clean();
         }
 
         class DynamicMenuItem : IDisposable
@@ -193,7 +190,7 @@ namespace RM.Friendly.WPFStandardControls
             internal AppVar Clean { get; set; }
             public void Dispose()
             {
-                if (Clean != null && !Clean.IsNull)
+                if (Clean != null)
                 {
                     Clean["Invoke"]();
                     Clean = null;
@@ -204,13 +201,13 @@ namespace RM.Friendly.WPFStandardControls
         DynamicMenuItem GetItem()
         {
             AppVar clean = _target.App.Dim();
-            var item = _target.App[typeof(WPFContextMenuItem), "GetItemInTarget"](_target, _openByKey, _indices, clean);
+            var item = _target.App[typeof(WPFContextMenuItem), "GetItemInTarget"](_target, _indices, clean);
             return new DynamicMenuItem() { Item = new WPFMenuItem(item), Clean = clean };
         }
 
-        static MenuItem GetItemInTarget(UIElement target, bool openByKey, object[] indices, out WPFContextMenu.Clean cleaner)
+        static MenuItem GetItemInTarget(UIElement target, int[] indices, out WPFContextMenu.Clean cleaner)
         {
-            var menu = WPFContextMenu.OpenMenu(target, openByKey, out cleaner);
+            var menu = WPFContextMenu.OpenMenu(target, out cleaner);
             var item = HeaderedItemsControlUtility.GetItem<MenuItem>(menu, indices, ShowNextItem);
             return item;
         }

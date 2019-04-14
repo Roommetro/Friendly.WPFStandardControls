@@ -93,7 +93,6 @@
     <Compile Include="WPFListViewGenerator.cs" />
     <Compile Include="WPFButtonBaseGenerator.cs" />
     <Compile Include="WPFControlIdentifyCodeGenerator.cs" />
-    <Compile Include="WPFContextMenuGenerator.cs" />
     <Compile Include="WPFMenuBaseGenerator.cs" />
     <Compile Include="WPFMenuItemGenerator.cs" />
     <Compile Include="WPFRichTextBoxGenerator.cs" />

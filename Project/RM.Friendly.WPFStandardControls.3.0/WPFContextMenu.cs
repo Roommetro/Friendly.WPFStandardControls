@@ -25,21 +25,10 @@ namespace RM.Friendly.WPFStandardControls
     /// </summary>
 #endif
     [ControlDriver(TypeFullName = "System.Windows.Controls.ContextMenu", DriverMappingEnabled = false)]
-    public class WPFContextMenu : IAppVarOwner
+    public class WPFContextMenu
     {
         internal delegate void Clean();
         AppVar _target;
-
-#if ENG
-        /// <summary>
-        /// Open the menu by key?
-        /// </summary>
-#else
-        /// <summary>
-        /// キーでメニューを開くか
-        /// </summary>
-#endif
-        public bool OpenByKey { get; set; } = true;
 
 #if ENG
         /// <summary>
@@ -53,23 +42,12 @@ namespace RM.Friendly.WPFStandardControls
         public AppVar Target
         {
             get { return _target; }
-            set
+            set 
             {
                 _target = value;
                 WPFStandardControls_3.Injection((WindowsAppFriend)_target.App);
             }
         }
-
-#if ENG
-        /// <summary>
-        /// ContextMenu.
-        /// </summary>
-#else
-        /// <summary>
-        /// コンテキストメニュー
-        /// </summary>
-#endif
-        public AppVar AppVar => Target.App[typeof(WPFContextMenu), "GetContextMenu"](Target);
 
 #if ENG
         /// <summary>
@@ -86,7 +64,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public WPFContextMenuItem GetItem(params int[] indices)
         {
-            return new WPFContextMenuItem(Target, OpenByKey, ToObjectArray(indices));
+            return new WPFContextMenuItem(Target, indices);
         }
 
 #if ENG
@@ -104,17 +82,9 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public WPFContextMenuItem GetItem(params string[] headerTexts)
         {
-            return new WPFContextMenuItem(Target, OpenByKey, ToObjectArray(headerTexts));
-        }
-
-        static object[] ToObjectArray<T>(T[] src)
-        {
-            var dst = new object[src.Length];
-            for (int i = 0; i < src.Length; i++)
-            {
-                dst[i] = src[i];
-            }
-            return dst;
+            AppVar clean = Target.App.Dim();
+            var indices = (int[])Target.App[typeof(WPFContextMenu), "GetIndices"](Target, headerTexts).Core;
+            return new WPFContextMenuItem(Target, indices);
         }
 
 #if ENG
@@ -130,21 +100,21 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public WPFContextMenuItem[] GetItems() 
         {
-            var count = (int)Target.App[typeof(WPFContextMenu), "GetItemCount"](Target, OpenByKey).Core;
+            var count = (int)Target.App[typeof(WPFContextMenu), "GetItemCount"](Target).Core;
             var items = new WPFContextMenuItem[count];
             for (int i = 0; i < count; i++) 
             {
-                items[i] = new WPFContextMenuItem(Target, OpenByKey, new object[] { i });
+                items[i] = new WPFContextMenuItem(Target, new int[] { i });
             }
             return items;
         }
 
-        internal static int GetItemCount(UIElement target, bool openByKey)
+        internal static int GetItemCount(UIElement target)
         {
             Clean cleaner = null;
             try
             {
-                var menu = OpenMenu(target, openByKey, out cleaner);
+                var menu = OpenMenu(target, out cleaner);
                 int count = 0;
                 foreach (var e in SearcherInTarget.ByType<MenuItem>(TreeUtilityInTarget.VisualTree(menu))) 
                 {
@@ -161,21 +131,55 @@ namespace RM.Friendly.WPFStandardControls
             }
         }
 
-        static ContextMenu GetContextMenu(UIElement target)
+        static int[] GetIndices(UIElement target, string[] headerTexts)
         {
-            var tree = TreeUtilityInTarget.VisualTree(target, TreeRunDirection.Ancestors);
-            foreach (var e in tree)
+            Clean cleaner = null;
+            try
             {
-                var f = e as FrameworkElement;
-                if (f != null && f.ContextMenu != null)
+                var menu = OpenMenu(target, out cleaner);
+                int[] indices = new int[headerTexts.Length];
+                GetIndices(SearcherInTarget.ByType<MenuItem>(TreeUtilityInTarget.VisualTree(menu)), headerTexts, indices, 0);
+                return indices;
+            }
+            finally
+            {
+                if (cleaner != null) 
                 {
-                    return f.ContextMenu;
+                    cleaner();
                 }
             }
-            throw new NotSupportedException();
         }
 
-        internal static ContextMenu OpenMenu(UIElement target, bool openByKey, out Clean cleaner)
+        static void GetIndices(IEnumerable<MenuItem> items, string[] headerTexts, int[] indices, int index)
+        {
+            int i = 0;
+            foreach (var e in items)
+            {
+                if (e.Header.ToString() == headerTexts[index])
+                {
+                    indices[index] = i;
+                    if (index == indices.Length - 1)
+                    {
+                        return;
+                    }
+
+                    //次のメニューを開く
+                    IInvokeProvider invoker = new MenuItemAutomationPeer(e);
+                    invoker.Invoke();
+
+                    foreach (var popup in SearcherInTarget.ByType<Popup>(TreeUtilityInTarget.VisualTree(e)))
+                    {
+                        GetIndices(SearcherInTarget.ByType<MenuItem>(TreeUtilityInTarget.VisualTree(popup.Child)), headerTexts, indices, index + 1);
+                        return;
+                    }
+                    break;
+                }
+                i++;
+            }
+            throw new NotSupportedException(ResourcesLocal3.Instance.ErrorNotFoundItem);
+        }
+
+        internal static ContextMenu OpenMenu(UIElement target, out Clean cleaner)
         {
             cleaner = null;
 
@@ -195,41 +199,32 @@ namespace RM.Friendly.WPFStandardControls
                 throw new NotSupportedException();
             }
             var menu = owner.ContextMenu;
+            int count = menu.CommandBindings.Count;
 
-            if (openByKey)
+            foreach (var e in TreeUtilityInTarget.VisualTree(target, TreeRunDirection.Ancestors))
             {
-                target.Focus();
-                SendInputEx.SendKey(System.Windows.Forms.Keys.Apps);
-            }
-            else
-            {
-                int count = menu.CommandBindings.Count;
-
-                foreach (var e in TreeUtilityInTarget.VisualTree(target, TreeRunDirection.Ancestors))
+                var u = e as UIElement;
+                if (u != null && u.CommandBindings != null)
                 {
-                    var u = e as UIElement;
-                    if (u != null && u.CommandBindings != null)
+                    foreach (CommandBinding command in u.CommandBindings)
                     {
-                        foreach (CommandBinding command in u.CommandBindings)
-                        {
-                            menu.CommandBindings.Add(command);
-                        }
+                        menu.CommandBindings.Add(command);
                     }
                 }
-                target.Focus();
-                menu.IsOpen = true;
-                InvokeUtility.DoEvents();
-
-                //数を元に戻す
-                cleaner = () =>
-                {
-                    while (count < menu.CommandBindings.Count)
-                    {
-                        menu.CommandBindings.RemoveAt(menu.CommandBindings.Count - 1);
-                    }
-                    menu.IsOpen = false;
-                };
             }
+            target.Focus();
+            menu.IsOpen = true;
+            InvokeUtility.DoEvents();
+
+            //数を元に戻す
+            cleaner = () =>
+            {
+                while (count < menu.CommandBindings.Count)
+                {
+                    menu.CommandBindings.RemoveAt(menu.CommandBindings.Count - 1);
+                }
+                menu.IsOpen = false;
+            };
 
             return menu;
         }
