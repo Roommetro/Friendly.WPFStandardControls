@@ -91,7 +91,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
             {
                 if (!ReferenceEquals(e.Source, item)) return;
                 AddSentence(new TokenName(), ".GetItem(" + MakeGetArgs(texts) + ").EmulateChangeExpanded(true",
-                  new TokenAsync(CommaType.Non), ");");
+                  new TokenAsync(CommaType.Before), ");");
 
                 AttachChildren(texts, item);
             };
@@ -128,7 +128,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
         void Collapsed(TreeViewItem item, string[] texts)
         {
             AddSentence(new TokenName(), ".GetItem(" + MakeGetArgs(texts) + ").EmulateChangeExpanded(false",
-              new TokenAsync(CommaType.Non), ");");
+              new TokenAsync(CommaType.Before), ");");
         }
 
         void SelectedChanged(TreeViewItem item, string[] texts)
@@ -136,7 +136,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
             if (!item.IsFocused) return;
             AddSentence(new TokenName(), ".GetItem(" + MakeGetArgs(texts) + ").EmulateChangeSelected(",
                 (item.IsSelected ? "true" : "false"),
-                new TokenAsync(CommaType.Non), ");");
+                new TokenAsync(CommaType.Before), ");");
         }
 
         static string MakeGetArgs(string[] texts)

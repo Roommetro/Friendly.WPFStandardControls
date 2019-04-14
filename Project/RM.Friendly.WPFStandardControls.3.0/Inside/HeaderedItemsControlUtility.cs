@@ -96,6 +96,30 @@ namespace RM.Friendly.WPFStandardControls.Inside
             return GetItem<TItem, int>(parent, indices, getItem, showNextItem);
         }
 
+        internal static TItem GetItem<TItem>(Visual parent, object[] indices, ShowNextItem<TItem> showNextItem) where TItem : Visual
+        {
+            GetItemDelegate<TItem, object> getItem = (visual, obj) =>
+            {
+                int currentIndex = 0;
+                IsMatch<TItem> isMatch = (v) => 
+                {
+                    if (obj is int)
+                    {
+                        return (currentIndex++ == (int)obj);
+                    }
+                    else if (obj is string)
+                    {
+                        return (GetItemText(v) == (string)obj);
+                    }
+                    throw new NotSupportedException();
+                };
+                Next<TItem> next = null;
+                next = (v) => GetItemCore(v, isMatch, next);
+                return GetItemCore(visual, isMatch, next);
+            };
+            return GetItem<TItem, object>(parent, indices, getItem, showNextItem);
+        }
+
         static TItem GetItem<TItem, T>(Visual parent, T[] indices, GetItemDelegate<TItem, T> getItem, ShowNextItem<TItem> showNextItem)
             where TItem : Visual
         {
