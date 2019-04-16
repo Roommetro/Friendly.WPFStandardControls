@@ -10,12 +10,13 @@ using System.Windows.Media;
 namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
 {
     //TODO 多分いらないコードが多い
+    //リファクタリングが必要
     internal static class WPFUtility
     {
         public static List<DependencyObject> GetVisualTreeDescendants(DependencyObject obj, bool stopWindowOrUserControl, bool stopControlDriver, int index)
         {
             var list = new List<DependencyObject> { obj };
-            if (IsStopSearch(obj, stopWindowOrUserControl, stopControlDriver, index)) return list;
+            if (index != 0 && IsStopSearch(obj, stopWindowOrUserControl, stopControlDriver, index)) return list;
 
             index++;
             int count = VisualTreeHelper.GetChildrenCount(obj);
@@ -40,7 +41,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
         public static List<DependencyObject> GetLogicalTreeDescendants(DependencyObject obj, bool stopWindowOrUserControl, bool stopControlDriver, int index)
         {
             var list = new List<DependencyObject> { obj };
-            if (IsStopSearch(obj, stopWindowOrUserControl, stopControlDriver, index)) return list;
+            if (index != 0 && IsStopSearch(obj, stopWindowOrUserControl, stopControlDriver, index)) return list;
 
             index++;
             foreach (var e in LogicalTreeHelper.GetChildren(obj))

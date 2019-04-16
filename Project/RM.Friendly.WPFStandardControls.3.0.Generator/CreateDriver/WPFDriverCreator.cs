@@ -110,11 +110,13 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
         private class ControlAndDefine
         {
             public DependencyObject Control { get; }
+            public string Name { get; }
             public string Define { get; }
 
-            public ControlAndDefine(DependencyObject control, string define)
+            public ControlAndDefine(DependencyObject control, string name, string define)
             {
                 Control = control;
+                Name = name;
                 Define = define;
             }
         }
@@ -150,7 +152,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                     var typeName = DriverCreatorUtils.GetTypeName(driver);
                     var nameSpace = DriverCreatorUtils.GetTypeNamespace(driver);
                     var key = $"Core.Dynamic().{e.Name}";
-                    controlAndDefines.Add(new ControlAndDefine(e.Control, $"public {typeName} {name} => new {typeName}({key});"));
+                    controlAndDefines.Add(new ControlAndDefine(e.Control, name, $"public {typeName} {name} => new {typeName}({key});"));
                     DriverCreatorAdapter.AddCodeLineSelectInfo(fileName, key, e.Control);
                     if (!driverInfo.Usings.Contains(nameSpace)) driverInfo.Usings.Add(nameSpace);
                 }
@@ -162,7 +164,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                     var name = _customNameGenerator.MakeDriverPropName(e.Control, e.Name, names);
                     var typeName = _driverTypeNameManager.MakeDriverType(e.Control, out var nameSpace);
                     var key = $"Core.Dynamic().{e.Name}";
-                    controlAndDefines.Add(new ControlAndDefine(e.Control, $"public {typeName} {name} => new {typeName}({key});"));
+                    controlAndDefines.Add(new ControlAndDefine(e.Control, name, $"public {typeName} {name} => new {typeName}({key});"));
                     if (!string.IsNullOrEmpty(nameSpace) && (nameSpace != DriverCreatorAdapter.SelectedNamespace) && !driverInfo.Usings.Contains(nameSpace)) driverInfo.Usings.Add(nameSpace);
                     DriverCreatorAdapter.AddCodeLineSelectInfo(fileName, key, e.Control);
                 }
@@ -182,9 +184,18 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             }
             catch { }
 
+            //コンテキストメニュー特別処理
             foreach (var e in controlAndDefines)
             {
                 driverInfo.Members.Add(e.Define);
+                var frameworkElement = e.Control as FrameworkElement;
+                if (frameworkElement != null && frameworkElement.ContextMenu != null)
+                {
+                    var core = (frameworkElement is Window || frameworkElement is UserControl || frameworkElement is Page) ?
+                                ".Core" : string.Empty;
+                    var code = $"public WPFContextMenu {e.Name}ContextMenu => new WPFContextMenu{{Target = {e.Name}{core}.AppVar}};";
+                    driverInfo.Members.Add(code);
+                }
             }
 
             return driverInfo;
@@ -217,7 +228,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                         {
                             code += $" {TodoComment}";
                         }
-                        controlAndDefines.Add(new ControlAndDefine(ctrl, code));
+                        controlAndDefines.Add(new ControlAndDefine(ctrl, name, code));
                         mappedControls.Add(ctrl);
                         DriverCreatorAdapter.AddCodeLineSelectInfo(fileName, getter, ctrl);
                         if (!driverInfo.Usings.Contains(nameSpace)) driverInfo.Usings.Add(nameSpace);
