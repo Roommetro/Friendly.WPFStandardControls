@@ -15,6 +15,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
     {
         public static List<DependencyObject> GetVisualTreeDescendants(DependencyObject obj, bool stopWindowOrUserControl, bool stopControlDriver, int index)
         {
+            if (obj == null) return new List<DependencyObject>();
             var list = new List<DependencyObject> { obj };
             if (index != 0 && IsStopSearch(obj, stopWindowOrUserControl, stopControlDriver, index)) return list;
 

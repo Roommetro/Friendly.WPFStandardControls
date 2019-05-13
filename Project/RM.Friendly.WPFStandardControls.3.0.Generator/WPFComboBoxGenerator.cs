@@ -63,6 +63,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
         static IEnumerable<DependencyObject> GetVisualTreeDescendants(DependencyObject obj)
         {
             List<DependencyObject> list = new List<DependencyObject>();
+            if (obj == null) return list;
             list.Add(obj);
             int count = VisualTreeHelper.GetChildrenCount(obj);
             for (int i = 0; i < count; i++)

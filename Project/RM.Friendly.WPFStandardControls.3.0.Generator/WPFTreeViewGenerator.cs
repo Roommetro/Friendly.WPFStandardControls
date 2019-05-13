@@ -90,9 +90,11 @@ namespace RM.Friendly.WPFStandardControls.Generator
             RoutedEventHandler opened = (s, e) =>
             {
                 if (!ReferenceEquals(e.Source, item)) return;
-                AddSentence(new TokenName(), ".GetItem(" + MakeGetArgs(texts) + ").EmulateChangeExpanded(true",
-                  new TokenAsync(CommaType.Before), ");");
-
+                if (HasFocus())
+                {
+                    AddSentence(new TokenName(), ".GetItem(" + MakeGetArgs(texts) + ").EmulateChangeExpanded(true",
+                        new TokenAsync(CommaType.Before), ");");
+                }
                 AttachChildren(texts, item);
             };
             item.Expanded += opened;
@@ -127,6 +129,9 @@ namespace RM.Friendly.WPFStandardControls.Generator
 
         void Collapsed(TreeViewItem item, string[] texts)
         {
+            if (item.IsExpanded) return;
+            if (!HasFocus()) return;
+
             AddSentence(new TokenName(), ".GetItem(" + MakeGetArgs(texts) + ").EmulateChangeExpanded(false",
               new TokenAsync(CommaType.Before), ");");
         }
@@ -180,6 +185,17 @@ namespace RM.Friendly.WPFStandardControls.Generator
             }
             notExists = listNotExists.ToArray();
             return list.ToArray();
+        }
+
+        bool HasFocus()
+        {
+            foreach (var e in TreeUtilityInTarget.VisualTree(_control))
+            {
+                var uielement = e as UIElement;
+                if (uielement == null) continue;
+                if (uielement.IsFocused) return true;
+            }
+            return false;
         }
     }
 }

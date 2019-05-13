@@ -198,7 +198,10 @@ namespace RM.Friendly.WPFStandardControls
 
             if (openByKey)
             {
-                target.Focus();
+                if (!HasFocus(target))
+                {
+                    target.Focus();
+                }
                 SendInputEx.SendKey(System.Windows.Forms.Keys.Apps);
             }
             else
@@ -216,7 +219,10 @@ namespace RM.Friendly.WPFStandardControls
                         }
                     }
                 }
-                target.Focus();
+                if (!HasFocus(target))
+                {
+                    target.Focus();
+                }
                 menu.IsOpen = true;
                 InvokeUtility.DoEvents();
 
@@ -232,6 +238,17 @@ namespace RM.Friendly.WPFStandardControls
             }
 
             return menu;
+        }
+
+        static bool HasFocus(Visual visual)
+        {
+            foreach (var e in TreeUtilityInTarget.VisualTree(visual))
+            {
+                var uielement = e as UIElement;
+                if (uielement == null) continue;
+                if (uielement.IsFocused) return true;
+            }
+            return false;
         }
     }
 }

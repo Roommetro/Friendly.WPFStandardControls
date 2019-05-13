@@ -12,7 +12,7 @@ namespace RM.Friendly.WPFStandardControls
     /// DependencyObjectのコレクションです。
     /// </summary>
 #endif
-    public interface IWPFDependencyObjectCollection<out T> where T : DependencyObject
+    public interface IWPFDependencyObjectCollection<out T> : IAppVarOwner where T : DependencyObject
     {
 #if ENG
         /// <summary>
