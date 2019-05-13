@@ -156,7 +156,7 @@ namespace RM.Friendly.WPFStandardControls
         public void EmulateClick()
         {
             var item = GetItem();
-            _target.App[typeof(InvokeUtility), "DoEvents"]();
+            MoveCursorToItemCenter(item);
             _target.App[typeof(WPFContextMenuItem), "EmulateClick"](item.Item, item.Clean);
         }
 
@@ -176,7 +176,16 @@ namespace RM.Friendly.WPFStandardControls
         public void EmulateClick(Async async)
         {
             var item = GetItem();
+            MoveCursorToItemCenter(item);
             _target.App[typeof(WPFContextMenuItem), "EmulateClick", async](item.Item, item.Clean);
+        }
+
+        static void MoveCursorToItemCenter(DynamicMenuItem item)
+        {
+            var size = (Size)item.Item["RenderSize"]().Core;
+            var pos = (Point)item.Item["PointToScreen"](new Point((int)size.Width / 2, (int)size.Height / 2)).Core;
+            System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)pos.X, (int)pos.Y);
+            item.Item.App[typeof(InvokeUtility), "DoEvents"]();
         }
 
         static void EmulateClick(MenuItem item, WPFContextMenu.Clean clean)
