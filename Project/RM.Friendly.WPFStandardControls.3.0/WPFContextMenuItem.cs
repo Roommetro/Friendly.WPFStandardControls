@@ -156,6 +156,7 @@ namespace RM.Friendly.WPFStandardControls
         public void EmulateClick()
         {
             var item = GetItem();
+            _target.App[typeof(InvokeUtility), "DoEvents"]();
             _target.App[typeof(WPFContextMenuItem), "EmulateClick"](item.Item, item.Clean);
         }
 

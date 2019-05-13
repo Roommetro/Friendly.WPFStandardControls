@@ -49,6 +49,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
         public override void Optimize(List<Sentence> code)
         {
             GenerateUtility.RemoveDuplicationFunction(this, code, "TextBox.EmulateChangeText");
+            GenerateUtility.RemoveDuplicationFunction(this, code, "EmulateChangeSelectedIndex");
         }
 
         void SelectionChanged(object sender, EventArgs e)
