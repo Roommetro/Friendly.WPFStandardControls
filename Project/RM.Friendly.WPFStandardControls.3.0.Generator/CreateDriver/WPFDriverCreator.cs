@@ -241,35 +241,20 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
         {
             nogood = false;
 
-            //独自の取得方法
             var preIdentify = "Core.LogicalTree()";
             foreach (var tree in new[] { logical, visual })
             {
                 if (Exist(tree, obj))
                 {
-                    var code = _customIdentify.Generate(obj, tree, usings);
-                    if (!string.IsNullOrEmpty(code)) return preIdentify + code;
-                }
-                preIdentify = "Core.VisualTree()";
-            }
-
-            preIdentify = "Core.LogicalTree()";
-            foreach (var tree in new[] { logical, visual })
-            {
-                if (Exist(tree, obj))
-                {
+                    //バインディングで特定できた
                     var identifyCode = TryIdentifyFromBinding(tree, obj, cache);
                     if (!string.IsNullOrEmpty(identifyCode))
                     {
                         return $"{preIdentify}{identifyCode}.Single()";
                     }
+
                     var sameType = CollectionUtility.OfType(tree, obj.GetType());
                     preIdentify = $"{preIdentify}.ByType(\"{obj.GetType().FullName}\")";
-                    if (sameType.Count == 1)
-                    {
-                        //タイプで特定できた
-                        return $"{preIdentify}.Single()";
-                    }
 
                     //タイプとバインディングで特定できた
                     identifyCode = TryIdentifyFromBinding(sameType, obj, cache);
@@ -277,6 +262,16 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                     {
                         return $"{preIdentify}{identifyCode}.Single()";
                     }
+
+                    if (sameType.Count == 1)
+                    {
+                        //タイプで特定できた
+                        return $"{preIdentify}.Single()";
+                    }
+
+                    //特殊な手法で特定できた
+                    var code = _customIdentify.Generate(obj, tree, usings);
+                    if (!string.IsNullOrEmpty(code)) return preIdentify + code;
                 }
                 preIdentify = "Core.VisualTree()";
             }

@@ -25,6 +25,7 @@ namespace TestCode
         public WPFListView ListView1 => new WPFListView(Core.Dynamic().ListView1);
         public WPFTreeView TreeView1 => new WPFTreeView(Core.Dynamic().TreeView1);
         public WPFExpander Expander1 => new WPFExpander(Core.Dynamic().Expander1);
+        public WPFComboBox _comboInExpander => new WPFComboBox(Core.Dynamic()._comboInExpander);
         public WPFPasswordBox PasswordBox1 => new WPFPasswordBox(Core.Dynamic().PasswordBox1);
         public WPFProgressBar ProgressBar1 => new WPFProgressBar(Core.Dynamic().ProgressBar1);
         public WPFRichTextBox RichTextBox1 => new WPFRichTextBox(Core.Dynamic().RichTextBox1);

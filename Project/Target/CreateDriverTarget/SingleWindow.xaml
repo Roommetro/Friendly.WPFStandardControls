@@ -52,7 +52,9 @@
             <TreeViewItem Header="TreeViewItem2"/>
         </TreeView>
         <Expander x:Name="Expander1" Header="Expander" HorizontalAlignment="Left" Height="73" Margin="477,58,0,0" VerticalAlignment="Top" Width="100">
-            <Grid Background="#FFE5E5E5"/>
+            <Grid Background="#FFE5E5E5">
+                <ComboBox x:Name="_comboInExpander" />
+            </Grid>
         </Expander>
         <PasswordBox x:Name="PasswordBox1" HorizontalAlignment="Left" Margin="323,386,0,0" VerticalAlignment="Top" Width="160" Password="Password"/>
         <ProgressBar x:Name="ProgressBar1" HorizontalAlignment="Left" Height="10" Margin="630,58,0,0" VerticalAlignment="Top" Width="100"/>

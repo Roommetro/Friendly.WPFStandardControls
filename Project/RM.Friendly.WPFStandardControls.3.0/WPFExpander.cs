@@ -15,7 +15,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.Expanderに対応した操作を提供します。
     /// </summary>
 #endif
-    [ControlDriver(TypeFullName = "System.Windows.Controls.Expander")]
+    [ControlDriver(TypeFullName = "System.Windows.Controls.Expander", SearchDescendantUserControls = true)]
     public class WPFExpander : WPFControlBase<Expander>
     {
 #if ENG
