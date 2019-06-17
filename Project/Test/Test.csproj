@@ -61,20 +61,20 @@
     <Reference Include="Codeer.Friendly.Windows.Grasp.3.5, Version=2.11.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Codeer.Friendly.Windows.Grasp.2.11.1\lib\net35\Codeer.Friendly.Windows.Grasp.3.5.dll</HintPath>
     </Reference>
-    <Reference Include="Codeer.Friendly.Windows.KeyMouse.2.0, Version=1.3.5.0, Culture=neutral, PublicKeyToken=315dcaa3c3e851c2, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.Friendly.Windows.KeyMouse.1.3.5\lib\net35\Codeer.Friendly.Windows.KeyMouse.2.0.dll</HintPath>
+    <Reference Include="Codeer.Friendly.Windows.KeyMouse.2.0, Version=1.3.6.0, Culture=neutral, PublicKeyToken=315dcaa3c3e851c2, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.Windows.KeyMouse.1.3.6\lib\net35\Codeer.Friendly.Windows.KeyMouse.2.0.dll</HintPath>
     </Reference>
-    <Reference Include="Codeer.Friendly.Windows.KeyMouse.3.5, Version=1.3.5.0, Culture=neutral, PublicKeyToken=39f6ecaa6ad3a1f3, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.Friendly.Windows.KeyMouse.1.3.5\lib\net35\Codeer.Friendly.Windows.KeyMouse.3.5.dll</HintPath>
+    <Reference Include="Codeer.Friendly.Windows.KeyMouse.3.5, Version=1.3.6.0, Culture=neutral, PublicKeyToken=39f6ecaa6ad3a1f3, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.Windows.KeyMouse.1.3.6\lib\net35\Codeer.Friendly.Windows.KeyMouse.3.5.dll</HintPath>
     </Reference>
-    <Reference Include="Codeer.Friendly.Windows.NativeStandardControls, Version=2.12.5.0, Culture=neutral, PublicKeyToken=90759bf0c8b8639e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.Friendly.Windows.NativeStandardControls.2.12.5\lib\net20\Codeer.Friendly.Windows.NativeStandardControls.dll</HintPath>
+    <Reference Include="Codeer.Friendly.Windows.NativeStandardControls, Version=2.12.7.0, Culture=neutral, PublicKeyToken=90759bf0c8b8639e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.Windows.NativeStandardControls.2.12.7\lib\net20\Codeer.Friendly.Windows.NativeStandardControls.dll</HintPath>
     </Reference>
-    <Reference Include="Codeer.Friendly.Windows.NativeStandardControls.Generator, Version=2.12.5.0, Culture=neutral, PublicKeyToken=eea982eb65b72dea, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.Friendly.Windows.NativeStandardControls.2.12.5\lib\net20\Codeer.Friendly.Windows.NativeStandardControls.Generator.dll</HintPath>
+    <Reference Include="Codeer.Friendly.Windows.NativeStandardControls.Generator, Version=2.12.7.0, Culture=neutral, PublicKeyToken=eea982eb65b72dea, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.Windows.NativeStandardControls.2.12.7\lib\net20\Codeer.Friendly.Windows.NativeStandardControls.Generator.dll</HintPath>
     </Reference>
-    <Reference Include="Codeer.TestAssistant.GeneratorToolKit, Version=3.4.1.0, Culture=neutral, PublicKeyToken=f7af39ab9bcf13fe, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.TestAssistant.GeneratorToolKit.3.4.1\lib\net20\Codeer.TestAssistant.GeneratorToolKit.dll</HintPath>
+    <Reference Include="Codeer.TestAssistant.GeneratorToolKit, Version=3.4.2.0, Culture=neutral, PublicKeyToken=f7af39ab9bcf13fe, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.TestAssistant.GeneratorToolKit.3.4.2\lib\net20\Codeer.TestAssistant.GeneratorToolKit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PresentationCore" />
