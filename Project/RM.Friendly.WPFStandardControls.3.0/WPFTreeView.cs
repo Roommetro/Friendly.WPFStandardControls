@@ -157,6 +157,8 @@ namespace RM.Friendly.WPFStandardControls
 
         static TreeViewItem GetItemAndScrollIntoView(TreeView tree, ItemsControl parent, int i)
         {
+            var box = VisualTreeHelper.GetDescendantBounds(tree);
+
             var peer = ItemsControlAutomationPeer.CreatePeerForElement(tree);
             var scrollProvider = peer.GetPattern(PatternInterface.Scroll) as IScrollProvider;
             var direction = ScrollAmount.SmallIncrement;
@@ -165,9 +167,13 @@ namespace RM.Friendly.WPFStandardControls
                 var item = parent.ItemContainerGenerator.ContainerFromIndex(i) as TreeViewItem;
                 if (item != null)
                 {
-                    item.BringIntoView();
-                    InvokeUtility.DoEvents();
-                    return item;
+                    var top = item.TranslatePoint(new Point(), tree);
+                    if (box.Contains(top))
+                    {
+                        item.BringIntoView();
+                        InvokeUtility.DoEvents();
+                        return item;
+                    }
                 }
 
                 if (scrollProvider.VerticalScrollPercent == 100)

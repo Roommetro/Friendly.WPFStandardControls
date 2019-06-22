@@ -1,4 +1,6 @@
 ﻿using Codeer.Friendly.Windows;
+using Codeer.Friendly.Windows.Grasp;
+using RM.Friendly.WPFStandardControls;
 
 namespace Test.CaptureTest
 {
@@ -8,7 +10,6 @@ namespace Test.CaptureTest
 
         public void Test()
         {
-
         }
     }
 }
