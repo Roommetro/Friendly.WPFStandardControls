@@ -59,6 +59,20 @@ namespace RM.Friendly.WPFStandardControls
 
 #if ENG
         /// <summary>
+        /// Returns the number of items.
+        /// </summary>
+#else
+        /// <summary>
+        /// アイテム数を取得します。
+        /// </summary>
+#endif
+        public int ItemCount
+        {
+            get { return (int)(this["Items"]()["Count"]().Core); }
+        }
+
+#if ENG
+        /// <summary>
         /// Get item.
         /// </summary>
         /// <param name="indices">The array of index to the target item. </param>

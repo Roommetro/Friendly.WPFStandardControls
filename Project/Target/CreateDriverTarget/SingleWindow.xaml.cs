@@ -9,6 +9,8 @@ namespace Target.CreateDriverTarget
     /// </summary>
     public partial class SingleWindow : Window
     {
+        public bool CheckDom { get; set; } = true;
+
         public SingleWindow()
         {
             InitializeComponent();
@@ -16,6 +18,7 @@ namespace Target.CreateDriverTarget
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            if (!CheckDom) return;
             using (var dom = CodeDomProvider.CreateProvider("CSharp"))
             {
                 new WPFDriverCreator(dom).CreateDriver(this);

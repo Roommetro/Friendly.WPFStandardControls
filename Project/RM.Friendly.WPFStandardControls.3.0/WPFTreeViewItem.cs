@@ -83,6 +83,20 @@ namespace RM.Friendly.WPFStandardControls
 
 #if ENG
         /// <summary>
+        /// Returns the number of items.
+        /// </summary>
+#else
+        /// <summary>
+        /// アイテム数を取得します。
+        /// </summary>
+#endif
+        public int ItemCount
+        {
+            get { return (int)(this["Items"]()["Count"]().Core); }
+        }
+
+#if ENG
+        /// <summary>
         /// Get Visual inside TreeViewItem on VisualTree.
         /// </summary>
         /// <param name="typeFullName">Type full name.</param>
@@ -108,6 +122,47 @@ namespace RM.Friendly.WPFStandardControls
                 throw new NotSupportedException(ResourcesLocal3.Instance.ErrorNotFoundElement);
             }
             return element;
+        }
+
+
+#if ENG
+        /// <summary>
+        /// Get item.
+        /// </summary>
+        /// <param name="headerTexts">The array of text to the target item. </param>
+        /// <returns>Item.</returns>
+#else
+        /// <summary>
+        /// アイテムを取得します。
+        /// </summary>
+        /// <param name="headerTexts">目的のアイテムまでのテキストの配列です。</param>
+        /// <returns>アイテム。</returns>
+#endif
+        public WPFTreeViewItem GetItem(params string[] headerTexts)
+        {
+            var tree = Searcher.ByType<TreeView>(TreeUtility.VisualTree(AppVar, TreeRunDirection.Ancestors))[0];
+            App[typeof(WPFTreeView), "ShowNextItem"](this);
+            return new WPFTreeViewItem(App[typeof(WPFTreeView), "GetItemEx"](tree, this, headerTexts, 0));
+        }
+
+#if ENG
+        /// <summary>
+        /// Get item.
+        /// </summary>
+        /// <param name="indices">The array of index to the target item. </param>
+        /// <returns>Item.</returns>
+#else
+        /// <summary>
+        /// アイテムを取得します。
+        /// </summary>
+        /// <param name="indices">目的のアイテムまでの各階層でのインデックスの配列です。</param>
+        /// <returns>アイテム。</returns>
+#endif
+        public WPFTreeViewItem GetItem(params int[] indices)
+        {
+            var tree = Searcher.ByType<TreeView>(TreeUtility.VisualTree(AppVar, TreeRunDirection.Ancestors))[0];
+            App[typeof(WPFTreeView), "ShowNextItem"](this);
+            return new WPFTreeViewItem(App[typeof(WPFTreeView), "GetItemEx"](tree, this, indices, 0));
         }
 
 #if ENG

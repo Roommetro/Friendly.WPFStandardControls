@@ -102,6 +102,7 @@
     <Compile Include="WPFTabControlGenerator.cs" />
     <Compile Include="WPFSelectorGenerator.cs" />
     <Compile Include="WPFSliderGenerator.cs" />
+    <Compile Include="WPFPasswordBoxGenerator.cs" />
     <Compile Include="WPFTextBoxGenerator.cs" />
     <Compile Include="WPFToggleButtonGenerator.cs" />
     <Compile Include="WPFTreeViewGenerator.cs" />

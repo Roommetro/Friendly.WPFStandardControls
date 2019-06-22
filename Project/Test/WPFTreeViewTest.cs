@@ -66,6 +66,22 @@ namespace Test
         }
 
         [TestMethod]
+        public void GetItemStringTest2()
+        {
+            var tree = new WPFTreeView(_ctrl._tree);
+            var item = tree.GetItem("1").GetItem("1-0", "1-0-1");
+            Assert.AreEqual("1-0-1", item.Text);
+        }
+
+        [TestMethod]
+        public void GetItemIntTest2()
+        {
+            var tree = new WPFTreeView(_ctrl._tree);
+            var item = tree.GetItem(1).GetItem(0, 1);
+            Assert.AreEqual("1-0-1", item.Text);
+        }
+
+        [TestMethod]
         public void GetItemNotFoundTest()
         {
             TestUtility.TestExceptionMessage(() =>
