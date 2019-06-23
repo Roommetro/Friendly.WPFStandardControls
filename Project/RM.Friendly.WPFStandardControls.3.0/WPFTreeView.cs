@@ -173,7 +173,7 @@ namespace RM.Friendly.WPFStandardControls
                     item.BringIntoView();
                     InvokeUtility.DoEvents();
                     var top = item.TranslatePoint(new Point(), tree);
-                    if (box.IntersectsWith(new Rect(new Point(box.X, top.Y), new Size(box.Width, item.ActualHeight))))
+                    if (box.Contains(new Point(box.X, top.Y + 1)))
                     {
                         return item;
                     }
