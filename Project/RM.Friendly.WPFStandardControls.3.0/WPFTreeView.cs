@@ -162,28 +162,52 @@ namespace RM.Friendly.WPFStandardControls
             var peer = ItemsControlAutomationPeer.CreatePeerForElement(tree);
             var scrollProvider = peer.GetPattern(PatternInterface.Scroll) as IScrollProvider;
             var direction = ScrollAmount.SmallIncrement;
+
+            bool min1 = false;
+            bool max1 = false;
             while (true)
             {
                 var item = parent.ItemContainerGenerator.ContainerFromIndex(i) as TreeViewItem;
                 if (item != null)
                 {
+                    item.BringIntoView();
+                    InvokeUtility.DoEvents();
                     var top = item.TranslatePoint(new Point(), tree);
-                    if (box.Contains(top))
+                    if (box.IntersectsWith(new Rect(new Point(box.X, top.Y), new Size(box.Width, item.ActualHeight))))
                     {
-                        item.BringIntoView();
-                        InvokeUtility.DoEvents();
                         return item;
                     }
                 }
 
                 if (scrollProvider.VerticalScrollPercent == 100)
                 {
-                    direction = ScrollAmount.SmallDecrement;
+                    if (max1)
+                    {
+                        direction = ScrollAmount.SmallDecrement;
+                    }
+                    else
+                    {
+                        max1 = true;
+                    }
                 }
                 if (direction == ScrollAmount.SmallDecrement && scrollProvider.VerticalScrollPercent == 0)
                 {
-                    throw new NotSupportedException(ResourcesLocal3.Instance.ErrorNotFoundItem);
+                    if (min1)
+                    {
+                        if (item != null) return item;
+                        throw new NotSupportedException(ResourcesLocal3.Instance.ErrorNotFoundItem);
+                    }
+                    else
+                    {
+                        min1 = true;
+                    }
                 }
+
+                if (!scrollProvider.VerticallyScrollable)
+                {
+                    if (item != null) return item;
+                }
+
                 scrollProvider.Scroll(ScrollAmount.NoAmount, direction);
                 InvokeUtility.DoEvents();
             }
