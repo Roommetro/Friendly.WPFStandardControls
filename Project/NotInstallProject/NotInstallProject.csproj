@@ -33,20 +33,20 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Codeer.Friendly, Version=2.5.2.0, Culture=neutral, PublicKeyToken=6c44da6fca38aa86, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.Friendly.2.5.2\lib\net40\Codeer.Friendly.dll</HintPath>
+    <Reference Include="Codeer.Friendly, Version=2.6.1.0, Culture=neutral, PublicKeyToken=6c44da6fca38aa86, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.2.6.1\lib\net40\Codeer.Friendly.dll</HintPath>
     </Reference>
-    <Reference Include="Codeer.Friendly.Dynamic, Version=2.5.2.0, Culture=neutral, PublicKeyToken=376bc779077733e8, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.Friendly.2.5.2\lib\net40\Codeer.Friendly.Dynamic.dll</HintPath>
+    <Reference Include="Codeer.Friendly.Dynamic, Version=2.6.1.0, Culture=neutral, PublicKeyToken=376bc779077733e8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.2.6.1\lib\net40\Codeer.Friendly.Dynamic.dll</HintPath>
     </Reference>
-    <Reference Include="Codeer.Friendly.Windows, Version=2.12.0.0, Culture=neutral, PublicKeyToken=532f270f1da385b3, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.Friendly.Windows.2.12.0\lib\net20\Codeer.Friendly.Windows.dll</HintPath>
+    <Reference Include="Codeer.Friendly.Windows, Version=2.13.1.0, Culture=neutral, PublicKeyToken=532f270f1da385b3, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.Windows.2.13.1\lib\net20\Codeer.Friendly.Windows.dll</HintPath>
     </Reference>
-    <Reference Include="Codeer.Friendly.Windows.Grasp.2.0, Version=2.11.1.0, Culture=neutral, PublicKeyToken=92809a28945fb91d, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.Friendly.Windows.Grasp.2.11.1\lib\net35\Codeer.Friendly.Windows.Grasp.2.0.dll</HintPath>
+    <Reference Include="Codeer.Friendly.Windows.Grasp.2.0, Version=2.11.3.0, Culture=neutral, PublicKeyToken=92809a28945fb91d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.Windows.Grasp.2.11.3\lib\net35\Codeer.Friendly.Windows.Grasp.2.0.dll</HintPath>
     </Reference>
-    <Reference Include="Codeer.Friendly.Windows.Grasp.3.5, Version=2.11.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.Friendly.Windows.Grasp.2.11.1\lib\net35\Codeer.Friendly.Windows.Grasp.3.5.dll</HintPath>
+    <Reference Include="Codeer.Friendly.Windows.Grasp.3.5, Version=2.11.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.Windows.Grasp.2.11.3\lib\net35\Codeer.Friendly.Windows.Grasp.3.5.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -64,9 +64,6 @@
   <ItemGroup>
     <Compile Include="ItemControlDriver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RM.Friendly.WPFStandardControls.3.0.Generator\RM.Friendly.WPFStandardControls.3.0.Generator.csproj">
@@ -89,6 +86,9 @@
       <Project>{287af20a-edb1-4de0-bf0f-8d37fd92de73}</Project>
       <Name>RM.Friendly.WPFStandardControls.4.0</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
