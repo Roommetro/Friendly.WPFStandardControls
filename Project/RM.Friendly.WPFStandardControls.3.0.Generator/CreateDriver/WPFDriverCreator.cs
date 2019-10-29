@@ -40,7 +40,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             var targets = new Dictionary<Type, DependencyObject>();
 
             //ルートはUserControlでなくても指定されたらUserControlDriverを作れるようにする
-            if (root is Control)
+            if (!(root is UserControl))
             {
                 targets[root.GetType()] = root;
             }
