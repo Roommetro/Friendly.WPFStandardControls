@@ -71,7 +71,7 @@
     <Compile Include="CreateDriver\BindingExpressionCache.cs" />
     <Compile Include="CreateDriver\CollectionUtility.cs" />
     <Compile Include="CreateDriver\ControlAndFieldName.cs" />
-    <Compile Include="CreateDriver\CreateMenu.cs" />
+    <Compile Include="CreateDriver\AnalyzeMenu.cs" />
     <Compile Include="CreateDriver\DriverCreatorUtils.cs" />
     <Compile Include="CreateDriver\DriverElementNameGeneratorAdaptor.cs" />
     <Compile Include="CreateDriver\DriverInfo.cs" />

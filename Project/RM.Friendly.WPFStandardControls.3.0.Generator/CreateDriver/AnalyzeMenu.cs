@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
 {
-    internal class CreateMenu : IWindowAnalysisMenuAction
+    internal class AnalyzeMenu : IWindowAnalysisMenuAction
     {
         public Dictionary<string, MenuAction> GetAction(object target, WindowAnalysisTreeInfo info)
         {
@@ -34,6 +34,27 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                         {
                             new WPFDriverCreator(dom).CreateItemsControlDriver(form.DriverName, itemsControl);
                         }
+                    }
+                };
+            }
+            if (target is UIElement)
+            {
+                dic["Create Control Driver(&D)"] = () =>
+                {
+                    using (var dom = CodeDomProvider.CreateProvider("CSharp"))
+                    {
+                        new WPFDriverCreator(dom).CreateControlDriver((UIElement)target);
+                    }
+                };
+                dic["Show Base Class(&B)"] = () =>
+                {
+                    AnalyzeWindow.Output.Show();
+                    var type = target.GetType();
+                    AnalyzeWindow.Output.WriteLine(string.Empty);
+                    while (type != null)
+                    {
+                        AnalyzeWindow.Output.WriteLine(type.FullName);
+                        type = type.BaseType;
                     }
                 };
             }

@@ -68,9 +68,70 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             }
         }
 
+        public void CreateControlDriver(UIElement root)
+        {
+            var driverName = root.GetType().Name + "Driver";
+            var generatorName = driverName + "Generator";
+
+            var driverCode = @"using Codeer.Friendly;
+using Codeer.Friendly.Dynamic;
+using Codeer.Friendly.Windows;
+using Codeer.Friendly.Windows.Grasp;
+using Codeer.TestAssistant.GeneratorToolKit;
+using RM.Friendly.WPFStandardControls;
+using System;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+
+namespace [*namespace]
+{
+    [ControlDriver(TypeFullName = ""{typefullname}"", Priority = 2)]
+    public class {driverName} : WPFUIElement
+    {
+        public {driverName}(AppVar appVar)
+            : base(appVar) { }
+    }
+}
+";
+            DriverCreatorAdapter.AddCode($"{driverName}.cs", driverCode.Replace("{typefullname}", root.GetType().FullName).Replace("{driverName}", driverName), root);
+
+            var generatorCode = @"using System;
+using System.Windows;
+using Codeer.TestAssistant.GeneratorToolKit;
+
+namespace [*namespace]
+{
+    [CaptureCodeGenerator(""[*namespace.{driverName}]"")]
+    public class {generatorName} : CaptureCodeGeneratorBase
+    {
+        UIElement _element;
+
+        protected override void Attach()
+        {
+            _element = (UIElement)ControlObject;
+        }
+
+        protected override void Detach()
+        {
+        }
+    }
+}
+";
+            DriverCreatorAdapter.AddCode($"{generatorName}.cs", generatorCode.Replace("{generatorName}", generatorName).Replace("{driverName}", driverName), root);
+        }
+
         private void GetAllWindowAndUserControl(bool isControlTreeOnly, DependencyObject control, Dictionary<Type, DependencyObject> targets, List<Type> getFromControlTreeOnly, List<DependencyObject> recursiveCheck)
         {
             if (control == null) return;
+
+            //ルート以外はすでに割り当てがあれば再生成しないようにする
+            var addToTarget = true;
+            if (DriverCreatorUtils.GetDriverInfo(control, DriverCreatorAdapter.TypeFullNameAndControlDriver) != null ||
+                DriverCreatorUtils.GetDriverInfo(control, DriverCreatorAdapter.TypeFullNameAndWindowDriver) != null ||
+                DriverCreatorUtils.GetDriverInfo(control, DriverCreatorAdapter.TypeFullNameAndUserControlDriver) != null)
+            {
+                addToTarget = false;
+            }
 
             //再帰チェック
             if (CollectionUtility.HasReference(recursiveCheck, control)) return;
@@ -80,10 +141,13 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                 ((control is UserControl) && (control.GetType() != typeof(UserControl))) ||
                 ((control is Page) && (control.GetType() != typeof(Page))))
             {
-                targets[control.GetType()] = control;
-                if (isControlTreeOnly)
+                if (addToTarget)
                 {
-                    getFromControlTreeOnly.Add(control.GetType());
+                    targets[control.GetType()] = control;
+                    if (isControlTreeOnly)
+                    {
+                        getFromControlTreeOnly.Add(control.GetType());
+                    }
                 }
 
                 //Form, UserControlの時はメンバも見る
@@ -152,7 +216,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                     var typeName = DriverCreatorUtils.GetTypeName(driver);
                     var nameSpace = DriverCreatorUtils.GetTypeNamespace(driver);
                     var key = $"Core.Dynamic().{e.Name}";
-                    controlAndDefines.Add(new ControlAndDefine(e.Control, name, $"public {typeName} {name} => new {typeName}({key});"));
+                    controlAndDefines.Add(new ControlAndDefine(e.Control, name, $"public {typeName} {name} => {key};"));
                     DriverCreatorAdapter.AddCodeLineSelectInfo(fileName, key, e.Control);
                     if (!driverInfo.Usings.Contains(nameSpace)) driverInfo.Usings.Add(nameSpace);
                 }
@@ -164,7 +228,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                     var name = _customNameGenerator.MakeDriverPropName(e.Control, e.Name, names);
                     var typeName = _driverTypeNameManager.MakeDriverType(e.Control, out var nameSpace);
                     var key = $"Core.Dynamic().{e.Name}";
-                    controlAndDefines.Add(new ControlAndDefine(e.Control, name, $"public {typeName} {name} => new {typeName}({key});"));
+                    controlAndDefines.Add(new ControlAndDefine(e.Control, name, $"public {typeName} {name} => {key};"));
                     if (!string.IsNullOrEmpty(nameSpace) && (nameSpace != DriverCreatorAdapter.SelectedNamespace) && !driverInfo.Usings.Contains(nameSpace)) driverInfo.Usings.Add(nameSpace);
                     DriverCreatorAdapter.AddCodeLineSelectInfo(fileName, key, e.Control);
                 }
@@ -223,7 +287,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                         var typeName = DriverCreatorUtils.GetTypeName(driver);
                         var nameSpace = DriverCreatorUtils.GetTypeNamespace(driver);
                         var getter = MakeCodeGetFromTree(logicalForGetter, visualForGetter, ctrl, cache, driverInfo.Usings, out var nogood);
-                        var code = $"public {typeName} {name} => new {typeName}({getter});";
+                        var code = $"public {typeName} {name} => {getter};";
                         if (nogood)
                         {
                             code += $" {TodoComment}";
@@ -250,7 +314,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                     var identifyCode = TryIdentifyFromBinding(tree, obj, cache);
                     if (!string.IsNullOrEmpty(identifyCode))
                     {
-                        return $"{preIdentify}{identifyCode}.Single()";
+                        return $"{preIdentify}{identifyCode}.Single().Dynamic()";
                     }
 
                     var sameType = CollectionUtility.OfType(tree, obj.GetType());
@@ -260,13 +324,13 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                     identifyCode = TryIdentifyFromBinding(sameType, obj, cache);
                     if (!string.IsNullOrEmpty(identifyCode))
                     {
-                        return $"{preIdentify}{identifyCode}.Single()";
+                        return $"{preIdentify}{identifyCode}.Single().Dynamic()";
                     }
 
                     if (sameType.Count == 1)
                     {
                         //タイプで特定できた
-                        return $"{preIdentify}.Single()";
+                        return $"{preIdentify}.Single().Dynamic()";
                     }
 
                     //特殊な手法で特定できた
@@ -290,7 +354,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                     {
                         if (ReferenceEquals(sameType[i], obj))
                         {
-                            return $"{preIdentify}[{i}]";
+                            return $"{preIdentify}[{i}].Dynamic()";
                         }
                     }
                 }
@@ -378,6 +442,11 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                 code.Add($"{Indent}{Indent}{{");
                 code.Add($"{Indent}{Indent}{Indent}Core = core;");
                 code.Add($"{Indent}{Indent}}}");
+                code.Add(string.Empty);
+                code.Add($"{Indent}{Indent}public {driverClassName}(AppVar core)");
+                code.Add($"{Indent}{Indent}{{");
+                code.Add($"{Indent}{Indent}{Indent}Core = new WindowControl(core);");
+                code.Add($"{Indent}{Indent}}}");
             }
             else
             {
@@ -419,7 +488,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                 {
                     code.Add($"{Indent}{Indent}[UserControlDriverIdentify]");
                     code.Add($"{Indent}{Indent}public static {driverClassName} {funcName}(this {rootDriver} window)");
-                    code.Add($"{Indent}{Indent}{Indent}=> new {driverClassName}(window.Core.VisualTree().ByType(\"{targetControl.GetType().FullName}\").Single());");
+                    code.Add($"{Indent}{Indent}{Indent}=> window.Core.VisualTree().ByType(\"{targetControl.GetType().FullName}\").Single().Dynamic();");
                 }
                 code.Add($"{Indent}}}");
             }

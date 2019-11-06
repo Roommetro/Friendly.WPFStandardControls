@@ -133,6 +133,7 @@
     <Compile Include="WPFTextBox.cs" />
     <Compile Include="WPFToggleButton.cs" />
     <Compile Include="WPFTreeView.cs" />
+    <Compile Include="WPFUIElement.cs" />
     <Compile Include="WPFUserControl.cs" />
   </ItemGroup>
   <ItemGroup>

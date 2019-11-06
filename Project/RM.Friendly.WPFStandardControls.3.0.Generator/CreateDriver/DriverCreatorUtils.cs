@@ -42,6 +42,15 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             return null;
         }
 
+        internal static WindowDriverInfo GetDriverInfo<T>(T ctrl, Dictionary<string, WindowDriverInfo> netTypeAndDriverType)
+        {
+            for (var type = ctrl.GetType(); type != null; type = type.BaseType)
+            {
+                if (netTypeAndDriverType.TryGetValue(type.FullName, out var driver)) return driver;
+            }
+            return null;
+        }
+
         internal static UserControlDriverInfo GetDriverInfo<T>(T ctrl, Dictionary<string, UserControlDriverInfo> netTypeAndDriverType)
         {
             for (var type = ctrl.GetType(); type != null; type = type.BaseType)

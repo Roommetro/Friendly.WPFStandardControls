@@ -1,5 +1,4 @@
-﻿using Codeer.TestAssistant.GeneratorToolKit;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -30,7 +29,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
                 {
                     return new WPFIdentifyCodeInfo
                     {
-                        IdentifyCode = "ByType<ContentControl>().ByContentText(\"" + text + "\").Single()",
+                        IdentifyCode = "ByType<ContentControl>().ByContentText(\"" + text + "\").Single().Dynamic()",
                         AddUsings = new[] { "System.Windows.Controls" }
                     };
                 }
@@ -43,7 +42,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
                 {
                     return new WPFIdentifyCodeInfo
                     {
-                        IdentifyCode = "ByType<Button>().ByIsCancel().Single()",
+                        IdentifyCode = "ByType<Button>().ByIsCancel().Single().Dynamic()",
                         AddUsings = new[] { "System.Windows.Controls" }
                     };
                 }
@@ -57,7 +56,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
                 {
                     return new WPFIdentifyCodeInfo
                     {
-                        IdentifyCode = "ByType<ButtonBase>().ByCommandParameterText(\"" + text + "\").Single()",
+                        IdentifyCode = "ByType<ButtonBase>().ByCommandParameterText(\"" + text + "\").Single().Dynamic()",
                         AddUsings = new[] { "System.Windows.Controls.Primitives" }
                     };
                 }
