@@ -133,6 +133,7 @@
     <Compile Include="SearchTestControl.xaml.cs">
       <DependentUpon>SearchTestControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WPFDependencyObjectCollectionTest.cs" />
     <Compile Include="WPFExpanderTest.cs" />
     <Compile Include="WPFListViewTestControl.xaml.cs">
       <DependentUpon>WPFListViewTestControl.xaml</DependentUpon>

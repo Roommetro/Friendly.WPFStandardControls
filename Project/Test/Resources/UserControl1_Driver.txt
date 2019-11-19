@@ -11,8 +11,8 @@ namespace TestCode
     public class UserControl1_Driver
     {
         public WPFUserControl Core { get; }
-        public WPFButtonBase Button1 => new WPFButtonBase(Core.Dynamic().Button1);
-        public WPFListBox ListBox1 => new WPFListBox(Core.Dynamic().ListBox1);
+        public WPFButtonBase Button1 => Core.Dynamic().Button1;
+        public WPFListBox ListBox1 => Core.Dynamic().ListBox1;
 
         public UserControl1_Driver(AppVar core)
         {

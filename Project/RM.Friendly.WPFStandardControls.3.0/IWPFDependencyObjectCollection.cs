@@ -49,8 +49,21 @@ namespace RM.Friendly.WPFStandardControls
         /// <summary>
         /// コレクションの要素が一つであることを確認してそれを取得する。
         /// </summary>
-        /// <returns></returns>
+        /// <returns>DependencyObject.</returns>
 #endif
         AppVar Single();
+
+#if ENG
+        /// <summary>
+        /// Single or Default.
+        /// </summary>
+        /// <returns>DependencyObject.</returns>
+#else
+        /// <summary>
+        /// コレクションの要素が一つであることを確認してそれを取得する。なければnullのAppVarが返る
+        /// </summary>
+        /// <returns>DependencyObject.</returns>
+#endif
+        AppVar SingleOrDefault();
     }
 }

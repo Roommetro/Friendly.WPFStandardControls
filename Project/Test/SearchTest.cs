@@ -328,5 +328,25 @@ namespace Test
 
         static string TestContentTextExtensionsInTarget(SearchTestControl ctrl)
             => ctrl.LogicalTree().ByType<ContentControl>().ByContentText("abc").Single().GetType().Name;
+
+
+        [TestMethod]
+        public void TestNameTextExtensions()
+        {
+            AppVar target = _ctrl;
+            var collection = target.LogicalTree().ByType<FrameworkElement>();
+            string name = collection.ByName("_listView").Single().Dynamic().Name;
+            Assert.AreEqual("_listView", name);
+        }
+
+        [TestMethod]
+        public void TestNameTextExtensionsInTarget()
+        {
+            string name = _app.Type(GetType()).TestNameTextExtensionsInTarget(_ctrl);
+            Assert.AreEqual("_listView", name);
+        }
+
+        static string TestNameTextExtensionsInTarget(SearchTestControl ctrl)
+            => ctrl.LogicalTree().ByType<FrameworkElement>().ByName("_listView").Single().Name;
     }
 }

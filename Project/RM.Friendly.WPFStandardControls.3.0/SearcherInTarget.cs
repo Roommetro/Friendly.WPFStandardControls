@@ -104,7 +104,9 @@ namespace RM.Friendly.WPFStandardControls
         {
             List<DependencyObject> list = new List<DependencyObject>();
             var finder = new TypeFinder();
+
             var type = finder.GetType(typeFullName);
+            if (type == null) throw new ArgumentException("typeFullName's type is not found.");
             foreach (var e in collection)
             {
                 if (type.IsAssignableFrom(e.GetType()))

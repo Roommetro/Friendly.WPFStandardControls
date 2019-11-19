@@ -11,34 +11,39 @@ namespace TestCode
     public class SingleWindow_Driver
     {
         public WindowControl Core { get; }
-        public WPFToggleButton ToggleButton => new WPFToggleButton(Core.VisualTree().ByType("System.Windows.Controls.Primitives.ToggleButton").ByBinding("IsOverflowOpen").Single());
-        public WPFMenuBase Menu1 => new WPFMenuBase(Core.Dynamic().Menu1);
-        public WPFButtonBase Button2 => new WPFButtonBase(Core.Dynamic().Button2);
-        public WPFToggleButton ToggleButton1 => new WPFToggleButton(Core.Dynamic().ToggleButton1);
-        public WPFButtonBase Button1 => new WPFButtonBase(Core.Dynamic().Button1);
-        public WPFToggleButton CheckBox1 => new WPFToggleButton(Core.Dynamic().CheckBox1);
-        public WPFToggleButton RadioButton1 => new WPFToggleButton(Core.Dynamic().RadioButton1);
-        public WPFToggleButton RadioButton2 => new WPFToggleButton(Core.Dynamic().RadioButton2);
-        public WPFComboBox ComboBox1 => new WPFComboBox(Core.Dynamic().ComboBox1);
-        public WPFComboBox ComboBox2 => new WPFComboBox(Core.Dynamic().ComboBox2);
-        public WPFListBox ListBox1 => new WPFListBox(Core.Dynamic().ListBox1);
-        public WPFListView ListView1 => new WPFListView(Core.Dynamic().ListView1);
-        public WPFTreeView TreeView1 => new WPFTreeView(Core.Dynamic().TreeView1);
-        public WPFExpander Expander1 => new WPFExpander(Core.Dynamic().Expander1);
-        public WPFComboBox _comboInExpander => new WPFComboBox(Core.Dynamic()._comboInExpander);
-        public WPFPasswordBox PasswordBox1 => new WPFPasswordBox(Core.Dynamic().PasswordBox1);
-        public WPFProgressBar ProgressBar1 => new WPFProgressBar(Core.Dynamic().ProgressBar1);
-        public WPFRichTextBox RichTextBox1 => new WPFRichTextBox(Core.Dynamic().RichTextBox1);
-        public WPFSlider Slider1 => new WPFSlider(Core.Dynamic().Slider1);
-        public WPFTextBox TextBox1 => new WPFTextBox(Core.Dynamic().TextBox1);
-        public WPFDatePicker DatePicker1 => new WPFDatePicker(Core.Dynamic().DatePicker1);
-        public WPFDataGrid DataGrid1 => new WPFDataGrid(Core.Dynamic().DataGrid1);
-        public WPFTabControl TabControl1 => new WPFTabControl(Core.Dynamic().TabControl1);
-        public WPFCalendar Calendar1 => new WPFCalendar(Core.Dynamic().Calendar1);
+        public WPFToggleButton ToggleButton => Core.VisualTree().ByType("System.Windows.Controls.Primitives.ToggleButton").ByBinding("IsOverflowOpen").Single().Dynamic();
+        public WPFMenuBase Menu1 => Core.Dynamic().Menu1;
+        public WPFButtonBase Button2 => Core.Dynamic().Button2;
+        public WPFToggleButton ToggleButton1 => Core.Dynamic().ToggleButton1;
+        public WPFButtonBase Button1 => Core.Dynamic().Button1;
+        public WPFToggleButton CheckBox1 => Core.Dynamic().CheckBox1;
+        public WPFToggleButton RadioButton1 => Core.Dynamic().RadioButton1;
+        public WPFToggleButton RadioButton2 => Core.Dynamic().RadioButton2;
+        public WPFComboBox ComboBox1 => Core.Dynamic().ComboBox1;
+        public WPFComboBox ComboBox2 => Core.Dynamic().ComboBox2;
+        public WPFListBox ListBox1 => Core.Dynamic().ListBox1;
+        public WPFListView ListView1 => Core.Dynamic().ListView1;
+        public WPFTreeView TreeView1 => Core.Dynamic().TreeView1;
+        public WPFExpander Expander1 => Core.Dynamic().Expander1;
+        public WPFComboBox _comboInExpander => Core.Dynamic()._comboInExpander;
+        public WPFPasswordBox PasswordBox1 => Core.Dynamic().PasswordBox1;
+        public WPFProgressBar ProgressBar1 => Core.Dynamic().ProgressBar1;
+        public WPFRichTextBox RichTextBox1 => Core.Dynamic().RichTextBox1;
+        public WPFSlider Slider1 => Core.Dynamic().Slider1;
+        public WPFTextBox TextBox1 => Core.Dynamic().TextBox1;
+        public WPFDatePicker DatePicker1 => Core.Dynamic().DatePicker1;
+        public WPFDataGrid DataGrid1 => Core.Dynamic().DataGrid1;
+        public WPFTabControl TabControl1 => Core.Dynamic().TabControl1;
+        public WPFCalendar Calendar1 => Core.Dynamic().Calendar1;
 
         public SingleWindow_Driver(WindowControl core)
         {
             Core = core;
+        }
+
+        public SingleWindow_Driver(AppVar core)
+        {
+            Core = new WindowControl(core);
         }
     }
 

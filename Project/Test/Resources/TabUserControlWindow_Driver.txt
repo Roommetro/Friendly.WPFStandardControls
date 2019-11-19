@@ -11,13 +11,18 @@ namespace TestCode
     public class TabUserControlWindow_Driver
     {
         public WindowControl Core { get; }
-        public WPFTabControl TabControl1 => new WPFTabControl(Core.Dynamic().TabControl1);
-        public UserControl2_Driver UserControl21 => new UserControl2_Driver(Core.Dynamic().UserControl21);
-        public UserControl1_Driver UserControl11 => new UserControl1_Driver(Core.Dynamic().UserControl11);
+        public WPFTabControl TabControl1 => Core.Dynamic().TabControl1;
+        public UserControl2_Driver UserControl21 => Core.Dynamic().UserControl21;
+        public UserControl1_Driver UserControl11 => Core.Dynamic().UserControl11;
 
         public TabUserControlWindow_Driver(WindowControl core)
         {
             Core = core;
+        }
+
+        public TabUserControlWindow_Driver(AppVar core)
+        {
+            Core = new WindowControl(core);
         }
     }
 

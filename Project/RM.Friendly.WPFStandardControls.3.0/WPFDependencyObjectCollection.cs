@@ -107,5 +107,25 @@ namespace RM.Friendly.WPFStandardControls
             }
             return AppVar["[]"](0);
         }
+
+#if ENG
+        /// <summary>
+        /// Single or Default.
+        /// </summary>
+        /// <returns>DependencyObject.</returns>
+#else
+        /// <summary>
+        /// コレクションの要素が一つであることを確認してそれを取得する。なければnullのAppVarが返る
+        /// </summary>
+        /// <returns>DependencyObject.</returns>
+#endif
+        public AppVar SingleOrDefault()
+        {
+            if (Count != 1)
+            {
+                return AppVar.App.Dim();
+            }
+            return AppVar["[]"](0);
+        }
     }
 }

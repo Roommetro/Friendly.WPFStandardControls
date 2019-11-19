@@ -11,11 +11,16 @@ namespace TestCode
     public class UserControlWindow_Driver
     {
         public WindowControl Core { get; }
-        public UserControl1_Driver UserControl11 => new UserControl1_Driver(Core.Dynamic().UserControl11);
+        public UserControl1_Driver UserControl11 => Core.Dynamic().UserControl11;
 
         public UserControlWindow_Driver(WindowControl core)
         {
             Core = core;
+        }
+
+        public UserControlWindow_Driver(AppVar core)
+        {
+            Core = new WindowControl(core);
         }
     }
 

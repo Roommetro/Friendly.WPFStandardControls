@@ -76,7 +76,9 @@
   <ItemGroup>
     <Compile Include="AppVarWrapper.cs" />
     <Compile Include="AppVarWrapper.Partial.cs" />
+    <Compile Include="FrameworkElementSearcher.cs" />
     <Compile Include="ButtonSearcher.cs" />
+    <Compile Include="FrameworkElementSearcherInTarget.cs" />
     <Compile Include="ButtonSearcherInTarget.cs" />
     <Compile Include="ContentControlSearcher.cs" />
     <Compile Include="ContentControlSearcherInTarget.cs" />
