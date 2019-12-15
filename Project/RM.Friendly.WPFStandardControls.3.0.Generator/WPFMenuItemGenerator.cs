@@ -15,10 +15,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
         protected override void Attach()
         {
             _control = ControlObject as MenuItem;
-            if (!string.IsNullOrEmpty(_control.Name))
-            {
-                _control.Click += Click;
-            }
+            _control.Click += Click;
         }
 
         protected override void Detach()
