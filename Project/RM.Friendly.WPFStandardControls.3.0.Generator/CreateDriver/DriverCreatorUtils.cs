@@ -12,7 +12,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
         internal static string GetTypeName(string driver)
         {
             var sp = driver.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
-            return sp[sp.Length - 1];
+            return sp.Length == 0 ? string.Empty : sp[sp.Length - 1];
         }
 
         internal static string GetTypeNamespace(string driver)

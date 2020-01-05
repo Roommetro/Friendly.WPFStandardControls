@@ -10,7 +10,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
 {
     public class WPFDriverCreator
     {
-        private const string TodoComment = "// TODO It is not the best way to identify. Please change to a better method.";
+        internal const string TodoComment = "// TODO It is not the best way to identify. Please change to a better method.";
         private const string Indent = "    ";
 
         private readonly CodeDomProvider _dom;
@@ -286,7 +286,7 @@ namespace [*namespace]
                         var name = _customNameGenerator.MakeDriverPropName(ctrl, string.Empty, names);
                         var typeName = DriverCreatorUtils.GetTypeName(driver);
                         var nameSpace = DriverCreatorUtils.GetTypeNamespace(driver);
-                        var getter = MakeCodeGetFromTree(logicalForGetter, visualForGetter, ctrl, cache, driverInfo.Usings, out var nogood);
+                        var getter = MakeCodeGetFromTree("Core.", logicalForGetter, visualForGetter, ctrl, cache, driverInfo.Usings, out var nogood);
                         var code = $"public {typeName} {name} => {getter};";
                         if (nogood)
                         {
@@ -301,11 +301,11 @@ namespace [*namespace]
             }
         }
 
-        private string MakeCodeGetFromTree(List<DependencyObject> logical, List<DependencyObject> visual, DependencyObject obj, BindingExpressionCache cache, List<string> usings, out bool nogood)
+        internal string MakeCodeGetFromTree(string prefix, List<DependencyObject> logical, List<DependencyObject> visual, DependencyObject obj, BindingExpressionCache cache, List<string> usings, out bool nogood)
         {
             nogood = false;
 
-            var preIdentify = "Core.LogicalTree()";
+            var preIdentify = prefix + "LogicalTree()";
             foreach (var tree in new[] { logical, visual })
             {
                 if (Exist(tree, obj))
@@ -337,13 +337,13 @@ namespace [*namespace]
                     var code = _customIdentify.Generate(obj, tree, usings);
                     if (!string.IsNullOrEmpty(code)) return preIdentify + code;
                 }
-                preIdentify = "Core.VisualTree()";
+                preIdentify = prefix + "VisualTree()";
             }
 
             nogood = true;
 
             //特定できなかったのでインデックスで行く
-            preIdentify = "Core.LogicalTree()";
+            preIdentify = prefix + "LogicalTree()";
             foreach (var tree in new[] { logical, visual })
             {
                 if (Exist(tree, obj))
@@ -358,7 +358,7 @@ namespace [*namespace]
                         }
                     }
                 }
-                preIdentify = "Core.VisualTree()";
+                preIdentify = prefix + "VisualTree()";
             }
 
             return string.Empty;
@@ -373,7 +373,7 @@ namespace [*namespace]
             return false;
         }
 
-        private static string TryIdentifyFromBinding(List<DependencyObject> tree, DependencyObject obj, BindingExpressionCache cache)
+        static string TryIdentifyFromBinding(List<DependencyObject> tree, DependencyObject obj, BindingExpressionCache cache)
         {
             foreach (var e in cache.GetBindingExpression(obj))
             {
@@ -393,18 +393,23 @@ namespace [*namespace]
             return string.Empty;
         }
 
-        private string GenerateCode(DependencyObject root, DependencyObject targetControl, string nameSpace, string driverClassName, List<string> usings, List<string> members, List<Type> getFromControlTreeOnly)
+        internal string GenerateCode(DependencyObject root, DependencyObject targetControl, string nameSpace, string driverClassName, List<string> usings, List<string> members, List<Type> getFromControlTreeOnly)
         {
-            var code = new List<string>
-            {
-                "using Codeer.Friendly.Dynamic;",
-                "using Codeer.Friendly;",
-                "using Codeer.Friendly.Windows;",
-                "using Codeer.Friendly.Windows.Grasp;",
-                "using Codeer.TestAssistant.GeneratorToolKit;"
-            };
 
-            if (!usings.Contains("RM.Friendly.WPFStandardControls")) usings.Add("RM.Friendly.WPFStandardControls");
+            foreach (var e in new[]
+                    {
+                        "RM.Friendly.WPFStandardControls",
+                        "Codeer.TestAssistant.GeneratorToolKit",
+                        "Codeer.Friendly.Windows.Grasp",
+                        "Codeer.Friendly.Windows",
+                        "Codeer.Friendly.Dynamic",
+                        "Codeer.Friendly",
+                    })
+            {
+                if (!usings.Contains(e)) usings.Insert(0, e);
+            }
+            var code = new List<string>();
+
             foreach (var e in usings)
             {
                 code.Add($"using {e};");
