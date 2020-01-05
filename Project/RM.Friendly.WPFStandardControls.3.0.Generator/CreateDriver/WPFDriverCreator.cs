@@ -276,6 +276,7 @@ namespace [*namespace]
                 var cache = new BindingExpressionCache();
                 foreach (var ctrl in tree)
                 {
+                    if (ReferenceEquals(ctrl, target)) continue;
                     //すでにマップされているかチェック
                     if (CollectionUtility.HasReference(mappedControls, ctrl)) continue;
 
@@ -395,7 +396,6 @@ namespace [*namespace]
 
         internal string GenerateCode(DependencyObject root, DependencyObject targetControl, string nameSpace, string driverClassName, List<string> usings, List<string> members, List<Type> getFromControlTreeOnly)
         {
-
             foreach (var e in new[]
                     {
                         "RM.Friendly.WPFStandardControls",
