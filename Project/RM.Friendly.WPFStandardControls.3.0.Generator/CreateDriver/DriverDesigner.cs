@@ -92,7 +92,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             {
                 if (DriverCreatorAdapter.TypeFullNameAndUserControlDriver.ContainsKey(ctrl.GetType().FullName)) return ctrl;
                 if (DriverCreatorAdapter.TypeFullNameAndWindowDriver.ContainsKey(ctrl.GetType().FullName)) return ctrl;
-                var parent = VisualTreeHelper.GetParent(targetControl) as UIElement;
+                var parent = VisualTreeHelper.GetParent(ctrl) as UIElement;
                 if (parent == null) return ctrl;
                 ctrl = parent;
             }
