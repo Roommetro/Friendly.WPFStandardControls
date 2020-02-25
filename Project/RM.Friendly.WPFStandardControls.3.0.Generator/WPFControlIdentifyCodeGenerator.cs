@@ -61,6 +61,19 @@ namespace RM.Friendly.WPFStandardControls.Generator
                     };
                 }
             }
+            var frameworkElement = target as FrameworkElement;
+            if (frameworkElement != null)
+            {
+                var text = frameworkElement.Name;
+                if (Where(OfType<FrameworkElement>(tree), e => text == e.Name).Count == 1)
+                {
+                    return new WPFIdentifyCodeInfo
+                    {
+                        IdentifyCode = "ByType<FrameworkElement>().ByName(\"" + text + "\").Single().Dynamic()",
+                        AddUsings = new[] { "System.Windows" }
+                    };
+                }
+            }
             return null;
         }
 
