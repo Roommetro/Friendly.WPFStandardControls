@@ -54,7 +54,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
 
         void SelectionChanged(object sender, EventArgs e)
         {   
-            if (_control.IsMouseCaptured || _control.IsKeyboardFocused || _control.IsFocused)
+            if ((_control.IsMouseCaptured || _control.IsKeyboardFocused || _control.IsFocused) && _control.SelectedIndex != -1)
             {
                 AddSentence(new TokenName(), ".EmulateChangeSelectedIndex(" + _control.SelectedIndex, new TokenAsync(CommaType.Before), ");");
             }

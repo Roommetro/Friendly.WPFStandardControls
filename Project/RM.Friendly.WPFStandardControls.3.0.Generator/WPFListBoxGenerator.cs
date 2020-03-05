@@ -33,7 +33,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
                     break;
                 }
             }
-            if (isFocused)
+            if (isFocused && _control.SelectedIndex != -1)
             {
                 AddSentence(new TokenName(), ".EmulateChangeSelectedIndex(" + _control.SelectedIndex, new TokenAsync(CommaType.Before), ");");
             }
