@@ -107,7 +107,6 @@
       <DependentUpon>ButtonSearchTestControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="CaptureTest\Capture.cs" />
-    <Compile Include="CaptureTest\MainWindow_Driver.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="GeneratorTest\CreateDriverTest.cs" />
     <Compile Include="ListBox.cs" />
