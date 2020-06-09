@@ -2,10 +2,15 @@
 using Codeer.TestAssistant.GeneratorToolKit;
 using RM.Friendly.WPFStandardControls.Inside;
 using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
 using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Input;
 
 namespace RM.Friendly.WPFStandardControls
 {
@@ -71,6 +76,40 @@ namespace RM.Friendly.WPFStandardControls
                 }
             }
         }
+
+        static int GetActiveIndex(ListBox list)
+        {
+            DependencyObject focusedElement = null;
+            if (list.IsKeyboardFocusWithin)
+            {
+                focusedElement = Keyboard.FocusedElement as DependencyObject;
+            }
+            else if (list.IsMouseCaptureWithin)
+            {
+                focusedElement = Mouse.Captured as DependencyObject;
+            }
+            if (focusedElement == null) return -1;
+
+            var focusedVisual = (List<DependencyObject>)TreeUtilityInTarget.VisualTree(focusedElement, TreeRunDirection.Ancestors);
+            for (var i = 0; i < focusedVisual.Count; i++)
+            {
+                var item = focusedVisual[i] as ListBoxItem;
+                if (item == null) continue;
+
+                i++;
+                for (; i < focusedVisual.Count; i++)
+                {
+                    var findedListBox = focusedVisual[i] as ListBox;
+                    if (findedListBox == null) continue;
+
+                    //ListBox in ListBox
+                    if (findedListBox != list) break;
+
+                    return list.ItemContainerGenerator.IndexFromContainer(item);
+                }
+            }
+            return -1;
+        }
     }
 
 #if ENG
@@ -114,7 +153,10 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public WPFListBoxItem GetItem(int index)
         {
-            EnsureVisible(index);
+            if (!TestAssistantMode.IsCreatingMode)
+            {
+                EnsureVisible(index);
+            }
             return new WPFListBoxItem(this["ItemContainerGenerator"]()["ContainerFromIndex"](index));
         }
     }
@@ -154,7 +196,6 @@ namespace RM.Friendly.WPFStandardControls
         /// 選択アイテムに割当たるUserControlDriver
         /// </summary
 #endif
-        [UserControlDriverGetter]
         public TItemUserControlDriver SelectedItemDriver
         {
             get
@@ -163,6 +204,17 @@ namespace RM.Friendly.WPFStandardControls
                 return UserControlDriverUtility.AttachDriver<TItemUserControlDriver>(this["ItemContainerGenerator"]()["ContainerFromIndex"](SelectedIndex));
             }
         }
+
+#if ENG
+        /// <summary>
+        /// Active item index.
+        /// </summary>
+#else
+        /// <summary>
+        /// アクティブな(キーボードフォーカスを持っている)アイテムのインデックスの取得
+        /// </summary>
+#endif
+        public int ActiveItemIndex => (int)App[typeof(WPFListBox), "GetActiveIndex"](this).Core;
 
 #if ENG
         /// <summary>
@@ -177,8 +229,9 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="index">インデックス。</param>
         /// <returns>UserControlDriver</returns>
 #endif
+        [UserControlDriverGetter(ActiveItemKeyProperty = "ActiveItemIndex")]
         public TItemUserControlDriver GetItemDriver(int index)
-            => UserControlDriverUtility.AttachDriver<TItemUserControlDriver>(GetItem(index));
+            => (TestAssistantMode.IsCreatingMode && index == -1) ? null : UserControlDriverUtility.AttachDriver<TItemUserControlDriver>(GetItem(index));
 
 #if ENG
         /// <summary>

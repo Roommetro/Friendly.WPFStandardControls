@@ -1,10 +1,13 @@
 ﻿using Codeer.Friendly;
 using Codeer.TestAssistant.GeneratorToolKit;
 using RM.Friendly.WPFStandardControls.Inside;
+using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace RM.Friendly.WPFStandardControls
 {
@@ -49,7 +52,10 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public WPFListViewItem GetItem(int index)
         {
-            EnsureVisible(index);
+            if (!TestAssistantMode.IsCreatingMode)
+            {
+                EnsureVisible(index);
+            }
             return new WPFListViewItem(this["ItemContainerGenerator"]()["ContainerFromIndex"](index));
         }
     }
@@ -90,7 +96,6 @@ namespace RM.Friendly.WPFStandardControls
         /// 選択アイテムに割当たるUserControlDriver
         /// </summary
 #endif
-        [UserControlDriverGetter]
         public TItemUserControlDriver SelectedItemDriver
         {
             get
@@ -99,6 +104,17 @@ namespace RM.Friendly.WPFStandardControls
                 return UserControlDriverUtility.AttachDriver<TItemUserControlDriver>(this["ItemContainerGenerator"]()["ContainerFromIndex"](SelectedIndex));
             }
         }
+
+#if ENG
+        /// <summary>
+        /// Active item index.
+        /// </summary>
+#else
+        /// <summary>
+        /// アクティブな(キーボードフォーカスを持っている)アイテムのインデックスの取得
+        /// </summary>
+#endif
+        public int ActiveItemIndex => (int)App[typeof(WPFListBox), "GetActiveIndex"](this).Core;
 
 #if ENG
         /// <summary>
@@ -113,8 +129,9 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="index">インデックス。</param>
         /// <returns>UserControlDriver</returns>
 #endif
+        [UserControlDriverGetter(ActiveItemKeyProperty = "ActiveItemIndex")]
         public TItemUserControlDriver GetItemDriver(int index)
-            => UserControlDriverUtility.AttachDriver<TItemUserControlDriver>(GetItem(index));
+            => (TestAssistantMode.IsCreatingMode && index == -1) ? null : UserControlDriverUtility.AttachDriver<TItemUserControlDriver>(GetItem(index));
 
 #if ENG
         /// <summary>

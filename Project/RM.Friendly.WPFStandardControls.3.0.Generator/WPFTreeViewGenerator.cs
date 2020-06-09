@@ -15,6 +15,8 @@ namespace RM.Friendly.WPFStandardControls.Generator
         List<DetachEvent> _detach = new List<DetachEvent>();
         List<TreeViewItem> _attachedItems = new List<TreeViewItem>();
 
+        public bool IsTextKey { get; set; } = true;
+
         protected override void Detach()
         {
             foreach (var e in _detach)
@@ -26,10 +28,10 @@ namespace RM.Friendly.WPFStandardControls.Generator
         protected override void Attach()
         {
             _control = ControlObject as TreeView;
-            AttachChildren(new string[0], _control);
+            AttachChildren(new int[0], new string[0], _control);
         }
 
-        void AttachChildren(string[] texts, ItemsControl itemsControl)
+        void AttachChildren(int[] indices, string[] texts, ItemsControl itemsControl)
         {
             //仮想化対応 50ミリ周期でイベントハンドリングしていないTreeViewItemを監視する
             //初回はすぐに実行されるようにする
@@ -44,11 +46,13 @@ namespace RM.Friendly.WPFStandardControls.Generator
                 var exists = GetTreeChildren(itemsControl, next, out var notExists);
                 foreach (var item in exists)
                 {
-                    string text = HeaderedItemsControlUtility.GetItemText(item);
+                    string text = HeaderedItemsControlUtility.GetItemText(item.Value);
 
+                    List<int> nextIndices = new List<int>(indices);
                     List<string> nextTexts = new List<string>(texts);
+                    nextIndices.Add(item.Key);
                     nextTexts.Add(text);
-                    EventConnection(item, false, nextTexts.ToArray());
+                    EventConnection(item.Value, false, IsTextKey, nextIndices.ToArray(), nextTexts.ToArray());
                 }
 
                 //仮想化でまだ存在していない要素があればそれを監視させる
@@ -76,7 +80,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
             timer.Start();
         }
 
-        void EventConnection(TreeViewItem item, bool isInEvent, string[] texts)
+        void EventConnection(TreeViewItem item, bool isInEvent, bool useText, int[] indices, string[] texts)
         {
             //既に処理した要素は無視
             if (_attachedItems.Contains(item)) return;
@@ -92,23 +96,23 @@ namespace RM.Friendly.WPFStandardControls.Generator
                 if (!ReferenceEquals(e.Source, item)) return;
                 if (HasFocus())
                 {
-                    AddSentence(new TokenName(), ".GetItem(" + MakeGetArgs(texts) + ").EmulateChangeExpanded(true",
+                    AddSentence(new TokenName(), ".GetItem(" + MakeGetArgs(useText, indices, texts) + ").EmulateChangeExpanded(true",
                         new TokenAsync(CommaType.Before), ");");
                 }
-                AttachChildren(texts, item);
+                AttachChildren(indices, texts, item);
             };
             item.Expanded += opened;
 
             //選択イベント
             RoutedEventHandler selected = (s, e) =>
             {
-                SelectedChanged(item, texts);
+                SelectedChanged(item, useText, indices, texts);
             };
             item.Selected += selected;
 
             RoutedEventHandler closedForGenerate = (s, ee) =>
             {
-                Collapsed(item, texts);
+                Collapsed(item, useText, indices, texts);
             };
             item.Collapsed += closedForGenerate;
 
@@ -123,45 +127,59 @@ namespace RM.Friendly.WPFStandardControls.Generator
             //開いている場合は子要素にも同様の処理を行う
             if (item.IsExpanded)
             {
-                AttachChildren(texts, item);
+                AttachChildren(indices, texts, item);
             }
         }
 
-        void Collapsed(TreeViewItem item, string[] texts)
+        void Collapsed(TreeViewItem item, bool useText, int[] indices, string[] texts)
         {
             if (item.IsExpanded) return;
             if (!HasFocus()) return;
 
-            AddSentence(new TokenName(), ".GetItem(" + MakeGetArgs(texts) + ").EmulateChangeExpanded(false",
+            AddSentence(new TokenName(), ".GetItem(" + MakeGetArgs(useText, indices, texts) + ").EmulateChangeExpanded(false",
               new TokenAsync(CommaType.Before), ");");
         }
 
-        void SelectedChanged(TreeViewItem item, string[] texts)
+        void SelectedChanged(TreeViewItem item, bool useText, int[] indices, string[] texts)
         {
             if (!item.IsFocused) return;
-            AddSentence(new TokenName(), ".GetItem(" + MakeGetArgs(texts) + ").EmulateChangeSelected(",
+            AddSentence(new TokenName(), ".GetItem(" + MakeGetArgs(useText, indices, texts) + ").EmulateChangeSelected(",
                 (item.IsSelected ? "true" : "false"),
                 new TokenAsync(CommaType.Before), ");");
         }
 
-        static string MakeGetArgs(string[] texts)
+        static string MakeGetArgs(bool useText, int[] indices, string[] texts)
         {
-            StringBuilder getArgs = new StringBuilder();
-            foreach (var element in texts)
+            var getArgs = new StringBuilder();
+            if (useText)
             {
-                if (0 < getArgs.Length)
+                foreach (var element in texts)
                 {
-                    getArgs.Append(", ");
+                    if (0 < getArgs.Length)
+                    {
+                        getArgs.Append(", ");
+                    }
+                    getArgs.Append(GenerateUtility.ToLiteral(element));
                 }
-                getArgs.Append(GenerateUtility.ToLiteral(element));
+            }
+            else
+            {
+                foreach (var element in indices)
+                {
+                    if (0 < getArgs.Length)
+                    {
+                        getArgs.Append(", ");
+                    }
+                    getArgs.Append(element);
+                }
             }
             return getArgs.ToString();
         }
 
-        static TreeViewItem[] GetTreeChildren(ItemsControl control, int[] idnexes, out int[] notExists)
+        static Dictionary<int, TreeViewItem> GetTreeChildren(ItemsControl control, int[] idnexes, out int[] notExists)
         {
             var listNotExists = new List<int>();
-            var list = new List<TreeViewItem>();
+            var dic = new Dictionary<int, TreeViewItem>();
             if (idnexes == null)
             {
                 var allIndexes = new List<int>();
@@ -180,11 +198,11 @@ namespace RM.Friendly.WPFStandardControls.Generator
                 }
                 else
                 {
-                    list.Add(item);
+                    dic[i] = item;
                 }
             }
             notExists = listNotExists.ToArray();
-            return list.ToArray();
+            return dic;
         }
 
         bool HasFocus()

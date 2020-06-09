@@ -67,14 +67,14 @@
     <Reference Include="Codeer.Friendly.Windows.KeyMouse.3.5, Version=1.3.14.0, Culture=neutral, PublicKeyToken=39f6ecaa6ad3a1f3, processorArchitecture=MSIL">
       <HintPath>..\packages\Codeer.Friendly.Windows.KeyMouse.1.3.14\lib\net35\Codeer.Friendly.Windows.KeyMouse.3.5.dll</HintPath>
     </Reference>
-    <Reference Include="Codeer.Friendly.Windows.NativeStandardControls, Version=2.12.19.0, Culture=neutral, PublicKeyToken=90759bf0c8b8639e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.Friendly.Windows.NativeStandardControls.2.12.19\lib\net20\Codeer.Friendly.Windows.NativeStandardControls.dll</HintPath>
+    <Reference Include="Codeer.Friendly.Windows.NativeStandardControls, Version=2.12.23.0, Culture=neutral, PublicKeyToken=90759bf0c8b8639e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.Windows.NativeStandardControls.2.12.23\lib\net20\Codeer.Friendly.Windows.NativeStandardControls.dll</HintPath>
     </Reference>
-    <Reference Include="Codeer.Friendly.Windows.NativeStandardControls.Generator, Version=2.12.19.0, Culture=neutral, PublicKeyToken=eea982eb65b72dea, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.Friendly.Windows.NativeStandardControls.2.12.19\lib\net20\Codeer.Friendly.Windows.NativeStandardControls.Generator.dll</HintPath>
+    <Reference Include="Codeer.Friendly.Windows.NativeStandardControls.Generator, Version=2.12.23.0, Culture=neutral, PublicKeyToken=eea982eb65b72dea, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.Windows.NativeStandardControls.2.12.23\lib\net20\Codeer.Friendly.Windows.NativeStandardControls.Generator.dll</HintPath>
     </Reference>
-    <Reference Include="Codeer.TestAssistant.GeneratorToolKit, Version=3.5.1.0, Culture=neutral, PublicKeyToken=f7af39ab9bcf13fe, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.TestAssistant.GeneratorToolKit.3.5.2\lib\net20\Codeer.TestAssistant.GeneratorToolKit.dll</HintPath>
+    <Reference Include="Codeer.TestAssistant.GeneratorToolKit, Version=3.8.0.0, Culture=neutral, PublicKeyToken=f7af39ab9bcf13fe, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.TestAssistant.GeneratorToolKit.3.8.0\lib\net20\Codeer.TestAssistant.GeneratorToolKit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PresentationCore" />
@@ -98,11 +98,16 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ActiveItemTest.cs" />
+    <Compile Include="ActiveItemTestControl.xaml.cs">
+      <DependentUpon>ActiveItemTestControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ButtonSearchTest.cs" />
     <Compile Include="ButtonSearchTestControl.xaml.cs">
       <DependentUpon>ButtonSearchTestControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="CaptureTest\Capture.cs" />
+    <Compile Include="CaptureTest\MainWindow_Driver.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="GeneratorTest\CreateDriverTest.cs" />
     <Compile Include="ListBox.cs" />
@@ -201,6 +206,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ActiveItemTestControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ButtonSearchTestControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

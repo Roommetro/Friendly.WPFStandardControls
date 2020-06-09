@@ -9,6 +9,7 @@ using System.Windows.Automation;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace RM.Friendly.WPFStandardControls
@@ -136,14 +137,14 @@ namespace RM.Friendly.WPFStandardControls
             throw new NotSupportedException(ResourcesLocal3.Instance.ErrorNotFoundItem);
         }
 
-        static TreeViewItem GetItemEx(TreeView tree, ItemsControl parent, int[] headerTexts, int index)
+        static TreeViewItem GetItemEx(TreeView tree, ItemsControl parent, int[] indices, int index)
         {
-            var targetIndex = headerTexts[index];
+            var targetIndex = indices[index];
             if (parent.Items.Count <= targetIndex) throw new NotSupportedException(ResourcesLocal3.Instance.ErrorNotFoundItem);
 
             var item = GetItemAndScrollIntoView(tree, parent, targetIndex);
 
-            if (index == headerTexts.Length - 1)
+            if (index == indices.Length - 1)
             {
                 item.BringIntoView();
                 return item;
@@ -151,7 +152,7 @@ namespace RM.Friendly.WPFStandardControls
             else
             {
                 ShowNextItem(item);
-                return GetItemEx(tree, item, headerTexts, index + 1);
+                return GetItemEx(tree, item, indices, index + 1);
             }
         }
 
@@ -235,6 +236,62 @@ namespace RM.Friendly.WPFStandardControls
             return list.ToArray();
         }
 
+        static int[] GetActiveIndices(TreeView tree)
+        {
+            DependencyObject focusedElement = null;
+            if (tree.IsKeyboardFocusWithin)
+            {
+                focusedElement = Keyboard.FocusedElement as DependencyObject;
+            }
+            else if (tree.IsMouseCaptureWithin)
+            {
+                focusedElement = Mouse.Captured as DependencyObject;
+            }
+            if (focusedElement == null) return new int[0];
+
+            var focusedVisual = (List<DependencyObject>)TreeUtilityInTarget.VisualTree(focusedElement, TreeRunDirection.Ancestors);
+            for (var i = 0; i < focusedVisual.Count; i++)
+            {
+                var item = focusedVisual[i] as TreeViewItem;
+                if (item == null) continue;
+
+                var targetItemIndex = i;
+                i++;
+                for (; i < focusedVisual.Count; i++)
+                {
+                    var findedTreeView = focusedVisual[i] as TreeView;
+                    if (findedTreeView == null) continue;
+
+                    //TreeView in TreeView
+                    if (findedTreeView != tree) break;
+
+                    //Get Keys.
+                    var indices = new List<int>();
+                    for (int j = targetItemIndex; j < i; j++)
+                    {
+                        var focusedItem = focusedVisual[j] as TreeViewItem;
+                        if (focusedItem == null) continue;
+                        indices.Add(GetIndex(focusedItem, focusedVisual, j, i));
+                    }
+                    indices.Reverse();
+                    return indices.ToArray();
+                }
+            }
+            return new int[0];
+        }
+
+        static int GetIndex(TreeViewItem item, List<DependencyObject> focusedVisual, int itemIndex, int treeIndex)
+        {
+            for (int j = itemIndex + 1; j < treeIndex; j++)
+            {
+                var parent = focusedVisual[j] as TreeViewItem;
+                if (parent != null)
+                {
+                    return parent.ItemContainerGenerator.IndexFromContainer(item);
+                }
+            }
+            return ((TreeView)focusedVisual[treeIndex]).ItemContainerGenerator.IndexFromContainer(item);
+        }
     }
 
 #if ENG
@@ -273,7 +330,6 @@ namespace RM.Friendly.WPFStandardControls
         /// 選択アイテムに割当たるUserControlDriver
         /// </summary
 #endif
-        [UserControlDriverGetter]
         public TItemUserControlDriver SelectedItemDriver
         {
             get
@@ -282,6 +338,17 @@ namespace RM.Friendly.WPFStandardControls
                 return UserControlDriverUtility.AttachDriver<TItemUserControlDriver>(SelectedItem);
             }
         }
+
+#if ENG
+        /// <summary>
+        /// Active item key.
+        /// </summary>
+#else
+        /// <summary>
+        /// アクティブな(キーボードフォーカスを持っている)アイテムのキーの取得
+        /// </summary>
+#endif
+        public int[] ActiveItemIndices => (int[])App[typeof(WPFTreeView), "GetActiveIndices"](this).Core;
 
 #if ENG
         /// <summary>
@@ -312,8 +379,9 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="indices">目的のアイテムまでの各階層でのインデックスの配列です。</param>
         /// <returns>UserControlDriver</returns>
 #endif
+        [UserControlDriverGetter(ActiveItemKeyProperty = "ActiveItemIndices")]
         public TItemUserControlDriver GetItemDriver(params int[] indices)
-            => UserControlDriverUtility.AttachDriver<TItemUserControlDriver>(GetItem(indices));
+            => (TestAssistantMode.IsCreatingMode && indices.Length == 0) ? null : UserControlDriverUtility.AttachDriver<TItemUserControlDriver>(GetItem(indices));
 
 #if ENG
         /// <summary>
@@ -327,5 +395,22 @@ namespace RM.Friendly.WPFStandardControls
         /// <returns>対象プロセス内部で実行する型</returns>
 #endif
         protected override Type GetInvokeType() => typeof(WPFTreeView);
+
+#if ENG
+        /// <summary>
+        /// Call during capture.
+AppVar of Capture Code Generator running in the target process comes over.
+        /// </summary>
+        /// <param name="captureCodeGenerator">Capture Code Generator.</param>
+#else
+        /// <summary>
+        /// キャプチャ中に呼ばれる。
+        /// 対象プロセス内で動作するCapture Code Generator の AppVar が渡ってくる。
+        /// </summary>
+        /// <param name="captureCodeGenerator">Capture Code Generator.</param>
+#endif
+        [CaptureCodeGeneratorCustom]
+        public virtual void CustomCaptureCodeGenerator(AppVar captureCodeGenerator)
+            => captureCodeGenerator["IsTextKey"](false);
     }
 }
