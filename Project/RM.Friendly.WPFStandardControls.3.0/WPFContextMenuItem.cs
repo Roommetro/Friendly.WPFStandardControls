@@ -80,19 +80,6 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public bool IsEnabled { get { using (var item = GetItem()) return item.Item.IsEnabled; } }
 
-#if ENG
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="target">Focus element at opening.</param>
-        /// <param name="indices">The array of index to the target item. </param>
-#else
-        /// <summary>
-        /// コンストラクタ。
-        /// </summary>
-        /// <param name="target">コンテキストメニューを開くときにフォーカスの当たっている要素。</param>
-        /// <param name="indices">目的のアイテムまでの各階層でのインデックスの配列です。</param>
-#endif
         internal WPFContextMenuItem(AppVar target, bool openByKey, object[] indices)
         {
             _target = target;

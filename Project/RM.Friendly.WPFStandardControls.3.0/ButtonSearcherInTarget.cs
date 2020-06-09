@@ -100,7 +100,7 @@ namespace RM.Friendly.WPFStandardControls
         /// </summary>
         /// <typeparam name="T">Type of collection.</typeparam>
         /// <param name="collection">ButtonBase collection.</param>
-        /// <param name="commandParameter">Command parameter.</param>
+        /// <param name="commandParameterText">Command parameter.</param>
         /// <returns>Hit elements.</returns>
 #else
         /// <summary>

@@ -90,6 +90,15 @@ namespace RM.Friendly.WPFStandardControls
             return new WPFTreeViewItem(InvokeStaticRetAppVar(GetItemInTarget, Ret<TreeViewItem>(), indices));
         }
 
+#if ENG
+        /// <summary>
+        /// Selected Item.
+        /// </summary>
+#else
+        /// <summary>
+        /// 選択中のアイテム
+        /// </summary>
+#endif
         public WPFTreeViewItem SelectedItem => new WPFTreeViewItem(InvokeStaticRetAppVar(GetSelectedItemInTarget, Ret<TreeViewItem>()));
 
         static TreeViewItem GetItemInTarget(TreeView tree, string[] headerTexts)
@@ -370,7 +379,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <summary>
         /// Get item's UserControlDriver.
         /// </summary>
-        /// <param name="index">Item index.</param>
+        /// <param name="indices">Item index.</param>
         /// <returns>UserControlDriver.</returns>
 #else
         /// <summary>
@@ -399,7 +408,7 @@ namespace RM.Friendly.WPFStandardControls
 #if ENG
         /// <summary>
         /// Call during capture.
-AppVar of Capture Code Generator running in the target process comes over.
+        /// AppVar of Capture Code Generator running in the target process comes over.
         /// </summary>
         /// <param name="captureCodeGenerator">Capture Code Generator.</param>
 #else
