@@ -107,7 +107,7 @@ public void Test()
 The control driver is implemented using processing that uses [the basic functions of Friendly](https://github.com/Codeer-Software/Friendly#friendly-infrastructure).<br>
 If you are using non-standard controls such as 3rd party controls you will need to create a new one.<br>
 Knowledge of Friendly and its controls should not be so difficult.<br>
-When you make ControlDriver, it is better not to refer to the implementation of WPF Standard Controls. <br>
+When you make ControlDriver, it is better not to refer to the implementation of WPFStandard Controls. <br>
 It is difficult to read because there are many special writing methods that include support for .Net 4.0 and earlier.<br>
 Normally, it is not necessary to support .Net 4.0 or earlier, so it is better to write it differently.<br>
 Please refer to [this](https://github.com/Codeer-Software/Friendly.XamControls) as it is relatively easy to read.<br>
@@ -217,3 +217,15 @@ static Layout GetLayout(Window main)
     };
 }
 ```
+***
+For other GUI types, use the following libraries:
+
+* For Win32.  
+https://www.nuget.org/packages/Codeer.Friendly.Windows.NativeStandardControls/  
+
+* For WinForms.  
+https://github.com/ShinichiIshizuka/Ong.Friendly.FormsStandardControls/
+
+* For getting the target window.  
+https://www.nuget.org/packages/Codeer.Friendly.Windows.Grasp/  
+
