@@ -229,3 +229,5 @@ https://github.com/ShinichiIshizuka/Ong.Friendly.FormsStandardControls/
 * For getting the target window.  
 https://www.nuget.org/packages/Codeer.Friendly.Windows.Grasp/  
 
+* CefSharp
+https://github.com/Codeer-Software/Selenium.CefSharp.Driver/
