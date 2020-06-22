@@ -180,8 +180,8 @@ When Dll injection is performed, the above search can be executed inside the tar
 LogicalTree() and VisualTree() used here are extension methods for DependencyObject and return IEnumerable&lt;DependencyObject>.<br>
 So you can use Linq and search more freely.<br>
 ```cs  
-public static IEnumerable<DependencyObject> VisualTree(this DependencyObject start, TreeRunDirection direction = TreeRunDirection.Descendants)
-public static IEnumerable<DependencyObject> LogicalTree(this DependencyObject start, TreeRunDirection direction = TreeRunDirection.Descendants)
+public static IEnumerable<DependencyObject> VisualTree(this DependencyObject start, TreeRunDirection direction = TreeRunDirection.Descendants);
+public static IEnumerable<DependencyObject> LogicalTree(this DependencyObject start, TreeRunDirection direction = TreeRunDirection.Descendants);
 ```
 ```cs  
 public void Test()
