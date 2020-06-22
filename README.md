@@ -37,6 +37,9 @@ They can operate WPF control easily from a separate process.
 * WPFCalendar  
 * WPFDatePicker  
 * WPFDataGrid  
+* WPFListBox&lt;TItemUserControlDriver>
+* WPFListView&lt;TItemUserControlDriver> 
+* WPFTreeView&lt;TItemUserControlDriver>
 
 ***
 ```cs  
@@ -57,6 +60,59 @@ using (var app = new WindowsAppFriend(process))
 ```
 ### More samples.
 https://github.com/Roommetro/Friendly.WPFStandardControls/tree/master/Project/Test
+
+## Data Template ItemsControl
+For ListBox, ListView, TreeView, there is a mechanism that supports customization using DataTemplate.
+* WPFListBox&lt;TItemUserControlDriver>
+* WPFListView&lt;TItemUserControlDriver> 
+* WPFTreeView&lt;TItemUserControlDriver>
+```cs  
+<UserControl x:Class="Test.ActiveItemTestControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Test"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Canvas>
+        <ListBox x:Name="_listBox" SelectionMode="Multiple" Height="148" Width="312">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBox Text="{Binding Name}" />
+                    <TextBox Text="{Binding Age}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Canvas>
+</UserControl> 
+```
+```cs
+public class ItemDriver : IAppVarOwner
+{
+    public AppVar AppVar { get; }
+    public WPFTextBox Name => AppVar.VisualTree().ByBinding("Name").Dynamic();
+    public WPFTextBox Age => AppVar.VisualTree().ByBinding("Age").Dynamic();
+    public ItemDriver(AppVar appVar) => AppVar = appVar;
+}
+
+public void Test()
+{
+    var list = new WPFListBox<ItemDriver>(_ctrl._listBox);
+    var item = list.GetItemDriver(1);
+    item.Name.EmulateChangeTExt("Ishikawa");
+    item.Name.EmulateChangeTExt("40");
+}
+```
+The control driver is implemented using processing that uses [the basic functions of Friendly](https://github.com/Codeer-Software/Friendly#friendly-infrastructure).<br>
+If you are using non-standard controls such as 3rd party controls you will need to create a new one.<br>
+Knowledge of Friendly and its controls should not be so difficult.<br>
+When you make ControlDriver, it is better not to refer to the implementation of WPF Standard Controls. <br>
+It is difficult to read because there are many special writing methods that include support for .Net 4.0 and earlier.<br>
+Normally, it is not necessary to support .Net 4.0 or earlier, so it is better to write it differently.<br>
+Please refer to [this](https://github.com/Codeer-Software/Friendly.XamControls) as it is relatively easy to read.<br>
+It is 3rd party control driver.<br>
+https://github.com/Codeer-Software/Friendly.XamControls<br>
 
 ***
 
