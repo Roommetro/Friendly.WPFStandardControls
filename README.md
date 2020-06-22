@@ -66,7 +66,7 @@ For ListBox, ListView, TreeView, there is a mechanism that supports customizatio
 * WPFListBox&lt;TItemUserControlDriver>
 * WPFListView&lt;TItemUserControlDriver> 
 * WPFTreeView&lt;TItemUserControlDriver>
-```cs  
+```xml  
 <UserControl x:Class="Test.ActiveItemTestControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
