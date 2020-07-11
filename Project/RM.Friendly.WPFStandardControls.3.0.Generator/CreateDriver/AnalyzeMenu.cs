@@ -12,15 +12,9 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
         public Dictionary<string, MenuAction> GetAction(object target, WindowAnalysisTreeInfo info)
         {
             var dic = new Dictionary<string, MenuAction>();
-            if (target is DependencyObject ctrl)
+            if (target is UIElement uiElement)
             {
-                dic["Create Driver(&C)"] = () =>
-                {
-                    using (var dom = CodeDomProvider.CreateProvider("CSharp"))
-                    {
-                        new WPFDriverCreator(dom).CreateDriver(ctrl);
-                    }
-                };
+                dic["Pickup Children(&P)"] = () => ElementPicker.PickupChildren(uiElement);
             }
 
             if (target is ItemsControl itemsControl)
@@ -37,6 +31,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                     }
                 };
             }
+
             if (target is UIElement)
             {
                 dic["Create Control Driver(&D)"] = () =>

@@ -94,7 +94,7 @@ namespace RM.Friendly.WPFStandardControls
 #else
         /// <summary>
         /// 選択アイテムに割当たるUserControlDriver
-        /// </summary
+        /// </summary>
 #endif
         public TItemUserControlDriver SelectedItemDriver
         {

@@ -337,7 +337,7 @@ namespace RM.Friendly.WPFStandardControls
 #else
         /// <summary>
         /// 選択アイテムに割当たるUserControlDriver
-        /// </summary
+        /// </summary>
 #endif
         public TItemUserControlDriver SelectedItemDriver
         {
@@ -363,13 +363,13 @@ namespace RM.Friendly.WPFStandardControls
         /// <summary>
         /// Get item's UserControlDriver.
         /// </summary>
-        /// <param name="headerTexts">目的のアイテムまでのテキストの配列です。</param>
+        /// <param name="headerTexts">The array of text to the target item. </param>
         /// <returns>UserControlDriver.</returns>
 #else
         /// <summary>
         /// 指定のインデックスのアイテムに割当たったUserControlDriverを取得
         /// </summary>
-        /// <param name="index">インデックス。</param>
+        /// <param name="headerTexts">目的のアイテムまでのテキストの配列です。</param>
         /// <returns>UserControlDriver</returns>
 #endif
         public TItemUserControlDriver GetItemDriver(params string[] headerTexts)

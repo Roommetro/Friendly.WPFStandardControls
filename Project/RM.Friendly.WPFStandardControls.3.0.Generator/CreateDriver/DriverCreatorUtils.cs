@@ -22,6 +22,23 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             return driver.Substring(0, index);
         }
 
+        public static string GetDriverTypeFullName<T>(T ctrl, Dictionary<string, ControlDriverInfo> ctrls, Dictionary<string, UserControlDriverInfo> userControls, Dictionary<string, WindowDriverInfo> windows, out bool searchDescendantUserControls)
+        {
+            searchDescendantUserControls = true;
+
+            var info = GetDriverInfo(ctrl, ctrls);
+            if (info != null)
+            {
+                searchDescendantUserControls = info.SearchDescendantUserControls;
+                if (info.DriverMappingEnabled) return info.ControlDriverTypeFullName;
+            }
+
+            var driver = GetDriverTypeFullName(ctrl, userControls);
+            if (!string.IsNullOrEmpty(driver)) return driver;
+
+            return GetDriverTypeFullName(ctrl, windows);
+        }
+
         internal static string GetDriverTypeFullName<T>(T ctrl, Dictionary<string, ControlDriverInfo> netTypeAndDriverType, Dictionary<string, UserControlDriverInfo> typeFullNameAndUserControlDriver)
         {
             var controlDriverInfo = GetDriverInfo(ctrl, netTypeAndDriverType);
@@ -31,6 +48,18 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             //カスタムコントロール対応
             var userControlDriverInfo = GetDriverInfo(ctrl, typeFullNameAndUserControlDriver);
             return userControlDriverInfo == null ? string.Empty : userControlDriverInfo.DriverTypeFullName;
+        }
+
+        static string GetDriverTypeFullName<T>(T ctrl, Dictionary<string, WindowDriverInfo> netTypeAndDriverType)
+        {
+            var info = GetDriverInfo(ctrl, netTypeAndDriverType);
+            return info == null ? string.Empty : info.DriverTypeFullName;
+        }
+
+        static string GetDriverTypeFullName<T>(T ctrl, Dictionary<string, UserControlDriverInfo> netTypeAndDriverType)
+        {
+            var info = GetDriverInfo(ctrl, netTypeAndDriverType);
+            return info == null ? string.Empty : info.DriverTypeFullName;
         }
 
         internal static ControlDriverInfo GetDriverInfo<T>(T ctrl, Dictionary<string, ControlDriverInfo> netTypeAndDriverType)
