@@ -108,7 +108,6 @@
     </Compile>
     <Compile Include="CaptureTest\Capture.cs" />
     <Compile Include="DelegateCommand.cs" />
-    <Compile Include="GeneratorTest\CreateDriverTest.cs" />
     <Compile Include="ListBox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -192,10 +191,6 @@
     <ProjectReference Include="..\RM.Friendly.WPFStandardControls.4.0\RM.Friendly.WPFStandardControls.4.0.csproj">
       <Project>{287af20a-edb1-4de0-bf0f-8d37fd92de73}</Project>
       <Name>RM.Friendly.WPFStandardControls.4.0</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Target\Target.csproj">
-      <Project>{0e49a1ea-05b5-43bc-b7c8-6a1db4531da7}</Project>
-      <Name>Target</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

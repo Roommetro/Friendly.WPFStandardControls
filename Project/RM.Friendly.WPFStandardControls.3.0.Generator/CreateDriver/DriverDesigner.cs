@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 
 namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
@@ -18,6 +19,8 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
         const string AttachByWindowText = "Window Text";
         const string AttachVariableWindowText = "VariableWindowText";
         const string AttachCustom = "Custom";
+
+        readonly WPFCustomIdentify _customIdentify = new WPFCustomIdentify();
 
         public int Priority { get; }
 
@@ -89,6 +92,58 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             }
         }
 
+        internal static void CreateControlDriver(UIElement root)
+        {
+            var driverName = root.GetType().Name + "Driver";
+            var generatorName = driverName + "Generator";
+
+            var driverCode = @"using Codeer.Friendly;
+using Codeer.Friendly.Dynamic;
+using Codeer.Friendly.Windows;
+using Codeer.Friendly.Windows.Grasp;
+using Codeer.TestAssistant.GeneratorToolKit;
+using RM.Friendly.WPFStandardControls;
+using System;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+
+namespace [*namespace]
+{
+    [ControlDriver(TypeFullName = ""{typefullname}"", Priority = 2)]
+    public class {driverName} : WPFUIElement
+    {
+        public {driverName}(AppVar appVar)
+            : base(appVar) { }
+    }
+}
+";
+            DriverCreatorAdapter.AddCode($"{driverName}.cs", driverCode.Replace("{typefullname}", root.GetType().FullName).Replace("{driverName}", driverName), root);
+
+            var generatorCode = @"using System;
+using System.Windows;
+using Codeer.TestAssistant.GeneratorToolKit;
+
+namespace [*namespace]
+{
+    [CaptureCodeGenerator(""[*namespace.{driverName}]"")]
+    public class {generatorName} : CaptureCodeGeneratorBase
+    {
+        UIElement _element;
+
+        protected override void Attach()
+        {
+            _element = (UIElement)ControlObject;
+        }
+
+        protected override void Detach()
+        {
+        }
+    }
+}
+";
+            DriverCreatorAdapter.AddCode($"{generatorName}.cs", generatorCode.Replace("{generatorName}", generatorName).Replace("{driverName}", driverName), root);
+        }
+
         static void GetMembers(DriverDesignInfo info, out List<string> usings, out List<string> members)
         {
             usings = new List<string>();
@@ -98,7 +153,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             {
                 var typeName = DriverCreatorUtils.GetTypeName(e.TypeFullName);
                 var nameSpace = DriverCreatorUtils.GetTypeNamespace(e.TypeFullName);
-                var todo = (e.IsPerfect.HasValue && !e.IsPerfect.Value) ? WPFDriverCreator.TodoComment : string.Empty;
+                var todo = (e.IsPerfect.HasValue && !e.IsPerfect.Value) ? TodoComment : string.Empty;
                 members.Add($"public {typeName} {e.Name} => {e.Identify}; {todo}");
                 if (!usings.Contains(nameSpace)) usings.Add(nameSpace);
                 foreach (var x in e.ExtensionUsingNamespaces)
@@ -392,8 +447,6 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
 
         DriverIdentifyInfo[] GetIdentifyingCandidatesCore(CodeDomProvider dom, DependencyObject rootCtrl, DependencyObject elementCtrl)
         {
-            var creator = new WPFDriverCreator(dom);
-
             var ancestor = new List<DependencyObject>();
             var current = VisualTreeHelper.GetParent(elementCtrl);
             while (current != null)
@@ -434,7 +487,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                 //Treeから検索
                 var logicalForGetter = WPFUtility.GetLogicalTreeDescendants(e, false, false, 0);
                 var visualForGetter = WPFUtility.GetVisualTreeDescendants(e, false, false, 0);
-                path = creator.MakeCodeGetFromTree(string.Empty, logicalForGetter, visualForGetter, target, bindingExpressionCache, usings, out var nogood);
+                path = MakeCodeGetFromTree(string.Empty, logicalForGetter, visualForGetter, target, bindingExpressionCache, usings, out var nogood);
                 if (!needDynamic)
                 {
                     var toDynamic = ".Dynamic()";
@@ -489,6 +542,98 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             {
                 if (ReferenceEquals(e.GetValue(parent), target)) return e.Name;
             }
+            return string.Empty;
+        }
+
+        static bool Exist(List<DependencyObject> tree, DependencyObject obj)
+        {
+            foreach (var e in tree)
+            {
+                if (ReferenceEquals(e, obj)) return true;
+            }
+            return false;
+        }
+
+        static string TryIdentifyFromBinding(List<DependencyObject> tree, DependencyObject obj, BindingExpressionCache cache)
+        {
+            foreach (var e in cache.GetBindingExpression(obj))
+            {
+                var path = e.ParentBinding.Path.Path;
+                if (string.IsNullOrEmpty(path)) continue;
+
+                var matchExps = new List<BindingExpression>();
+                bool objFind = false;
+                foreach (var t in tree)
+                {
+                    if (t == obj) objFind = true;
+                    var matchExp = WPFUtility.GetMatchBindingExpression(cache.GetBindingExpression(t), path);
+                    if (matchExp != null) matchExps.Add(matchExp);
+                }
+                if (objFind && matchExps.Count == 1) return $".ByBinding(\"{path}\")";
+            }
+            return string.Empty;
+        }
+
+        string MakeCodeGetFromTree(string prefix, List<DependencyObject> logical, List<DependencyObject> visual, DependencyObject obj, BindingExpressionCache cache, List<string> usings, out bool nogood)
+        {
+            nogood = false;
+
+            var preIdentify = prefix + "LogicalTree()";
+            foreach (var tree in new[] { logical, visual })
+            {
+                if (Exist(tree, obj))
+                {
+                    //バインディングで特定できた
+                    var identifyCode = TryIdentifyFromBinding(tree, obj, cache);
+                    if (!string.IsNullOrEmpty(identifyCode))
+                    {
+                        return $"{preIdentify}{identifyCode}.Single().Dynamic()";
+                    }
+
+                    var sameType = CollectionUtility.OfType(tree, obj.GetType());
+                    preIdentify = $"{preIdentify}.ByType(\"{obj.GetType().FullName}\")";
+
+                    //タイプとバインディングで特定できた
+                    identifyCode = TryIdentifyFromBinding(sameType, obj, cache);
+                    if (!string.IsNullOrEmpty(identifyCode))
+                    {
+                        return $"{preIdentify}{identifyCode}.Single().Dynamic()";
+                    }
+
+                    if (sameType.Count == 1)
+                    {
+                        //タイプで特定できた
+                        return $"{preIdentify}.Single().Dynamic()";
+                    }
+
+                    //特殊な手法で特定できた
+                    var code = _customIdentify.Generate(obj, tree, usings);
+                    if (!string.IsNullOrEmpty(code)) return preIdentify + code;
+                }
+                preIdentify = prefix + "VisualTree()";
+            }
+
+            nogood = true;
+
+            //特定できなかったのでインデックスで行く
+            preIdentify = prefix + "LogicalTree()";
+            foreach (var tree in new[] { logical, visual })
+            {
+                if (Exist(tree, obj))
+                {
+                    var sameType = CollectionUtility.OfType(tree, obj.GetType());
+                    preIdentify = $"{preIdentify}.ByType(\"{obj.GetType().FullName}\")";
+                    for (int i = 0; i < sameType.Count; i++)
+                    {
+                        if (ReferenceEquals(sameType[i], obj))
+                        {
+                            return $"{preIdentify}[{i}].Dynamic()";
+                        }
+                    }
+                }
+                preIdentify = prefix + "VisualTree()";
+            }
+
             return string.Empty;
         }
     }

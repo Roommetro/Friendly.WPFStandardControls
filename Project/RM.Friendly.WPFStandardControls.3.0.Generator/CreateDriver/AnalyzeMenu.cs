@@ -1,9 +1,6 @@
 ﻿using Codeer.TestAssistant.GeneratorToolKit;
 using System.Collections.Generic;
-using System.CodeDom.Compiler;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Forms;
 
 namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
 {
@@ -15,32 +12,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             if (target is UIElement uiElement)
             {
                 dic["Pickup Children(&P)"] = () => ElementPicker.PickupChildren(uiElement);
-            }
-
-            if (target is ItemsControl itemsControl)
-            {
-                dic["Create Items Control Driver(&I)"] = () =>
-                {
-                    using (var form = new InputDriverNameForm())
-                    {
-                        if (form.ShowDialog() != DialogResult.OK) return;
-                        using (var dom = CodeDomProvider.CreateProvider("CSharp"))
-                        {
-                            new WPFDriverCreator(dom).CreateItemsControlDriver(form.DriverName, itemsControl);
-                        }
-                    }
-                };
-            }
-
-            if (target is UIElement)
-            {
-                dic["Create Control Driver(&D)"] = () =>
-                {
-                    using (var dom = CodeDomProvider.CreateProvider("CSharp"))
-                    {
-                        new WPFDriverCreator(dom).CreateControlDriver((UIElement)target);
-                    }
-                };
+                dic["Create Control Driver(&D)"] = () => DriverDesigner.CreateControlDriver((UIElement)target);
                 dic["Show Base Class(&B)"] = () =>
                 {
                     AnalyzeWindow.Output.Show();
