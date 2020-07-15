@@ -22,6 +22,60 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             return driver.Substring(0, index);
         }
 
+        public static string[] GetDriverTypeFullNames<T>(T ctrl, Dictionary<string, List<ControlDriverInfo>> ctrls, Dictionary<string, List<UserControlDriverInfo>> userControls, Dictionary<string, List<WindowDriverInfo>> windows)
+        {
+            var types = new List<string>();
+
+            {
+                var info = GetDriverInfo(ctrl, ctrls);
+                if (info != null)
+                {
+                    foreach (var e in info)
+                    {
+                        types.Add(e.ControlDriverTypeFullName);
+                    }
+                }
+            }
+
+            {
+                var info = GetDriverInfo(ctrl, userControls);
+                if (info != null)
+                {
+                    foreach (var e in info)
+                    {
+                        types.Add(e.DriverTypeFullName);
+                    }
+                }
+            }
+
+            {
+                var info = GetDriverInfo(ctrl, windows);
+                if (info != null)
+                {
+                    foreach (var e in info)
+                    {
+                        types.Add(e.DriverTypeFullName);
+                    }
+                }
+            }
+
+
+            //★ ListCtrlとかあった場合 それぞれのItemに対応するUserControlがあったらそれを候補にだす
+
+            types.Add("Codeer.Friendly.AppVar");
+
+            return types.ToArray();
+        }
+
+        static DriverInfo GetDriverInfo<T, DriverInfo>(T ctrl, Dictionary<string, DriverInfo> netTypeAndDriverType) where DriverInfo : class
+        {
+            for (var type = ctrl.GetType(); type != null; type = type.BaseType)
+            {
+                if (netTypeAndDriverType.TryGetValue(type.FullName, out var driver)) return driver;
+            }
+            return null;
+        }
+
         public static string GetDriverTypeFullName<T>(T ctrl, Dictionary<string, ControlDriverInfo> ctrls, Dictionary<string, UserControlDriverInfo> userControls, Dictionary<string, WindowDriverInfo> windows, out bool searchDescendantUserControls)
         {
             searchDescendantUserControls = true;

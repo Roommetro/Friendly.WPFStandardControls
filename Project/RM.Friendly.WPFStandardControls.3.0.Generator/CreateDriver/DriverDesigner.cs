@@ -24,7 +24,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
 
         public int Priority { get; }
 
-        public bool CanDesign(object obj) => obj is Window || obj is UserControl || obj is Page;
+        public bool CanDesign(object obj) => obj is UIElement;
 
         public string CreateDriverClassName(object coreObj)
         {
@@ -531,10 +531,14 @@ namespace [*namespace]
                     IsPerfect = isPerfect,
                     Identify = "Core." + accessPath,
                     DefaultName = name,
-                    ExtensionUsingNamespaces = usings.ToArray()
+                    ExtensionUsingNamespaces = usings.ToArray(),
+                    DriverTypeCandidates = GetDriverTypeCandidates(elementCtrl)
                 }
             };
         }
+
+        static string[] GetDriverTypeCandidates(DependencyObject elementCtrl)
+            => DriverCreatorUtils.GetDriverTypeFullNames(elementCtrl, DriverCreatorAdapter.MultiTypeFullNameAndControlDriver, DriverCreatorAdapter.MultiTypeFullNameAndUserControlDriver, DriverCreatorAdapter.MultiTypeFullNameAndWindowDriver);
 
         static string GetAccessPath(DependencyObject parent, DependencyObject target)
         {
