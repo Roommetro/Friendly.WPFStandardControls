@@ -2,12 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Windows.Controls;
 
 namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
 {
     internal class DriverCreatorUtils
     {
-        internal const string Suffix = "_Driver";
+        internal const string Suffix = "Driver";
 
         internal static string GetTypeName(string driver)
         {
@@ -33,6 +34,34 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                     foreach (var e in info)
                     {
                         types.Add(e.ControlDriverTypeFullName);
+
+                        //TODO ネームスペースを一旦落としている
+
+                        if (e.ControlDriverTypeFullName == "RM.Friendly.WPFStandardControls.WPFListBox")
+                        {
+                            types.Add($"{e.ControlDriverTypeFullName}<T>");
+                            foreach (var x in GetDriverInfo(typeof(ListBoxItem), userControls))
+                            {
+                                types.Add($"{e.ControlDriverTypeFullName}<{GetTypeName(x.DriverTypeFullName)}>");
+                            }
+                        }
+                        else if (e.ControlDriverTypeFullName == "RM.Friendly.WPFStandardControls.WPFListView")
+                        {
+                            types.Add($"{e.ControlDriverTypeFullName}<T>");
+                            foreach (var x in GetDriverInfo(typeof(ListViewItem), userControls))
+                            {
+                                types.Add($"{e.ControlDriverTypeFullName}<{GetTypeName(x.DriverTypeFullName)}>");
+                            }
+                        }
+
+                        else if (e.ControlDriverTypeFullName == "RM.Friendly.WPFStandardControls.WPFTreeView")
+                        {
+                            types.Add($"{e.ControlDriverTypeFullName}<T>");
+                            foreach (var x in GetDriverInfo(typeof(TreeViewItem), userControls))
+                            {
+                                types.Add($"{e.ControlDriverTypeFullName}<{GetTypeName(x.DriverTypeFullName)}>");
+                            }
+                        }
                     }
                 }
             }
@@ -65,6 +94,15 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             types.Add("Codeer.Friendly.AppVar");
 
             return types.ToArray();
+        }
+
+        static List<DriverInfo> GetDriverInfo<DriverInfo>(Type ctrlType, Dictionary<string, List<DriverInfo>> netTypeAndDriverType) where DriverInfo : class
+        {
+            for (var type = ctrlType; type != null; type = type.BaseType)
+            {
+                if (netTypeAndDriverType.TryGetValue(type.FullName, out var drivers)) return drivers;
+            }
+            return new List<DriverInfo>();
         }
 
         static DriverInfo GetDriverInfo<T, DriverInfo>(T ctrl, Dictionary<string, DriverInfo> netTypeAndDriverType) where DriverInfo : class

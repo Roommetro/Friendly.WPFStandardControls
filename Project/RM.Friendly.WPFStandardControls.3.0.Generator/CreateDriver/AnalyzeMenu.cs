@@ -24,6 +24,15 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                         type = type.BaseType;
                     }
                 };
+
+                //非推奨
+                dic["Create Driver (*Obsolete)"] = () =>
+                {
+                    using (var dom = System.CodeDom.Compiler.CodeDomProvider.CreateProvider("CSharp"))
+                    {
+                        new WPFDriverCreator(dom).CreateDriver(uiElement);
+                    }
+                };
             }
             return dic;
         }

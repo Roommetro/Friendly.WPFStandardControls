@@ -26,6 +26,8 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
 
         public bool CanDesign(object obj) => obj is UIElement;
 
+        static bool CanBeParent(object obj) => obj is Window || obj is UserControl || obj is Page;
+
         public string CreateDriverClassName(object coreObj)
         {
             var driverTypeNameManager = new DriverTypeNameManager(DriverCreatorAdapter.SelectedNamespace, DriverCreatorAdapter.TypeFullNameAndWindowDriver, DriverCreatorAdapter.TypeFullNameAndUserControlDriver);
@@ -208,27 +210,44 @@ namespace [*namespace]
             var code = new List<string>();
 
             var attr = (targetControl is Window) ? "WindowDriver" : "UserControlDriver";
+
+            code.Add(string.Empty);
             code.Add($"{Indent}[{attr}(TypeFullName = \"{targetControl.GetType().FullName}\")]");
             code.Add($"{Indent}public class {info.ClassName}");
             code.Add($"{Indent}{{");
-            code.Add($"{Indent}{Indent}public WindowControl Core {{ get; }}");
-            foreach (var e in members)
+
+            if (targetControl is Window)
             {
-                code.Add($"{Indent}{Indent}{e}");
+                code.Add($"{Indent}{Indent}public WindowControl Core {{ get; }}");
+                foreach (var e in members)
+                {
+                    code.Add($"{Indent}{Indent}{e}");
+                }
+                code.Add(string.Empty);
+                code.Add($"{Indent}{Indent}public {info.ClassName}(WindowControl core)");
+                code.Add($"{Indent}{Indent}{{");
+                code.Add($"{Indent}{Indent}{Indent}Core = core;");
+                code.Add($"{Indent}{Indent}}}");
+                code.Add(string.Empty);
+                code.Add($"{Indent}{Indent}public {info.ClassName}(AppVar core)");
+                code.Add($"{Indent}{Indent}{{");
+                code.Add($"{Indent}{Indent}{Indent}Core = new WindowControl(core);");
+                code.Add($"{Indent}{Indent}}}");
             }
-            code.Add(string.Empty);
-            code.Add($"{Indent}{Indent}public {info.ClassName}(WindowControl core)");
-            code.Add($"{Indent}{Indent}{{");
-            code.Add($"{Indent}{Indent}{Indent}Core = core;");
-            code.Add($"{Indent}{Indent}}}");
-
-            code.Add(string.Empty);
-            code.Add($"{Indent}{Indent}public {info.ClassName}(AppVar core)");
-            code.Add($"{Indent}{Indent}{{");
-            code.Add($"{Indent}{Indent}{Indent}Core = new WindowControl(core);");
-            code.Add($"{Indent}{Indent}}}");
+            else
+            {
+                code.Add($"{Indent}{Indent}public WPFUserControl Core {{ get; }}");
+                foreach (var e in members)
+                {
+                    code.Add($"{Indent}{Indent}{e}");
+                }
+                code.Add(string.Empty);
+                code.Add($"{Indent}{Indent}public {info.ClassName}(AppVar core)");
+                code.Add($"{Indent}{Indent}{{");
+                code.Add($"{Indent}{Indent}{Indent}Core = new WPFUserControl(core);");
+                code.Add($"{Indent}{Indent}}}");
+            }
             code.Add($"{Indent}}}");
-
             return code;
         }
 
@@ -447,16 +466,22 @@ namespace [*namespace]
 
         DriverIdentifyInfo[] GetIdentifyingCandidatesCore(CodeDomProvider dom, DependencyObject rootCtrl, DependencyObject elementCtrl)
         {
+            if (rootCtrl == elementCtrl) return new DriverIdentifyInfo[0];
+
             var ancestor = new List<DependencyObject>();
             var current = VisualTreeHelper.GetParent(elementCtrl);
             while (current != null)
             {
-                if (CanDesign(current))
+                if (CanBeParent(current))
                 {
                     ancestor.Add(current);
                 }
                 if (ReferenceEquals(current, rootCtrl)) break;
                 current = VisualTreeHelper.GetParent(current);
+            }
+            if (ancestor.Count == 0)
+            {
+                ancestor.Add(rootCtrl);
             }
 
             //Fieldでたどることができる範囲を取得
@@ -594,15 +619,12 @@ namespace [*namespace]
                         return $"{preIdentify}{identifyCode}.Single().Dynamic()";
                     }
 
+                    //特殊な手法で特定できた
+                    var code = _customIdentify.Generate(obj, tree, usings);
+                    if (!string.IsNullOrEmpty(code)) return preIdentify + code;
+
                     var sameType = CollectionUtility.OfType(tree, obj.GetType());
                     preIdentify = $"{preIdentify}.ByType(\"{obj.GetType().FullName}\")";
-
-                    //タイプとバインディングで特定できた
-                    identifyCode = TryIdentifyFromBinding(sameType, obj, cache);
-                    if (!string.IsNullOrEmpty(identifyCode))
-                    {
-                        return $"{preIdentify}{identifyCode}.Single().Dynamic()";
-                    }
 
                     if (sameType.Count == 1)
                     {
@@ -610,9 +632,12 @@ namespace [*namespace]
                         return $"{preIdentify}.Single().Dynamic()";
                     }
 
-                    //特殊な手法で特定できた
-                    var code = _customIdentify.Generate(obj, tree, usings);
-                    if (!string.IsNullOrEmpty(code)) return preIdentify + code;
+                    //タイプとバインディングで特定できた
+                    identifyCode = TryIdentifyFromBinding(sameType, obj, cache);
+                    if (!string.IsNullOrEmpty(identifyCode))
+                    {
+                        return $"{preIdentify}{identifyCode}.Single().Dynamic()";
+                    }
                 }
                 preIdentify = prefix + "VisualTree()";
             }

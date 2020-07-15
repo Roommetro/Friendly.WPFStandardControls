@@ -86,6 +86,7 @@
     </Compile>
     <Compile Include="CreateDriver\ReflectionAccessor.cs" />
     <Compile Include="CreateDriver\WPFCustomIdentify.cs" />
+    <Compile Include="CreateDriver\WPFDriverCreator.cs" />
     <Compile Include="CreateDriver\WPFUtility.cs" />
     <Compile Include="GenerateUtility.cs" />
     <Compile Include="IWPFControlIdentifyCodeGenerator.cs" />
