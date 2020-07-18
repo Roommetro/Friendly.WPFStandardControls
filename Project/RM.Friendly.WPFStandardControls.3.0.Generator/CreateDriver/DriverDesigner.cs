@@ -208,8 +208,6 @@ namespace [*namespace]
             var code = new List<string>();
 
             var attr = (targetControl is Window) ? "WindowDriver" : "UserControlDriver";
-
-            code.Add(string.Empty);
             code.Add($"{Indent}[{attr}(TypeFullName = \"{targetControl.GetType().FullName}\")]");
             code.Add($"{Indent}public class {info.ClassName}");
             code.Add($"{Indent}{{");
@@ -410,10 +408,10 @@ namespace [*namespace]
                         {
                             code.Add($"{Indent}{Indent}[UserControlDriverIdentify(CustomMethod = \"TryGet\")]");
                             code.Add($"{Indent}{Indent}public static {info.ClassName} {funcName}(this {parentDriver} parent, int index)");
-                            code.Add($"{Indent}{Indent}{Indent}=> parent.Core.GetFromTypeFullName(\"{targetControl.GetType().FullName}\")[index].Dynamic();");
+                            code.Add($"{Indent}{Indent}{Indent}=> parent.Core.VisualTree().ByType(\"{targetControl.GetType().FullName}\")[index].Dynamic();");
                             code.Add(string.Empty);
                             code.Add($"{Indent}{Indent}public static void TryGet(this {parentDriver} parent, out int[] indices)");
-                            code.Add($"{Indent}{Indent}{Indent}=> indices = Enumerable.Range(0, parent.Core.GetFromTypeFullName(\"{targetControl.GetType().FullName}\").Length).ToArray();");
+                            code.Add($"{Indent}{Indent}{Indent}=> indices = Enumerable.Range(0, parent.Core.VisualTree().ByType(\"{targetControl.GetType().FullName}\").Count).ToArray();");
                         }
                     }
                     else
@@ -422,7 +420,7 @@ namespace [*namespace]
                         {
                             code.Add($"{Indent}{Indent}[UserControlDriverIdentify]");
                             code.Add($"{Indent}{Indent}public static {info.ClassName} {funcName}(this {parentDriver} parent)");
-                            code.Add($"{Indent}{Indent}{Indent}=> parent.Core.GetFromTypeFullName(\"{targetControl.GetType().FullName}\").SingleOrDefault()?.Dynamic();");
+                            code.Add($"{Indent}{Indent}{Indent}=> parent.Core.VisualTree().ByType(\"{targetControl.GetType().FullName}\").SingleOrDefault()?.Dynamic();");
                         }
                     }
                 }
