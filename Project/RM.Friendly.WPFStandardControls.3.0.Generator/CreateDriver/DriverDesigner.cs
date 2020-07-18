@@ -37,17 +37,17 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
         public string[] GetAttachExtensionClassCandidates(object obj)
         {
             var candidates = new List<string>();
-            var parent = VisualTreeHelper.GetParent((DependencyObject)obj);
-            while (parent != null)
+            var target = (DependencyObject)obj;
+            while (target != null)
             {
-                var driver = DriverCreatorUtils.GetDriverTypeFullName(parent, new Dictionary<string, ControlDriverInfo>(),
+                var driver = DriverCreatorUtils.GetDriverTypeFullName(target, new Dictionary<string, ControlDriverInfo>(),
                                                                     DriverCreatorAdapter.TypeFullNameAndUserControlDriver,
                                                                     DriverCreatorAdapter.TypeFullNameAndWindowDriver, out var _);
                 if (!string.IsNullOrEmpty(driver))
                 {
                     candidates.Add(driver);
                 }
-                parent = VisualTreeHelper.GetParent(parent);
+                target = VisualTreeHelper.GetParent(target);
             }
             candidates.Add(WindowsAppFriendTypeFullName);
             return candidates.ToArray();
@@ -180,10 +180,12 @@ namespace [*namespace]
                         "Codeer.Friendly.Windows",
                         "Codeer.Friendly.Dynamic",
                         "Codeer.Friendly",
+                        "RM.Friendly.WPFStandardControls",
                         "System.Linq"
                     }, usings);
             DistinctAddRange(memberUsings, usings);
             DistinctAddRange(extensionUsings, usings);
+            usings.Remove(DriverCreatorAdapter.SelectedNamespace);
             usings.Sort();
 
             //コード作成
@@ -258,7 +260,7 @@ namespace [*namespace]
             code.Add($"{Indent}public static class {info.ClassName}Extensions");
             code.Add($"{Indent}{{");
 
-            var funcName = GetFuncName(info.ClassName);
+            var funcName = GetAttachFuncName(info.ClassName);
 
             //WindowsAppFriendにアタッチする場合
             if (info.AttachExtensionClass == WindowsAppFriendTypeFullName)
@@ -324,13 +326,13 @@ namespace [*namespace]
                             if (info.AttachMethod == AttachByTypeFullName)
                             {
                                 code.Add($"{Indent}{Indent}[WindowDriverIdentify(TypeFullName = \"{targetControl.GetType().FullName}\")]");
-                                code.Add($"{Indent}{Indent}public static {info.ClassName} {GetFuncName(info.ClassName)}(this WindowsAppFriend app)");
+                                code.Add($"{Indent}{Indent}public static {info.ClassName} {funcName}(this WindowsAppFriend app)");
                                 code.Add($"{Indent}{Indent}{Indent}=> app.WaitForIdentifyFromTypeFullName(\"{targetControl.GetType().FullName}\").Dynamic();");
                             }
                             else
                             {
                                 code.Add($"{Indent}{Indent}[WindowDriverIdentify(WindowText = \"{window.Title}\")]");
-                                code.Add($"{Indent}{Indent}public static {info.ClassName} {GetFuncName(info.ClassName)}(this WindowsAppFriend app)");
+                                code.Add($"{Indent}{Indent}public static {info.ClassName} {funcName}(this WindowsAppFriend app)");
                                 code.Add($"{Indent}{Indent}{Indent}=> app.WaitForIdentifyFromWindowText(\"{window.Title}\").Dynamic();");
                             }
                         }
@@ -381,6 +383,11 @@ namespace [*namespace]
             //ドライバへのアタッチ
             else
             {
+                if (targetControl.GetType().FullName == GetDriverTargetTypeFullName(info.AttachExtensionClass))
+                {
+                    funcName = GetAsFuncName(info.ClassName);
+                }
+
                 SeparateNameSpaceAndTypeName(info.AttachExtensionClass, out var ns, out var parentDriver);
                 if (!string.IsNullOrEmpty(ns))
                 {
@@ -467,12 +474,46 @@ namespace [*namespace]
             ns = string.Join(".", nsArray);
         }
 
-        static string GetFuncName(string driverClassName)
+        static string GetAttachFuncName(string driverClassName)
+            => GetAttachFuncNameCore("Attach", driverClassName);
+
+        static string GetAsFuncName(string driverClassName)
+            => GetAttachFuncNameCore("As", driverClassName);
+
+        static string GetAttachFuncNameCore(string prefix, string driverClassName)
         {
             var index = driverClassName.IndexOf(DriverCreatorUtils.Suffix);
-            if (0 < index && index == driverClassName.Length - DriverCreatorUtils.Suffix.Length) return "Attach" + driverClassName;
-
-            return $"Attach{driverClassName.Substring(0, driverClassName.Length - DriverCreatorUtils.Suffix.Length)}";
+            if (0 < index && index == driverClassName.Length - DriverCreatorUtils.Suffix.Length)
+            {
+                return $"{prefix}{driverClassName.Substring(0, driverClassName.Length - DriverCreatorUtils.Suffix.Length)}";
+            }
+            return prefix + driverClassName;
+        }
+        
+        static string GetDriverTargetTypeFullName(string driverTypeFullname)
+        {
+            foreach (var x in DriverCreatorAdapter.MultiTypeFullNameAndControlDriver)
+            {
+                foreach (var y in x.Value)
+                {
+                    if (y.ControlDriverTypeFullName == driverTypeFullname) return x.Key;
+                }
+            }
+            foreach (var x in DriverCreatorAdapter.MultiTypeFullNameAndUserControlDriver)
+            {
+                foreach (var y in x.Value)
+                {
+                    if (y.DriverTypeFullName == driverTypeFullname) return x.Key;
+                }
+            }
+            foreach (var x in DriverCreatorAdapter.MultiTypeFullNameAndWindowDriver)
+            {
+                foreach (var y in x.Value)
+                {
+                    if (y.DriverTypeFullName == driverTypeFullname) return x.Key;
+                }
+            }
+            return string.Empty;
         }
 
         static void DistinctAddRange(IEnumerable<string> src, List<string> dst)
