@@ -505,53 +505,41 @@ namespace [*namespace]
 
             //Fieldでたどることができる範囲を取得
             var target = elementCtrl;
-            var accessPaths = new List<string>();
             var bindingExpressionCache = new BindingExpressionCache();
             var isPerfect = true;
             string name = string.Empty;
             var usings = new List<string>();
-            var needDynamic = true;
+            var accessPaths = new List<string>();
+            var isTree = new List<bool>();
             foreach (var e in ancestor)
             {
                 //直接のフィールドに持っているか？
                 var path = GetAccessPath(e, target);
                 if (!string.IsNullOrEmpty(path))
                 {
+                    //最初がフィールドで特定できた場合はその名前を使う
                     if (target == elementCtrl)
                     {
                         var sp = path.Split('.');
                         name = sp.Length == 0 ? string.Empty : sp[sp.Length - 1];
                     }
+
                     accessPaths.Insert(0, path);
+                    isTree.Insert(0, false);
                     target = e;
-                    needDynamic = true;
-                    continue;
                 }
-
-                //Treeから検索
-                var logicalForGetter = WPFUtility.GetLogicalTreeDescendants(e, false, false, 0);
-                var visualForGetter = WPFUtility.GetVisualTreeDescendants(e, false, false, 0);
-                path = MakeCodeGetFromTree(string.Empty, logicalForGetter, visualForGetter, target, bindingExpressionCache, usings, out var nogood);
-                if (!needDynamic)
+                else
                 {
-                    var toDynamic = ".Dynamic()";
-                    var index = path.LastIndexOf(toDynamic);
-                    if (index == path.Length - toDynamic.Length)
-                    {
-                        path = path.Substring(0, path.Length - toDynamic.Length);
-                    }
-                }
-
-                if (nogood) isPerfect = false;
-                if (!string.IsNullOrEmpty(path))
-                {
+                    //Treeから検索
+                    var logicalForGetter = WPFUtility.GetLogicalTreeDescendants(e, false, false, 0);
+                    var visualForGetter = WPFUtility.GetVisualTreeDescendants(e, false, false, 0);
+                    path = MakeCodeGetFromTree(string.Empty, logicalForGetter, visualForGetter, target, bindingExpressionCache, usings, out var nogood);
+                    if (string.IsNullOrEmpty(path)) return null;
+                    if (nogood) isPerfect = false;
                     accessPaths.Insert(0, path);
+                    isTree.Insert(0, true);
                     target = e;
-                    needDynamic = false;
-                    continue;
                 }
-
-                break;
             }
 
             if (target != rootCtrl) return null;
@@ -563,17 +551,43 @@ namespace [*namespace]
                 name = customNameGenerator.MakeDriverPropName(elementCtrl, string.Empty, names);
             }
 
-            if (needDynamic)
+            var appVarCast = string.Empty;
+            bool modeDynamic = false;
+            for (int i = 0; i < isTree.Count; i++)
             {
-                accessPaths.Insert(0, "Dynamic()");
+                if (isTree[i])
+                {
+                    if (modeDynamic)
+                    {
+                        if (0 < i)
+                        {
+                            appVarCast = "((AppVar)" + appVarCast;
+                            accessPaths[i - 1] = accessPaths[i - 1] + ")";
+                        }
+                    }
+                    modeDynamic = false;
+                }
+                else
+                {
+                    if (!modeDynamic)
+                    {
+                        accessPaths[i] = "Dynamic()." + accessPaths[i];
+                    }
+                    modeDynamic = true;
+                }
             }
             var accessPath = string.Join(".", accessPaths.ToArray());
+            if (!modeDynamic)
+            {
+                accessPath += ".Dynamic()";
+            }
+
             return new[]
             {
                 new DriverIdentifyInfo
                 {
                     IsPerfect = isPerfect,
-                    Identify = "Core." + accessPath,
+                    Identify = appVarCast + "Core." + accessPath,
                     DefaultName = name,
                     ExtensionUsingNamespaces = usings.ToArray(),
                     DriverTypeCandidates = GetDriverTypeCandidates(elementCtrl)
@@ -635,27 +649,37 @@ namespace [*namespace]
                     var identifyCode = TryIdentifyFromBinding(tree, obj, cache);
                     if (!string.IsNullOrEmpty(identifyCode))
                     {
-                        return $"{preIdentify}{identifyCode}.Single().Dynamic()";
+                        return $"{preIdentify}{identifyCode}.Single()";
                     }
 
                     //特殊な手法で特定できた
                     var code = _customIdentify.Generate(obj, tree, usings);
-                    if (!string.IsNullOrEmpty(code)) return preIdentify + code;
+                    if (!string.IsNullOrEmpty(code))
+                    {
+                        //.Dynamic()が今合ってないので削除しておく
+                        var toDynamic = ".Dynamic()";
+                        var index = code.LastIndexOf(toDynamic);
+                        if (index == code.Length - toDynamic.Length)
+                        {
+                            code = code.Substring(0, code.Length - toDynamic.Length);
+                        }
 
+                        return preIdentify + code;
+                    }
                     var sameType = CollectionUtility.OfType(tree, obj.GetType());
                     preIdentify = $"{preIdentify}.ByType(\"{obj.GetType().FullName}\")";
 
                     if (sameType.Count == 1)
                     {
                         //タイプで特定できた
-                        return $"{preIdentify}.Single().Dynamic()";
+                        return $"{preIdentify}.Single()";
                     }
 
                     //タイプとバインディングで特定できた
                     identifyCode = TryIdentifyFromBinding(sameType, obj, cache);
                     if (!string.IsNullOrEmpty(identifyCode))
                     {
-                        return $"{preIdentify}{identifyCode}.Single().Dynamic()";
+                        return $"{preIdentify}{identifyCode}.Single()";
                     }
                 }
                 preIdentify = prefix + "VisualTree()";
@@ -675,7 +699,7 @@ namespace [*namespace]
                     {
                         if (ReferenceEquals(sameType[i], obj))
                         {
-                            return $"{preIdentify}[{i}].Dynamic()";
+                            return $"{preIdentify}[{i}]";
                         }
                     }
                 }

@@ -11,6 +11,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
     /// </summary>
     public class WPFControlIdentifyCodeGenerator : IWPFControlIdentifyCodeGenerator
     {
+        //TODO delete this class.
         public int Priority => 0;
 
         /// <summary>
