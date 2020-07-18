@@ -3,6 +3,7 @@ using Codeer.Friendly.Windows;
 using Codeer.Friendly.Windows.Grasp;
 using RM.Friendly.WPFStandardControls;
 using System.Windows;
+using Test.CaptureTest;
 
 namespace Test.CaptureTest
 {
@@ -12,7 +13,6 @@ namespace Test.CaptureTest
 
         public void Test()
         {
-
             /*
             app.Type<Application>().Current.MainWindow.Title = "xxx";
             var xx = app.GetTopLevelWindows();

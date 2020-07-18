@@ -153,11 +153,9 @@ namespace [*namespace]
             var fileName = $"{info.ClassName}.cs";
             foreach (var e in info.Properties)
             {
-                var typeName = DriverCreatorUtils.GetTypeName(e.TypeFullName);
-                var nameSpace = DriverCreatorUtils.GetTypeNamespace(e.TypeFullName);
+                var typeName = SeparateNameSpaceAndTypeName(e.TypeFullName, usings);
                 var todo = (e.IsPerfect.HasValue && !e.IsPerfect.Value) ? TodoComment : string.Empty;
                 members.Add($"public {typeName} {e.Name} => {e.Identify}; {todo}");
-                if (!usings.Contains(nameSpace)) usings.Add(nameSpace);
                 foreach (var x in e.ExtensionUsingNamespaces)
                 {
                     if (!usings.Contains(x)) usings.Add(x);
@@ -434,15 +432,38 @@ namespace [*namespace]
             return code;
         }
 
-         static void SeparateNameSpaceAndTypeName(string attachExtensionClass, out string ns, out string parentDriver)
+        static string SeparateNameSpaceAndTypeName(string typeFullNamme, List<string> usings)
+        {
+            var spGeneric = typeFullNamme.Split(new[] { '<', '>' }, StringSplitOptions.RemoveEmptyEntries);
+            var typeParts = new List<string>();
+            foreach (var y in spGeneric)
+            {
+                SeparateNameSpaceAndTypeName(y, out var ns, out var t);
+                typeParts.Add(t);
+                if (!string.IsNullOrEmpty(ns) && !usings.Contains(ns))
+                {
+                    usings.Add(ns);
+                }
+            }
+
+            var typeDst = string.Join("<", typeParts.ToArray());
+
+            for (int i = 0; i < typeParts.Count - 1; i++)
+            {
+                typeDst += ">";
+            }
+            return typeDst;
+        }
+
+        static void SeparateNameSpaceAndTypeName(string typeFullName, out string ns, out string type)
         {
             ns = string.Empty;
-            parentDriver = attachExtensionClass;
+            type = typeFullName;
 
-            var sp = attachExtensionClass.Split('.');
+            var sp = typeFullName.Split('.');
             if (sp.Length < 2) return;
 
-            parentDriver = sp[sp.Length - 1];
+            type = sp[sp.Length - 1];
             var nsArray = new string[sp.Length - 1];
             Array.Copy(sp, nsArray, nsArray.Length);
             ns = string.Join(".", nsArray);

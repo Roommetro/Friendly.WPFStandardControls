@@ -35,14 +35,12 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                     {
                         types.Add(e.ControlDriverTypeFullName);
 
-                        //TODO ネームスペースを一旦落としている
-
                         if (e.ControlDriverTypeFullName == "RM.Friendly.WPFStandardControls.WPFListBox")
                         {
                             types.Add($"{e.ControlDriverTypeFullName}<T>");
                             foreach (var x in GetDriverInfo(typeof(ListBoxItem), userControls))
                             {
-                                types.Add($"{e.ControlDriverTypeFullName}<{GetTypeName(x.DriverTypeFullName)}>");
+                                types.Add($"{e.ControlDriverTypeFullName}<{x.DriverTypeFullName}>");
                             }
                         }
                         else if (e.ControlDriverTypeFullName == "RM.Friendly.WPFStandardControls.WPFListView")
@@ -50,7 +48,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                             types.Add($"{e.ControlDriverTypeFullName}<T>");
                             foreach (var x in GetDriverInfo(typeof(ListViewItem), userControls))
                             {
-                                types.Add($"{e.ControlDriverTypeFullName}<{GetTypeName(x.DriverTypeFullName)}>");
+                                types.Add($"{e.ControlDriverTypeFullName}<{x.DriverTypeFullName}>");
                             }
                         }
 
@@ -59,7 +57,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                             types.Add($"{e.ControlDriverTypeFullName}<T>");
                             foreach (var x in GetDriverInfo(typeof(TreeViewItem), userControls))
                             {
-                                types.Add($"{e.ControlDriverTypeFullName}<{GetTypeName(x.DriverTypeFullName)}>");
+                                types.Add($"{e.ControlDriverTypeFullName}<{x.DriverTypeFullName}>");
                             }
                         }
                     }
