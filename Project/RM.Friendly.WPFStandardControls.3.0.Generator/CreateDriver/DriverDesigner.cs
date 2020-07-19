@@ -37,19 +37,30 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
         public string[] GetAttachExtensionClassCandidates(object obj)
         {
             var candidates = new List<string>();
-            var target = (DependencyObject)obj;
-            while (target != null)
+            var parent = VisualTreeHelper.GetParent((DependencyObject)obj);
+            while (parent != null)
             {
-                var driver = DriverCreatorUtils.GetDriverTypeFullName(target, new Dictionary<string, ControlDriverInfo>(),
+                var driver = DriverCreatorUtils.GetDriverTypeFullName(parent, new Dictionary<string, ControlDriverInfo>(),
                                                                     DriverCreatorAdapter.TypeFullNameAndUserControlDriver,
                                                                     DriverCreatorAdapter.TypeFullNameAndWindowDriver, out var _);
                 if (!string.IsNullOrEmpty(driver))
                 {
                     candidates.Add(driver);
                 }
-                target = VisualTreeHelper.GetParent(target);
+                parent = VisualTreeHelper.GetParent(parent);
             }
             candidates.Add(WindowsAppFriendTypeFullName);
+
+            //Asでのアタッチ用に足しておく
+            {
+                var driver = DriverCreatorUtils.GetDriverTypeFullName((DependencyObject)obj, new Dictionary<string, ControlDriverInfo>(),
+                                                                    DriverCreatorAdapter.TypeFullNameAndUserControlDriver,
+                                                                    DriverCreatorAdapter.TypeFullNameAndWindowDriver, out var _);
+                if (!string.IsNullOrEmpty(driver))
+                {
+                    candidates.Add(driver);
+                }
+            }
             return candidates.ToArray();
         }
 
