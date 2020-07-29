@@ -85,6 +85,12 @@
       <DependentUpon>InputDriverNameForm.cs</DependentUpon>
     </Compile>
     <Compile Include="CreateDriver\ReflectionAccessor.cs" />
+    <Compile Include="CreateDriver\TypeSelectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateDriver\TypeSelectForm.Designer.cs">
+      <DependentUpon>TypeSelectForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="CreateDriver\WPFCustomIdentify.cs" />
     <Compile Include="CreateDriver\WPFDriverCreator.cs" />
     <Compile Include="CreateDriver\WPFUtility.cs" />
@@ -128,6 +134,9 @@
   <ItemGroup>
     <EmbeddedResource Include="CreateDriver\InputDriverNameForm.resx">
       <DependentUpon>InputDriverNameForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateDriver\TypeSelectForm.resx">
+      <DependentUpon>TypeSelectForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
