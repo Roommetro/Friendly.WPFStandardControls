@@ -40,9 +40,9 @@ namespace RM.Friendly.WPFStandardControls
         /// 現在日時を取得します。
         /// </summary>
 #endif
-        public DateTime SelectedDate
+        public DateTime? SelectedDate
         {
-            get { return Getter<DateTime>("SelectedDate"); }
+            get { return Getter<DateTime?>("SelectedDate"); }
         }
 
 #if ENG
