@@ -365,7 +365,7 @@ namespace [*namespace]
                         {
                             code.Add($"{Indent}{Indent}[UserControlDriverIdentify]");
                             code.Add($"{Indent}{Indent}public static {info.ClassName} {funcName}(this WindowsAppFriend app)");
-                            code.Add($"{Indent}{Indent}{Indent}=> app.GetTopLevelWindows().SelectMany(e => e.GetFromTypeFullName(\"{targetControl.GetType().FullName}\")).SingleOrDefault()?.Dynamic();");
+                            code.Add($"{Indent}{Indent}{Indent}=> app.GetTopLevelWindows().SelectMany(e => e.GetFromTypeFullName(\"{targetControl.GetType().FullName}\")).FirstOrDefault()?.Dynamic();");
                         }
                     }
                 }
@@ -403,7 +403,7 @@ namespace [*namespace]
                     {
                         code.Add($"{Indent}{Indent}[UserControlDriverIdentify]");
                         code.Add($"{Indent}{Indent}public static {info.ClassName} {funcName}(this {parentDriver} parent)");
-                        code.Add($"{Indent}{Indent}{Indent}=> parent.Core.VisualTree().ByType(\"{targetControl.GetType().FullName}\").SingleOrDefault()?.Dynamic();");
+                        code.Add($"{Indent}{Indent}{Indent}=> parent.Core.VisualTree().ByType(\"{targetControl.GetType().FullName}\").FirstOrDefault()?.Dynamic();");
                     }
                 }
             }
