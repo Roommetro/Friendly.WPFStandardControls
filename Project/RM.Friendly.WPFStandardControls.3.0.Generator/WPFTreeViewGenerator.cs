@@ -31,6 +31,55 @@ namespace RM.Friendly.WPFStandardControls.Generator
             AttachChildren(new int[0], new string[0], _control);
         }
 
+        public override bool ConvertChildClientPoint(ref System.Drawing.Point clientPointWinForms, out string childUIObject)
+        {
+            childUIObject = string.Empty;
+            var clientPoint = new Point(clientPointWinForms.X, clientPointWinForms.Y);
+
+            //指定座標の要素取得
+            var hitElement = PointUtility.GetPosElement(clientPoint, _control);
+            if (hitElement == null) return false;
+
+            //TreeItemをたどる
+            var items = new List<TreeViewItem>();
+            foreach (var x in TreeUtilityInTarget.VisualTree(hitElement, TreeRunDirection.Ancestors))
+            {
+                if (Equals(x, _control)) break;
+                var item = x as TreeViewItem;
+                if (item != null)
+                {
+                    items.Add(item);
+                }
+            }
+
+            if (items.Count == 0) return false;
+
+            //座標変換
+            var screenPos = _control.PointToScreen(clientPoint);
+            var childPoint = items[0].PointFromScreen(screenPos);
+            clientPointWinForms.X = (int)childPoint.X;
+            clientPointWinForms.Y = (int)childPoint.Y;
+
+            //子取得用文字列作成
+            items.Reverse();
+
+            var texts = new List<string>();
+            foreach (var x in items)
+            {
+                texts.Add(HeaderedItemsControlUtility.GetItemText(x));
+            }
+            var indices = new List<int>();
+            ItemsControl itemsControl = _control;
+            foreach (var x in items)
+            {
+                indices.Add(itemsControl.ItemContainerGenerator.IndexFromContainer(x));
+                itemsControl = x;
+            }
+
+            childUIObject = $".GetItem({MakeGetArgs(IsTextKey, indices.ToArray(), texts.ToArray())})";
+            return true;
+        }
+
         void AttachChildren(int[] indices, string[] texts, ItemsControl itemsControl)
         {
             //仮想化対応 50ミリ周期でイベントハンドリングしていないTreeViewItemを監視する

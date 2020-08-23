@@ -96,6 +96,7 @@
     <Compile Include="CreateDriver\WPFUtility.cs" />
     <Compile Include="GenerateUtility.cs" />
     <Compile Include="IWPFControlIdentifyCodeGenerator.cs" />
+    <Compile Include="PointUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WPFIdentifyCodeInfo.cs" />
     <Compile Include="WPFListViewGenerator.cs" />
