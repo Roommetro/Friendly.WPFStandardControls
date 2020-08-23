@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using RM.Friendly.WPFStandardControls;
 using Codeer.Friendly;
+using System.Linq;
 
 namespace Test
 {
@@ -47,7 +48,30 @@ namespace Test
             Assert.AreEqual("_listView", name);
 
             var notFound = collection.ByName("xxxxxx").SingleOrDefault();
-            Assert.IsTrue(notFound.IsNull);
+            Assert.IsTrue(notFound == null);
+        }
+
+        [TestMethod]
+        public void TestFirstOrDefault()
+        {
+            AppVar target = _ctrl;
+            var collection = target.LogicalTree().ByType<FrameworkElement>();
+            string name = collection.ByName("_listView").FirstOrDefault().Dynamic().Name;
+            Assert.AreEqual("_listView", name);
+
+            var notFound = collection.ByName("xxxxxx").FirstOrDefault();
+            Assert.IsTrue(notFound == null);
+        }
+
+        [TestMethod]
+        public void TestToArray()
+        {
+            AppVar target = _ctrl;
+            var collection = target.LogicalTree().ByType<FrameworkElement>().ToArray();
+            var listView = collection.Where(e => (string)e.Dynamic().GetType().FullName == typeof(ListView).FullName).Single().Dynamic();
+
+            string name = listView.Name;
+            Assert.AreEqual("_listView", name);
         }
     }
 }

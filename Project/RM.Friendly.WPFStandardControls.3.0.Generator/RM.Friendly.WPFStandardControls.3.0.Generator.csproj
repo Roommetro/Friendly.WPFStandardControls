@@ -114,6 +114,7 @@
     <Compile Include="WPFTextBoxGenerator.cs" />
     <Compile Include="WPFToggleButtonGenerator.cs" />
     <Compile Include="WPFTreeViewGenerator.cs" />
+    <Compile Include="WPFUserControlGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="RM.Friendly.WPFStandardControls.3.0.Generator.Plugin.xml">

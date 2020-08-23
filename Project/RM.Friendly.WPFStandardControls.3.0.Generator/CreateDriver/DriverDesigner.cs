@@ -191,6 +191,16 @@ namespace [*namespace]
                 var typeName = SeparateNameSpaceAndTypeName(e.TypeFullName, usings);
                 var todo = (e.IsPerfect.HasValue && !e.IsPerfect.Value) ? TodoComment : string.Empty;
                 members.Add($"public {typeName} {e.Name} => {e.Identify}; {todo}");
+
+                var frameworkElement = e.Element as FrameworkElement;
+                if (frameworkElement != null && frameworkElement.ContextMenu != null)
+                {
+                    var core = (frameworkElement is Window || frameworkElement is UserControl || frameworkElement is Page) ?
+                                ".Core" : string.Empty;
+                    var code = $"public WPFContextMenu {e.Name}ContextMenu => new WPFContextMenu{{Target = {e.Name}{core}.AppVar}};";
+                    members.Add(code);
+                }
+
                 foreach (var x in e.ExtensionUsingNamespaces)
                 {
                     if (!usings.Contains(x)) usings.Add(x);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using Codeer.Friendly;
 using RM.Friendly.WPFStandardControls.Properties;
@@ -115,15 +116,19 @@ namespace RM.Friendly.WPFStandardControls
         /// <returns>DependencyObject.</returns>
 #else
         /// <summary>
-        /// コレクションの要素が一つであることを確認してそれを取得する。なければnullのAppVarが返る
+        /// コレクションの要素が一つであることを確認してそれを取得する。なければnullが返る。
         /// </summary>
         /// <returns>DependencyObject.</returns>
 #endif
         public AppVar SingleOrDefault()
         {
-            if (Count != 1)
+            if (Count == 0)
             {
-                return AppVar.App.Dim();
+                return null;
+            }
+            else if (Count != 1)
+            {
+                throw new InvalidOperationException("Sequence contains multiple elements.");
             }
             return AppVar["[]"](0);
         }
@@ -135,7 +140,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <returns>DependencyObject.</returns>
 #else
         /// <summary>
-        /// コレクションの要素の一つ目を取得する。なければnullのAppVarが返る
+        /// コレクションの要素の一つ目を取得する。なければnullが返る。
         /// </summary>
         /// <returns>DependencyObject.</returns>
 #endif
@@ -143,9 +148,31 @@ namespace RM.Friendly.WPFStandardControls
         {
             if (Count == 0)
             {
-                return AppVar.App.Dim();
+                return null;
             }
             return AppVar["[]"](0);
+        }
+
+#if ENG
+        /// <summary>
+        /// ToArray.
+        /// If there are a large number of elements, they are heavy, so filter them according to the conditions and reduce them sufficiently before using.
+        /// </summary>
+        /// <returns>AppVar[].</returns>
+#else
+        /// <summary>
+        /// AppVarの配列が返る。要素が大量にある場合は重いので条件でフィルタして十分に少なくしてから使うこと。
+        /// </summary>
+        /// <returns>AppVar[].</returns>
+#endif
+        public AppVar[] ToArray()
+        {
+            var list = new List<AppVar>();
+            foreach (var e in new Enumerate(AppVar))
+            {
+                list.Add(e);
+            }
+            return list.ToArray();
         }
     }
 }

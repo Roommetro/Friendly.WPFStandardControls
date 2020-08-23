@@ -13,11 +13,6 @@ namespace Test.CaptureTest
 
         public void Test()
         {
-            /*
-            app.Type<Application>().Current.MainWindow.Title = "xxx";
-            var xx = app.GetTopLevelWindows();
-            var x = app.Attach_MainWindow();
-            x._text.EmulateChangeText("aaa");*/
         }
     }
 }

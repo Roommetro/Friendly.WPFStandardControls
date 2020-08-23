@@ -231,3 +231,11 @@ https://www.nuget.org/packages/Codeer.Friendly.Windows.Grasp/
 
 * CefSharp
 https://github.com/Codeer-Software/Selenium.CefSharp.Driver/
+
+
+***
+Breaking change about IWPFDependencyObjectCollection.SingleOrDefault() at 1.41.0 <br>
+|  Count  |  Before  |   After  | 
+| ---- | ---- | ---- |
+|  0  |  AppVar having null  | null | 
+|  1 < Count |  AppVar having null  | throw exception | 
