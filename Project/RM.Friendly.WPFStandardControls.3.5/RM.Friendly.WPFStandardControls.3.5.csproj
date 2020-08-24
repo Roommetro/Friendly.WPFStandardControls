@@ -95,11 +95,6 @@
     <None Include="packages.config" />
     <None Include="RM.Friendly.WPFStandardControls.3.5.snk" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="RM.Friendly.WPFStandardControls.3.5.Plugin.xml">
-      <SubType>Designer</SubType>
-    </Content>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <PropertyGroup>

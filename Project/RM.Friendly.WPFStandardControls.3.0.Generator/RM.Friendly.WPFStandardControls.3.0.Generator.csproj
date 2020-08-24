@@ -118,11 +118,6 @@
     <Compile Include="WPFUserControlGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="RM.Friendly.WPFStandardControls.3.0.Generator.Plugin.xml">
-      <SubType>Designer</SubType>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="RM.Friendly.WPFStandardControls.3.0.Generator.snk" />

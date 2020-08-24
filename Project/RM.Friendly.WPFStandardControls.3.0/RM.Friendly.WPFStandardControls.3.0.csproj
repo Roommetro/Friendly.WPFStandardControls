@@ -143,11 +143,6 @@
     <None Include="RM.Friendly.WPFStandardControls.3.0.snk" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="RM.Friendly.WPFStandardControls.3.0.Plugin.xml">
-      <SubType>Designer</SubType>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.ja.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.ja.Designer.cs</LastGenOutput>

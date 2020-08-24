@@ -122,11 +122,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="RM.Friendly.WPFStandardControls.4.0.Plugin.xml">
-      <SubType>Designer</SubType>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\RM.Friendly.WPFStandardControls.3.0\RM.Friendly.WPFStandardControls.3.0.csproj">
       <Project>{80d0bb7b-61d0-4c48-b877-6e35f7d90c74}</Project>
       <Name>RM.Friendly.WPFStandardControls.3.0</Name>

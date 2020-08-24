@@ -53,13 +53,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
 
             //Asでのアタッチ用に足しておく
             {
-                var driver = DriverCreatorUtils.GetDriverTypeFullName((DependencyObject)obj, new Dictionary<string, ControlDriverInfo>(),
-                                                                    DriverCreatorAdapter.TypeFullNameAndUserControlDriver,
-                                                                    DriverCreatorAdapter.TypeFullNameAndWindowDriver, out var _);
-                if (!string.IsNullOrEmpty(driver))
-                {
-                    candidates.Add(driver);
-                }
+                candidates.AddRange(GetDriverTypeCandidates((DependencyObject)obj));
             }
             return candidates.ToArray();
         }
