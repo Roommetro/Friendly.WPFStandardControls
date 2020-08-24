@@ -99,7 +99,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
 
         void Click(MenuItem item, string[] texts)
         {
-            if (!string.IsNullOrEmpty(item.Name) || 0 < item.Items.Count)
+            if (0 < item.Items.Count)
             {
                 return;
             }
