@@ -24,7 +24,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
         {
             if (_control.IsFocused)
             {
-                AddSentence(new TokenName(), ".EmulateValueChanged(", _control.Value, new TokenAsync(CommaType.Non), ");");
+                AddSentence(new TokenName(), ".EmulateChangeValue(", _control.Value, new TokenAsync(CommaType.Non), ");");
             }
         }
     }
