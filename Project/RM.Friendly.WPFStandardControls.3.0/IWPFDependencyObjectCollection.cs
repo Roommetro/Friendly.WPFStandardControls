@@ -69,6 +69,19 @@ namespace RM.Friendly.WPFStandardControls
 
 #if ENG
         /// <summary>
+        /// First
+        /// </summary>
+        /// <returns>DependencyObject.</returns>
+#else
+        /// <summary>
+        /// コレクションの要素の一つ目を取得する。
+        /// </summary>
+        /// <returns>DependencyObject.</returns>
+#endif
+        AppVar First();
+
+#if ENG
+        /// <summary>
         /// First or Default.
         /// </summary>
         /// <returns>DependencyObject.</returns>

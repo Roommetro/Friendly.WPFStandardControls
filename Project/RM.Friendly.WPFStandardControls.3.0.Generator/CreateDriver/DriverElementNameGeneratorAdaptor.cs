@@ -80,6 +80,13 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
         {
             var customName = MakeName(control);
             if (!string.IsNullOrEmpty(customName)) return ToUniqueName(customName, names);
+
+            secondCandidate = secondCandidate.Replace(" ", "");
+            foreach (var err in "(){}<>+-=*/%!\"#$&'^~\\|@;:,.?")
+            {
+                secondCandidate = secondCandidate.Replace(err.ToString(), string.Empty);
+            }
+
             var name = (!string.IsNullOrEmpty(secondCandidate) && _dom.IsValidIdentifier(secondCandidate)) ?
                         secondCandidate :
                         control.GetType().Name;

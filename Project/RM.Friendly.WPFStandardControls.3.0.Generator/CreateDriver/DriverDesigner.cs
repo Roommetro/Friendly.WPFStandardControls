@@ -527,21 +527,21 @@ namespace [*namespace]
             var target = elementCtrl;
             var bindingExpressionCache = new BindingExpressionCache();
             var isPerfect = true;
-            string fieldName = string.Empty;
+            var nameSource = string.Empty;
             var usings = new List<string>();
             var accessPaths = new List<string>();
             var isTree = new List<bool>();
             foreach (var e in ancestor)
             {
                 //直接のフィールドに持っているか？
-                var path = GetAccessPath(e, target);
+                var path = GetAccessPath(e, target, dom);
                 if (!string.IsNullOrEmpty(path))
                 {
                     //最初がフィールドで特定できた場合はその名前を使う
                     if (target == elementCtrl)
                     {
                         var sp = path.Split('.');
-                        fieldName = sp.Length == 0 ? string.Empty : sp[sp.Length - 1];
+                        nameSource = sp.Length == 0 ? string.Empty : sp[sp.Length - 1];
                     }
 
                     accessPaths.Insert(0, path);
@@ -553,12 +553,16 @@ namespace [*namespace]
                     //Treeから検索
                     var logicalForGetter = WPFUtility.GetLogicalTreeDescendants(e, false, false, 0);
                     var visualForGetter = WPFUtility.GetVisualTreeDescendants(e, false, false, 0);
-                    path = MakeCodeGetFromTree(string.Empty, logicalForGetter, visualForGetter, target, bindingExpressionCache, usings, out var nogood);
+                    path = MakeCodeGetFromTree(string.Empty, logicalForGetter, visualForGetter, target, bindingExpressionCache, usings, out var nogood, out var nameFromTree);
                     if (string.IsNullOrEmpty(path)) return null;
                     if (nogood) isPerfect = false;
                     accessPaths.Insert(0, path);
                     isTree.Insert(0, true);
                     target = e;
+                    if (string.IsNullOrEmpty(nameSource))
+                    {
+                        nameSource = nameFromTree;
+                    }
                 }
             }
 
@@ -566,7 +570,7 @@ namespace [*namespace]
 
             var names = new List<string>();
             var customNameGenerator = new DriverElementNameGeneratorAdaptor(dom);
-            var name = customNameGenerator.MakeDriverPropName(elementCtrl, fieldName, names);
+            var name = customNameGenerator.MakeDriverPropName(elementCtrl, nameSource, names);
 
             var appVarCast = string.Empty;
             bool modeDynamic = false;
@@ -615,11 +619,22 @@ namespace [*namespace]
         static string[] GetDriverTypeCandidates(DependencyObject elementCtrl)
             => DriverCreatorUtils.GetDriverTypeFullNames(elementCtrl, DriverCreatorAdapter.MultiTypeFullNameAndControlDriver, DriverCreatorAdapter.MultiTypeFullNameAndUserControlDriver, DriverCreatorAdapter.MultiTypeFullNameAndWindowDriver);
 
-        static string GetAccessPath(DependencyObject parent, DependencyObject target)
+        static string GetAccessPath(DependencyObject parent, DependencyObject target, CodeDomProvider dom)
         {
             foreach (var e in parent.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
             {
+                if (!dom.IsValidIdentifier(e.Name)) continue;
                 if (ReferenceEquals(e.GetValue(parent), target)) return e.Name;
+            }
+            foreach (var e in parent.GetType().GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
+            {
+                if (!dom.IsValidIdentifier(e.Name)) continue;
+                try
+                {
+                    if (e.GetGetMethod().GetParameters().Length != 0) continue;
+                    if (ReferenceEquals(e.GetValue(parent, new object[0]), target)) return e.Name;
+                }
+                catch { }
             }
             return string.Empty;
         }
@@ -633,8 +648,9 @@ namespace [*namespace]
             return false;
         }
 
-        static string TryIdentifyFromBinding(List<DependencyObject> tree, DependencyObject obj, BindingExpressionCache cache)
+        static string TryIdentifyFromBinding(List<DependencyObject> tree, DependencyObject obj, BindingExpressionCache cache, out string name)
         {
+            name = string.Empty;
             foreach (var e in cache.GetBindingExpression(obj))
             {
                 var path = e.ParentBinding.Path.Path;
@@ -648,13 +664,18 @@ namespace [*namespace]
                     var matchExp = WPFUtility.GetMatchBindingExpression(cache.GetBindingExpression(t), path);
                     if (matchExp != null) matchExps.Add(matchExp);
                 }
-                if (objFind && matchExps.Count == 1) return $".ByBinding(\"{path}\")";
+                if (objFind && matchExps.Count == 1)
+                {
+                    name = path;
+                    return $".ByBinding(\"{path}\")";
+                }
             }
             return string.Empty;
         }
 
-        string MakeCodeGetFromTree(string prefix, List<DependencyObject> logical, List<DependencyObject> visual, DependencyObject obj, BindingExpressionCache cache, List<string> usings, out bool nogood)
+        string MakeCodeGetFromTree(string prefix, List<DependencyObject> logical, List<DependencyObject> visual, DependencyObject obj, BindingExpressionCache cache, List<string> usings, out bool nogood, out string name)
         {
+            name = string.Empty;
             nogood = false;
 
             var preIdentify = prefix + "LogicalTree()";
@@ -663,7 +684,7 @@ namespace [*namespace]
                 if (Exist(tree, obj))
                 {
                     //バインディングで特定できた
-                    var identifyCode = TryIdentifyFromBinding(tree, obj, cache);
+                    var identifyCode = TryIdentifyFromBinding(tree, obj, cache, out name);
                     if (!string.IsNullOrEmpty(identifyCode))
                     {
                         return $"{preIdentify}{identifyCode}.Single()";
@@ -693,7 +714,7 @@ namespace [*namespace]
                     }
 
                     //タイプとバインディングで特定できた
-                    identifyCode = TryIdentifyFromBinding(sameType, obj, cache);
+                    identifyCode = TryIdentifyFromBinding(sameType, obj, cache, out name);
                     if (!string.IsNullOrEmpty(identifyCode))
                     {
                         return $"{preIdentify}{identifyCode}.Single()";

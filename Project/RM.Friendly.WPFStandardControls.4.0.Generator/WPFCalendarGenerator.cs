@@ -25,6 +25,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
             if (_control.SelectedDate != null)
             {
                 DateTime day = _control.SelectedDate.Value;
+                AddUsingNamespace(typeof(DateTime).Namespace);
                 AddSentence(new TokenName(), ".EmulateChangeDate(new DateTime(", day.Year, ", ", day.Month, ", ", day.Day, ")", new TokenAsync(CommaType.Before), ");");
             }
         }

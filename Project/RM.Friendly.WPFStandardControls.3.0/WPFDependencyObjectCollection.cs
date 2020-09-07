@@ -135,6 +135,26 @@ namespace RM.Friendly.WPFStandardControls
 
 #if ENG
         /// <summary>
+        /// First
+        /// </summary>
+        /// <returns>DependencyObject.</returns>
+#else
+        /// <summary>
+        /// コレクションの要素の一つ目を取得する。
+        /// </summary>
+        /// <returns>DependencyObject.</returns>
+#endif
+        public AppVar First()
+        {
+            if (Count < 1)
+            {
+                throw new InvalidOperationException("Sequence is empty.");
+            }
+            return AppVar["[]"](0);
+        }
+
+#if ENG
+        /// <summary>
         /// First or Default.
         /// </summary>
         /// <returns>DependencyObject.</returns>
