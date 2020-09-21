@@ -358,7 +358,7 @@ namespace [*namespace]
                         code.Add($"{Indent}{Indent}{Indent}//TODO");
                         code.Add($"{Indent}{Indent}}}");
                         code.Add(string.Empty);
-                        code.Add($"{Indent}{Indent}public static void TryGet(this WindowsAppFriend app, out T[] identifiers)");
+                        code.Add($"{Indent}{Indent}public static T[] TryGet(this WindowsAppFriend app)");
                         code.Add($"{Indent}{Indent}{{");
                         code.Add($"{Indent}{Indent}{Indent}//TODO");
                         code.Add($"{Indent}{Indent}}}");
@@ -396,7 +396,7 @@ namespace [*namespace]
                     code.Add($"{Indent}{Indent}{Indent}//TODO");
                     code.Add($"{Indent}{Indent}}}");
                     code.Add(string.Empty);
-                    code.Add($"{Indent}{Indent}public static void TryGet(this {parentDriver} parent, out T[] identifier)");
+                    code.Add($"{Indent}{Indent}public static T[] TryGet(this {parentDriver} parent)");
                     code.Add($"{Indent}{Indent}{{");
                     code.Add($"{Indent}{Indent}{Indent}//TODO");
                     code.Add($"{Indent}{Indent}}}");

@@ -139,7 +139,7 @@ namespace RM.Friendly.WPFStandardControls
         [ControlDriverIdentify]
         public static WPFTextBox AttachTextBox(this WPFDataGridCell cell)
         {
-            if (!(bool)cell.App.Type(typeof(WPFDataGridCellExtensions)).IsText(cell)) return null;
+            if (!(bool)cell.App.Type(typeof(WPFDataGridCellExtensions)).IsTextOrHyperlink(cell)) return null;
             return cell.VisualTree().ByType<TextBox>().FirstOrDefault()?.Dynamic();
         }
 
@@ -204,9 +204,13 @@ namespace RM.Friendly.WPFStandardControls
             if (textBlock == null) return null;
             return textBlock.LogicalTree().ByType<Hyperlink>().FirstOrDefault()?.Dynamic();
         }
-
+        
         static bool IsText(DataGridCell cell)
             => typeof(DataGridTextColumn).IsAssignableFrom(cell.Column.GetType());
+
+        static bool IsTextOrHyperlink(DataGridCell cell)
+            => typeof(DataGridTextColumn).IsAssignableFrom(cell.Column.GetType()) ||
+                typeof(DataGridHyperlinkColumn).IsAssignableFrom(cell.Column.GetType());
 
         static bool IsComboBox(DataGridCell cell)
             => typeof(DataGridComboBoxColumn).IsAssignableFrom(cell.Column.GetType());
