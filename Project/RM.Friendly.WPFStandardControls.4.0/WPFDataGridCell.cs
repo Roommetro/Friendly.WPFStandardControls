@@ -136,7 +136,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="cell">セル</param>
         /// <returnsWPFTextBox></returns>
 #endif
-        [UserControlDriverIdentify]
+        [ControlDriverIdentify]
         public static WPFTextBox AttachTextBox(this WPFDataGridCell cell)
         {
             if (!(bool)cell.App.Type(typeof(WPFDataGridCellExtensions)).IsText(cell)) return null;
@@ -156,7 +156,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="cell">セル</param>
         /// <returns>WPFComboBox</returns>
 #endif
-        [UserControlDriverIdentify]
+        [ControlDriverIdentify]
         public static WPFComboBox AttachComboBox(this WPFDataGridCell cell)
         {
             if (!(bool)cell.App.Type(typeof(WPFDataGridCellExtensions)).IsComboBox(cell)) return null;
@@ -176,7 +176,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="cell">セル</param>
         /// <returns>WPFToggleButton</returns>
 #endif
-        [UserControlDriverIdentify]
+        [ControlDriverIdentify]
         public static WPFToggleButton AttachCheckBox(this WPFDataGridCell cell)
         {
             if (!(bool)cell.App.Type(typeof(WPFDataGridCellExtensions)).IsCheckBox(cell)) return null;
@@ -196,7 +196,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="cell">セル</param>
         /// <returns>WPFHyperlink</returns>
 #endif
-        [UserControlDriverIdentify]
+        [ControlDriverIdentify]
         public static WPFHyperlink AttachHyperlink(this WPFDataGridCell cell)
         {
             if (!(bool)cell.App.Type(typeof(WPFDataGridCellExtensions)).IsHyperlink(cell)) return null;
