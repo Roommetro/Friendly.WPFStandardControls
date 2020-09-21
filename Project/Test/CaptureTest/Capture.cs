@@ -10,7 +10,6 @@ namespace Test.CaptureTest
 
         public void Test()
         {
-
         }
     }
 }
