@@ -273,7 +273,7 @@ namespace [*namespace]
             }
             else
             {
-                code.Add($"{Indent}{Indent}public WPFUserControl Core {{ get; }}");
+                code.Add($"{Indent}{Indent}public WPFUIElement Core {{ get; }}");
                 foreach (var e in members)
                 {
                     code.Add($"{Indent}{Indent}{e}");
@@ -281,7 +281,7 @@ namespace [*namespace]
                 code.Add(string.Empty);
                 code.Add($"{Indent}{Indent}public {info.ClassName}(AppVar core)");
                 code.Add($"{Indent}{Indent}{{");
-                code.Add($"{Indent}{Indent}{Indent}Core = new WPFUserControl(core);");
+                code.Add($"{Indent}{Indent}{Indent}Core = new WPFUIElement(core);");
                 code.Add($"{Indent}{Indent}}}");
             }
             code.Add($"{Indent}}}");

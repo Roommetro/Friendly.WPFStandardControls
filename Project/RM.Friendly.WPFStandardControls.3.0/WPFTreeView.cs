@@ -388,7 +388,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="indices">目的のアイテムまでの各階層でのインデックスの配列です。</param>
         /// <returns>UserControlDriver</returns>
 #endif
-        [UserControlDriverGetter(ActiveItemKeyProperty = "ActiveItemIndices")]
+        [ItemDriverGetter(ActiveItemKeyProperty = "ActiveItemIndices")]
         public TItemUserControlDriver GetItemDriver(params int[] indices)
             => (TestAssistantMode.IsCreatingMode && indices.Length == 0) ? null : UserControlDriverUtility.AttachDriver<TItemUserControlDriver>(GetItem(indices));
 

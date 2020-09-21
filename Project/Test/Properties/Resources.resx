@@ -117,23 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="NestedUserControl1_Driver" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NestedUserControl1_Driver.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
-  </data>
-  <data name="SingleWindow_Driver" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SingleWindow_Driver.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
-  </data>
-  <data name="TabUserControlWindow_Driver" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TabUserControlWindow_Driver.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
-  </data>
-  <data name="UserControl1_Driver" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UserControl1_Driver.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
-  </data>
-  <data name="UserControl2_Driver" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UserControl2_Driver.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
-  </data>
-  <data name="UserControlWindow_Driver" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UserControlWindow_Driver.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
-  </data>
 </root>

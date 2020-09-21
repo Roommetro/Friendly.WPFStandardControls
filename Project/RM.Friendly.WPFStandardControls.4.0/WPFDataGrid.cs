@@ -9,7 +9,6 @@ using System.Windows.Automation.Provider;
 using System.Windows.Automation;
 using Codeer.TestAssistant.GeneratorToolKit;
 using System.Windows;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace RM.Friendly.WPFStandardControls
@@ -54,6 +53,24 @@ namespace RM.Friendly.WPFStandardControls
         /// <returns>アイテム。</returns>
 #endif
         public dynamic this[int index] { get { return this.Dynamic().Items[index]; } }
+
+#if ENG
+        /// <summary>
+        /// current selected cell.
+        /// </summary>
+#else
+        /// <summary>
+        /// 現在の選択セル。
+        /// </summary>
+#endif
+        public WPFDataGridCell CurrentCell
+        {
+            get
+            {
+                AppVar cell = App.Type<WPFDataGrid>().GetCurrentCell(this);
+                return cell.IsNull ? null : cell.Dynamic();
+            }
+        }
 
 #if ENG
         /// <summary>
@@ -306,7 +323,7 @@ namespace RM.Friendly.WPFStandardControls
         {
             return new WPFDataGridRow(App.Type(typeof(WPFDataGrid)).GetRow(this, itemIndex));
         }
-        
+
 #if ENG
         /// <summary>
         /// Get cell.
@@ -322,14 +339,72 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="col">列。</param>
         /// <returns>対象プロセス内のDataGridCel</returns>
 #endif
+        [ItemDriverGetter(ActiveItemKeyProperty = "CurrentCell")]
         public WPFDataGridCell GetCell(int itemIndex, int col)
         {
             return new WPFDataGridCell(App.Type(typeof(WPFDataGrid)).GetCell(this, itemIndex, col));
         }
 
+#if ENG
+        /// <summary>
+        /// Begin edit.
+        /// </summary>
+#else
+        /// <summary>
+        /// 編集を開始します。
+        /// </summary>
+#endif
+        public void EmulateBeginEdit()
+            => this.Dynamic().BeginEdit();
+
+#if ENG
+        /// <summary>
+        /// Commit edit.
+        /// </summary>
+#else
+        /// <summary>
+        /// 編集を終了します。
+        /// </summary>
+#endif
+        public void EmulateCommitEdit()
+            => this.Dynamic().CommitEdit(DataGridEditingUnit.Row, true);
+
+#if ENG
+        /// <summary>
+        /// Commit edit.
+        /// </summary>
+        /// <param name="async">Asynchronous execution.</param>
+#else
+        /// <summary>
+        /// 編集を終了します。
+        /// </summary>
+        /// <param name="async">非同期実行オブジェクト。</param>
+#endif
+        public void EmulateCommitEdit(Async async)
+            => this.Dynamic().CommitEdit(DataGridEditingUnit.Row, true, async);
+
+        static DataGridCell GetCurrentCell(DataGrid grid)
+        {
+            var currentCell = grid.CurrentCell;
+            if (currentCell == null) return null;
+
+            if (!TestAssistantMode.IsCreatingMode)
+            {
+                grid.ScrollIntoView(currentCell.Item);
+            }
+
+            var row = grid.ItemContainerGenerator.ContainerFromItem(currentCell.Item) as DataGridRow;
+            if (row == null) return null;
+            var col = grid.Columns.IndexOf(currentCell.Column);
+            if (col == -1) return null;
+            
+            var presenter = row.VisualTree().OfType<DataGridCellsPresenter>().FirstOrDefault();
+            if (presenter == null) return null;
+            return (DataGridCell)presenter.ItemContainerGenerator.ContainerFromIndex(col);
+        }
+
         static void EnsureRowVisible(DataGrid grid, int itemIndex)
         {
-            grid.Focus();
             grid.ScrollIntoView(grid.Items[itemIndex]);
             grid.UpdateLayout();
             if (grid.ItemContainerGenerator.ContainerFromIndex(itemIndex) == null)
@@ -477,11 +552,11 @@ namespace RM.Friendly.WPFStandardControls
 
         static int GetCurrentItemIndex(DataGrid grid)
         {
+            //TODO refactoring
             if (grid.Items.Count == 0)
             {
                 return -1;
             }
-            grid.Focus();
             var current = grid.CurrentCell;
 
             if (grid.Items[0].GetType().IsValueType)
@@ -523,13 +598,13 @@ namespace RM.Friendly.WPFStandardControls
 
         static int GetCurrentColIndex(DataGrid grid)
         {
-            grid.Focus();
+            //TODO refactoring
             var current = grid.CurrentCell;
-            if (current == null || current.Item == null)
+            if (current == null || current.Item == null || current.Column == null)
             {
                 return -1;
             }
-            return current.Column.DisplayIndex;
+            return grid.Columns.IndexOf(current.Column);
         }
     }
 }

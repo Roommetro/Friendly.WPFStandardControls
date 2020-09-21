@@ -229,7 +229,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="index">インデックス。</param>
         /// <returns>UserControlDriver</returns>
 #endif
-        [UserControlDriverGetter(ActiveItemKeyProperty = "ActiveItemIndex")]
+        [ItemDriverGetter(ActiveItemKeyProperty = "ActiveItemIndex")]
         public TItemUserControlDriver GetItemDriver(int index)
             => (TestAssistantMode.IsCreatingMode && index == -1) ? null : UserControlDriverUtility.AttachDriver<TItemUserControlDriver>(GetItem(index));
 

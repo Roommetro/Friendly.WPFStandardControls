@@ -345,5 +345,36 @@ namespace Test
                 MessageBox.Show("");
             };
         }
+
+        [TestMethod]
+        public void TestAttachtext()
+        {
+            dataGrid.EmulateChangeCurrentCell(0, 0);
+            dataGrid.EmulateBeginEdit();
+            dataGrid.GetCell(0, 0).AttachTextBox().EmulateChangeText("xxx");
+            dataGrid.EmulateCommitEdit();
+            Assert.AreEqual("xxx", (string)dataGrid.Dynamic().ItemsSource[0].Name);
+        }
+
+        [TestMethod]
+        public void TestAttachCombo()
+        {
+            dataGrid.EmulateChangeCurrentCell(0, 1);
+            dataGrid.EmulateBeginEdit();
+            dataGrid.GetCell(0, 1).AttachComboBox().EmulateChangeSelectedIndex(2);
+            dataGrid.EmulateCommitEdit();
+            Assert.AreEqual(ProgramingLanguage.CSP, (ProgramingLanguage)dataGrid.Dynamic().ItemsSource[0].Language);
+        }
+
+        [TestMethod]
+        public void TestAttachCheck()
+        {
+            dataGrid.EmulateChangeCurrentCell(0, 2);
+            dataGrid.EmulateBeginEdit();
+            dataGrid.GetCell(0, 2).AttachCheckBox().EmulateCheck(true);
+            dataGrid.EmulateCommitEdit();
+            Assert.AreEqual(true, (bool)dataGrid.Dynamic().ItemsSource[0].IsActive);
+        }
+
     }
 }

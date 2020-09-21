@@ -25,6 +25,9 @@ namespace RM.Friendly.WPFStandardControls
         WindowsAppFriend _app;
         AppVar _appVar;
 
+        static Dictionary<Type, Type> _invokeTypeDic = new Dictionary<Type, Type>();
+        static AppVar _typeFinder;
+
 #if ENG
         /// <summary>
         /// Application manipulation object.
@@ -186,6 +189,7 @@ namespace RM.Friendly.WPFStandardControls
             var op = async == null ? this.App[targetType, methodName] : this.App[targetType, methodName, async];
             return op(arguments.ToArray());
         }
+
 #if ENG
         /// <summary>
         /// Type for invoke in target
@@ -197,6 +201,36 @@ namespace RM.Friendly.WPFStandardControls
         /// </summary>
         /// <returns>対象プロセス内部で実行する型</returns>
 #endif
-        protected virtual Type GetInvokeType() => GetType();
+        protected virtual Type GetInvokeType()
+        {
+            var type = GetType();
+            Type invokeType = null;
+
+            lock (_invokeTypeDic)
+            {
+                if (_invokeTypeDic.TryGetValue(type, out invokeType)) return invokeType;
+            }
+
+            if (_typeFinder == null)
+            {
+                _typeFinder = App.Dim(new NewInfo<TypeFinder>());
+            }
+
+            invokeType = type;
+            while (invokeType != null)
+            {
+                if (!_typeFinder["GetType"](invokeType.FullName).IsNull) break;
+                invokeType = invokeType.BaseType;
+            }
+
+            if (invokeType == null) throw new NotSupportedException();
+
+            lock (_invokeTypeDic)
+            {
+                _invokeTypeDic[type] = invokeType;
+            }
+
+            return invokeType;
+        }
     }
 }

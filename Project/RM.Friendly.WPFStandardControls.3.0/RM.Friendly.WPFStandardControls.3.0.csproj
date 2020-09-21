@@ -59,8 +59,8 @@
     <Reference Include="Codeer.Friendly.Windows.Grasp.2.0, Version=2.12.0.0, Culture=neutral, PublicKeyToken=92809a28945fb91d, processorArchitecture=MSIL">
       <HintPath>..\packages\Codeer.Friendly.Windows.Grasp.2.12.0\lib\net20\Codeer.Friendly.Windows.Grasp.2.0.dll</HintPath>
     </Reference>
-    <Reference Include="Codeer.TestAssistant.GeneratorToolKit, Version=3.9.0.0, Culture=neutral, PublicKeyToken=f7af39ab9bcf13fe, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.TestAssistant.GeneratorToolKit.3.9.0\lib\net20\Codeer.TestAssistant.GeneratorToolKit.dll</HintPath>
+    <Reference Include="Codeer.TestAssistant.GeneratorToolKit, Version=3.10.0.0, Culture=neutral, PublicKeyToken=f7af39ab9bcf13fe, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.TestAssistant.GeneratorToolKit.3.10.0\lib\net20\Codeer.TestAssistant.GeneratorToolKit.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -95,6 +95,7 @@
     <Compile Include="WPFContextMenu.cs" />
     <Compile Include="WPFContextMenuItem.cs" />
     <Compile Include="WPFExpander.cs" />
+    <Compile Include="WPFHyperlink.cs" />
     <Compile Include="WPFPasswordBox.cs" />
     <Compile Include="WPFStandardControls_3.cs" />
     <Compile Include="Inside\InvokeUtility.cs" />

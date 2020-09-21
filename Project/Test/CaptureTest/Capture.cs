@@ -1,4 +1,6 @@
 ﻿using Codeer.Friendly.Windows;
+using Test.CaptureTest;
+using RM.Friendly.WPFStandardControls;
 
 namespace Test.CaptureTest
 {
