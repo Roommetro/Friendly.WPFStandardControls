@@ -377,9 +377,11 @@ namespace [*namespace]
             //ドライバへのアタッチ
             else
             {
+                var extensionSrc = "parent";
                 if (targetControl.GetType().FullName == GetDriverTargetTypeFullName(info.AttachExtensionClass))
                 {
                     funcName = GetAsFuncName(info.ClassName);
+                    extensionSrc = "src";
                 }
 
                 SeparateNameSpaceAndTypeName(info.AttachExtensionClass, out var ns, out var parentDriver);
@@ -391,12 +393,12 @@ namespace [*namespace]
                 if (info.AttachMethod == AttachCustom)
                 {
                     code.Add($"{Indent}{Indent}[UserControlDriverIdentify(CustomMethod = \"TryGet\")]");
-                    code.Add($"{Indent}{Indent}public static {info.ClassName} {funcName}(this {parentDriver} parent, T identifier)");
+                    code.Add($"{Indent}{Indent}public static {info.ClassName} {funcName}(this {parentDriver} {extensionSrc}, T identifier)");
                     code.Add($"{Indent}{Indent}{{");
                     code.Add($"{Indent}{Indent}{Indent}//TODO");
                     code.Add($"{Indent}{Indent}}}");
                     code.Add(string.Empty);
-                    code.Add($"{Indent}{Indent}public static T[] TryGet(this {parentDriver} parent)");
+                    code.Add($"{Indent}{Indent}public static T[] TryGet(this {parentDriver} {extensionSrc})");
                     code.Add($"{Indent}{Indent}{{");
                     code.Add($"{Indent}{Indent}{Indent}//TODO");
                     code.Add($"{Indent}{Indent}}}");
@@ -406,14 +408,35 @@ namespace [*namespace]
                     if (info.AttachMethod == AttachByTypeFullName)
                     {
                         code.Add($"{Indent}{Indent}[UserControlDriverIdentify]");
-                        code.Add($"{Indent}{Indent}public static {info.ClassName} {funcName}(this {parentDriver} parent)");
-                        code.Add($"{Indent}{Indent}{Indent}=> parent.Core.VisualTree().ByType(\"{targetControl.GetType().FullName}\").FirstOrDefault()?.Dynamic();");
+                        code.Add($"{Indent}{Indent}public static {info.ClassName} {funcName}(this {parentDriver} {extensionSrc})");
+
+                        //ControlDriverであるか。本来はCoreを持っているかの方がよい
+                        if (IsControlDriver(info.AttachExtensionClass))
+                        {
+                            code.Add($"{Indent}{Indent}{Indent}=> {extensionSrc}.VisualTree().ByType(\"{targetControl.GetType().FullName}\").FirstOrDefault()?.Dynamic();");
+                        }
+                        else
+                        {
+                            code.Add($"{Indent}{Indent}{Indent}=> {extensionSrc}.Core.VisualTree().ByType(\"{targetControl.GetType().FullName}\").FirstOrDefault()?.Dynamic();");
+                        }
                     }
                 }
             }
             code.Add($"{Indent}}}");
 
             return code;
+        }
+
+        static bool IsControlDriver(string attachExtensionClass)
+        {
+            foreach (var e in DriverCreatorAdapter.MultiTypeFullNameAndControlDriver)
+            {
+                foreach (var y in e.Value)
+                {
+                    if (y.ControlDriverTypeFullName == attachExtensionClass) return true;
+                }
+            }
+            return false;
         }
 
         static string SeparateNameSpaceAndTypeName(string typeFullNamme, List<string> usings)
