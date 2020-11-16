@@ -114,6 +114,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             }
 
             var driverName = string.Empty;
+            var targetType = root.GetType();
             if (1 == list.Count)
             {
                 driverName = list[0].Name + "Driver";
@@ -124,6 +125,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                 {
                     if (dlg.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
                     driverName = dlg.SelectedType.Name + "Driver";
+                    targetType = dlg.SelectedType;
                 }
             }
             var generatorName = driverName + "Generator";
@@ -148,7 +150,7 @@ namespace [*namespace]
     }
 }
 ";
-            DriverCreatorAdapter.AddCode($"{driverName}.cs", driverCode.Replace("{typefullname}", root.GetType().FullName).Replace("{driverName}", driverName), root);
+            DriverCreatorAdapter.AddCode($"{driverName}.cs", driverCode.Replace("{typefullname}", targetType.FullName).Replace("{driverName}", driverName), root);
 
             var generatorCode = @"using System;
 using System.Windows;
