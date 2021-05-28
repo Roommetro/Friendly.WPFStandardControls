@@ -72,6 +72,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TextBlockSearcherExtensions.cs" />
+    <Compile Include="TextBlockSearcherInTargetExtensions.cs" />
     <Compile Include="FrameworkElementSearcherExtensions.cs" />
     <Compile Include="ButtonSearcherExtensions.cs" />
     <Compile Include="FrameworkElementSearcherInTargetExtensions.cs" />

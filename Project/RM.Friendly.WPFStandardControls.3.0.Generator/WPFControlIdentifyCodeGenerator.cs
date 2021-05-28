@@ -26,11 +26,25 @@ namespace RM.Friendly.WPFStandardControls.Generator
             if (content != null)
             {
                 var text = content.Content?.ToString();
-                if (text != null && Where(OfType<ContentControl>(tree), e => text.Equals(e.Content)).Count == 1)
+                if (text != null && Where(OfType<ContentControl>(tree), e => text == e.Content?.ToString()).Count == 1)
                 {
                     return new WPFIdentifyCodeInfo
                     {
                         IdentifyCode = "ByType<ContentControl>().ByContentText(\"" + text + "\").Single().Dynamic()",
+                        AddUsings = new[] { "System.Windows.Controls" }
+                    };
+                }
+            }
+
+            var textBlock = target as TextBlock;
+            if (textBlock != null)
+            {
+                var text = textBlock.Text;
+                if (text != null && Where(OfType<TextBlock>(tree), e => text == e.Text).Count == 1)
+                {
+                    return new WPFIdentifyCodeInfo
+                    {
+                        IdentifyCode = "ByType<TextBlock>().ByText(\"" + text + "\").Single().Dynamic()",
                         AddUsings = new[] { "System.Windows.Controls" }
                     };
                 }

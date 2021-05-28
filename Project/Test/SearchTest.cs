@@ -318,7 +318,7 @@ namespace Test
             string name = collection.ByContentText("abc").Single().Dynamic().GetType().Name;
             Assert.AreEqual("CheckBox", name);
         }
-        
+
         [TestMethod]
         public void TestContentTextExtensionsInTarget()
         {
@@ -328,6 +328,25 @@ namespace Test
 
         static string TestContentTextExtensionsInTarget(SearchTestControl ctrl)
             => ctrl.LogicalTree().ByType<ContentControl>().ByContentText("abc").Single().GetType().Name;
+
+        [TestMethod]
+        public void TestTextExtensions()
+        {
+            AppVar target = _ctrl;
+            var collection = target.LogicalTree().ByType<TextBlock>();
+            string name = collection.ByText("AAA").Single().Dynamic().Name;
+            Assert.AreEqual("_textBlockA", name);
+        }
+
+        [TestMethod]
+        public void TestTextExtensionsInTarget()
+        {
+            string name = _app.Type(GetType()).TestTextExtensionsInTarget(_ctrl);
+            Assert.AreEqual("_textBlockA", name);
+        }
+
+        static string TestTextExtensionsInTarget(SearchTestControl ctrl)
+            => ctrl.LogicalTree().ByType<TextBlock>().ByText("AAA").Single().Name;
 
 
         [TestMethod]

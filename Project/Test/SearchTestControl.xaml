@@ -20,5 +20,7 @@
             <TextBlock x:Name="_textBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="{Binding DataText}" VerticalAlignment="Top"/>
             <CheckBox Content="abc" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         </Grid>
+        <TextBlock x:Name="_textBlockA" Margin="10,300,0,0">AAA</TextBlock>
+        <TextBlock Margin="10,320,0,0">BBB</TextBlock>
     </Grid>
 </UserControl>
