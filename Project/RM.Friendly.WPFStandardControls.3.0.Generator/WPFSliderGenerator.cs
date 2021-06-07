@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Controls;
 using Codeer.TestAssistant.GeneratorToolKit;
 
@@ -26,6 +27,11 @@ namespace RM.Friendly.WPFStandardControls.Generator
             {
                 AddSentence(new TokenName(), ".EmulateChangeValue(", _control.Value, new TokenAsync(CommaType.Non), ");");
             }
+        }
+
+        public override void Optimize(List<Sentence> code)
+        {
+            GenerateUtility.RemoveDuplicationFunction(this, code, "EmulateChangeValue");
         }
     }
 }
