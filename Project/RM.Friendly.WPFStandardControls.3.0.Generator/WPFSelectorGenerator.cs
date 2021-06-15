@@ -23,17 +23,7 @@ namespace RM.Friendly.WPFStandardControls.Generator
 
         void SelectionChanged(object sender, EventArgs e)
         {
-            bool isFocused = (_control.IsMouseCaptured || _control.IsKeyboardFocused || _control.IsFocused);
-            foreach (var x in TreeUtilityInTarget.VisualTree(_control))
-            {
-                var element = x as UIElement;
-                if (element != null && (element.IsFocused || element.IsMouseCaptured || element.IsKeyboardFocused))
-                {
-                    isFocused = true;
-                    break;
-                }
-            }
-            if (isFocused && _control.SelectedIndex != -1)
+            if (GenerateUtility.HasFocus(_control) && _control.SelectedIndex != -1)
             {
                 AddSentence(new TokenName(), ".EmulateChangeSelectedIndex(" + _control.SelectedIndex, new TokenAsync(CommaType.Before), ");");
             }

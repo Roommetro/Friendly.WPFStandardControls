@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows;
 using Codeer.TestAssistant.GeneratorToolKit;
 
 namespace RM.Friendly.WPFStandardControls.Generator
@@ -162,6 +163,20 @@ namespace RM.Friendly.WPFStandardControls.Generator
                 provider.GenerateCodeFromExpression(expression, writer, options: null);
                 return writer.ToString();
             }
+        }
+
+        public static bool HasFocus(UIElement uiElement)
+        {
+            if (uiElement.IsMouseCaptured || uiElement.IsKeyboardFocused || uiElement.IsFocused) return true;
+            foreach (var x in TreeUtilityInTarget.VisualTree(uiElement))
+            {
+                var element = x as UIElement;
+                if (element != null && (element.IsFocused || element.IsMouseCaptured || element.IsKeyboardFocused))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

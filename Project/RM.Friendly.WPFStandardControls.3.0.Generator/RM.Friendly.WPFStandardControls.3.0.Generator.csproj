@@ -98,6 +98,7 @@
     <Compile Include="IWPFControlIdentifyCodeGenerator.cs" />
     <Compile Include="PointUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WPFExpanderGenerator.cs" />
     <Compile Include="WPFHyperlinkGenerator.cs" />
     <Compile Include="WPFIdentifyCodeInfo.cs" />
     <Compile Include="WPFListViewGenerator.cs" />
