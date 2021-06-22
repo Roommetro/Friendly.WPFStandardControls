@@ -19,12 +19,6 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             var list = new List<DependencyObject> { obj };
             if (index != 0 && IsStopSearch(obj, stopWindowOrUserControl, stopControlDriver, index)) return list;
 
-            if (obj is Expander expander)
-            {
-                obj = expander.Content as DependencyObject;
-                if (obj == null) return list;
-            }
-
             index++;
             int count = VisualTreeHelper.GetChildrenCount(obj);
             for (int i = 0; i < count; i++)
