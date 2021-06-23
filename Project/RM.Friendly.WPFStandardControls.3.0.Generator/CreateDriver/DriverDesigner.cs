@@ -88,7 +88,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
 
         public void GenerateCode(object targetControl, DriverDesignInfo info)
         {
-            var code = GenerateCodeCore((Control)targetControl, info);
+            var code = GenerateCodeCore((UIElement)targetControl, info);
             var fileName = $"{info.ClassName}.cs";
             DriverCreatorAdapter.AddCode(fileName, code, targetControl);
 
@@ -204,7 +204,7 @@ namespace [*namespace]
             }
         }
 
-        string GenerateCodeCore(Control targetControl, DriverDesignInfo info)
+        string GenerateCodeCore(UIElement targetControl, DriverDesignInfo info)
         {
             //クラス定義部分
             var classDefine = GenerateClassDefine(targetControl, info, out var memberUsings);
@@ -290,7 +290,7 @@ namespace [*namespace]
             return code;
         }
 
-        static List<string> GenerateExtensions(Control targetControl, DriverDesignInfo info, out List<string> usings)
+        static List<string> GenerateExtensions(UIElement targetControl, DriverDesignInfo info, out List<string> usings)
         {
             var code = new List<string>();
             usings = new List<string>();
