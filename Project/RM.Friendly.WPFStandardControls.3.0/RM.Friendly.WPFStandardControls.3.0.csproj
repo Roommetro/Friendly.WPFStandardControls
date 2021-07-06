@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="AppVarWrapper.cs" />
     <Compile Include="AppVarWrapper.Partial.cs" />
+    <Compile Include="Inside\WPFTreeViewReflection.cs" />
     <Compile Include="TextBlockSearcher.cs" />
     <Compile Include="TextBlockSearcherInTarget.cs" />
     <Compile Include="FrameworkElementSearcher.cs" />
