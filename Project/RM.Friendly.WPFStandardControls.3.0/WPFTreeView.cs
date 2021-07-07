@@ -1,5 +1,4 @@
 ﻿using Codeer.Friendly;
-using Codeer.Friendly.Windows;
 using Codeer.TestAssistant.GeneratorToolKit;
 using RM.Friendly.WPFStandardControls.Inside;
 using System;
@@ -165,7 +164,24 @@ namespace RM.Friendly.WPFStandardControls
             }
         }
 
-        static TreeViewItem GetItemAndScrollIntoView(TreeView tree, ItemsControl parent, int i)
+        static TreeViewItem GetItemAndScrollIntoView(TreeView treeView, ItemsControl parent, int i)
+        {
+            var isVirtualized = VirtualizingStackPanel.GetIsVirtualizing(treeView);
+            return isVirtualized
+                ? GetItemAndScrollIntoViewForVirtualized(treeView, parent, i)
+                : GetItemAndScrollIntoViewForNonVirtualized(treeView, parent, i);
+        }
+
+        static TreeViewItem GetItemAndScrollIntoViewForNonVirtualized(TreeView treeView, ItemsControl parent, int i)
+        {
+            // 仮想化されていないので常にとれる
+            var container = (TreeViewItem)parent.ItemContainerGenerator.ContainerFromIndex(i);
+            container.BringIntoView();
+            InvokeUtility.DoEvents();
+            return container;
+        }
+
+        static TreeViewItem GetItemAndScrollIntoViewForVirtualized(TreeView tree, ItemsControl parent, int i)
         {
             var box = VisualTreeHelper.GetDescendantBounds(tree);
 
@@ -182,8 +198,14 @@ namespace RM.Friendly.WPFStandardControls
                 {
                     item.BringIntoView();
                     InvokeUtility.DoEvents();
+                    // 時々スクロールしすぎるあるらしい。item.DataContextがDisconnectedになってる時はもう一回やりなおす。
+                    if(item.DataContext == WPFTreeViewReflection.GetDisconnectedSource())
+                    {
+                        continue;
+                    }
                     var top = item.TranslatePoint(new Point(), tree);
-                    if (box.Contains(new Point(box.X, top.Y + item.ActualHeight / 2)))
+                    // TreeViewItemのActualHeightはItemsHost(子要素)を含んだ高さを返すので、ItemsHostを除いた高さで評価する
+                    if (box.Contains(new Point(box.X, top.Y + (item.ActualHeight - GetItemsHostHeight(item)) / 2)))
                     {
                         return item;
                     }
@@ -218,9 +240,21 @@ namespace RM.Friendly.WPFStandardControls
                     if (item != null) return item;
                 }
 
+                var now = DateTime.Now;
+                var current = scrollProvider.VerticalScrollPercent;
                 scrollProvider.Scroll(ScrollAmount.NoAmount, direction);
                 InvokeUtility.DoEvents();
+                while (DateTime.Now - now < TimeSpan.FromSeconds(1)
+                    && current == scrollProvider.VerticalScrollPercent)
+                {
+                    InvokeUtility.DoEvents();
+                }
             }
+        }
+
+        static double GetItemsHostHeight(TreeViewItem item)
+        {
+            return WPFTreeViewReflection.GetItemsHostFor(item)?.ActualHeight ?? 0;
         }
 
         static TreeViewItem[] GetTreeChildren(DependencyObject control, int index)
