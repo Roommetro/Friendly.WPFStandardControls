@@ -82,6 +82,15 @@ namespace Test
         }
 
         [TestMethod]
+        public void SelectedItem()
+        {
+            var tree = new WPFTreeView(_ctrl._tree);
+            var item = tree.GetItem(1, 0, 1);
+            item.EmulateChangeSelected(true);
+            Assert.AreEqual("1-0-1", tree.SelectedItem.Text);
+        }
+
+        [TestMethod]
         public void GetItemNotFoundTest()
         {
             TestUtility.TestExceptionMessage(() =>

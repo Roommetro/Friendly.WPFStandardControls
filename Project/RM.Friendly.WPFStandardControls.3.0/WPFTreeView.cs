@@ -110,7 +110,15 @@ namespace RM.Friendly.WPFStandardControls
             return GetItemEx(tree, tree, indices, 0);
         }
 
-        static TreeViewItem GetSelectedItemInTarget(TreeView tree) => (TreeViewItem)tree.ItemContainerGenerator.ContainerFromItem(tree.SelectedItem);
+        static TreeViewItem GetSelectedItemInTarget(TreeView tree)
+        {
+            foreach (var e in TreeUtilityInTarget.VisualTree(tree))
+            {
+                var item = e as TreeViewItem;
+                if (item != null && item.DataContext == tree.SelectedItem) return item;
+            }
+            return null;
+        }
 
         static void ShowNextItem(TreeViewItem item)
         {
