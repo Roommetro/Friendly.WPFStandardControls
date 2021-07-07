@@ -112,6 +112,8 @@ namespace RM.Friendly.WPFStandardControls
 
         static TreeViewItem GetSelectedItemInTarget(TreeView tree)
         {
+            if (tree.SelectedItem is TreeViewItem selectedTreeViewItem) return selectedTreeViewItem;
+
             foreach (var e in TreeUtilityInTarget.VisualTree(tree))
             {
                 var item = e as TreeViewItem;
