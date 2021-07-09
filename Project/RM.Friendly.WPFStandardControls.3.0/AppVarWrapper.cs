@@ -1,10 +1,7 @@
 ﻿using System;
 using Codeer.Friendly;
 using Codeer.Friendly.Windows;
-using RM.Friendly.WPFStandardControls.Inside;
-using System.Reflection;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Codeer.Friendly.DotNetExecutor;
 
 namespace RM.Friendly.WPFStandardControls
@@ -20,13 +17,8 @@ namespace RM.Friendly.WPFStandardControls
 #endif
     public partial class AppVarWrapper<CoreType> : IAppVarOwner
     {
-        static Dictionary<Type, Type> _invokeTypes = new Dictionary<Type, Type>();
-
         WindowsAppFriend _app;
         AppVar _appVar;
-
-        static Dictionary<Type, Type> _invokeTypeDic = new Dictionary<Type, Type>();
-        static AppVar _typeFinder;
 
 #if ENG
         /// <summary>
@@ -203,33 +195,20 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         protected virtual Type GetInvokeType()
         {
-            var type = GetType();
-            Type invokeType = null;
+            //appに紐づけて格納
+            var key = $"AppVarWrapper.{GetType().FullName}.InvokeType";
+            if (_app.TryGetAppControlInfo(key, out var invokeTypeObj)) return (Type)invokeTypeObj;
 
-            lock (_invokeTypeDic)
-            {
-                if (_invokeTypeDic.TryGetValue(type, out invokeType)) return invokeType;
-            }
-
-            if (_typeFinder == null)
-            {
-                _typeFinder = App.Dim(new NewInfo<TypeFinder>());
-            }
-
-            invokeType = type;
+            var typeFinder = App.Dim(new NewInfo<TypeFinder>());
+            var invokeType = GetType();
             while (invokeType != null)
             {
-                if (!_typeFinder["GetType"](invokeType.FullName).IsNull) break;
+                if (!typeFinder["GetType"](invokeType.FullName).IsNull) break;
                 invokeType = invokeType.BaseType;
             }
 
             if (invokeType == null) throw new NotSupportedException();
-
-            lock (_invokeTypeDic)
-            {
-                _invokeTypeDic[type] = invokeType;
-            }
-
+            _app.AddAppControlInfo(key, invokeType);
             return invokeType;
         }
     }

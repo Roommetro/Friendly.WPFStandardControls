@@ -4,6 +4,7 @@ using Codeer.Friendly.Windows;
 using Codeer.Friendly.Windows.Grasp;
 using Codeer.Friendly.Windows.NativeStandardControls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NotInstallProject;
 using RM.Friendly.WPFStandardControls;
 using System.Diagnostics;
 using System.Windows;
@@ -88,6 +89,37 @@ namespace Test
             messageBox.EmulateButtonClick("OK");
             messageBoxControl.WaitForDestroy();
             async.WaitForCompletion();
+        }
+
+        //AppVarWrapperの内部で対象プロセス内にロードされたアセンブリを検索する機能のテスト
+        [TestMethod]
+        public void Inheritance()
+        {
+            // Arrenge
+            dynamic main = _app.Type<Application>().Current.MainWindow;
+            AppVar buttonCore = _app.Type<Button>()();
+            main._grid.Children.Add(buttonCore);
+            dynamic checker = _app.Type<ButtonEventCheck>()(buttonCore, false);
+            var ButtonBase = new WPFButtonBase2(buttonCore);
+
+            // Act
+            ButtonBase.EmulateClick();
+            ButtonBase.EmulateClick();
+        }
+
+        [TestMethod]
+        public void Inheritance2()
+        {
+            // Arrenge
+            dynamic main = _app.Type<Application>().Current.MainWindow;
+            AppVar buttonCore = _app.Type<Button>()();
+            main._grid.Children.Add(buttonCore);
+            dynamic checker = _app.Type<ButtonEventCheck>()(buttonCore, false);
+            var ButtonBase = new WPFButtonBase2(buttonCore);
+
+            // Act
+            ButtonBase.EmulateClick();
+            ButtonBase.EmulateClick();
         }
     }
 }

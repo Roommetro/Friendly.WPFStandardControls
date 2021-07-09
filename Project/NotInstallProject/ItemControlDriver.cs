@@ -13,4 +13,9 @@ namespace NotInstallProject
             AppVar = a;
         }
     }
+
+    public class WPFButtonBase2 : WPFButtonBase
+    {
+        public WPFButtonBase2(AppVar src) : base(src) { }
+    }
 }
