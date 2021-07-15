@@ -137,7 +137,6 @@
     <PostBuildEvent>if $(ConfigurationName) == Release Copy "$(TargetPath)" "../../../ReleaseBinary/$(TargetFileName)"
 if $(ConfigurationName) == Release Copy "$(TargetDir)\$(TargetName).xml" "../../../ReleaseBinary/ja/$(TargetName).xml"
 if $(ConfigurationName) == Release Copy "$(TargetDir)\ja\$(TargetName).resources.dll" "../../../ReleaseBinary/ja/$(TargetName).resources.dll"
-if $(ConfigurationName) == Release Copy "$(ProjectDir)$(TargetName).plugin.xml" "../../../ReleaseBinary/plugin/$(TargetName).plugin.xml"
 if $(ConfigurationName) == Release-English Copy "$(TargetDir)\$(TargetName).xml" "../../../ReleaseBinary/$(TargetName).xml"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
