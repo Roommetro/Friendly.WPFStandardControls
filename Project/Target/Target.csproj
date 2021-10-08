@@ -138,28 +138,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RM.Friendly.WPFStandardControls.3.0.Generator\RM.Friendly.WPFStandardControls.3.0.Generator.csproj">
-      <Project>{fc6ade89-7704-4d3b-919d-615abe2baac6}</Project>
-      <Name>RM.Friendly.WPFStandardControls.3.0.Generator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RM.Friendly.WPFStandardControls.3.0\RM.Friendly.WPFStandardControls.3.0.csproj">
-      <Project>{80d0bb7b-61d0-4c48-b877-6e35f7d90c74}</Project>
-      <Name>RM.Friendly.WPFStandardControls.3.0</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RM.Friendly.WPFStandardControls.3.5\RM.Friendly.WPFStandardControls.3.5.csproj">
-      <Project>{a8db68b1-04fe-4002-9537-4c3d0a70d91d}</Project>
-      <Name>RM.Friendly.WPFStandardControls.3.5</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RM.Friendly.WPFStandardControls.4.0.Generator\RM.Friendly.WPFStandardControls.4.0.Generator.csproj">
-      <Project>{355db38c-a2bc-491f-89bf-7996bd72accc}</Project>
-      <Name>RM.Friendly.WPFStandardControls.4.0.Generator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RM.Friendly.WPFStandardControls.4.0\RM.Friendly.WPFStandardControls.4.0.csproj">
-      <Project>{287af20a-edb1-4de0-bf0f-8d37fd92de73}</Project>
-      <Name>RM.Friendly.WPFStandardControls.4.0</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
