@@ -55,8 +55,8 @@
     <Reference Include="Codeer.Friendly, Version=2.6.1.0, Culture=neutral, PublicKeyToken=6c44da6fca38aa86, processorArchitecture=MSIL">
       <HintPath>..\packages\Codeer.Friendly.2.6.1\lib\net20\Codeer.Friendly.dll</HintPath>
     </Reference>
-    <Reference Include="Codeer.TestAssistant.GeneratorToolKit, Version=3.10.0.0, Culture=neutral, PublicKeyToken=f7af39ab9bcf13fe, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.TestAssistant.GeneratorToolKit.3.10.0\lib\net20\Codeer.TestAssistant.GeneratorToolKit.dll</HintPath>
+    <Reference Include="Codeer.TestAssistant.GeneratorToolKit, Version=3.12.0.0, Culture=neutral, PublicKeyToken=f7af39ab9bcf13fe, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.TestAssistant.GeneratorToolKit.3.12.0\lib\net20\Codeer.TestAssistant.GeneratorToolKit.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -78,11 +78,23 @@
     <Compile Include="CreateDriver\DriverInfo.cs" />
     <Compile Include="CreateDriver\DriverTypeNameManager.cs" />
     <Compile Include="CreateDriver\ElementPicker.cs" />
+    <Compile Include="CreateDriver\EventSelectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateDriver\EventSelectForm.Designer.cs">
+      <DependentUpon>EventSelectForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="CreateDriver\InputDriverNameForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CreateDriver\InputDriverNameForm.designer.cs">
       <DependentUpon>InputDriverNameForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateDriver\PropertyMethodSelectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateDriver\PropertyMethodSelectForm.Designer.cs">
+      <DependentUpon>PropertyMethodSelectForm.cs</DependentUpon>
     </Compile>
     <Compile Include="CreateDriver\ReflectionAccessor.cs" />
     <Compile Include="CreateDriver\TypeSelectForm.cs">
@@ -130,8 +142,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CreateDriver\EventSelectForm.resx">
+      <DependentUpon>EventSelectForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CreateDriver\InputDriverNameForm.resx">
       <DependentUpon>InputDriverNameForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateDriver\PropertyMethodSelectForm.resx">
+      <DependentUpon>PropertyMethodSelectForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateDriver\TypeSelectForm.resx">
       <DependentUpon>TypeSelectForm.cs</DependentUpon>
@@ -140,7 +158,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Release Copy "$(TargetPath)" "../../../ReleaseBinary/$(TargetFileName)"
-if $(ConfigurationName) == Release Copy "$(ProjectDir)$(TargetName).plugin.xml" "../../../ReleaseBinary/plugin/$(TargetName).plugin.xml"</PostBuildEvent>
+</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

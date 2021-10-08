@@ -113,21 +113,63 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                 }
             }
 
-            var driverName = string.Empty;
+            var driverName = (list.Count == 1) ? list[0].Name + "Driver" : string.Empty;
             var targetType = root.GetType();
-            if (1 == list.Count)
+            string[] targetEventName = null;
+            EventInfo[] eventInfoList = null;
+            try
             {
-                driverName = list[0].Name + "Driver";
+                eventInfoList = targetType.GetEvents(
+                    BindingFlags.FlattenHierarchy |
+                    BindingFlags.Instance |
+                    BindingFlags.Public |
+                    BindingFlags.Static);
             }
-            else
+            catch { }
+
+            // DriverGeneratorに関する設定
+            using (var dlg = new TypeSelectForm())
             {
-                using (var dlg = new TypeSelectForm(list.ToArray()))
+                var settingType = (1 < list.Count) ? TypeSelectForm.SettingType.Type : TypeSelectForm.SettingType.None;
+                settingType |= (eventInfoList != null && 0 < eventInfoList.Length) ? TypeSelectForm.SettingType.Event : 0;
+                dlg.SetSettingType(settingType);
+
+                if ((settingType & TypeSelectForm.SettingType.Type) != 0)
                 {
-                    if (dlg.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
+                    dlg.SetTypeList(list.ToArray());
+                }
+                if ((settingType & TypeSelectForm.SettingType.Event) != 0)
+                {
+                    foreach (var eventInfo in eventInfoList)
+                    {
+                        dlg.AddEventName(eventInfo.Name);
+                    }
+                }
+                if (dlg.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
+                if ((settingType & TypeSelectForm.SettingType.Type) != 0)
+                {
                     driverName = dlg.SelectedType.Name + "Driver";
                     targetType = dlg.SelectedType;
                 }
+                if ((settingType & TypeSelectForm.SettingType.Event) != 0)
+                {
+                    targetEventName = dlg.GetSelectedEventName();
+                }
             }
+
+            var propertyCode = string.Empty;
+            var methodCode = string.Empty;
+            // Driverに関する設定
+            using (var dlg = new PropertyMethodSelectForm(root))
+            {
+                var result = dlg.ShowDialog();
+                if (result == System.Windows.Forms.DialogResult.OK)
+                {
+                    propertyCode = dlg.GetOutputTextProperty();
+                    methodCode = dlg.GetOutputTextMethod();
+                }
+            }
+
             var generatorName = driverName + "Generator";
 
             var driverCode = @"using Codeer.Friendly;
@@ -144,33 +186,81 @@ namespace [*namespace]
 {
     [ControlDriver(TypeFullName = ""{typefullname}"", Priority = 2)]
     public class {driverName} : WPFUIElement
-    {
+    {";
+            driverCode += (0 < propertyCode.Length) ? "\n" : "";
+            driverCode += propertyCode;
+            driverCode += @"
         public {driverName}(AppVar appVar)
-            : base(appVar) { }
+            : base(appVar) { }";
+            driverCode += (0 < methodCode.Length) ? "\n" : "";
+            driverCode += methodCode;
+            driverCode += @"
     }
 }
 ";
             DriverCreatorAdapter.AddCode($"{driverName}.cs", driverCode.Replace("{typefullname}", targetType.FullName).Replace("{driverName}", driverName), root);
 
             var generatorCode = @"using System;
-using System.Windows;
+using System.Windows;";
+            if (targetEventName != null)
+            {
+                generatorCode += @"
+using System.Collections.Generic;";
+            }
+            generatorCode += @"
 using Codeer.TestAssistant.GeneratorToolKit;
 
 namespace [*namespace]
 {
     [CaptureCodeGenerator(""[*namespace.{driverName}]"")]
     public class {generatorName} : CaptureCodeGeneratorBase
-    {
+    {";
+            if (targetEventName != null)
+            {
+                generatorCode += @"
+        List<Action> _removes = new List<Action>();";
+            }
+            generatorCode += @"
         UIElement _element;
 
         protected override void Attach()
         {
-            _element = (UIElement)ControlObject;
+            _element = (UIElement)ControlObject;";
+
+            if (targetEventName != null)
+            {
+                foreach (var name in targetEventName)
+                {
+                    generatorCode += @"
+            _removes.Add(EventAdapter.Add(ControlObject, ""{eventName}"", {eventName}));";
+                    generatorCode = generatorCode.Replace("{eventName}", name);
+                }
+            }
+            generatorCode += @"
         }
 
         protected override void Detach()
+        {";
+            if (targetEventName != null)
+            {
+                generatorCode += @"
+            _removes.ForEach(e => e());";
+            }
+            generatorCode += @"
+        }";
+            if (targetEventName != null)
+            {
+                foreach (var name in targetEventName)
+                {
+                    generatorCode += @"
+
+        void {eventName}(object sender, dynamic e)
         {
-        }
+        }";
+                    generatorCode = generatorCode.Replace("{eventName}", name);
+                }
+            }
+            generatorCode += @"
     }
 }
 ";
