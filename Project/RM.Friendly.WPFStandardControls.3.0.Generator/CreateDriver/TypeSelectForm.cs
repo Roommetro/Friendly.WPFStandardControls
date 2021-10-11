@@ -42,6 +42,13 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             titleType += (0 < titleType.Length) ? " / " : "";
             titleType += visible2 ? "Event" : "";
             Text = "Setting " + titleType + " - Driver generator setting";
+
+            {
+                var viewColumn = new DataGridViewColumn();
+                viewColumn.HeaderText = "Name";
+                viewColumn.CellTemplate = new CheckBoxAndTextCell();
+                _dataGridViewEventName.Columns.Add(viewColumn);
+            }
         }
 
         public void SetTypeList(Type[] types)
@@ -52,16 +59,28 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
 
         public void AddEventName(string name)
         {
-            _checkedListBoxEventName.Items.Add(name, false);
+            var row = new DataGridViewRow();
+            {
+                var cell = new CheckBoxAndTextCell();
+                cell.Text = name;
+                cell.Value = false;
+                row.Cells.Add(cell);
+            }
+            _dataGridViewEventName.Rows.Add(row);
         }
 
         public string[] GetSelectedEventName()
         {
             var dst = new List<string>();
 
-            foreach (var item in _checkedListBoxEventName.CheckedItems)
+            foreach (DataGridViewRow row in _dataGridViewEventName.Rows)
             {
-                dst.Add(item.ToString());
+                var item = row.Cells[0] as CheckBoxAndTextCell;
+                if ((bool)item.Value != true)
+                {
+                    continue;
+                }
+                dst.Add(item.Text);
             }
 
             return (dst.Count <= 0) ? null : dst.ToArray();
@@ -69,5 +88,29 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
 
         void ListBoxMouseDoubleClick(object sender, MouseEventArgs e)
             => DialogResult = DialogResult.OK;
+
+        private void _textBoxFilter_TextChanged(object sender, EventArgs e)
+        {
+            SetVisibleRow(_dataGridViewEventName, _textBoxFilter.Text);
+        }
+
+        /// <summary>
+        /// フィルタの内容に応じて行を表示するか決める
+        /// </summary>
+        /// <param name="grid">対象グリッド</param>
+        /// <param name="filterText">フィルタテキスト</param>
+        void SetVisibleRow(DataGridView grid, string filterText)
+        {
+            foreach (DataGridViewRow row in grid.Rows)
+            {
+                bool visible = true;
+                if (!string.IsNullOrEmpty(filterText))
+                {
+                    var cell = row.Cells[0] as CheckBoxAndTextCell;
+                    visible = 0 <= cell.Text.IndexOf(filterText, StringComparison.CurrentCultureIgnoreCase);
+                }
+                row.Visible = visible;
+            }
+        }
     }
 }

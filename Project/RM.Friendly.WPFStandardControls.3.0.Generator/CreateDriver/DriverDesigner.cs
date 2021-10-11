@@ -187,12 +187,12 @@ namespace [*namespace]
     [ControlDriver(TypeFullName = ""{typefullname}"", Priority = 2)]
     public class {driverName} : WPFUIElement
     {";
-            driverCode += (0 < propertyCode.Length) ? "\n" : "";
+            driverCode += (0 < propertyCode.Length) ? Environment.NewLine : "";
             driverCode += propertyCode;
             driverCode += @"
         public {driverName}(AppVar appVar)
             : base(appVar) { }";
-            driverCode += (0 < methodCode.Length) ? "\n" : "";
+            driverCode += (0 < methodCode.Length) ? Environment.NewLine : "";
             driverCode += methodCode;
             driverCode += @"
     }

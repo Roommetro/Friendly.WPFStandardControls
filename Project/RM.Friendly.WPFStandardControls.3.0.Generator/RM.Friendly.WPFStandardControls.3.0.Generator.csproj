@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CreateDriver\BindingExpressionCache.cs" />
+    <Compile Include="CreateDriver\CheckBoxAndTextCell.cs" />
     <Compile Include="CreateDriver\CollectionUtility.cs" />
     <Compile Include="CreateDriver\ControlAndFieldName.cs" />
     <Compile Include="CreateDriver\AnalyzeMenu.cs" />
@@ -78,12 +79,6 @@
     <Compile Include="CreateDriver\DriverInfo.cs" />
     <Compile Include="CreateDriver\DriverTypeNameManager.cs" />
     <Compile Include="CreateDriver\ElementPicker.cs" />
-    <Compile Include="CreateDriver\EventSelectForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CreateDriver\EventSelectForm.Designer.cs">
-      <DependentUpon>EventSelectForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="CreateDriver\InputDriverNameForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,9 +137,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CreateDriver\EventSelectForm.resx">
-      <DependentUpon>EventSelectForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="CreateDriver\InputDriverNameForm.resx">
       <DependentUpon>InputDriverNameForm.cs</DependentUpon>
     </EmbeddedResource>

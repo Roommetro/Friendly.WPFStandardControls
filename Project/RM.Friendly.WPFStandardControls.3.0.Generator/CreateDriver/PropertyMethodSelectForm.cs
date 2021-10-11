@@ -1,100 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Reflection;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
 {
     public partial class PropertyMethodSelectForm : Form
     {
-        /// <summary>
-        /// チェックボックス付きテキストセルクラス
-        /// </summary>
-        class CheckBoxAndTextCell : DataGridViewCheckBoxCell
-        {
-            private const int PadLeft = 2;
-            private const int PadRight = 3;
-            private const int PadTop = 4;
-            private const int PadBottom = 3;
-
-            private readonly TextFormatFlags FormatFlags = TextFormatFlags.Left | TextFormatFlags.EndEllipsis;
-
-            private string _text = string.Empty;
-
-            // チェックボックスの横に表示するテキストを取得、設定する。
-            public string Text
-            {
-                get { return _text; }
-                set { _text = value; }
-            }
-
-            public override object DefaultNewRowValue
-            {
-                get { return false; }
-            }
-
-            protected override void Paint(Graphics graphics,
-                                          Rectangle clipBounds, Rectangle cellBounds,
-                                          int rowIndex, DataGridViewElementStates cellState,
-                                          object value, object formattedValue, string errorText,
-                                          DataGridViewCellStyle cellStyle,
-                                          DataGridViewAdvancedBorderStyle advancedBorderStyle,
-                                          DataGridViewPaintParts paintParts)
-            {
-                // DataGridViewCheckBoxCell.Paint で、チェックボックスを描画する。
-                base.Paint(graphics, clipBounds, cellBounds, rowIndex, cellState,
-                           value, formattedValue, errorText, cellStyle, advancedBorderStyle, paintParts);
-
-                // チェックボックスの横のセル内の残りスペースに、テキストを描画する。
-                Rectangle checkBoxBounds = base.GetContentBounds(graphics, cellStyle, rowIndex);
-                Point textLocation = GetTextLocation(cellBounds, checkBoxBounds);
-                var availableTextSize = GetAvailableTextSize(cellBounds, checkBoxBounds);
-                var availableTextRect = new Rectangle(textLocation, availableTextSize);
-                var foreColor = Selected ? cellStyle.SelectionForeColor : cellStyle.ForeColor;
-                TextRenderer.DrawText(graphics, Text,
-                                      cellStyle.Font, availableTextRect, foreColor, FormatFlags);
-            }
-
-            private Point GetTextLocation(Rectangle cellBounds, Rectangle contentBounds)
-            {
-                int textX = cellBounds.X + contentBounds.Right + PadLeft;
-                int textY = cellBounds.Y + PadTop;
-                var textLocation = new Point(textX, textY);
-                return textLocation;
-            }
-
-            private Size GetAvailableTextSize(Rectangle cellBounds, Rectangle contentBounds)
-            {
-                int textWidth = Math.Max(0, cellBounds.Width - contentBounds.Width - PadLeft - PadRight);
-                int textHeight = Math.Max(0, cellBounds.Height - PadBottom);
-                var textSize = new Size(textWidth, textHeight);
-                return textSize;
-            }
-
-            // カラムの自動サイズ設定に使用する。
-            protected override Size GetPreferredSize(Graphics graphics,
-                                                     DataGridViewCellStyle cellStyle, int rowIndex,
-                                                     Size constraintSize)
-            {
-                Rectangle checkBoxBounds = base.GetContentBounds(graphics, cellStyle, rowIndex);
-                Size preferredTextSize = TextRenderer.MeasureText(graphics, Text, cellStyle.Font);
-                int contentWidth = checkBoxBounds.Width + preferredTextSize.Width + PadLeft + PadRight;
-                int contentHeight = Math.Max(checkBoxBounds.Height, preferredTextSize.Height + PadTop + PadBottom);
-                var contentSize = new Size(contentWidth, contentHeight);
-                return contentSize;
-            }
-
-            // 追加した Text プロパティもクローンに含める。
-            public override object Clone()
-            {
-                var cloneCell = (CheckBoxAndTextCell)base.Clone();
-                cloneCell.Text = this.Text;
-                return cloneCell;
-            }
-        }
-
-
         object _objTarget = null;
         List<string> _outputTextProperty = new List<string>();
         List<string> _outputTextMethod = new List<string>();
@@ -163,6 +76,14 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             }
         }
 
+        private void PropertyMethodSelectForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (_labelWait.Visible)
+            {
+                e.Cancel = true;
+            }
+        }
+
         /// <summary>
         /// プロパティ/フィールド一覧グリッドを設定
         /// </summary>
@@ -173,9 +94,19 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             AddColumnCheck("Public", _dataGridViewProperty);
             AddColumnCheck("Static", _dataGridViewProperty);
 
-            var t = DateTime.Now;
+            Thread testThread = new Thread(new ParameterizedThreadStart(GetPropertyListThread));
+            testThread.Start(_objTarget.GetType());
+        }
+
+        void GetPropertyListThread(object type)
+        {
             var propertyList = new SortedDictionary<string, object>();
-            GetPropertyList(_objTarget.GetType(), propertyList);
+            GetPropertyList((Type)type, propertyList);
+            this.Invoke(new Action<SortedDictionary<string, object>>(this.GetPropertyListThreadEnd), propertyList);
+        }
+
+        void GetPropertyListThreadEnd(SortedDictionary<string, object> propertyList)
+        {
             var rows = new List<DataGridViewRow>();
             foreach (var property in propertyList)
             {
@@ -217,8 +148,21 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             AddColumnCheckText("Name", _dataGridViewMethod, 200);
             AddColumnCheck("Public", _dataGridViewMethod);
 
+            Thread testThread = new Thread(new ParameterizedThreadStart(GetMethodListThread));
+            testThread.Start(_objTarget.GetType());
+        }
+
+        void GetMethodListThread(object type)
+        {
             var methodList = new SortedDictionary<string, object>();
-            GetMethodList(_objTarget.GetType(), methodList);
+            GetMethodList((Type)type, methodList);
+            this.Invoke(new Action<SortedDictionary<string, object>>(this.GetMethodListThreadEnd), methodList);
+        }
+
+        void GetMethodListThreadEnd(SortedDictionary<string, object> methodList)
+        {
+            _labelWait.Visible = false;
+
             var rows = new List<DataGridViewRow>();
             foreach (var method in methodList)
             {
@@ -460,8 +404,8 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
         {
             var attribute = isPublic ? "public " : "";
             attribute += isStatic ? "static " : "";
-            var outputText = string.Format("        {0}{1} {2} => this.Dynamic().{3};\n"
-                , attribute, GetAliasName(type), name, name);
+            var outputText = string.Format("        {0}{1} {2} => this.Dynamic().{3};{4}"
+                , attribute, GetAliasName(type), name, name, Environment.NewLine);
             _outputTextProperty.Add(outputText);
         }
 
@@ -488,9 +432,10 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                 parameterValueText += (0 < parameterValueText.Length) ? ", " : "";
                 parameterValueText += parameterInfo.Name;
             }
-            var outputText = (0 < _outputTextMethod.Count) ? "\n" : "";
-            outputText += string.Format("\n        {0}{1} {2}({3}) =>\n                this.Dynamic().{4}({5});"
-                , attribute, returnValueType, info.Name, parameterText, info.Name, parameterValueText);
+            var outputText = (0 < _outputTextMethod.Count) ? Environment.NewLine : "";
+            outputText += Environment.NewLine;
+            outputText += string.Format("        {0}{1} {2}({3}) =>{4}                this.Dynamic().{5}({6});"
+                , attribute, returnValueType, info.Name, parameterText, Environment.NewLine, info.Name, parameterValueText);
             _outputTextMethod.Add(outputText);
         }
 
