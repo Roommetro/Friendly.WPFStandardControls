@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>RM.Friendly.WPFStandardControls</id>
-    <version>1.52.0</version>
+    <version>1.53.0</version>
     <title>Friendly.WPFStandardControls</title>
     <authors>AkikoYamanouchi JimmyRishe HidekiMaruyama KenjiFukumoto KazukiKakei TatsuyaIshikawa BinMatsui Hidari HideakiKazaoka</authors>
     <owners>Room metro</owners>
@@ -14,7 +14,7 @@
     <tags>Friendly Testing Windows WPF Automation Codeer Codeer.Friendly Room metro めとべや</tags>
     <dependencies>
       <dependency id="Codeer.Friendly.Windows.Grasp" version="2.14.0" />
-      <dependency id="Codeer.TestAssistant.GeneratorToolKit" version="3.10.0" />
+      <dependency id="Codeer.TestAssistant.GeneratorToolKit" version="3.13.0" />
     </dependencies>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="PresentationCore" targetFramework="net30" />

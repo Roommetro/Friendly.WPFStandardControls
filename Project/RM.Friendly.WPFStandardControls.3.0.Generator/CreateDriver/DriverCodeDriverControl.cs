@@ -1,22 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Threading;
+using System.ComponentModel;
 using System.Windows.Forms;
+using System.ComponentModel.Design;
+using System.Threading;
+using System.Reflection;
 
 namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
 {
-    public partial class PropertyMethodSelectForm : Form
+    [Designer("System.Windows.Forms.Design.ParentControlDesigner, System.Design", typeof(IDesigner))]
+    public partial class DriverCodeDriverControl : UserControl
     {
+        public delegate void UpdateCodeRequestDelegate();
+        public UpdateCodeRequestDelegate DelegateUpdateCodeRequest = null;
+
         object _objTarget = null;
         List<string> _outputTextProperty = new List<string>();
         List<string> _outputTextMethod = new List<string>();
 
-        public PropertyMethodSelectForm(object objTarget)
+        public DriverCodeDriverControl()
         {
             InitializeComponent();
+        }
 
-            _objTarget = objTarget;
+        public object ObjTarget
+        {
+            set
+            {
+                _objTarget = value;
+                SetPropertyGridView();
+                SetMethodGridView();
+            }
+        }
+
+        public bool IsEnableClose()
+        {
+            return !_labelWait.Visible;
         }
 
         /// <summary>
@@ -37,10 +56,24 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             return string.Join(null, _outputTextMethod.ToArray());
         }
 
-        private void PropertyMethodSelectForm_Load(object sender, EventArgs e)
+        private void DriverCodeDriverControl_Load(object sender, EventArgs e)
         {
-            SetPropertyGridView();
-            SetMethodGridView();
+            _dataGridViewProperty.CurrentCellDirtyStateChanged += OnCurrentCellDirtyStateChanged;
+            _dataGridViewProperty.CellValueChanged += OnCellValueChanged;
+            _dataGridViewMethod.CurrentCellDirtyStateChanged += OnCurrentCellDirtyStateChanged;
+            _dataGridViewMethod.CellValueChanged += OnCellValueChanged;
+        }
+
+        private void OnCurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            var grid = sender as DataGridView;
+            grid.CommitEdit(DataGridViewDataErrorContexts.Commit);
+        }
+
+        private void OnCellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            UpdateDriverCode();
+            DelegateUpdateCodeRequest.Invoke();
         }
 
         private void _textBoxFilterProperty_TextChanged(object sender, EventArgs e)
@@ -53,8 +86,11 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             SetVisibleRow(_dataGridViewMethod, _textBoxFilterMethod.Text);
         }
 
-        private void _buttonOK_Click(object sender, EventArgs e)
+        void UpdateDriverCode()
         {
+            _outputTextProperty.Clear();
+            _outputTextMethod.Clear();
+
             foreach (DataGridViewRow row in _dataGridViewProperty.Rows)
             {
                 var cell = row.Cells[0] as CheckBoxAndTextCell;
@@ -73,14 +109,6 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                     continue;
                 }
                 AddMethodCode(cell.Tag as MethodInfo, (bool)row.Cells[1].Value);
-            }
-        }
-
-        private void PropertyMethodSelectForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (_labelWait.Visible)
-            {
-                e.Cancel = true;
             }
         }
 

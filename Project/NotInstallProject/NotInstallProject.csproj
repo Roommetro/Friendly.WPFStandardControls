@@ -34,10 +34,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Codeer.Friendly, Version=2.6.1.0, Culture=neutral, PublicKeyToken=6c44da6fca38aa86, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.Friendly.2.6.1\lib\net40\Codeer.Friendly.dll</HintPath>
+      <HintPath>..\packages\Codeer.Friendly.2.6.5\lib\net40\Codeer.Friendly.dll</HintPath>
     </Reference>
     <Reference Include="Codeer.Friendly.Dynamic, Version=2.6.1.0, Culture=neutral, PublicKeyToken=376bc779077733e8, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.Friendly.2.6.1\lib\net40\Codeer.Friendly.Dynamic.dll</HintPath>
+      <HintPath>..\packages\Codeer.Friendly.2.6.5\lib\net40\Codeer.Friendly.Dynamic.dll</HintPath>
     </Reference>
     <Reference Include="Codeer.Friendly.Windows, Version=2.15.0.0, Culture=neutral, PublicKeyToken=532f270f1da385b3, processorArchitecture=MSIL">
       <HintPath>..\packages\Codeer.Friendly.Windows.2.15.0\lib\net20\Codeer.Friendly.Windows.dll</HintPath>
@@ -67,6 +67,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RM.Friendly.WPFStandardControls.3.0\RM.Friendly.WPFStandardControls.3.0.csproj">
+      <Project>{80d0bb7b-61d0-4c48-b877-6e35f7d90c74}</Project>
+      <Name>RM.Friendly.WPFStandardControls.3.0</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RM.Friendly.WPFStandardControls.3.5\RM.Friendly.WPFStandardControls.3.5.csproj">
+      <Project>{a8db68b1-04fe-4002-9537-4c3d0a70d91d}</Project>
+      <Name>RM.Friendly.WPFStandardControls.3.5</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -53,7 +53,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Codeer.Friendly, Version=2.6.1.0, Culture=neutral, PublicKeyToken=6c44da6fca38aa86, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.Friendly.2.6.1\lib\net20\Codeer.Friendly.dll</HintPath>
+      <HintPath>..\packages\Codeer.Friendly.2.6.5\lib\net20\Codeer.Friendly.dll</HintPath>
     </Reference>
     <Reference Include="Codeer.TestAssistant.GeneratorToolKit, Version=3.12.0.0, Culture=neutral, PublicKeyToken=f7af39ab9bcf13fe, processorArchitecture=MSIL">
       <HintPath>..\packages\Codeer.TestAssistant.GeneratorToolKit.3.12.0\lib\net20\Codeer.TestAssistant.GeneratorToolKit.dll</HintPath>
@@ -73,6 +73,24 @@
     <Compile Include="CreateDriver\CollectionUtility.cs" />
     <Compile Include="CreateDriver\ControlAndFieldName.cs" />
     <Compile Include="CreateDriver\AnalyzeMenu.cs" />
+    <Compile Include="CreateDriver\DriverCodeDriverControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CreateDriver\DriverCodeDriverControl.Designer.cs">
+      <DependentUpon>DriverCodeDriverControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateDriver\DriverCodeGeneratorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CreateDriver\DriverCodeGeneratorControl.Designer.cs">
+      <DependentUpon>DriverCodeGeneratorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateDriver\DriverCodeSettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateDriver\DriverCodeSettingForm.Designer.cs">
+      <DependentUpon>DriverCodeSettingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="CreateDriver\DriverCreatorUtils.cs" />
     <Compile Include="CreateDriver\DriverDesigner.cs" />
     <Compile Include="CreateDriver\DriverElementNameGeneratorAdaptor.cs" />
@@ -84,12 +102,6 @@
     </Compile>
     <Compile Include="CreateDriver\InputDriverNameForm.designer.cs">
       <DependentUpon>InputDriverNameForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CreateDriver\PropertyMethodSelectForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CreateDriver\PropertyMethodSelectForm.Designer.cs">
-      <DependentUpon>PropertyMethodSelectForm.cs</DependentUpon>
     </Compile>
     <Compile Include="CreateDriver\ReflectionAccessor.cs" />
     <Compile Include="CreateDriver\TypeSelectForm.cs">
@@ -137,14 +149,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CreateDriver\DriverCodeDriverControl.resx">
+      <DependentUpon>DriverCodeDriverControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateDriver\DriverCodeGeneratorControl.resx">
+      <DependentUpon>DriverCodeGeneratorControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateDriver\DriverCodeSettingForm.resx">
+      <DependentUpon>DriverCodeSettingForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CreateDriver\InputDriverNameForm.resx">
       <DependentUpon>InputDriverNameForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CreateDriver\PropertyMethodSelectForm.resx">
-      <DependentUpon>PropertyMethodSelectForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CreateDriver\TypeSelectForm.resx">
-      <DependentUpon>TypeSelectForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

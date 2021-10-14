@@ -1,17 +1,17 @@
 ﻿
 namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
 {
-    partial class PropertyMethodSelectForm
+    partial class DriverCodeDriverControl
     {
-        /// <summary>
-        /// Required designer variable.
+        /// <summary> 
+        /// 必要なデザイナー変数です。
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
+        /// <summary> 
+        /// 使用中のリソースをすべてクリーンアップします。
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">マネージド リソースを破棄する場合は true を指定し、その他の場合は false を指定します。</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -21,26 +21,24 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region コンポーネント デザイナーで生成されたコード
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
+        /// <summary> 
+        /// デザイナー サポートに必要なメソッドです。このメソッドの内容を 
+        /// コード エディターで変更しないでください。
         /// </summary>
         private void InitializeComponent()
         {
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this._textBoxFilterProperty = new System.Windows.Forms.TextBox();
             this._dataGridViewProperty = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
             this._labelWait = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this._textBoxFilterMethod = new System.Windows.Forms.TextBox();
             this._dataGridViewMethod = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
-            this._buttonOK = new System.Windows.Forms.Button();
-            this._buttonCancel = new System.Windows.Forms.Button();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -48,12 +46,31 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             ((System.ComponentModel.ISupportInitialize)(this._dataGridViewMethod)).BeginInit();
             this.SuspendLayout();
             // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(144, 4);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(39, 15);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Filter";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(4, 4);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(108, 15);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Property / Field";
+            // 
             // splitContainer1
             // 
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(12, 12);
+            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -71,24 +88,14 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             this.splitContainer1.Panel2.Controls.Add(this._textBoxFilterMethod);
             this.splitContainer1.Panel2.Controls.Add(this._dataGridViewMethod);
             this.splitContainer1.Panel2.Controls.Add(this.label2);
-            this.splitContainer1.Size = new System.Drawing.Size(481, 328);
-            this.splitContainer1.SplitterDistance = 165;
-            this.splitContainer1.TabIndex = 0;
-            // 
-            // label3
-            // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(273, 4);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(39, 15);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Filter";
+            this.splitContainer1.Size = new System.Drawing.Size(352, 291);
+            this.splitContainer1.SplitterDistance = 146;
+            this.splitContainer1.TabIndex = 1;
             // 
             // _textBoxFilterProperty
             // 
             this._textBoxFilterProperty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this._textBoxFilterProperty.Location = new System.Drawing.Point(320, 1);
+            this._textBoxFilterProperty.Location = new System.Drawing.Point(191, 1);
             this._textBoxFilterProperty.Name = "_textBoxFilterProperty";
             this._textBoxFilterProperty.Size = new System.Drawing.Size(160, 22);
             this._textBoxFilterProperty.TabIndex = 2;
@@ -110,17 +117,8 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             this._dataGridViewProperty.RowHeadersWidth = 51;
             this._dataGridViewProperty.RowTemplate.Height = 24;
             this._dataGridViewProperty.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this._dataGridViewProperty.Size = new System.Drawing.Size(481, 134);
+            this._dataGridViewProperty.Size = new System.Drawing.Size(352, 115);
             this._dataGridViewProperty.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(4, 4);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(108, 15);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Property / Field";
             // 
             // _labelWait
             // 
@@ -131,7 +129,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             this._labelWait.ForeColor = System.Drawing.SystemColors.Window;
             this._labelWait.Location = new System.Drawing.Point(0, 29);
             this._labelWait.Name = "_labelWait";
-            this._labelWait.Size = new System.Drawing.Size(481, 130);
+            this._labelWait.Size = new System.Drawing.Size(352, 112);
             this._labelWait.TabIndex = 6;
             this._labelWait.Text = "Wait a moment...";
             this._labelWait.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -140,7 +138,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(273, 4);
+            this.label4.Location = new System.Drawing.Point(144, 4);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(39, 15);
             this.label4.TabIndex = 5;
@@ -149,7 +147,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             // _textBoxFilterMethod
             // 
             this._textBoxFilterMethod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this._textBoxFilterMethod.Location = new System.Drawing.Point(320, 1);
+            this._textBoxFilterMethod.Location = new System.Drawing.Point(191, 1);
             this._textBoxFilterMethod.Name = "_textBoxFilterMethod";
             this._textBoxFilterMethod.Size = new System.Drawing.Size(160, 22);
             this._textBoxFilterMethod.TabIndex = 4;
@@ -171,7 +169,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             this._dataGridViewMethod.RowHeadersWidth = 51;
             this._dataGridViewMethod.RowTemplate.Height = 24;
             this._dataGridViewMethod.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this._dataGridViewMethod.Size = new System.Drawing.Size(481, 130);
+            this._dataGridViewMethod.Size = new System.Drawing.Size(352, 112);
             this._dataGridViewMethod.TabIndex = 1;
             // 
             // label2
@@ -183,48 +181,14 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             this.label2.TabIndex = 2;
             this.label2.Text = "Method";
             // 
-            // _buttonOK
+            // DriverCodeDriverControl
             // 
-            this._buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this._buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this._buttonOK.Location = new System.Drawing.Point(333, 346);
-            this._buttonOK.Name = "_buttonOK";
-            this._buttonOK.Size = new System.Drawing.Size(75, 29);
-            this._buttonOK.TabIndex = 1;
-            this._buttonOK.Text = "OK";
-            this._buttonOK.UseVisualStyleBackColor = true;
-            this._buttonOK.Click += new System.EventHandler(this._buttonOK_Click);
-            // 
-            // _buttonCancel
-            // 
-            this._buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this._buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this._buttonCancel.Location = new System.Drawing.Point(418, 346);
-            this._buttonCancel.Name = "_buttonCancel";
-            this._buttonCancel.Size = new System.Drawing.Size(75, 29);
-            this._buttonCancel.TabIndex = 2;
-            this._buttonCancel.Text = "Cancel";
-            this._buttonCancel.UseVisualStyleBackColor = true;
-            // 
-            // PropertyMethodSelectForm
-            // 
-            this.AcceptButton = this._buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this._buttonCancel;
-            this.ClientSize = new System.Drawing.Size(505, 387);
-            this.Controls.Add(this._buttonCancel);
-            this.Controls.Add(this._buttonOK);
             this.Controls.Add(this.splitContainer1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "PropertyMethodSelectForm";
-            this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Setting Property / Field / Method - Driver setting";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PropertyMethodSelectForm_FormClosing);
-            this.Load += new System.EventHandler(this.PropertyMethodSelectForm_Load);
+            this.Name = "DriverCodeDriverControl";
+            this.Size = new System.Drawing.Size(358, 297);
+            this.Load += new System.EventHandler(this.DriverCodeDriverControl_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -238,17 +202,15 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
 
         #endregion
 
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Button _buttonOK;
-        private System.Windows.Forms.Button _buttonCancel;
-        private System.Windows.Forms.DataGridView _dataGridViewProperty;
-        private System.Windows.Forms.DataGridView _dataGridViewMethod;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TextBox _textBoxFilterProperty;
+        private System.Windows.Forms.DataGridView _dataGridViewProperty;
+        private System.Windows.Forms.Label _labelWait;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox _textBoxFilterMethod;
-        private System.Windows.Forms.Label _labelWait;
+        private System.Windows.Forms.DataGridView _dataGridViewMethod;
+        private System.Windows.Forms.Label label2;
     }
 }
