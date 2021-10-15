@@ -52,11 +52,11 @@
     </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Codeer.TestAssistant.GeneratorToolKit, Version=3.12.0.0, Culture=neutral, PublicKeyToken=f7af39ab9bcf13fe, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.TestAssistant.GeneratorToolKit.3.12.0\lib\net40\Codeer.TestAssistant.GeneratorToolKit.dll</HintPath>
+    <Reference Include="Codeer.TestAssistant.GeneratorToolKit, Version=3.13.0.0, Culture=neutral, PublicKeyToken=f7af39ab9bcf13fe, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.TestAssistant.GeneratorToolKit.3.13.0\lib\net40\Codeer.TestAssistant.GeneratorToolKit.dll</HintPath>
     </Reference>
-    <Reference Include="Codeer.TestAssistant.GeneratorToolKit.4.0, Version=3.12.0.0, Culture=neutral, PublicKeyToken=f1ee4e89052c526f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.TestAssistant.GeneratorToolKit.3.12.0\lib\net40\Codeer.TestAssistant.GeneratorToolKit.4.0.dll</HintPath>
+    <Reference Include="Codeer.TestAssistant.GeneratorToolKit.4.0, Version=3.13.0.0, Culture=neutral, PublicKeyToken=f1ee4e89052c526f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.TestAssistant.GeneratorToolKit.3.13.0\lib\net40\Codeer.TestAssistant.GeneratorToolKit.4.0.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />

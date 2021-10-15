@@ -32,12 +32,12 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this._tabControlType = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this._driverCodeDriverControl = new RM.Friendly.WPFStandardControls.Generator.CreateDriver.DriverCodeDriverControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this._driverCodeGeneratorControl = new RM.Friendly.WPFStandardControls.Generator.CreateDriver.DriverCodeGeneratorControl();
             this._textBoxPreview = new System.Windows.Forms.TextBox();
             this._buttonOK = new System.Windows.Forms.Button();
             this._buttonCancel = new System.Windows.Forms.Button();
-            this._driverCodeDriverControl = new RM.Friendly.WPFStandardControls.Generator.CreateDriver.DriverCodeDriverControl();
-            this._driverCodeGeneratorControl = new RM.Friendly.WPFStandardControls.Generator.CreateDriver.DriverCodeGeneratorControl();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -89,6 +89,14 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Driver";
             // 
+            // _driverCodeDriverControl
+            // 
+            this._driverCodeDriverControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._driverCodeDriverControl.Location = new System.Drawing.Point(3, 3);
+            this._driverCodeDriverControl.Name = "_driverCodeDriverControl";
+            this._driverCodeDriverControl.Size = new System.Drawing.Size(337, 342);
+            this._driverCodeDriverControl.TabIndex = 15;
+            // 
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
@@ -99,6 +107,14 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             this.tabPage2.Size = new System.Drawing.Size(343, 348);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Generator";
+            // 
+            // _driverCodeGeneratorControl
+            // 
+            this._driverCodeGeneratorControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._driverCodeGeneratorControl.Location = new System.Drawing.Point(3, 3);
+            this._driverCodeGeneratorControl.Name = "_driverCodeGeneratorControl";
+            this._driverCodeGeneratorControl.Size = new System.Drawing.Size(337, 342);
+            this._driverCodeGeneratorControl.TabIndex = 0;
             // 
             // _textBoxPreview
             // 
@@ -132,22 +148,6 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             this._buttonCancel.Text = "Cancel";
             this._buttonCancel.UseVisualStyleBackColor = true;
             // 
-            // _driverCodeDriverControl
-            // 
-            this._driverCodeDriverControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._driverCodeDriverControl.Location = new System.Drawing.Point(3, 3);
-            this._driverCodeDriverControl.Name = "_driverCodeDriverControl";
-            this._driverCodeDriverControl.Size = new System.Drawing.Size(337, 342);
-            this._driverCodeDriverControl.TabIndex = 15;
-            // 
-            // _driverCodeGeneratorControl
-            // 
-            this._driverCodeGeneratorControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._driverCodeGeneratorControl.Location = new System.Drawing.Point(3, 3);
-            this._driverCodeGeneratorControl.Name = "_driverCodeGeneratorControl";
-            this._driverCodeGeneratorControl.Size = new System.Drawing.Size(337, 342);
-            this._driverCodeGeneratorControl.TabIndex = 0;
-            // 
             // DriverCodeSettingForm
             // 
             this.AcceptButton = this._buttonOK;
@@ -165,7 +165,6 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "DriverCodeSettingForm";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DriverCodeSettingForm_FormClosing);
             this.Load += new System.EventHandler(this.DriverCodeSettingForm_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);

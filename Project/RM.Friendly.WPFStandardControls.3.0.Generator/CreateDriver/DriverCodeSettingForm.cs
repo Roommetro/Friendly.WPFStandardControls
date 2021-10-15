@@ -65,11 +65,6 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             OnCodeUpdateRequest();
         }
 
-        private void DriverCodeSettingForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            e.Cancel = !_driverCodeDriverControl.IsEnableClose();
-        }
-
         void OnCodeUpdateRequest()
         {
             string code = string.Empty;

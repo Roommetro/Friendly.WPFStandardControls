@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.ComponentModel.Design;
-using System.Threading;
 using System.Reflection;
 
 namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
@@ -11,6 +10,12 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
     [Designer("System.Windows.Forms.Design.ParentControlDesigner, System.Design", typeof(IDesigner))]
     public partial class DriverCodeDriverControl : UserControl
     {
+        class MethodSearchInfo
+        {
+            public MethodInfo Info;
+            public Type ParameterType;
+        }
+
         public delegate void UpdateCodeRequestDelegate();
         public UpdateCodeRequestDelegate DelegateUpdateCodeRequest = null;
 
@@ -31,11 +36,6 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                 SetPropertyGridView();
                 SetMethodGridView();
             }
-        }
-
-        public bool IsEnableClose()
-        {
-            return !_labelWait.Visible;
         }
 
         /// <summary>
@@ -120,21 +120,11 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             AddColumnCheckText("Name", _dataGridViewProperty, 200);
             AddColumnText("Type", _dataGridViewProperty, 200);
             AddColumnCheck("Public", _dataGridViewProperty);
-            AddColumnCheck("Static", _dataGridViewProperty);
+            AddColumnCheck("Setter", _dataGridViewProperty);
 
-            Thread testThread = new Thread(new ParameterizedThreadStart(GetPropertyListThread));
-            testThread.Start(_objTarget.GetType());
-        }
-
-        void GetPropertyListThread(object type)
-        {
             var propertyList = new SortedDictionary<string, object>();
-            GetPropertyList((Type)type, propertyList);
-            this.Invoke(new Action<SortedDictionary<string, object>>(this.GetPropertyListThreadEnd), propertyList);
-        }
+            GetPropertyList((Type)_objTarget, propertyList);
 
-        void GetPropertyListThreadEnd(SortedDictionary<string, object> propertyList)
-        {
             var rows = new List<DataGridViewRow>();
             foreach (var property in propertyList)
             {
@@ -176,20 +166,8 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             AddColumnCheckText("Name", _dataGridViewMethod, 200);
             AddColumnCheck("Public", _dataGridViewMethod);
 
-            Thread testThread = new Thread(new ParameterizedThreadStart(GetMethodListThread));
-            testThread.Start(_objTarget.GetType());
-        }
-
-        void GetMethodListThread(object type)
-        {
             var methodList = new SortedDictionary<string, object>();
-            GetMethodList((Type)type, methodList);
-            this.Invoke(new Action<SortedDictionary<string, object>>(this.GetMethodListThreadEnd), methodList);
-        }
-
-        void GetMethodListThreadEnd(SortedDictionary<string, object> methodList)
-        {
-            _labelWait.Visible = false;
+            GetMethodList((Type)_objTarget, methodList);
 
             var rows = new List<DataGridViewRow>();
             foreach (var method in methodList)
@@ -204,7 +182,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                 }
                 {
                     var cell = new DataGridViewCheckBoxCell();
-                    cell.Value = true;
+                    cell.Value = false;
                     row.Cells.Add(cell);
                 }
                 rows.Add(row);
@@ -335,9 +313,9 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
         }
 
         /// <summary>
-        /// グリッドに表示する情報を作成
+        /// プロパティ/フィールド一覧を取得
         /// </summary>
-        /// <param name="type">値の型</param>
+        /// <param name="type">取得対象</param>
         /// <param name="dst">出力先</param>
         void GetPropertyList(Type type, SortedDictionary<string, object> dst)
         {
@@ -369,41 +347,8 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
         /// <param name="dst">出力先</param>
         void GetMethodList(Type type, SortedDictionary<string, object> dst)
         {
-            var bindingAttr = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.NonPublic;
-            MethodInfo[] methodsTmp = type.GetMethods(bindingAttr);
+            MethodInfo[] methodsTmp = type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
             List<MethodInfo> methods = new List<MethodInfo>(methodsTmp);
-            var typeInyerfaces = type.GetInterfaces();
-            // 拡張メソッドをチェック
-            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                try
-                {
-                    var types = assembly.GetTypes();
-                    foreach (var t in types)
-                    {
-                        foreach (var method in t.GetMethods(bindingAttr))
-                        {
-                            var args = method.GetParameters();
-                            if (args.Length <= 0)
-                            {
-                                continue;
-                            }
-                            if (args[0].ParameterType == typeof(object))
-                            {
-                                continue;
-                            }
-                            var isSubclassOf = type.IsSubclassOf(args[0].ParameterType);
-                            var index = Array.IndexOf(typeInyerfaces, args[0].ParameterType);
-                            if (!(isSubclassOf || args[0].ParameterType == type || 0 <= index))
-                            {
-                                continue;
-                            }
-                            methods.Add(method);
-                        }
-                    }
-                }
-                catch { }
-            }
 
             foreach (var info in methods)
             {
@@ -426,14 +371,26 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
         /// </summary>
         /// <param name="name">プロパティ名</param>
         /// <param name="isPublic">public属性を付けるか判定</param>
-        /// <param name="isStatic">static属性を付けるか判定</param>
+        /// <param name="isSetter">Setterを付けるか判定</param>
         /// <param name="type">対象オブジェクトの型</param>
-        void AddPropertyCode(string name, bool isPublic, bool isStatic, Type type)
+        void AddPropertyCode(string name, bool isPublic, bool isSetter, Type type)
         {
             var attribute = isPublic ? "public " : "";
-            attribute += isStatic ? "static " : "";
-            var outputText = string.Format("        {0}{1} {2} => this.Dynamic().{3};{4}"
-                , attribute, GetAliasName(type), name, name, Environment.NewLine);
+            var outputText = string.Empty;
+            var valueText = string.Format("this.Dynamic().{0}", name);
+            if (isSetter)
+            {
+                outputText = string.Format("        {0}{1} {2}{3}        {{{4}            get => {5};{6}            set => {7} = value;{8}        }}{9}"
+                    , attribute, GetAliasName(type), name, Environment.NewLine, Environment.NewLine
+                    , valueText, Environment.NewLine, valueText, Environment.NewLine
+                    , Environment.NewLine
+                    );
+            }
+            else
+            {
+                outputText = string.Format("        {0}{1} {2} => {3};{4}"
+                    , attribute, GetAliasName(type), name, valueText, Environment.NewLine);
+            }
             _outputTextProperty.Add(outputText);
         }
 
@@ -462,7 +419,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             }
             var outputText = (0 < _outputTextMethod.Count) ? Environment.NewLine : "";
             outputText += Environment.NewLine;
-            outputText += string.Format("        {0}{1} {2}({3}) =>{4}                this.Dynamic().{5}({6});"
+            outputText += string.Format("        {0}{1} {2}({3}){4}                => this.Dynamic().{5}({6});"
                 , attribute, returnValueType, info.Name, parameterText, Environment.NewLine, info.Name, parameterValueText);
             _outputTextMethod.Add(outputText);
         }
