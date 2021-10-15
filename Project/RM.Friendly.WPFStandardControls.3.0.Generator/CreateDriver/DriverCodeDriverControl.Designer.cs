@@ -49,18 +49,20 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(144, 4);
+            this.label3.Location = new System.Drawing.Point(168, 3);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(39, 15);
+            this.label3.Size = new System.Drawing.Size(32, 12);
             this.label3.TabIndex = 3;
             this.label3.Text = "Filter";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(4, 4);
+            this.label1.Location = new System.Drawing.Point(3, 3);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(108, 15);
+            this.label1.Size = new System.Drawing.Size(87, 12);
             this.label1.TabIndex = 1;
             this.label1.Text = "Property / Field";
             // 
@@ -69,7 +71,8 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer1.Location = new System.Drawing.Point(2, 2);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -86,16 +89,18 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             this.splitContainer1.Panel2.Controls.Add(this._textBoxFilterMethod);
             this.splitContainer1.Panel2.Controls.Add(this._dataGridViewMethod);
             this.splitContainer1.Panel2.Controls.Add(this.label2);
-            this.splitContainer1.Size = new System.Drawing.Size(352, 291);
-            this.splitContainer1.SplitterDistance = 146;
+            this.splitContainer1.Size = new System.Drawing.Size(324, 233);
+            this.splitContainer1.SplitterDistance = 116;
+            this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 1;
             // 
             // _textBoxFilterProperty
             // 
             this._textBoxFilterProperty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this._textBoxFilterProperty.Location = new System.Drawing.Point(191, 1);
+            this._textBoxFilterProperty.Location = new System.Drawing.Point(203, 1);
+            this._textBoxFilterProperty.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this._textBoxFilterProperty.Name = "_textBoxFilterProperty";
-            this._textBoxFilterProperty.Size = new System.Drawing.Size(160, 22);
+            this._textBoxFilterProperty.Size = new System.Drawing.Size(121, 19);
             this._textBoxFilterProperty.TabIndex = 2;
             this._textBoxFilterProperty.TextChanged += new System.EventHandler(this._textBoxFilterProperty_TextChanged);
             // 
@@ -108,32 +113,35 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this._dataGridViewProperty.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this._dataGridViewProperty.Location = new System.Drawing.Point(0, 29);
+            this._dataGridViewProperty.Location = new System.Drawing.Point(0, 23);
+            this._dataGridViewProperty.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this._dataGridViewProperty.MultiSelect = false;
             this._dataGridViewProperty.Name = "_dataGridViewProperty";
             this._dataGridViewProperty.RowHeadersVisible = false;
             this._dataGridViewProperty.RowHeadersWidth = 51;
             this._dataGridViewProperty.RowTemplate.Height = 24;
             this._dataGridViewProperty.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this._dataGridViewProperty.Size = new System.Drawing.Size(352, 115);
+            this._dataGridViewProperty.Size = new System.Drawing.Size(324, 91);
             this._dataGridViewProperty.TabIndex = 0;
             // 
             // label4
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(144, 4);
+            this.label4.Location = new System.Drawing.Point(168, 3);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(39, 15);
+            this.label4.Size = new System.Drawing.Size(32, 12);
             this.label4.TabIndex = 5;
             this.label4.Text = "Filter";
             // 
             // _textBoxFilterMethod
             // 
             this._textBoxFilterMethod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this._textBoxFilterMethod.Location = new System.Drawing.Point(191, 1);
+            this._textBoxFilterMethod.Location = new System.Drawing.Point(203, 1);
+            this._textBoxFilterMethod.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this._textBoxFilterMethod.Name = "_textBoxFilterMethod";
-            this._textBoxFilterMethod.Size = new System.Drawing.Size(160, 22);
+            this._textBoxFilterMethod.Size = new System.Drawing.Size(121, 19);
             this._textBoxFilterMethod.TabIndex = 4;
             this._textBoxFilterMethod.TextChanged += new System.EventHandler(this._textBoxFilterMethod_TextChanged);
             // 
@@ -146,32 +154,35 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this._dataGridViewMethod.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this._dataGridViewMethod.Location = new System.Drawing.Point(0, 29);
+            this._dataGridViewMethod.Location = new System.Drawing.Point(0, 23);
+            this._dataGridViewMethod.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this._dataGridViewMethod.MultiSelect = false;
             this._dataGridViewMethod.Name = "_dataGridViewMethod";
             this._dataGridViewMethod.RowHeadersVisible = false;
             this._dataGridViewMethod.RowHeadersWidth = 51;
             this._dataGridViewMethod.RowTemplate.Height = 24;
             this._dataGridViewMethod.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this._dataGridViewMethod.Size = new System.Drawing.Size(352, 112);
+            this._dataGridViewMethod.Size = new System.Drawing.Size(324, 91);
             this._dataGridViewMethod.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(4, 4);
+            this.label2.Location = new System.Drawing.Point(3, 3);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 15);
+            this.label2.Size = new System.Drawing.Size(42, 12);
             this.label2.TabIndex = 2;
             this.label2.Text = "Method";
             // 
             // DriverCodeDriverControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.splitContainer1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "DriverCodeDriverControl";
-            this.Size = new System.Drawing.Size(358, 297);
+            this.Size = new System.Drawing.Size(328, 238);
             this.Load += new System.EventHandler(this.DriverCodeDriverControl_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();

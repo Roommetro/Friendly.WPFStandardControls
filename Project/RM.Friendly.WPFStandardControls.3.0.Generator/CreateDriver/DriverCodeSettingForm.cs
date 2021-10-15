@@ -68,6 +68,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
         void OnCodeUpdateRequest()
         {
             string code = string.Empty;
+            var nameSpace = "todo";
             switch (_tabControlType.SelectedIndex)
             {
                 case 0:
@@ -81,9 +82,12 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                     {
                         var targetEventName = GetSelectedEventName();
                         code = DelegateGetGeneratorCode.Invoke(_driverName, _generatorName, targetEventName);
+                        var format = string.Format("[*namespace.{0}]", _driverName);
+                        code = code.Replace(format, string.Format("{0}.{1}", nameSpace, _driverName));
                     }
                     break;
             }
+            code = code.Replace("[*namespace]", nameSpace);
             _textBoxPreview.Text = code;
         }
     }
