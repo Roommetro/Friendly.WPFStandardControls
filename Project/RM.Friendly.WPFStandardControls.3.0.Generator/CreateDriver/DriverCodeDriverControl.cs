@@ -444,11 +444,9 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
                 case "System.UInt32": return "uint";
                 case "System.Int64": return "long";
                 case "System.UInt64": return "ulong";
-                case "System.Object": return "object";
                 case "System.Int16": return "short";
                 case "System.UInt16": return "ushort";
                 case "System.String": return "string";
-                case "System.Void": return "void";
             }
 
             return "AppVar";
