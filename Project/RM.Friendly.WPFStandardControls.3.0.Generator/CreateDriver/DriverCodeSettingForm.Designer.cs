@@ -110,7 +110,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             this.tabPage2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage2.Size = new System.Drawing.Size(534, 349);
+            this.tabPage2.Size = new System.Drawing.Size(459, 349);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Generator";
             // 
@@ -121,7 +121,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             this._driverCodeGeneratorControl.Location = new System.Drawing.Point(3, 2);
             this._driverCodeGeneratorControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this._driverCodeGeneratorControl.Name = "_driverCodeGeneratorControl";
-            this._driverCodeGeneratorControl.Size = new System.Drawing.Size(528, 345);
+            this._driverCodeGeneratorControl.Size = new System.Drawing.Size(453, 345);
             this._driverCodeGeneratorControl.TabIndex = 0;
             // 
             // _textBoxPreview
@@ -176,7 +176,7 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             this.Name = "DriverCodeSettingForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "DriverCodeSettingForm";
+            this.Text = "Driver / Generator Code Setting";
             this.Load += new System.EventHandler(this.DriverCodeSettingForm_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
