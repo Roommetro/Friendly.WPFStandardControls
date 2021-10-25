@@ -1,4 +1,5 @@
-﻿namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
+﻿
+namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
 {
     partial class TypeSelectForm
     {
@@ -35,8 +36,8 @@
             // 
             // _listBox
             // 
-            this._listBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this._listBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this._listBox.FormattingEnabled = true;
             this._listBox.ItemHeight = 12;
