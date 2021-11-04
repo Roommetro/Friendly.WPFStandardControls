@@ -10,12 +10,6 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
     [Designer("System.Windows.Forms.Design.ParentControlDesigner, System.Design", typeof(IDesigner))]
     public partial class DriverCodeDriverControl : UserControl
     {
-        class MethodSearchInfo
-        {
-            public MethodInfo Info;
-            public Type ParameterType;
-        }
-
         public delegate void UpdateCodeRequestDelegate();
         public UpdateCodeRequestDelegate DelegateUpdateCodeRequest = null;
 
