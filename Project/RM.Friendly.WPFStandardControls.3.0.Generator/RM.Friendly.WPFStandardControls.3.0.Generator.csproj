@@ -53,7 +53,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Codeer.Friendly, Version=2.6.1.0, Culture=neutral, PublicKeyToken=6c44da6fca38aa86, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.Friendly.2.6.5\lib\net20\Codeer.Friendly.dll</HintPath>
+      <HintPath>..\packages\Codeer.Friendly.2.6.1\lib\net20\Codeer.Friendly.dll</HintPath>
     </Reference>
     <Reference Include="Codeer.TestAssistant.GeneratorToolKit, Version=3.13.0.0, Culture=neutral, PublicKeyToken=f7af39ab9bcf13fe, processorArchitecture=MSIL">
       <HintPath>..\packages\Codeer.TestAssistant.GeneratorToolKit.3.13.0\lib\net20\Codeer.TestAssistant.GeneratorToolKit.dll</HintPath>
