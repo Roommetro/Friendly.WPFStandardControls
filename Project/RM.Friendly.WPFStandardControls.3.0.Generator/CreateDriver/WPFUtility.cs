@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Media;
 
@@ -24,6 +26,33 @@ namespace RM.Friendly.WPFStandardControls.Generator.CreateDriver
             for (int i = 0; i < count; i++)
             {
                 list.AddRange(GetVisualTreeDescendants(VisualTreeHelper.GetChild(obj, i), stopWindowOrUserControl, stopControlDriver, index));
+            }
+            var popup = obj as Popup;
+            if (popup != null && popup.Child != null)
+            {
+                list.AddRange(GetVisualTreeDescendants(popup.Child, stopWindowOrUserControl, stopControlDriver, 0));
+            }
+            var type = obj.GetType();
+            var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.GetProperty);
+            foreach (PropertyInfo p in properties)
+            {
+                if (p.PropertyType == typeof(ContextMenu))
+                {
+                    var contextMenuTmp = p.GetValue(obj, null) as ContextMenu;
+                    if (contextMenuTmp != null)
+                    {
+                        list.Add(contextMenuTmp);
+                        for (int i = 0; i < contextMenuTmp.Items.Count; i++)
+                        {
+                            var child = contextMenuTmp.Items[i] as MenuItem;
+                            if (child == null)
+                            {
+                                continue;
+                            }
+                            list.AddRange(GetVisualTreeDescendants(child, stopWindowOrUserControl, stopControlDriver, 0));
+                        }
+                    }
+                }
             }
             return list;
         }

@@ -759,9 +759,9 @@ namespace [*namespace]
             }
             foreach (var e in parent.GetType().GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
             {
-                if (!dom.IsValidIdentifier(e.Name)) continue;
                 try
                 {
+                    if (!dom.IsValidIdentifier(e.Name)) continue;
                     if (e.GetGetMethod().GetParameters().Length != 0) continue;
                     if (ReferenceEquals(e.GetValue(parent, new object[0]), target)) return e.Name;
                 }
