@@ -35,6 +35,11 @@ namespace RM.Friendly.WPFStandardControls.Inside
                 else
                 {
                     var next = element;
+                    var popup = next as Popup;
+                    if (popup != null)
+                    {
+                        next = popup.Child;
+                    }
                     GetChildren(next, itmes);
                 }
             }
