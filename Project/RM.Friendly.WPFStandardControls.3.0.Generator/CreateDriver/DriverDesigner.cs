@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Media;
 
@@ -808,6 +809,7 @@ namespace [*namespace]
         {
             name = string.Empty;
             nogood = false;
+            var visualTreeMethodName = GetVisualTreeMethodName(visual, obj);
 
             var preIdentify = prefix + "LogicalTree()";
             foreach (var tree in new[] { logical, visual })
@@ -851,7 +853,7 @@ namespace [*namespace]
                         return $"{preIdentify}{identifyCode}.Single()";
                     }
                 }
-                preIdentify = prefix + "VisualTree()";
+                preIdentify = prefix + visualTreeMethodName;
             }
 
             nogood = true;
@@ -872,10 +874,27 @@ namespace [*namespace]
                         }
                     }
                 }
-                preIdentify = prefix + "VisualTree()";
+                preIdentify = prefix + visualTreeMethodName;
             }
 
             return string.Empty;
+        }
+
+        string GetVisualTreeMethodName(List<DependencyObject> tree, DependencyObject obj)
+        {
+            int index = tree.IndexOf(obj);
+            var objTmp = obj;
+            while (0 < index)
+            {
+                objTmp = VisualTreeHelper.GetParent(objTmp);
+                index = tree.IndexOf(objTmp);
+                if (index < 0)
+                {
+                    return "VisualTreeIncludePopup()";
+                }
+            }
+
+            return "VisualTree()";
         }
     }
 }
