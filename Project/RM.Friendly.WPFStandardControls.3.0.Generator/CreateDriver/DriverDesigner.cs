@@ -890,7 +890,7 @@ namespace [*namespace]
                 index = tree.IndexOf(objTmp);
                 if (index < 0)
                 {
-                    return "VisualTreeIncludePopup()";
+                    return "VisualTreeWithPopup()";
                 }
             }
 

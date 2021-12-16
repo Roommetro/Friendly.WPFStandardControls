@@ -55,11 +55,11 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="direction">走査方向。</param>
         /// <returns>列挙されたDependencyObject。</returns>
 #endif
-        public static IWPFDependencyObjectCollection<DependencyObject> VisualTreeIncludePopup(AppVar start, TreeRunDirection direction = TreeRunDirection.Descendants)
+        public static IWPFDependencyObjectCollection<DependencyObject> VisualTreeWithPopup(AppVar start, TreeRunDirection direction = TreeRunDirection.Descendants)
         {
             var app = (WindowsAppFriend)start.App;
             WPFStandardControls_3.Injection(app);
-            return new WPFDependencyObjectCollection<DependencyObject>(app[typeof(TreeUtilityInTarget), "VisualTreeIncludePopup"](start, direction));
+            return new WPFDependencyObjectCollection<DependencyObject>(app[typeof(TreeUtilityInTarget), "VisualTreeWithPopup"](start, direction));
         }
 
 #if ENG

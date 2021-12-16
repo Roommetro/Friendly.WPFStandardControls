@@ -67,14 +67,14 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="direction">走査方向。</param>
         /// <returns>列挙されたDependencyObject。</returns>
 #endif
-        public static IEnumerable<DependencyObject> VisualTreeIncludePopup(DependencyObject start, TreeRunDirection direction = TreeRunDirection.Descendants)
+        public static IEnumerable<DependencyObject> VisualTreeWithPopup(DependencyObject start, TreeRunDirection direction = TreeRunDirection.Descendants)
         {
             switch (direction)
             {
                 case TreeRunDirection.Descendants:
-                    return GetVisualTreeIncludePopupDescendants(start);
+                    return GetVisualTreeWithPopupDescendants(start);
                 case TreeRunDirection.Ancestors:
-                    return GetVisualTreeIncludePopupAncestor(start);
+                    return GetVisualTreeWithPopupAncestor(start);
                 default:
                     throw new NotSupportedException("?");
             }
@@ -133,7 +133,7 @@ namespace RM.Friendly.WPFStandardControls
             return list;
         }
 
-        static IEnumerable<DependencyObject> GetVisualTreeIncludePopupDescendants(DependencyObject obj)
+        static IEnumerable<DependencyObject> GetVisualTreeWithPopupDescendants(DependencyObject obj)
         {
             List<DependencyObject> list = new List<DependencyObject>();
             list.Add(obj);
@@ -142,12 +142,12 @@ namespace RM.Friendly.WPFStandardControls
             {
                 var child = VisualTreeHelper.GetChild(obj, i);
                 if (child == null) continue;
-                list.AddRange(GetVisualTreeIncludePopupDescendants(child));
+                list.AddRange(GetVisualTreeWithPopupDescendants(child));
             }
             var popup = obj as Popup;
             if (popup != null && popup.Child != null)
             {
-                list.AddRange(GetVisualTreeIncludePopupDescendants(popup.Child));
+                list.AddRange(GetVisualTreeWithPopupDescendants(popup.Child));
             }
             var type = obj.GetType();
             var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.GetProperty);
@@ -166,7 +166,7 @@ namespace RM.Friendly.WPFStandardControls
                             {
                                 continue;
                             }
-                            list.AddRange(GetVisualTreeIncludePopupDescendants(child));
+                            list.AddRange(GetVisualTreeWithPopupDescendants(child));
                         }
                     }
                 }
@@ -174,7 +174,7 @@ namespace RM.Friendly.WPFStandardControls
             return list;
         }
 
-        static IEnumerable<DependencyObject> GetVisualTreeIncludePopupAncestor(DependencyObject obj)
+        static IEnumerable<DependencyObject> GetVisualTreeWithPopupAncestor(DependencyObject obj)
         {
             // ルート方向へ辿れる所（Popup）まで。
             List<DependencyObject> list = new List<DependencyObject>();

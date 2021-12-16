@@ -73,10 +73,10 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="direction">走査方向。</param>
         /// <returns>列挙されたDependencyObject。</returns>
 #endif
-        public static IWPFDependencyObjectCollection<DependencyObject> VisualTreeIncludePopup(this AppVar start, TreeRunDirection direction = TreeRunDirection.Descendants)
+        public static IWPFDependencyObjectCollection<DependencyObject> VisualTreeWithPopup(this AppVar start, TreeRunDirection direction = TreeRunDirection.Descendants)
         {
             var app = (WindowsAppFriend)start.App;
-            return TreeUtility.VisualTreeIncludePopup(start, direction);
+            return TreeUtility.VisualTreeWithPopup(start, direction);
         }
 
 #if ENG
@@ -94,10 +94,10 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="direction">走査方向。</param>
         /// <returns>列挙されたDependencyObject。</returns>
 #endif
-        public static IWPFDependencyObjectCollection<DependencyObject> VisualTreeIncludePopup(this IAppVarOwner start, TreeRunDirection direction = TreeRunDirection.Descendants)
+        public static IWPFDependencyObjectCollection<DependencyObject> VisualTreeWithPopup(this IAppVarOwner start, TreeRunDirection direction = TreeRunDirection.Descendants)
         {
             var app = (WindowsAppFriend)start.AppVar.App;
-            return TreeUtility.VisualTreeIncludePopup(start.AppVar, direction);
+            return TreeUtility.VisualTreeWithPopup(start.AppVar, direction);
         }
 
 #if ENG
