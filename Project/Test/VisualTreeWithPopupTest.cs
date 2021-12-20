@@ -92,19 +92,6 @@ namespace Test
         }
 
         [TestMethod]
-        public void TestVisualAncestors()
-        {
-            var collection = ((AppVar)_ctrl._button2).VisualTreeWithPopup(TreeRunDirection.Ancestors);
-            Assert.AreEqual(collection[0], _ctrl._button2);
-            Assert.AreEqual(collection[collection.Count - 1], _ctrl._stackPanel);
-
-            AppVar item = ((AppVar)_ctrl).VisualTreeWithPopup().ByType<Button>()[1];
-            collection = item.VisualTreeWithPopup(TreeRunDirection.Ancestors);
-            Assert.AreEqual(collection[0], item);
-            Assert.AreEqual(collection[collection.Count - 1], _ctrl._stackPanel);
-        }
-
-        [TestMethod]
         public void TestVisualTreeInTargetExtensions()
         {
             _app.Type(GetType()).TestVisualTreeInTargetExtensions(_ctrl, _ctrl._button2);
