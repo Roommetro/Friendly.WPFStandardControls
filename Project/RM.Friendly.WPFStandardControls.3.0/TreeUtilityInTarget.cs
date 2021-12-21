@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
 namespace RM.Friendly.WPFStandardControls
@@ -47,6 +50,24 @@ namespace RM.Friendly.WPFStandardControls
                 default:
                     throw new NotSupportedException("?");
             }
+        }
+
+#if ENG
+        /// <summary>
+        /// Enumerate DependencyObject continuing to VisualTree. (Include popup)
+        /// </summary>
+        /// <param name="start">Start DependencyObject.</param>
+        /// <returns>Enumerated DependencyObject.</returns>
+#else
+        /// <summary>
+        /// VisualTreeに連なるDependencyObjectを列挙（Popupを含める）。
+        /// </summary>
+        /// <param name="start">列挙を開始するDependencyObject。</param>
+        /// <returns>列挙されたDependencyObject。</returns>
+#endif
+        public static IEnumerable<DependencyObject> VisualTreeWithPopup(DependencyObject start)
+        {
+            return GetVisualTreeWithPopupDescendants(start);
         }
 
 #if ENG
@@ -98,6 +119,47 @@ namespace RM.Friendly.WPFStandardControls
             {
                 list.Add(obj);
                 obj = VisualTreeHelper.GetParent(obj);
+            }
+            return list;
+        }
+
+        static IEnumerable<DependencyObject> GetVisualTreeWithPopupDescendants(DependencyObject obj)
+        {
+            List<DependencyObject> list = new List<DependencyObject>();
+            list.Add(obj);
+            int count = VisualTreeHelper.GetChildrenCount(obj);
+            for (int i = 0; i < count; i++)
+            {
+                var child = VisualTreeHelper.GetChild(obj, i);
+                if (child == null) continue;
+                list.AddRange(GetVisualTreeWithPopupDescendants(child));
+            }
+            var popup = obj as Popup;
+            if (popup != null && popup.Child != null)
+            {
+                list.AddRange(GetVisualTreeWithPopupDescendants(popup.Child));
+            }
+            var type = obj.GetType();
+            var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.GetProperty);
+            foreach (PropertyInfo p in properties)
+            {
+                if (p.PropertyType == typeof(ContextMenu))
+                {
+                    var contextMenuTmp = p.GetValue(obj, null) as ContextMenu;
+                    if (contextMenuTmp != null)
+                    {
+                        list.Add(contextMenuTmp);
+                        for (int i = 0; i < contextMenuTmp.Items.Count; i++)
+                        {
+                            var child = contextMenuTmp.Items[i] as MenuItem;
+                            if (child == null)
+                            {
+                                continue;
+                            }
+                            list.AddRange(GetVisualTreeWithPopupDescendants(child));
+                        }
+                    }
+                }
             }
             return list;
         }

@@ -38,7 +38,7 @@ namespace RM.Friendly.WPFStandardControls.Inside
                     var popup = next as Popup;
                     if (popup != null)
                     {
-                        next = popup.Child as Visual;
+                        next = popup.Child;
                     }
                     GetChildren(next, itmes);
                 }

@@ -60,6 +60,44 @@ namespace RM.Friendly.WPFStandardControls
 
 #if ENG
         /// <summary>
+        /// Enumerate DependencyObject continuing to VisualTree. (Include popup)
+        /// </summary>
+        /// <param name="start">Start DependencyObject.</param>
+        /// <returns>Enumerated DependencyObject.</returns>
+#else
+        /// <summary>
+        /// VisualTreeに連なるDependencyObjectを列挙（Popupを含める）。
+        /// </summary>
+        /// <param name="start">列挙を開始するDependencyObject。</param>
+        /// <returns>列挙されたDependencyObject。</returns>
+#endif
+        public static IWPFDependencyObjectCollection<DependencyObject> VisualTreeWithPopup(this AppVar start)
+        {
+            var app = (WindowsAppFriend)start.App;
+            return TreeUtility.VisualTreeWithPopup(start);
+        }
+
+#if ENG
+        /// <summary>
+        /// Enumerate DependencyObject continuing to VisualTree. (Include popup)
+        /// </summary>
+        /// <param name="start">Start DependencyObject.</param>
+        /// <returns>Enumerated DependencyObject.</returns>
+#else
+        /// <summary>
+        /// VisualTreeに連なるDependencyObjectを列挙（Popupを含める）。
+        /// </summary>
+        /// <param name="start">列挙を開始するDependencyObject。</param>
+        /// <returns>列挙されたDependencyObject。</returns>
+#endif
+        public static IWPFDependencyObjectCollection<DependencyObject> VisualTreeWithPopup(this IAppVarOwner start)
+        {
+            var app = (WindowsAppFriend)start.AppVar.App;
+            return TreeUtility.VisualTreeWithPopup(start.AppVar);
+        }
+
+#if ENG
+        /// <summary>
         /// Enumerate DependencyObject continuing to LogicalTree.
         /// </summary>
         /// <param name="start">Start DependencyObject.</param>

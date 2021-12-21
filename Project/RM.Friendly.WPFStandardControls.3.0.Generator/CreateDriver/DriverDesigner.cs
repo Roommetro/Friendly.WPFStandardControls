@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Media;
 
@@ -759,9 +760,9 @@ namespace [*namespace]
             }
             foreach (var e in parent.GetType().GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
             {
-                if (!dom.IsValidIdentifier(e.Name)) continue;
                 try
                 {
+                    if (!dom.IsValidIdentifier(e.Name)) continue;
                     if (e.GetGetMethod().GetParameters().Length != 0) continue;
                     if (ReferenceEquals(e.GetValue(parent, new object[0]), target)) return e.Name;
                 }
@@ -808,6 +809,7 @@ namespace [*namespace]
         {
             name = string.Empty;
             nogood = false;
+            var visualTreeMethodName = GetVisualTreeMethodName(visual, obj);
 
             var preIdentify = prefix + "LogicalTree()";
             foreach (var tree in new[] { logical, visual })
@@ -851,7 +853,7 @@ namespace [*namespace]
                         return $"{preIdentify}{identifyCode}.Single()";
                     }
                 }
-                preIdentify = prefix + "VisualTree()";
+                preIdentify = prefix + visualTreeMethodName;
             }
 
             nogood = true;
@@ -872,10 +874,27 @@ namespace [*namespace]
                         }
                     }
                 }
-                preIdentify = prefix + "VisualTree()";
+                preIdentify = prefix + visualTreeMethodName;
             }
 
             return string.Empty;
+        }
+
+        string GetVisualTreeMethodName(List<DependencyObject> tree, DependencyObject obj)
+        {
+            int index = tree.IndexOf(obj);
+            var objTmp = obj;
+            while (0 < index)
+            {
+                objTmp = VisualTreeHelper.GetParent(objTmp);
+                index = tree.IndexOf(objTmp);
+                if (index < 0)
+                {
+                    return "VisualTreeWithPopup()";
+                }
+            }
+
+            return "VisualTree()";
         }
     }
 }
