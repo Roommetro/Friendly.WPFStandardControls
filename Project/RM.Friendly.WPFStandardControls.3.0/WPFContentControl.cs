@@ -13,6 +13,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.ContentControlに対応した操作を提供します。
     /// </summary>
 #endif
+    [ControlDriver(TypeFullName = "System.Windows.Controls.ContentControl")]
     public class WPFContentControlCore<T> : WPFControlBase<T> where T : ContentControl
     {
 #if ENG

@@ -1,4 +1,5 @@
 ﻿using Codeer.Friendly;
+using Codeer.TestAssistant.GeneratorToolKit;
 using RM.Friendly.WPFStandardControls.Inside;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace RM.Friendly.WPFStandardControls
     /// System.Windows.Controls.ContextMenuのアイテムに対応した操作を提供します。
     /// </summary>
 #endif
+    [ControlDriver(TypeFullName = "System.Windows.Controls.ContextMenu")]
     public class WPFContextMenuItem
     {
         AppVar _target;

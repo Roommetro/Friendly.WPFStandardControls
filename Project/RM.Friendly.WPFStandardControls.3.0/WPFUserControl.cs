@@ -13,6 +13,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.UserControl。
     /// </summary>
 #endif
+    [ControlDriver(TypeFullName = "System.Windows.Controls.UserControl")]
     public class WPFUserControl : WPFContentControlCore<UserControl>
     {
 #if ENG

@@ -20,6 +20,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.ListBoxItemに対応した操作を提供します。
     /// </summary>
 #endif
+    [ControlDriver(TypeFullName = "System.Windows.Controls.ListBoxItem")]
     public class WPFListBoxItemCore<T> : WPFControlBase<T> where T: ListBoxItem
     {
 #if ENG
