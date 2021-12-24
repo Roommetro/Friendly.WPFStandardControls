@@ -11,6 +11,7 @@ using System.Windows.Automation.Provider;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace RM.Friendly.WPFStandardControls
 {
@@ -23,6 +24,7 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.ListBoxに対応した操作を提供します。
     /// </summary>
 #endif
+    [ControlDriver(TypeFullName = "System.Windows.Controls.ListBox")]
     public class WPFListBoxCore<T> : WPFSelectorCore<T>
         where T : ListBox
     {
@@ -77,20 +79,27 @@ namespace RM.Friendly.WPFStandardControls
             }
         }
 
-        static int GetActiveIndex(ListBox list)
+        static HitTestFilterBehavior OnHitTestFilterCallback(DependencyObject target, List<DependencyObject> list)
         {
-            DependencyObject focusedElement = null;
-            if (list.IsKeyboardFocusWithin)
+            var element = target as FrameworkElement;
+            if (element != null)
             {
-                focusedElement = Keyboard.FocusedElement as DependencyObject;
+                if (element.Visibility != Visibility.Visible
+                    || element.Opacity <= 0)
+                {
+                    return HitTestFilterBehavior.ContinueSkipSelfAndChildren;
+                }
+                list.Add(element);
             }
-            else if (list.IsMouseCaptureWithin)
+            else
             {
-                focusedElement = Mouse.Captured as DependencyObject;
+                return HitTestFilterBehavior.ContinueSkipSelf;
             }
-            if (focusedElement == null) return -1;
+            return HitTestFilterBehavior.Continue;
+        }
 
-            var focusedVisual = (List<DependencyObject>)TreeUtilityInTarget.VisualTree(focusedElement, TreeRunDirection.Ancestors);
+        static int GetIndexCore(ListBox list, List<DependencyObject> focusedVisual)
+        {
             for (var i = 0; i < focusedVisual.Count; i++)
             {
                 var item = focusedVisual[i] as ListBoxItem;
@@ -109,6 +118,46 @@ namespace RM.Friendly.WPFStandardControls
                 }
             }
             return -1;
+        }
+
+        static int GetAttentionItemIndex(ListBox list)
+        {
+            var activeIndex = GetActiveIndex(list);
+            if (activeIndex != -1) return activeIndex;
+
+            var pos = System.Windows.Forms.Cursor.Position;
+            if (list.IsMouseOver)
+            {
+                var focusedVisual = new List<DependencyObject>();
+                VisualTreeHelper.HitTest(list, x => OnHitTestFilterCallback(x, focusedVisual),
+                    resultTmp =>
+                    {
+                        // HitTest結果にはListBoxやListBoxItemが入らないのでフィルタ内で取得する
+                        return HitTestResultBehavior.Stop;
+                    },
+                    new PointHitTestParameters(list.PointFromScreen(new Point(pos.X, pos.Y))));
+                focusedVisual.Reverse();
+                return GetIndexCore(list, focusedVisual);
+            }
+
+            return -1;
+        }
+
+        static int GetActiveIndex(ListBox list)
+        {
+            DependencyObject focusedElement = null;
+            if (list.IsKeyboardFocusWithin)
+            {
+                focusedElement = Keyboard.FocusedElement as DependencyObject;
+            }
+            else if (list.IsMouseCaptureWithin)
+            {
+                focusedElement = Mouse.Captured as DependencyObject;
+            }
+            if (focusedElement == null) return -1;
+
+            var focusedVisual = (List<DependencyObject>)TreeUtilityInTarget.VisualTree(focusedElement, TreeRunDirection.Ancestors);
+            return GetIndexCore(list, focusedVisual);
         }
     }
 
@@ -216,6 +265,7 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         public int ActiveItemIndex => (int)App[typeof(WPFListBox), "GetActiveIndex"](this).Core;
 
+        public int AttentionItemIndex => (int)App[typeof(WPFListBox), "GetAttentionItemIndex"](this).Core;
 #if ENG
         /// <summary>
         /// Get item's UserControlDriver.
@@ -229,7 +279,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="index">インデックス。</param>
         /// <returns>UserControlDriver</returns>
 #endif
-        [ItemDriverGetter(ActiveItemKeyProperty = "ActiveItemIndex")]
+        [ItemDriverGetter(ActiveItemKeyProperty = "AttentionItemIndex")]
         public TItemUserControlDriver GetItemDriver(int index)
             => (TestAssistantMode.IsCreatingMode && index == -1) ? null : UserControlDriverUtility.AttachDriver<TItemUserControlDriver>(GetItem(index));
 
