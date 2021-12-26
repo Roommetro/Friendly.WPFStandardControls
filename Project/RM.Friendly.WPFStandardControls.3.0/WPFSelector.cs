@@ -13,7 +13,6 @@ namespace RM.Friendly.WPFStandardControls
     /// TypeがSystem.Windows.Controls.Primitives.Selectorに対応した操作を提供します。
     /// </summary>
 #endif
-    [ControlDriver(TypeFullName = "System.Windows.Controls.Primitives.Selector")]
     public class WPFSelectorCore<CoreType> : WPFControlBase<CoreType>
         where CoreType : Selector
     {

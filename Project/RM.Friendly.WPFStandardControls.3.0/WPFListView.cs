@@ -115,7 +115,19 @@ namespace RM.Friendly.WPFStandardControls
         /// </summary>
 #endif
         public int ActiveItemIndex => (int)App[typeof(WPFListBox), "GetActiveIndex"](this).Core;
-        public int AttentionItemIndex => (int)App[typeof(WPFListBox), "GetAttentionItemIndex"](this).Core;
+
+#if ENG
+        /// <summary>
+        /// Featured item index.
+        /// This is used when capturing with TestAssistant Pro.
+        /// </summary>
+#else
+        /// <summary>
+        /// 注目されたアイテム
+        /// TestAssistantProでのキャプチャ時に使われます。
+        /// </summary>
+#endif
+        public int FeaturedItemIndex => (int)App[typeof(WPFListBox), "GetFeaturedItemIndex"](this).Core;
 
 #if ENG
         /// <summary>
@@ -130,7 +142,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="index">インデックス。</param>
         /// <returns>UserControlDriver</returns>
 #endif
-        [ItemDriverGetter(ActiveItemKeyProperty = "AttentionItemIndex")]
+        [ItemDriverGetter(ActiveItemKeyProperty = "FeaturedItemIndex")]
         public TItemUserControlDriver GetItemDriver(int index)
             => (TestAssistantMode.IsCreatingMode && index == -1) ? null : UserControlDriverUtility.AttachDriver<TItemUserControlDriver>(GetItem(index));
 

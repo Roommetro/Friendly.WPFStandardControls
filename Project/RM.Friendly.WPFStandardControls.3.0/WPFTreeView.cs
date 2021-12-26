@@ -341,7 +341,7 @@ namespace RM.Friendly.WPFStandardControls
             return new int[0];
         }
 
-        static int[] GetAttentionIndices(TreeView tree)
+        static int[] GetFeaturedIndices(TreeView tree)
         {
             var indicesTmp = GetActiveIndices(tree);
             if (0 < indicesTmp.Length) return indicesTmp;
@@ -450,7 +450,19 @@ namespace RM.Friendly.WPFStandardControls
         /// </summary>
 #endif
         public int[] ActiveItemIndices => (int[])App[typeof(WPFTreeView), "GetActiveIndices"](this).Core;
-        public int[] AttentionItemIndices => (int[])App[typeof(WPFTreeView), "GetAttentionIndices"](this).Core;
+
+#if ENG
+        /// <summary>
+        /// Featured item index.
+        /// This is used when capturing with TestAssistant Pro.
+        /// </summary>
+#else
+        /// <summary>
+        /// 注目されたアイテム
+        /// TestAssistantProでのキャプチャ時に使われます。
+        /// </summary>
+#endif
+        public int[] FeaturedItemIndices => (int[])App[typeof(WPFTreeView), "GetFeaturedIndices"](this).Core;
 
 #if ENG
         /// <summary>
@@ -481,7 +493,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="indices">目的のアイテムまでの各階層でのインデックスの配列です。</param>
         /// <returns>UserControlDriver</returns>
 #endif
-        [ItemDriverGetter(ActiveItemKeyProperty = "AttentionItemIndices")]
+        [ItemDriverGetter(ActiveItemKeyProperty = "FeaturedItemIndices")]
         public TItemUserControlDriver GetItemDriver(params int[] indices)
             => (TestAssistantMode.IsCreatingMode && indices.Length == 0) ? null : UserControlDriverUtility.AttachDriver<TItemUserControlDriver>(GetItem(indices));
 
