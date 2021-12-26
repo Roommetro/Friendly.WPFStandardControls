@@ -121,9 +121,6 @@ namespace RM.Friendly.WPFStandardControls
 
         static int GetFeaturedItemIndex(ListBox list)
         {
-            var activeIndex = GetActiveIndex(list);
-            if (activeIndex != -1) return activeIndex;
-
             var pos = System.Windows.Forms.Cursor.Position;
             if (list.IsMouseOver)
             {
@@ -139,7 +136,7 @@ namespace RM.Friendly.WPFStandardControls
                 return GetIndexCore(list, focusedVisual);
             }
 
-            return -1;
+            return GetActiveIndex(list);
         }
 
         static int GetActiveIndex(ListBox list)

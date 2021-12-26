@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>RM.Friendly.WPFStandardControls</id>
-    <version>1.57.0</version>
+    <version>1.58.0</version>
     <title>Friendly.WPFStandardControls</title>
     <authors>AkikoYamanouchi JimmyRishe HidekiMaruyama KenjiFukumoto KazukiKakei TatsuyaIshikawa BinMatsui Hidari HideakiKazaoka</authors>
     <owners>Room metro</owners>

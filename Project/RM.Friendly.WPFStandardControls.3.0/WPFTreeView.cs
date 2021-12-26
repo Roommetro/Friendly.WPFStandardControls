@@ -343,9 +343,6 @@ namespace RM.Friendly.WPFStandardControls
 
         static int[] GetFeaturedIndices(TreeView tree)
         {
-            var indicesTmp = GetActiveIndices(tree);
-            if (0 < indicesTmp.Length) return indicesTmp;
-
             var pos = System.Windows.Forms.Cursor.Position;
             if (tree.IsMouseOver)
             {
@@ -361,7 +358,7 @@ namespace RM.Friendly.WPFStandardControls
                 return GetIndicesCore(tree, focusedVisual);
             }
 
-            return new int[0];
+            return GetActiveIndices(tree);
         }
 
         static int[] GetActiveIndices(TreeView tree)
