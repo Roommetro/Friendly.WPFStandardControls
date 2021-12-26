@@ -289,20 +289,27 @@ namespace RM.Friendly.WPFStandardControls
             return list.ToArray();
         }
 
-        static int[] GetActiveIndices(TreeView tree)
+        static HitTestFilterBehavior OnHitTestFilterCallback(DependencyObject target, List<DependencyObject> list)
         {
-            DependencyObject focusedElement = null;
-            if (tree.IsKeyboardFocusWithin)
+            var element = target as FrameworkElement;
+            if (element != null)
             {
-                focusedElement = Keyboard.FocusedElement as DependencyObject;
+                if (element.Visibility != Visibility.Visible
+                    || element.Opacity <= 0)
+                {
+                    return HitTestFilterBehavior.ContinueSkipSelfAndChildren;
+                }
+                list.Add(element);
             }
-            else if (tree.IsMouseCaptureWithin)
+            else
             {
-                focusedElement = Mouse.Captured as DependencyObject;
+                return HitTestFilterBehavior.ContinueSkipSelf;
             }
-            if (focusedElement == null) return new int[0];
+            return HitTestFilterBehavior.Continue;
+        }
 
-            var focusedVisual = (List<DependencyObject>)TreeUtilityInTarget.VisualTree(focusedElement, TreeRunDirection.Ancestors);
+        static int[] GetIndicesCore(TreeView tree, List<DependencyObject> focusedVisual)
+        {
             for (var i = 0; i < focusedVisual.Count; i++)
             {
                 var item = focusedVisual[i] as TreeViewItem;
@@ -330,7 +337,48 @@ namespace RM.Friendly.WPFStandardControls
                     return indices.ToArray();
                 }
             }
+
             return new int[0];
+        }
+
+        static int[] GetFeaturedIndices(TreeView tree)
+        {
+            var indicesTmp = GetActiveIndices(tree);
+            if (0 < indicesTmp.Length) return indicesTmp;
+
+            var pos = System.Windows.Forms.Cursor.Position;
+            if (tree.IsMouseOver)
+            {
+                var focusedVisual = new List<DependencyObject>();
+                VisualTreeHelper.HitTest(tree, x => OnHitTestFilterCallback(x, focusedVisual),
+                    resultTmp =>
+                    {
+                        // HitTest結果にはTreeViewやTreeViewItemが入らないのでフィルタ内で取得する
+                        return HitTestResultBehavior.Stop;
+                    },
+                    new PointHitTestParameters(tree.PointFromScreen(new Point(pos.X, pos.Y))));
+                focusedVisual.Reverse();
+                return GetIndicesCore(tree, focusedVisual);
+            }
+
+            return new int[0];
+        }
+
+        static int[] GetActiveIndices(TreeView tree)
+        {
+            DependencyObject focusedElement = null;
+            if (tree.IsKeyboardFocusWithin)
+            {
+                focusedElement = Keyboard.FocusedElement as DependencyObject;
+            }
+            else if (tree.IsMouseCaptureWithin)
+            {
+                focusedElement = Mouse.Captured as DependencyObject;
+            }
+            if (focusedElement == null) return new int[0];
+
+            var focusedVisual = (List<DependencyObject>)TreeUtilityInTarget.VisualTree(focusedElement, TreeRunDirection.Ancestors);
+            return GetIndicesCore(tree, focusedVisual);
         }
 
         static int GetIndex(TreeViewItem item, List<DependencyObject> focusedVisual, int itemIndex, int treeIndex)
@@ -405,6 +453,19 @@ namespace RM.Friendly.WPFStandardControls
 
 #if ENG
         /// <summary>
+        /// Featured item index.
+        /// This is used when capturing with TestAssistant Pro.
+        /// </summary>
+#else
+        /// <summary>
+        /// 注目されたアイテム
+        /// TestAssistantProでのキャプチャ時に使われます。
+        /// </summary>
+#endif
+        public int[] FeaturedItemIndices => (int[])App[typeof(WPFTreeView), "GetFeaturedIndices"](this).Core;
+
+#if ENG
+        /// <summary>
         /// Get item's UserControlDriver.
         /// </summary>
         /// <param name="headerTexts">The array of text to the target item. </param>
@@ -432,7 +493,7 @@ namespace RM.Friendly.WPFStandardControls
         /// <param name="indices">目的のアイテムまでの各階層でのインデックスの配列です。</param>
         /// <returns>UserControlDriver</returns>
 #endif
-        [ItemDriverGetter(ActiveItemKeyProperty = "ActiveItemIndices")]
+        [ItemDriverGetter(ActiveItemKeyProperty = "FeaturedItemIndices")]
         public TItemUserControlDriver GetItemDriver(params int[] indices)
             => (TestAssistantMode.IsCreatingMode && indices.Length == 0) ? null : UserControlDriverUtility.AttachDriver<TItemUserControlDriver>(GetItem(indices));
 
