@@ -345,6 +345,74 @@ namespace RM.Friendly.WPFStandardControls
             return new WPFDataGridCell(App.Type(typeof(WPFDataGrid)).GetCell(this, itemIndex, col));
         }
 
+        static DataGridCell GetFeaturedCell(DataGrid grid)
+        {
+            if (grid.IsMouseOver)
+            {
+                grid.UpdateLayout();
+                for (var row = 0; row < grid.Items.Count; row++)
+                {
+                    DataGridRow rowInfo = (DataGridRow)grid.ItemContainerGenerator.ContainerFromIndex(row);
+                    if (!rowInfo.IsMouseOver)
+                    {
+                        continue;
+                    }
+                    for (var column = 0; column < grid.Columns.Count; column++)
+                    {
+                        DataGridCell cell = grid.Columns[column].GetCellContent(rowInfo).Parent as DataGridCell;
+                        if (!cell.IsMouseOver)
+                        {
+                            continue;
+                        }
+                        return cell;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+#if ENG
+        /// <summary>
+        /// Featured Cell.
+        /// This is used when capturing with TestAssistant Pro.
+        /// </summary>
+#else
+        /// <summary>
+        /// 注目されたセル
+        /// TestAssistantProでのキャプチャ時に使われます。
+        /// </summary>
+#endif
+        public WPFDataGridCell FeaturedCell
+        {
+            get
+            {
+                AppVar cell = App.Type<WPFDataGrid>().GetFeaturedCell(this);
+                return cell.IsNull ? null : cell.Dynamic();
+            }
+        }
+
+#if ENG
+        /// <summary>
+        /// Get item's UserControlDriver.
+        /// </summary>
+        /// <param name="itemIndex">Item index.</param>
+        /// <param name="col">Item column No.</param>
+        /// <returns>UserControlDriver.</returns>
+#else
+        /// <summary>
+        /// 指定の位置のセルに割当たったUserControlDriverを取得
+        /// </summary>
+        /// <param name="itemIndex">アイテムインデックス。</param>
+        /// <param name="col">列。</param>
+        /// <returns>UserControlDriver</returns>
+#endif
+        [ItemDriverGetter(ActiveItemKeyProperty = "FeaturedCell")]
+        public WPFDataGridCell GetFeaturedCell(int itemIndex, int col)
+        {
+            return new WPFDataGridCell(App.Type(typeof(WPFDataGrid)).GetCell(this, itemIndex, col));
+        }
+
 #if ENG
         /// <summary>
         /// Begin edit.
