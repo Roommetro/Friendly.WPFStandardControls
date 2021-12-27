@@ -10,6 +10,9 @@ using System.Windows.Automation;
 using Codeer.TestAssistant.GeneratorToolKit;
 using System.Windows;
 using System.Linq;
+using System.Windows.Media;
+using System.Collections.Generic;
+using System.Windows.Input;
 
 namespace RM.Friendly.WPFStandardControls
 {
@@ -341,6 +344,92 @@ namespace RM.Friendly.WPFStandardControls
 #endif
         [ItemDriverGetter(ActiveItemKeyProperty = "CurrentCell")]
         public WPFDataGridCell GetCell(int itemIndex, int col)
+        {
+            return new WPFDataGridCell(App.Type(typeof(WPFDataGrid)).GetCell(this, itemIndex, col));
+        }
+
+        static HitTestFilterBehavior OnHitTestFilterCallback(DependencyObject target, List<DependencyObject> list)
+        {
+            var element = target as FrameworkElement;
+            if (element != null)
+            {
+                if (element.Visibility != Visibility.Visible
+                    || element.Opacity <= 0)
+                {
+                    return HitTestFilterBehavior.ContinueSkipSelfAndChildren;
+                }
+                list.Add(element);
+            }
+            else
+            {
+                return HitTestFilterBehavior.ContinueSkipSelf;
+            }
+            return HitTestFilterBehavior.Continue;
+        }
+
+        static DataGridCell GetFeaturedCell(DataGrid grid)
+        {
+            if (grid.IsMouseOver)
+            {
+                var focusedVisual = new List<DependencyObject>();
+                VisualTreeHelper.HitTest(grid, x => OnHitTestFilterCallback(x, focusedVisual),
+                    resultTmp =>
+                    {
+                        // HitTest結果にはDataGridやDataGridCellが入らないのでフィルタ内で取得する
+                        return HitTestResultBehavior.Stop;
+                    },
+                    new PointHitTestParameters(Mouse.GetPosition(grid)));
+                foreach (var item in focusedVisual)
+                {
+                    var cell = item as DataGridCell;
+                    if (cell == null)
+                    {
+                        continue;
+                    }
+                    return cell;
+                }
+            }
+
+            return null;
+        }
+
+#if ENG
+        /// <summary>
+        /// Featured Cell.
+        /// This is used when capturing with TestAssistant Pro.
+        /// </summary>
+#else
+        /// <summary>
+        /// 注目されたセル
+        /// TestAssistantProでのキャプチャ時に使われます。
+        /// </summary>
+#endif
+        public WPFDataGridCell FeaturedCell
+        {
+            get
+            {
+                AppVar cell = App.Type<WPFDataGrid>().GetFeaturedCell(this);
+                return cell.IsNull ? null : cell.Dynamic();
+            }
+        }
+
+#if ENG
+        /// <summary>
+        /// Get item's UserControlDriver.
+        /// </summary>
+        /// <param name="itemIndex">Item index.</param>
+        /// <param name="col">Item column No.</param>
+        /// <returns>UserControlDriver.</returns>
+#else
+        /// <summary>
+        /// 指定の位置のセルに割当たったUserControlDriverを取得
+        /// </summary>
+        /// <param name="itemIndex">アイテムインデックス。</param>
+        /// <param name="col">列。</param>
+        /// <returns>UserControlDriver</returns>
+#endif
+        [ItemDriverGetter(ActiveItemKeyProperty = "FeaturedCell")]
+        public WPFDataGridCell GetFeaturedCell(int itemIndex, int col)
         {
             return new WPFDataGridCell(App.Type(typeof(WPFDataGrid)).GetCell(this, itemIndex, col));
         }
