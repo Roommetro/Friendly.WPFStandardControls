@@ -734,6 +734,13 @@ namespace [*namespace]
             {
                 accessPath += ".Dynamic()";
             }
+            var replaceKey = "Single().Dynamic()";
+            if (accessPath.EndsWith(replaceKey))
+            {
+                var index = accessPath.LastIndexOf(replaceKey);
+                accessPath = accessPath.Remove(index);
+                accessPath += "FirstOrDefault()?.Dynamic()";
+            }
 
             return new[]
             {
