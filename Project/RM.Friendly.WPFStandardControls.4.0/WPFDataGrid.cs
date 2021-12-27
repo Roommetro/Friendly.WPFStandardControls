@@ -10,6 +10,9 @@ using System.Windows.Automation;
 using Codeer.TestAssistant.GeneratorToolKit;
 using System.Windows;
 using System.Linq;
+using System.Windows.Media;
+using System.Collections.Generic;
+using System.Windows.Input;
 
 namespace RM.Friendly.WPFStandardControls
 {
@@ -345,27 +348,45 @@ namespace RM.Friendly.WPFStandardControls
             return new WPFDataGridCell(App.Type(typeof(WPFDataGrid)).GetCell(this, itemIndex, col));
         }
 
+        static HitTestFilterBehavior OnHitTestFilterCallback(DependencyObject target, List<DependencyObject> list)
+        {
+            var element = target as FrameworkElement;
+            if (element != null)
+            {
+                if (element.Visibility != Visibility.Visible
+                    || element.Opacity <= 0)
+                {
+                    return HitTestFilterBehavior.ContinueSkipSelfAndChildren;
+                }
+                list.Add(element);
+            }
+            else
+            {
+                return HitTestFilterBehavior.ContinueSkipSelf;
+            }
+            return HitTestFilterBehavior.Continue;
+        }
+
         static DataGridCell GetFeaturedCell(DataGrid grid)
         {
             if (grid.IsMouseOver)
             {
-                grid.UpdateLayout();
-                for (var row = 0; row < grid.Items.Count; row++)
+                var focusedVisual = new List<DependencyObject>();
+                VisualTreeHelper.HitTest(grid, x => OnHitTestFilterCallback(x, focusedVisual),
+                    resultTmp =>
+                    {
+                        // HitTest結果にはDataGridやDataGridCellが入らないのでフィルタ内で取得する
+                        return HitTestResultBehavior.Stop;
+                    },
+                    new PointHitTestParameters(Mouse.GetPosition(grid)));
+                foreach (var item in focusedVisual)
                 {
-                    DataGridRow rowInfo = (DataGridRow)grid.ItemContainerGenerator.ContainerFromIndex(row);
-                    if (!rowInfo.IsMouseOver)
+                    var cell = item as DataGridCell;
+                    if (cell == null)
                     {
                         continue;
                     }
-                    for (var column = 0; column < grid.Columns.Count; column++)
-                    {
-                        DataGridCell cell = grid.Columns[column].GetCellContent(rowInfo).Parent as DataGridCell;
-                        if (!cell.IsMouseOver)
-                        {
-                            continue;
-                        }
-                        return cell;
-                    }
+                    return cell;
                 }
             }
 
