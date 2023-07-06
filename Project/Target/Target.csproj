@@ -136,9 +136,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\RM.Friendly.WPFStandardControls.3.0.Generator\RM.Friendly.WPFStandardControls.3.0.Generator.csproj">
       <Project>{fc6ade89-7704-4d3b-919d-615abe2baac6}</Project>
       <Name>RM.Friendly.WPFStandardControls.3.0.Generator</Name>

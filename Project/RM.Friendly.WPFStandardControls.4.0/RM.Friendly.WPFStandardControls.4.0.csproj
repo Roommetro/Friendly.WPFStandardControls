@@ -111,7 +111,6 @@
     <Compile Include="WPFDatePicker.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="RM.Friendly.WPFStandardControls.4.0.snk" />
   </ItemGroup>
