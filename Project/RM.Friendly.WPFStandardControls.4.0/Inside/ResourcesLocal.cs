@@ -8,15 +8,34 @@ namespace RM.Friendly.WPFStandardControls.Inside
     /// ローカライズ済みリソース。
     /// </summary>
     [Serializable]
-    class ResourcesLocal4
+    public class ResourcesLocal4
     {
         static internal ResourcesLocal4 Instance;
 
-        internal string DataGridErrorNotTextBoxCell;
-        internal string DataGridErrorNotComboBoxCell;
-        internal string DataGridErrorNotCheckBoxCell;
-        internal string DataGridErrorHasNotTextProperty;
-        internal string DataGridErrorNotSupportedItems;
+        /// <summary>
+        /// DataGridErrorNotTextBoxCell
+        /// </summary>
+        public string DataGridErrorNotTextBoxCell { get; set; }
+
+        /// <summary>
+        /// DataGridErrorNotComboBoxCell
+        /// </summary>
+        public string DataGridErrorNotComboBoxCell { get; set; }
+
+        /// <summary>
+        /// DataGridErrorNotCheckBoxCell
+        /// </summary>
+        public string DataGridErrorNotCheckBoxCell { get; set; }
+
+        /// <summary>
+        /// DataGridErrorHasNotTextProperty
+        /// </summary>
+        public string DataGridErrorHasNotTextProperty { get; set; }
+
+        /// <summary>
+        /// DataGridErrorNotSupportedItems
+        /// </summary>
+        public string DataGridErrorNotSupportedItems { get; set; }
 
         /// <summary>
         /// 初期化。

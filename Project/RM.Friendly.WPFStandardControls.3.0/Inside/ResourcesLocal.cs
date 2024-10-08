@@ -8,12 +8,19 @@ namespace RM.Friendly.WPFStandardControls.Inside
     /// ローカライズ済みリソース。
     /// </summary>
     [Serializable]
-    class ResourcesLocal3
+    public class ResourcesLocal3
     {
         static internal ResourcesLocal3 Instance;
 
-        internal string ErrorNotFoundItem;
-        internal string ErrorNotFoundElement;
+        /// <summary>
+        /// ErrorNotFoundItem
+        /// </summary>
+        public string ErrorNotFoundItem { get; set; }
+
+        /// <summary>
+        /// ErrorNotFoundElement
+        /// </summary>
+        public string ErrorNotFoundElement { get; set; }
 
         /// <summary>
         /// 初期化。
