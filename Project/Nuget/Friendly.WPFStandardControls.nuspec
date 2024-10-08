@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>RM.Friendly.WPFStandardControls</id>
-    <version>1.59.1</version>
+    <version>1.60.0</version>
     <title>Friendly.WPFStandardControls</title>
     <authors>AkikoYamanouchi JimmyRishe HidekiMaruyama KenjiFukumoto KazukiKakei TatsuyaIshikawa BinMatsui Hidari HideakiKazaoka</authors>
     <owners>Room metro</owners>
@@ -13,7 +13,7 @@
     <description>Key mouse emulation can be performed on Windows applications at high speed and with high accuracy. This library is built on Friendly Layer.</description>
     <tags>Friendly Testing Windows WPF Automation Codeer Codeer.Friendly Room metro めとべや</tags>
     <dependencies>
-      <dependency id="Codeer.Friendly.Windows.Grasp" version="2.14.2" />
+      <dependency id="Codeer.Friendly.Windows.Grasp" version="2.15.0" />
       <dependency id="Codeer.TestAssistant.GeneratorToolKit" version="3.13.0" />
     </dependencies>
     <frameworkAssemblies>
