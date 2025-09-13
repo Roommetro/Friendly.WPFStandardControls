@@ -1,0 +1,299 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{34394EA7-BF96-4BD1-8664-5008E18C79CB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Test</RootNamespace>
+    <AssemblyName>Test</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-English|AnyCPU'">
+    <OutputPath>bin\Release-English\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Codeer.Friendly, Version=2.7.0.0, Culture=neutral, PublicKeyToken=6c44da6fca38aa86, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.2.7.0\lib\net40\Codeer.Friendly.dll</HintPath>
+    </Reference>
+    <Reference Include="Codeer.Friendly.Dynamic, Version=2.7.0.0, Culture=neutral, PublicKeyToken=376bc779077733e8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.2.7.0\lib\net40\Codeer.Friendly.Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="Codeer.Friendly.Windows, Version=2.18.0.0, Culture=neutral, PublicKeyToken=532f270f1da385b3, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.Windows.2.18.0\lib\net20\Codeer.Friendly.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Codeer.Friendly.Windows.Grasp.2.0, Version=2.16.0.0, Culture=neutral, PublicKeyToken=92809a28945fb91d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.Windows.Grasp.2.16.0\lib\net35\Codeer.Friendly.Windows.Grasp.2.0.dll</HintPath>
+    </Reference>
+    <Reference Include="Codeer.Friendly.Windows.Grasp.3.5, Version=2.16.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.Windows.Grasp.2.16.0\lib\net35\Codeer.Friendly.Windows.Grasp.3.5.dll</HintPath>
+    </Reference>
+    <Reference Include="Codeer.Friendly.Windows.KeyMouse.2.0, Version=1.5.0.0, Culture=neutral, PublicKeyToken=315dcaa3c3e851c2, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.Windows.KeyMouse.1.5.0\lib\net35\Codeer.Friendly.Windows.KeyMouse.2.0.dll</HintPath>
+    </Reference>
+    <Reference Include="Codeer.Friendly.Windows.KeyMouse.3.5, Version=1.5.0.0, Culture=neutral, PublicKeyToken=39f6ecaa6ad3a1f3, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.Windows.KeyMouse.1.5.0\lib\net35\Codeer.Friendly.Windows.KeyMouse.3.5.dll</HintPath>
+    </Reference>
+    <Reference Include="Codeer.Friendly.Windows.NativeStandardControls, Version=2.18.0.0, Culture=neutral, PublicKeyToken=90759bf0c8b8639e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.Windows.NativeStandardControls.2.18.0\lib\net40\Codeer.Friendly.Windows.NativeStandardControls.dll</HintPath>
+    </Reference>
+    <Reference Include="Codeer.Friendly.Windows.NativeStandardControls.4.0, Version=2.18.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.Windows.NativeStandardControls.2.18.0\lib\net40\Codeer.Friendly.Windows.NativeStandardControls.4.0.dll</HintPath>
+    </Reference>
+    <Reference Include="Codeer.Friendly.Windows.NativeStandardControls.Generator, Version=2.18.0.0, Culture=neutral, PublicKeyToken=eea982eb65b72dea, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.Windows.NativeStandardControls.2.18.0\lib\net40\Codeer.Friendly.Windows.NativeStandardControls.Generator.dll</HintPath>
+    </Reference>
+    <Reference Include="Codeer.TestAssistant.GeneratorToolKit, Version=3.13.0.0, Culture=neutral, PublicKeyToken=f7af39ab9bcf13fe, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.TestAssistant.GeneratorToolKit.3.13.0\lib\net40\Codeer.TestAssistant.GeneratorToolKit.dll</HintPath>
+    </Reference>
+    <Reference Include="Codeer.TestAssistant.GeneratorToolKit.4.0, Version=3.13.0.0, Culture=neutral, PublicKeyToken=f1ee4e89052c526f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.TestAssistant.GeneratorToolKit.3.13.0\lib\net40\Codeer.TestAssistant.GeneratorToolKit.4.0.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <ItemGroup>
+    <Compile Include="ActiveItemTest.cs" />
+    <Compile Include="ActiveItemTestControl.xaml.cs">
+      <DependentUpon>ActiveItemTestControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ButtonSearchTest.cs" />
+    <Compile Include="ButtonSearchTestControl.xaml.cs">
+      <DependentUpon>ButtonSearchTestControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CaptureTest\Capture.cs" />
+    <Compile Include="CaptureTest\MainWindowDriver.cs" />
+    <Compile Include="DelegateCommand.cs" />
+    <Compile Include="ListBox.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SearchTest.cs" />
+    <Compile Include="TestUtility.cs" />
+    <Compile Include="VisualTreeWithPopupTest.cs" />
+    <Compile Include="ViewModelBase.cs" />
+    <Compile Include="VisualTreeWithPopupTestControl.xaml.cs">
+      <DependentUpon>VisualTreeWithPopupTestControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPFCalendarTest.cs" />
+    <Compile Include="WPFContentControlTest.cs" />
+    <Compile Include="WPFContextMenuTest.cs" />
+    <Compile Include="WPFContextMenuTestControl.xaml.cs">
+      <DependentUpon>WPFContextMenuTestControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPFDataGridTest.cs.cs" />
+    <Compile Include="WPFButtonBaseTest.cs" />
+    <Compile Include="WPFControlBaseTest.cs" />
+    <Compile Include="WPFDatePickerTest.cs" />
+    <Compile Include="WPFDateTimePickerTest.cs" />
+    <Compile Include="WPFComboBoxTest.cs" />
+    <Compile Include="SearchTestControl.xaml.cs">
+      <DependentUpon>SearchTestControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPFDependencyObjectCollectionTest.cs" />
+    <Compile Include="WPFExpanderTest.cs" />
+    <Compile Include="WPFListViewTestControl.xaml.cs">
+      <DependentUpon>WPFListViewTestControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPFPasswordBoxTest.cs" />
+    <Compile Include="WPFSelectorTest.cs" />
+    <Compile Include="WPFTabControlTest.cs" />
+    <Compile Include="WPFListViewTest.cs" />
+    <Compile Include="WPFMenuBaseTestControl.xaml.cs">
+      <DependentUpon>WPFMenuBaseTestControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPFTextBlockTest.cs" />
+    <Compile Include="WPFTreeViewItemTest.cs" />
+    <Compile Include="WPFMenuItemTest.cs" />
+    <Compile Include="WPFMenuBaseTest.cs" />
+    <Compile Include="WPFMenuItemTestControl.xaml.cs">
+      <DependentUpon>WPFMenuItemTestControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPFProgressBarTest.cs" />
+    <Compile Include="WPFRichTextBoxTest.cs" />
+    <Compile Include="WPFListBoxTest.cs" />
+    <Compile Include="WPFSliderTest.cs" />
+    <Compile Include="WPFTestBase.cs" />
+    <Compile Include="WPFTextBoxTest.cs" />
+    <Compile Include="WPFToggleButtonTest.cs" />
+    <Compile Include="WPFTreeViewItemTestControl.xaml.cs">
+      <DependentUpon>WPFTreeViewItemTestControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPFTreeViewTest.cs" />
+    <Compile Include="WPFTreeViewTestControl.xaml.cs">
+      <DependentUpon>WPFTreeViewTestControl.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NotInstallProject\NotInstallProject.csproj">
+      <Project>{6095c1d2-448d-4ec1-be9b-4f269ae58bcd}</Project>
+      <Name>NotInstallProject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RM.Friendly.WPFStandardControls.3.0.Generator\RM.Friendly.WPFStandardControls.3.0.Generator.csproj">
+      <Project>{fc6ade89-7704-4d3b-919d-615abe2baac6}</Project>
+      <Name>RM.Friendly.WPFStandardControls.3.0.Generator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RM.Friendly.WPFStandardControls.3.0\RM.Friendly.WPFStandardControls.3.0.csproj">
+      <Project>{80d0bb7b-61d0-4c48-b877-6e35f7d90c74}</Project>
+      <Name>RM.Friendly.WPFStandardControls.3.0</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RM.Friendly.WPFStandardControls.3.5\RM.Friendly.WPFStandardControls.3.5.csproj">
+      <Project>{a8db68b1-04fe-4002-9537-4c3d0a70d91d}</Project>
+      <Name>RM.Friendly.WPFStandardControls.3.5</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RM.Friendly.WPFStandardControls.4.0.Generator\RM.Friendly.WPFStandardControls.4.0.Generator.csproj">
+      <Project>{355db38c-a2bc-491f-89bf-7996bd72accc}</Project>
+      <Name>RM.Friendly.WPFStandardControls.4.0.Generator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RM.Friendly.WPFStandardControls.4.0\RM.Friendly.WPFStandardControls.4.0.csproj">
+      <Project>{287af20a-edb1-4de0-bf0f-8d37fd92de73}</Project>
+      <Name>RM.Friendly.WPFStandardControls.4.0</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Target\Target.csproj">
+      <Project>{0e49a1ea-05b5-43bc-b7c8-6a1db4531da7}</Project>
+      <Name>Target</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="ActiveItemTestControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ButtonSearchTestControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SearchTestControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="VisualTreeWithPopupTestControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WPFContextMenuTestControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPFListViewTestControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WPFMenuBaseTestControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WPFMenuItemTestControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WPFTreeViewItemTestControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WPFTreeViewTestControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

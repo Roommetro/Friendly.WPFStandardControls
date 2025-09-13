@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="Test.WPFMenuItemTestControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Width="285" Height="49">
+    <Grid Margin="0,0,-43,0">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0*"/>
+        </Grid.RowDefinitions>
+        <Menu x:Name="_menu" HorizontalAlignment="Left" Height="40" Margin="0,10,0,0" VerticalAlignment="Top" Width="301">
+            <MenuItem x:Name="_menuItem" Header="MenuItem" Click="_menuItem_Click"/>
+            <MenuItem x:Name="_menuItemMessage" Header="MenuItemMessage" Click="_menuItemMessage_Click"/>
+            <Button x:Name="_button" Content="button" Click="_button_Click"/>
+        </Menu>
+
+    </Grid>
+</UserControl>

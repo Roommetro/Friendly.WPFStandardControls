@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="Test.WPFTreeViewTestControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Height="111.224" Width="288.776">
+    <UserControl.Resources>
+        <HierarchicalDataTemplate x:Key="treeViewTemplate"
+                                  ItemsSource="{Binding Path=Children}">
+            <TextBlock Text="{Binding Path=Name}" />
+        </HierarchicalDataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <TreeView x:Name="_tree" HorizontalAlignment="Left" Height="64" Margin="92,26,0,0" VerticalAlignment="Top" Width="112" ItemTemplate="{StaticResource treeViewTemplate}"/>
+    </Grid>
+</UserControl>

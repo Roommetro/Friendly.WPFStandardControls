@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="Test.SearchTestControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" d:DesignWidth="300" Height="351">
+    <Grid>
+        <ListView x:Name="_listView" Margin="0,0,0,136">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=Name}" Width="Auto"/>
+                    <GridViewColumn Header="Age"  DisplayMemberBinding="{Binding Path=Age}" Width="Auto"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <TextBox x:Name="_textBox" HorizontalAlignment="Left" Height="23" Margin="107,227,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding DataText}"/>
+        <Button x:Name="_button1" Content="Button" HorizontalAlignment="Left" Margin="10,226,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Button1Command}"/>
+        <Button x:Name="_button2" Content="Button" HorizontalAlignment="Left" Margin="10,250,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Button2Command}"/>
+        <Grid x:Name="_grid" HorizontalAlignment="Left" Height="48" Margin="10,283,0,0" VerticalAlignment="Top" Width="241">
+            <TextBlock x:Name="_textBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="{Binding DataText}" VerticalAlignment="Top"/>
+            <CheckBox Content="abc" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        </Grid>
+        <TextBlock x:Name="_textBlockA" Margin="10,300,0,0">AAA</TextBlock>
+        <TextBlock Margin="10,320,0,0">BBB</TextBlock>
+    </Grid>
+</UserControl>
