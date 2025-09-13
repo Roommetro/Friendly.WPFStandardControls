@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RM.Friendly.WPFStandardControls</RootNamespace>
     <AssemblyName>RM.Friendly.WPFStandardControls.4.0</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,6 +33,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\RM.Friendly.WPFStandardControls.4.0.XML</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -48,6 +50,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\Release-English\RM.Friendly.WPFStandardControls.4.0.XML</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Codeer.Friendly, Version=2.7.0.0, Culture=neutral, PublicKeyToken=6c44da6fca38aa86, processorArchitecture=MSIL">
@@ -59,11 +62,11 @@
     <Reference Include="Codeer.Friendly.Windows, Version=2.18.0.0, Culture=neutral, PublicKeyToken=532f270f1da385b3, processorArchitecture=MSIL">
       <HintPath>..\packages\Codeer.Friendly.Windows.2.18.0\lib\net20\Codeer.Friendly.Windows.dll</HintPath>
     </Reference>
-    <Reference Include="Codeer.Friendly.Windows.Grasp.2.0, Version=2.15.0.0, Culture=neutral, PublicKeyToken=92809a28945fb91d, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.Friendly.Windows.Grasp.2.15.0\lib\net35\Codeer.Friendly.Windows.Grasp.2.0.dll</HintPath>
+    <Reference Include="Codeer.Friendly.Windows.Grasp.2.0, Version=2.16.0.0, Culture=neutral, PublicKeyToken=92809a28945fb91d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.Windows.Grasp.2.16.0\lib\net35\Codeer.Friendly.Windows.Grasp.2.0.dll</HintPath>
     </Reference>
-    <Reference Include="Codeer.Friendly.Windows.Grasp.3.5, Version=2.15.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Codeer.Friendly.Windows.Grasp.2.15.0\lib\net35\Codeer.Friendly.Windows.Grasp.3.5.dll</HintPath>
+    <Reference Include="Codeer.Friendly.Windows.Grasp.3.5, Version=2.16.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codeer.Friendly.Windows.Grasp.2.16.0\lib\net35\Codeer.Friendly.Windows.Grasp.3.5.dll</HintPath>
     </Reference>
     <Reference Include="Codeer.TestAssistant.GeneratorToolKit, Version=3.13.0.0, Culture=neutral, PublicKeyToken=f7af39ab9bcf13fe, processorArchitecture=MSIL">
       <HintPath>..\packages\Codeer.TestAssistant.GeneratorToolKit.3.13.0\lib\net40\Codeer.TestAssistant.GeneratorToolKit.dll</HintPath>
