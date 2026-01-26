@@ -30,7 +30,7 @@
     <PackageReference Include="Codeer.Friendly.Windows" Version="2.18.0" />
     <PackageReference Include="Codeer.Friendly.Windows.Grasp" Version="2.16.0" />
     <PackageReference Include="Codeer.Friendly.Windows.KeyMouse" Version="1.5.0" />
-    <PackageReference Include="Codeer.Friendly.Windows.NativeStandardControls" Version="2.18.0" />
+    <PackageReference Include="Codeer.Friendly.Windows.NativeStandardControls" Version="2.19.0" />
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
     <PackageReference Include="MessagePack" Version="3.1.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
