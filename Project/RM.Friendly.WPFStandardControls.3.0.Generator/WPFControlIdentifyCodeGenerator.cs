@@ -25,7 +25,8 @@ namespace RM.Friendly.WPFStandardControls.Generator
             var content = target as ContentControl;
             if (content != null)
             {
-                var text = content.Content?.ToString();
+                //ContentがUI要素(DataGrid等)の場合はToStringが特定に使えないので対象外
+                var text = content.Content is DependencyObject ? null : content.Content?.ToString();
                 if (text != null && Where(OfType<ContentControl>(tree), e => text == e.Content?.ToString()).Count == 1)
                 {
                     return new WPFIdentifyCodeInfo
